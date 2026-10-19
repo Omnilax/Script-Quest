@@ -1,0 +1,1572 @@
+{
+ "id": "vecmath",
+ "title": "Game Math: Vectors & Trig",
+ "group": "bonus",
+ "xp": 20,
+ "icon": "xy",
+ "color": "s5",
+ "blurb": "The math behind movement: vectors, distances, angles, rotation, bouncing, homing missiles and a full physics tick.",
+ "intro": "<p>Every moving thing in a game is math: a position, a velocity, a direction it's facing. This section teaches the handful of tools that power almost all 2D movement: <b>vectors</b> (an x and a y together), <b>distance</b>, the <b>dot product</b>, and the trig functions <code>Math.cos</code>, <code>Math.sin</code> and <code>Math.atan2</code>.</p><p>You'll write small helper functions that you could drop straight into a real game. Godot has these built in as <code>Vector2</code> methods, and GameMaker has <code>point_distance</code>, <code>lengthdir_x</code> and friends. Here you'll build them yourself, so you'll know exactly what they do.</p><div class=\"callout\"><b>Tip</b><p>On screens, <b>y grows downward</b>. That means an angle of 90 degrees points <b>down</b>, not up. Every stage here uses screen coordinates.</p></div>",
+ "links": [
+  [
+   "MDN: Math object",
+   "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math"
+  ],
+  [
+   "MDN: Math.atan2()",
+   "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2"
+  ],
+  [
+   "Godot Docs: Vector math",
+   "https://docs.godotengine.org/en/stable/tutorials/math/vector_math.html"
+  ],
+  [
+   "Red Blob Games: interactive tutorials",
+   "https://www.redblobgames.com/"
+  ]
+ ],
+ "stages": [
+  {
+   "t": "Points as objects",
+   "k": "fn",
+   "fn": "makePoint",
+   "a": "x, y",
+   "c": [
+    [
+     [
+      3,
+      4
+     ],
+     {
+      "x": 3,
+      "y": 4
+     }
+    ],
+    [
+     [
+      0,
+      0
+     ],
+     {
+      "x": 0,
+      "y": 0
+     }
+    ],
+    [
+     [
+      -2,
+      7.5
+     ],
+     {
+      "x": -2,
+      "y": 7.5
+     }
+    ]
+   ],
+   "l": "<p>A <b>vector</b> is just two numbers that belong together: an x and a y. It can mean a position (where something is) or a movement (which way and how far). In JavaScript, a small object is the easiest way to hold one.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const player = { x: 120, y: 80 };\nconsole.log(player.x);   // 120</code></pre><div class=\"callout\"><b>Tip</b><p>Shorthand: <code>{ x, y }</code> means <code>{ x: x, y: y }</code> when you already have variables with those names.</p></div>",
+   "p": "<p>Return a point object with properties <code>x</code> and <code>y</code>.</p>",
+   "h": "<p><code>return { x, y };</code></p>",
+   "s": "function makePoint(x, y) {\n  return { x, y };\n}\n",
+   "st": "function makePoint(x, y) {\n  // your code here\n}\n\nconsole.log(makePoint(3, 4)); // should be { x: 3, y: 4 }\n"
+  },
+  {
+   "t": "Adding vectors",
+   "k": "fn",
+   "fn": "add",
+   "a": "a, b",
+   "c": [
+    [
+     [
+      {
+       "x": 1,
+       "y": 2
+      },
+      {
+       "x": 3,
+       "y": 4
+      }
+     ],
+     {
+      "x": 4,
+      "y": 6
+     }
+    ],
+    [
+     [
+      {
+       "x": 10,
+       "y": 0
+      },
+      {
+       "x": -10,
+       "y": 5
+      }
+     ],
+     {
+      "x": 0,
+      "y": 5
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 0,
+       "y": 0
+      }
+     ],
+     {
+      "x": 0,
+      "y": 0
+     }
+    ]
+   ],
+   "l": "<p>Adding two vectors means adding the x's and adding the y's. If a player is at <code>(5, 5)</code> and moves by <code>(2, -1)</code>, they end up at <code>(7, 4)</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const pos = { x: 5, y: 5 };\nconst move = { x: 2, y: -1 };\nconst next = { x: pos.x + move.x, y: pos.y + move.y };   // { x: 7, y: 4 }</code></pre>",
+   "p": "<p>Return a <b>new</b> vector that is <code>a</code> plus <code>b</code>.</p>",
+   "h": "<p><code>return { x: a.x + b.x, y: a.y + b.y };</code></p>",
+   "s": "function add(a, b) {\n  return { x: a.x + b.x, y: a.y + b.y };\n}\n",
+   "st": "function add(a, b) {\n  // your code here\n}\n\nconsole.log(add({ x: 1, y: 2 }, { x: 3, y: 4 })); // should be { x: 4, y: 6 }\n"
+  },
+  {
+   "t": "Subtracting vectors",
+   "k": "fn",
+   "fn": "sub",
+   "a": "a, b",
+   "c": [
+    [
+     [
+      {
+       "x": 5,
+       "y": 5
+      },
+      {
+       "x": 2,
+       "y": 1
+      }
+     ],
+     {
+      "x": 3,
+      "y": 4
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 3,
+       "y": -3
+      }
+     ],
+     {
+      "x": -3,
+      "y": 3
+     }
+    ],
+    [
+     [
+      {
+       "x": 7,
+       "y": 2
+      },
+      {
+       "x": 7,
+       "y": 2
+      }
+     ],
+     {
+      "x": 0,
+      "y": 0
+     }
+    ]
+   ],
+   "l": "<p>Subtracting works the same way. The really useful part: <b>target minus start</b> gives the arrow pointing from start to target.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const enemy = { x: 2, y: 1 };\nconst player = { x: 5, y: 5 };\n// arrow from enemy to player = player - enemy\n// { x: 3, y: 4 }</code></pre>",
+   "p": "<p>Return <code>a</code> minus <code>b</code> as a new vector.</p>",
+   "h": "<p><code>return { x: a.x - b.x, y: a.y - b.y };</code></p>",
+   "s": "function sub(a, b) {\n  return { x: a.x - b.x, y: a.y - b.y };\n}\n",
+   "st": "function sub(a, b) {\n  // your code here\n}\n\nconsole.log(sub({ x: 5, y: 5 }, { x: 2, y: 1 })); // should be { x: 3, y: 4 }\n"
+  },
+  {
+   "t": "Scaling",
+   "k": "fn",
+   "fn": "scale",
+   "a": "v, k",
+   "c": [
+    [
+     [
+      {
+       "x": 1,
+       "y": 2
+      },
+      3
+     ],
+     {
+      "x": 3,
+      "y": 6
+     }
+    ],
+    [
+     [
+      {
+       "x": 4,
+       "y": -2
+      },
+      0.5
+     ],
+     {
+      "x": 2,
+      "y": -1
+     }
+    ],
+    [
+     [
+      {
+       "x": 5,
+       "y": 5
+      },
+      0
+     ],
+     {
+      "x": 0,
+      "y": 0
+     }
+    ],
+    [
+     [
+      {
+       "x": 2,
+       "y": 3
+      },
+      -1
+     ],
+     {
+      "x": -2,
+      "y": -3
+     }
+    ]
+   ],
+   "l": "<p>Multiplying a vector by a plain number (called a <b>scalar</b>) stretches or shrinks it. Times 2 is twice as long, times 0.5 is half, times -1 points the opposite way.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// velocity of 4 pixels per frame, sped up by 1.5\nconst v = { x: 4, y: 0 };\nconst fast = { x: v.x * 1.5, y: v.y * 1.5 };   // { x: 6, y: 0 }</code></pre>",
+   "p": "<p>Return <code>v</code> multiplied by the number <code>k</code>.</p>",
+   "h": "<p>Multiply both parts: <code>{ x: v.x * k, y: v.y * k }</code></p>",
+   "s": "function scale(v, k) {\n  return { x: v.x * k, y: v.y * k };\n}\n",
+   "st": "function scale(v, k) {\n  // your code here\n}\n\nconsole.log(scale({ x: 1, y: 2 }, 3)); // should be { x: 3, y: 6 }\n"
+  },
+  {
+   "t": "Length",
+   "k": "fn",
+   "fn": "length",
+   "a": "v",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      {
+       "x": 3,
+       "y": 4
+      }
+     ],
+     5
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      }
+     ],
+     0
+    ],
+    [
+     [
+      {
+       "x": -6,
+       "y": 8
+      }
+     ],
+     10
+    ],
+    [
+     [
+      {
+       "x": 1,
+       "y": 1
+      }
+     ],
+     1.4142135623730951
+    ]
+   ],
+   "l": "<p>The <b>length</b> (or magnitude) of a vector is how long the arrow is. It comes from Pythagoras: the x and y are the two short sides of a right triangle.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>Math.sqrt(3 * 3 + 4 * 4);   // 5\nMath.hypot(3, 4);           // 5, does the same thing</code></pre><p>For a velocity, the length is the <b>speed</b>.</p>",
+   "p": "<p>Return the length of <code>v</code>.</p>",
+   "h": "<p><code>return Math.hypot(v.x, v.y);</code></p>",
+   "s": "function length(v) {\n  return Math.hypot(v.x, v.y);\n}\n",
+   "st": "function length(v) {\n  // your code here\n}\n\nconsole.log(length({ x: 3, y: 4 })); // should be 5\n"
+  },
+  {
+   "t": "Normalize",
+   "k": "fn",
+   "fn": "normalize",
+   "a": "v",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      {
+       "x": 3,
+       "y": 4
+      }
+     ],
+     {
+      "x": 0.6,
+      "y": 0.8
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": -5
+      }
+     ],
+     {
+      "x": 0,
+      "y": -1
+     }
+    ],
+    [
+     [
+      {
+       "x": 10,
+       "y": 0
+      }
+     ],
+     {
+      "x": 1,
+      "y": 0
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      }
+     ],
+     {
+      "x": 0,
+      "y": 0
+     }
+    ]
+   ],
+   "l": "<p>A <b>unit vector</b> has length 1. It keeps only the <b>direction</b>. To <b>normalize</b> a vector, divide both parts by its length.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const v = { x: 3, y: 4 };      // length 5\nconst dir = { x: 3 / 5, y: 4 / 5 };   // { x: 0.6, y: 0.8 }</code></pre><p>Why bother? Without it, a player holding right <b>and</b> down moves faster diagonally (<code>(1, 1)</code> has length 1.41). Normalize the input first, then multiply by the speed.</p><div class=\"callout\"><b>Tip</b><p>A zero vector has length 0, and dividing by 0 gives <code>NaN</code>. Always check for it.</p></div>",
+   "p": "<p>Return <code>v</code> as a unit vector. If <code>v</code> has length 0, return <code>{ x: 0, y: 0 }</code>.</p>",
+   "h": "<p><code>const len = Math.hypot(v.x, v.y);</code> Return the zero vector when <code>len === 0</code>, otherwise divide each part by <code>len</code>.</p>",
+   "s": "function normalize(v) {\n  const len = Math.hypot(v.x, v.y);\n  if (len === 0) return { x: 0, y: 0 };\n  return { x: v.x / len, y: v.y / len };\n}\n",
+   "st": "function normalize(v) {\n  // your code here\n}\n\nconsole.log(normalize({ x: 3, y: 4 })); // should be { x: 0.6, y: 0.8 }\n"
+  },
+  {
+   "t": "Distance",
+   "k": "fn",
+   "fn": "distance",
+   "a": "a, b",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 3,
+       "y": 4
+      }
+     ],
+     5
+    ],
+    [
+     [
+      {
+       "x": 1,
+       "y": 1
+      },
+      {
+       "x": 4,
+       "y": 5
+      }
+     ],
+     5
+    ],
+    [
+     [
+      {
+       "x": 2,
+       "y": 2
+      },
+      {
+       "x": 2,
+       "y": 2
+      }
+     ],
+     0
+    ],
+    [
+     [
+      {
+       "x": -1,
+       "y": 0
+      },
+      {
+       "x": 1,
+       "y": 0
+      }
+     ],
+     2
+    ]
+   ],
+   "l": "<p>Put the last two ideas together: the distance between two points is the <b>length of the arrow between them</b>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// distance = length of (b - a)</code></pre><p>This one function answers loads of game questions: is the player close enough to pick up the coin, is the enemy in attack range, which tower is nearest?</p>",
+   "p": "<p>Return the distance between points <code>a</code> and <code>b</code>.</p>",
+   "h": "<p><code>return Math.hypot(b.x - a.x, b.y - a.y);</code></p>",
+   "s": "function distance(a, b) {\n  return Math.hypot(b.x - a.x, b.y - a.y);\n}\n",
+   "st": "function distance(a, b) {\n  // your code here\n}\n\nconsole.log(distance({ x: 0, y: 0 }, { x: 3, y: 4 })); // should be 5\n"
+  },
+  {
+   "t": "Dot product",
+   "k": "fn",
+   "fn": "dot",
+   "a": "a, b",
+   "c": [
+    [
+     [
+      {
+       "x": 1,
+       "y": 2
+      },
+      {
+       "x": 3,
+       "y": 4
+      }
+     ],
+     11
+    ],
+    [
+     [
+      {
+       "x": 1,
+       "y": 0
+      },
+      {
+       "x": 0,
+       "y": 1
+      }
+     ],
+     0
+    ],
+    [
+     [
+      {
+       "x": 1,
+       "y": 0
+      },
+      {
+       "x": -1,
+       "y": 0
+      }
+     ],
+     -1
+    ],
+    [
+     [
+      {
+       "x": 2,
+       "y": -3
+      },
+      {
+       "x": 4,
+       "y": 1
+      }
+     ],
+     5
+    ]
+   ],
+   "l": "<p>The <b>dot product</b> multiplies matching parts and adds them up: <code>a.x * b.x + a.y * b.y</code>. It sounds random, but it tells you how much two directions agree:</p><div class=\"tbl\"><table><tr><th>Dot product</th><th>Meaning</th></tr><tr><td>positive</td><td>pointing roughly the same way</td></tr><tr><td>zero</td><td>at right angles</td></tr><tr><td>negative</td><td>pointing roughly opposite ways</td></tr></table></div>",
+   "p": "<p>Return the dot product of <code>a</code> and <code>b</code>.</p>",
+   "h": "<p><code>return a.x * b.x + a.y * b.y;</code></p>",
+   "s": "function dot(a, b) {\n  return a.x * b.x + a.y * b.y;\n}\n",
+   "st": "function dot(a, b) {\n  // your code here\n}\n\nconsole.log(dot({ x: 1, y: 2 }, { x: 3, y: 4 })); // should be 11\n"
+  },
+  {
+   "t": "Is it in front?",
+   "k": "fn",
+   "fn": "isInFront",
+   "a": "pos, facing, target",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 1,
+       "y": 0
+      },
+      {
+       "x": 5,
+       "y": 2
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 1,
+       "y": 0
+      },
+      {
+       "x": -5,
+       "y": 2
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 10,
+       "y": 10
+      },
+      {
+       "x": 0,
+       "y": -1
+      },
+      {
+       "x": 12,
+       "y": 3
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 10,
+       "y": 10
+      },
+      {
+       "x": 0,
+       "y": -1
+      },
+      {
+       "x": 10,
+       "y": 20
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 1,
+       "y": 0
+      },
+      {
+       "x": 0,
+       "y": 5
+      }
+     ],
+     false
+    ]
+   ],
+   "l": "<p>Here's the dot product doing real work. A guard at <code>pos</code> faces direction <code>facing</code>. Is the player in front of them or behind?</p><p>Make the arrow from the guard to the target (<code>target - pos</code>), then dot it with <code>facing</code>. Positive means in front.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const toTarget = { x: target.x - pos.x, y: target.y - pos.y };\nconst d = facing.x * toTarget.x + facing.y * toTarget.y;</code></pre>",
+   "p": "<p>Return <code>true</code> if <code>target</code> is in front of the guard (dot product greater than 0), otherwise <code>false</code>.</p>",
+   "h": "<p>Build <code>toTarget</code> as in the example, then <code>return d &gt; 0;</code></p>",
+   "s": "function isInFront(pos, facing, target) {\n  const tx = target.x - pos.x, ty = target.y - pos.y;\n  return facing.x * tx + facing.y * ty > 0;\n}\n",
+   "st": "function isInFront(pos, facing, target) {\n  // your code here\n}\n\nconsole.log(isInFront({ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 5, y: 2 })); // should be true\n"
+  },
+  {
+   "t": "Angle to a target",
+   "k": "fn",
+   "fn": "angleTo",
+   "a": "from, to",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 1,
+       "y": 0
+      }
+     ],
+     0
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 0,
+       "y": 1
+      }
+     ],
+     1.5707963267948966
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": -3,
+       "y": 0
+      }
+     ],
+     3.141592653589793
+    ],
+    [
+     [
+      {
+       "x": 1,
+       "y": 1
+      },
+      {
+       "x": 2,
+       "y": 2
+      }
+     ],
+     0.7853981633974483
+    ],
+    [
+     [
+      {
+       "x": 5,
+       "y": 5
+      },
+      {
+       "x": 5,
+       "y": 0
+      }
+     ],
+     -1.5707963267948966
+    ]
+   ],
+   "l": "<p>To aim a turret, you need the <b>angle</b> from it to the target. <code>Math.atan2(dy, dx)</code> gives it to you. Note the order: <b>y first</b>, then x.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>Math.atan2(0, 1);    // 0, pointing right\nMath.atan2(1, 0);    // 1.5707..., pointing down (screen y)\nMath.atan2(0, -1);   // 3.14159..., pointing left</code></pre><p>The answer is in <b>radians</b>, from <code>-Math.PI</code> to <code>Math.PI</code>. A full circle is <code>2 * Math.PI</code> radians.</p>",
+   "p": "<p>Return the angle in radians from point <code>from</code> to point <code>to</code>.</p>",
+   "h": "<p><code>return Math.atan2(to.y - from.y, to.x - from.x);</code></p>",
+   "s": "function angleTo(from, to) {\n  return Math.atan2(to.y - from.y, to.x - from.x);\n}\n",
+   "st": "function angleTo(from, to) {\n  // your code here\n}\n\nconsole.log(angleTo({ x: 0, y: 0 }, { x: 1, y: 0 })); // should be 0\n"
+  },
+  {
+   "t": "Degrees and radians",
+   "k": "fn",
+   "fn": "toDegrees",
+   "a": "rad",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      3.141592653589793
+     ],
+     180
+    ],
+    [
+     [
+      1.5707963267948966
+     ],
+     90
+    ],
+    [
+     [
+      0
+     ],
+     0
+    ],
+    [
+     [
+      -0.7853981633974483
+     ],
+     -45
+    ],
+    [
+     [
+      6.283185307179586
+     ],
+     360
+    ]
+   ],
+   "l": "<p>Humans like degrees (360 in a circle). JavaScript's <code>Math</code> functions use radians (<code>2 * Math.PI</code> in a circle). Converting is one multiplication:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const toRad = deg =&gt; deg * Math.PI / 180;\nconst toDeg = rad =&gt; rad * 180 / Math.PI;\ntoRad(180);   // 3.14159...</code></pre><div class=\"tbl\"><table><tr><th>Degrees</th><th>Radians</th></tr><tr><td>90</td><td><code>Math.PI / 2</code></td></tr><tr><td>180</td><td><code>Math.PI</code></td></tr><tr><td>360</td><td><code>2 * Math.PI</code></td></tr></table></div>",
+   "p": "<p>Return the angle <code>rad</code> converted to degrees.</p>",
+   "h": "<p><code>return rad * 180 / Math.PI;</code></p>",
+   "s": "function toDegrees(rad) {\n  return rad * 180 / Math.PI;\n}\n",
+   "st": "function toDegrees(rad) {\n  // your code here\n}\n\nconsole.log(toDegrees(3.141592653589793)); // should be 180\n"
+  },
+  {
+   "t": "Moving at an angle",
+   "k": "fn",
+   "fn": "moveAtAngle",
+   "a": "pos, deg, dist",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      0,
+      10
+     ],
+     {
+      "x": 10,
+      "y": 0
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      90,
+      5
+     ],
+     {
+      "x": 0,
+      "y": 5
+     }
+    ],
+    [
+     [
+      {
+       "x": 1,
+       "y": 1
+      },
+      180,
+      2
+     ],
+     {
+      "x": -1,
+      "y": 1
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      45,
+      1.4142135623730951
+     ],
+     {
+      "x": 1,
+      "y": 1
+     }
+    ],
+    [
+     [
+      {
+       "x": 3,
+       "y": 3
+      },
+      270,
+      3
+     ],
+     {
+      "x": 3,
+      "y": 0
+     }
+    ]
+   ],
+   "l": "<p>The reverse of <code>atan2</code>: you have an angle and want to move that way. <code>Math.cos(angle)</code> gives the x part of a unit arrow, and <code>Math.sin(angle)</code> gives the y part.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const angle = 30 * Math.PI / 180;   // radians!\nconst speed = 4;\nbullet.x += Math.cos(angle) * speed;\nbullet.y += Math.sin(angle) * speed;</code></pre><p>This is exactly what GameMaker's <code>lengthdir_x</code> and <code>lengthdir_y</code> do.</p>",
+   "p": "<p>Return the new position after moving <code>dist</code> units from <code>pos</code> at <code>deg</code> degrees.</p>",
+   "h": "<p>Convert first: <code>const a = deg * Math.PI / 180;</code> then <code>x: pos.x + Math.cos(a) * dist</code>, and the same with <code>sin</code> for y.</p>",
+   "s": "function moveAtAngle(pos, deg, dist) {\n  const a = deg * Math.PI / 180;\n  return { x: pos.x + Math.cos(a) * dist, y: pos.y + Math.sin(a) * dist };\n}\n",
+   "st": "function moveAtAngle(pos, deg, dist) {\n  // your code here\n}\n\nconsole.log(moveAtAngle({ x: 0, y: 0 }, 0, 10)); // should be { x: 10, y: 0 }\n"
+  },
+  {
+   "t": "Rotating a point",
+   "k": "fn",
+   "fn": "rotate",
+   "a": "p, deg",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      {
+       "x": 1,
+       "y": 0
+      },
+      90
+     ],
+     {
+      "x": 0,
+      "y": 1
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 1
+      },
+      90
+     ],
+     {
+      "x": -1,
+      "y": 0
+     }
+    ],
+    [
+     [
+      {
+       "x": 2,
+       "y": 3
+      },
+      180
+     ],
+     {
+      "x": -2,
+      "y": -3
+     }
+    ],
+    [
+     [
+      {
+       "x": 5,
+       "y": 7
+      },
+      0
+     ],
+     {
+      "x": 5,
+      "y": 7
+     }
+    ],
+    [
+     [
+      {
+       "x": 1,
+       "y": 1
+      },
+      45
+     ],
+     {
+      "x": 0,
+      "y": 1.4142135623730951
+     }
+    ]
+   ],
+   "l": "<p>To spin a point around the origin <code>(0, 0)</code> by angle <code>a</code>, use this formula. You don't need to memorise it, just know where to find it:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const c = Math.cos(a), s = Math.sin(a);\nconst rx = p.x * c - p.y * s;\nconst ry = p.x * s + p.y * c;</code></pre><p>Games use this for spinning blades, orbiting moons, and turning the corners of a rotated sprite.</p>",
+   "p": "<p>Return point <code>p</code> rotated by <code>deg</code> degrees around <code>(0, 0)</code>.</p>",
+   "h": "<p>Convert <code>deg</code> to radians, then use the two lines from the example.</p>",
+   "s": "function rotate(p, deg) {\n  const a = deg * Math.PI / 180;\n  const c = Math.cos(a), s = Math.sin(a);\n  return { x: p.x * c - p.y * s, y: p.x * s + p.y * c };\n}\n",
+   "st": "function rotate(p, deg) {\n  // your code here\n}\n\nconsole.log(rotate({ x: 1, y: 0 }, 90)); // should be { x: 0, y: 1 }\n"
+  },
+  {
+   "t": "Lerp",
+   "k": "fn",
+   "fn": "lerpPoint",
+   "a": "a, b, t",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 10,
+       "y": 20
+      },
+      0.5
+     ],
+     {
+      "x": 5,
+      "y": 10
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 10,
+       "y": 20
+      },
+      0
+     ],
+     {
+      "x": 0,
+      "y": 0
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 10,
+       "y": 20
+      },
+      1
+     ],
+     {
+      "x": 10,
+      "y": 20
+     }
+    ],
+    [
+     [
+      {
+       "x": 4,
+       "y": -4
+      },
+      {
+       "x": 8,
+       "y": 4
+      },
+      0.25
+     ],
+     {
+      "x": 5,
+      "y": -2
+     }
+    ]
+   ],
+   "l": "<p><b>Lerp</b> (linear interpolation) finds a point part of the way from <code>a</code> to <code>b</code>. <code>t = 0</code> is at <code>a</code>, <code>t = 1</code> is at <code>b</code>, <code>t = 0.5</code> is halfway.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const lerp = (a, b, t) =&gt; a + (b - a) * t;\nlerp(0, 100, 0.25);   // 25</code></pre><p>Lerping a camera a little toward the player each frame gives that smooth follow effect.</p>",
+   "p": "<p>Return the point a fraction <code>t</code> of the way from <code>a</code> to <code>b</code>.</p>",
+   "h": "<p>Lerp x and y separately: <code>x: a.x + (b.x - a.x) * t</code></p>",
+   "s": "function lerpPoint(a, b, t) {\n  return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };\n}\n",
+   "st": "function lerpPoint(a, b, t) {\n  // your code here\n}\n\nconsole.log(lerpPoint({ x: 0, y: 0 }, { x: 10, y: 20 }, 0.5)); // should be { x: 5, y: 10 }\n"
+  },
+  {
+   "t": "Velocity and acceleration",
+   "k": "fn",
+   "fn": "step",
+   "a": "body, dt",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "vx": 1,
+       "vy": 0,
+       "ax": 0,
+       "ay": 10
+      },
+      0.5
+     ],
+     {
+      "x": 0.5,
+      "y": 2.5,
+      "vx": 1,
+      "vy": 5,
+      "ax": 0,
+      "ay": 10
+     }
+    ],
+    [
+     [
+      {
+       "x": 5,
+       "y": 5,
+       "vx": 0,
+       "vy": 0,
+       "ax": 0,
+       "ay": 0
+      },
+      1
+     ],
+     {
+      "x": 5,
+      "y": 5,
+      "vx": 0,
+      "vy": 0,
+      "ax": 0,
+      "ay": 0
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 100,
+       "vx": 10,
+       "vy": -20,
+       "ax": -2,
+       "ay": 0
+      },
+      1
+     ],
+     {
+      "x": 8,
+      "y": 80,
+      "vx": 8,
+      "vy": -20,
+      "ax": -2,
+      "ay": 0
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "vx": 0,
+       "vy": 0,
+       "ax": 4,
+       "ay": 0
+      },
+      0.25
+     ],
+     {
+      "x": 0.25,
+      "y": 0,
+      "vx": 1,
+      "vy": 0,
+      "ax": 4,
+      "ay": 0
+     }
+    ]
+   ],
+   "l": "<p>Movement in most games is two steps every frame:</p><ul><li><b>Acceleration</b> changes velocity (gravity pulls velocity downward).</li><li><b>Velocity</b> changes position.</li></ul><p>Multiply by <code>dt</code> (the seconds since the last frame) so the game runs the same speed on fast and slow computers.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>body.vy += body.ay * dt;   // 1. speed up\nbody.y  += body.vy * dt;   // 2. move</code></pre><p>Update velocity <b>first</b>, then position. This order is called semi-implicit Euler and it's what most game engines use.</p>",
+   "p": "<p>Return a new body after one step of <code>dt</code> seconds. Keep <code>ax</code> and <code>ay</code> the same.</p>",
+   "h": "<p>Work out <code>vx</code> and <code>vy</code> first, then <code>x: body.x + vx * dt</code> using the new velocity. Return all six properties.</p>",
+   "s": "function step(body, dt) {\n  const vx = body.vx + body.ax * dt;\n  const vy = body.vy + body.ay * dt;\n  return { x: body.x + vx * dt, y: body.y + vy * dt, vx, vy, ax: body.ax, ay: body.ay };\n}\n",
+   "st": "function step(body, dt) {\n  // your code here\n}\n\nconsole.log(step({ x: 0, y: 0, vx: 1, vy: 0, ax: 0, ay: 10 }, 0.5)); // should be { x: 0.5, y: 2.5, vx: 1, vy: 5, ax: 0, ay: 10 }\n"
+  },
+  {
+   "t": "Circle collision",
+   "k": "fn",
+   "fn": "circlesHit",
+   "a": "a, b",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "r": 5
+      },
+      {
+       "x": 8,
+       "y": 0,
+       "r": 4
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "r": 2
+      },
+      {
+       "x": 3,
+       "y": 4,
+       "r": 3
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "r": 2
+      },
+      {
+       "x": 3,
+       "y": 4,
+       "r": 2
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 10,
+       "y": 10,
+       "r": 1
+      },
+      {
+       "x": 10,
+       "y": 10,
+       "r": 1
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": -10,
+       "y": 0,
+       "r": 4
+      },
+      {
+       "x": 10,
+       "y": 0,
+       "r": 4
+      }
+     ],
+     false
+    ]
+   ],
+   "l": "<p>Two circles touch when the distance between their centres is no more than their two radii added together. It's the cheapest collision check there is, so lots of games use circles for bullets and enemies even when the sprites aren't round.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const d = Math.hypot(b.x - a.x, b.y - a.y);\nconst hit = d &lt;= a.r + b.r;</code></pre><div class=\"callout\"><b>Tip</b><p>For speed, skip the square root: compare <code>dx * dx + dy * dy</code> with <code>(a.r + b.r) ** 2</code>. Same answer, no <code>Math.sqrt</code>.</p></div>",
+   "p": "<p>Each circle is <code>{ x, y, r }</code>. Return <code>true</code> if they overlap or just touch.</p>",
+   "h": "<p><code>return Math.hypot(b.x - a.x, b.y - a.y) &lt;= a.r + b.r;</code></p>",
+   "s": "function circlesHit(a, b) {\n  const dx = b.x - a.x, dy = b.y - a.y;\n  return dx * dx + dy * dy <= (a.r + b.r) ** 2;\n}\n",
+   "st": "function circlesHit(a, b) {\n  // your code here\n}\n\nconsole.log(circlesHit({ x: 0, y: 0, r: 5 }, { x: 8, y: 0, r: 4 })); // should be true\n"
+  },
+  {
+   "t": "Bouncing off a wall",
+   "k": "fn",
+   "fn": "reflect",
+   "a": "v, n",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      {
+       "x": 3,
+       "y": -2
+      },
+      {
+       "x": 0,
+       "y": 1
+      }
+     ],
+     {
+      "x": 3,
+      "y": 2
+     }
+    ],
+    [
+     [
+      {
+       "x": 5,
+       "y": 0
+      },
+      {
+       "x": -1,
+       "y": 0
+      }
+     ],
+     {
+      "x": -5,
+      "y": 0
+     }
+    ],
+    [
+     [
+      {
+       "x": 1,
+       "y": 1
+      },
+      {
+       "x": 0,
+       "y": -1
+      }
+     ],
+     {
+      "x": 1,
+      "y": -1
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": -5
+      },
+      {
+       "x": 0.6,
+       "y": 0.8
+      }
+     ],
+     {
+      "x": 4.8,
+      "y": 1.4
+     }
+    ]
+   ],
+   "l": "<p>A wall's <b>normal</b> is a unit vector sticking straight out of it. To bounce a velocity <code>v</code> off a wall with normal <code>n</code>, use:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// reflected = v - 2 * dot(v, n) * n\nconst d = v.x * n.x + v.y * n.y;\nconst rx = v.x - 2 * d * n.x;\nconst ry = v.y - 2 * d * n.y;</code></pre><p>For a floor (normal pointing up, <code>(0, -1)</code>) this just flips <code>vy</code>, but it works for walls at <b>any</b> angle, like the slanted bumpers in a pinball table.</p>",
+   "p": "<p>Return velocity <code>v</code> reflected off a wall with unit normal <code>n</code>.</p>",
+   "h": "<p>Work out <code>d</code> (the dot product) first, then subtract <code>2 * d * n.x</code> from <code>v.x</code> and the same for y.</p>",
+   "s": "function reflect(v, n) {\n  const d = v.x * n.x + v.y * n.y;\n  return { x: v.x - 2 * d * n.x, y: v.y - 2 * d * n.y };\n}\n",
+   "st": "function reflect(v, n) {\n  // your code here\n}\n\nconsole.log(reflect({ x: 3, y: -2 }, { x: 0, y: 1 })); // should be { x: 3, y: 2 }\n"
+  },
+  {
+   "t": "Homing missile",
+   "k": "fn",
+   "fn": "turnToward",
+   "a": "angle, target, maxTurn",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      0,
+      90,
+      10
+     ],
+     10
+    ],
+    [
+     [
+      0,
+      5,
+      10
+     ],
+     5
+    ],
+    [
+     [
+      10,
+      350,
+      15
+     ],
+     355
+    ],
+    [
+     [
+      350,
+      20,
+      45
+     ],
+     20
+    ],
+    [
+     [
+      90,
+      260,
+      30
+     ],
+     120
+    ],
+    [
+     [
+      200,
+      100,
+      30
+     ],
+     170
+    ]
+   ],
+   "l": "<p>A homing missile shouldn't snap to face its target. It turns a little each frame, up to <code>maxTurn</code> degrees. The tricky part is going the <b>short way round</b>: from 10 degrees to 350, you should turn 20 degrees left, not 340 right.</p><p>This line wraps any difference into the range -180 to 180:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const diff = ((target - angle) % 360 + 540) % 360 - 180;</code></pre><p>Then clamp it to the turn limit, add it on, and wrap the result back into 0 to 360:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const turn = Math.max(-maxTurn, Math.min(maxTurn, diff));\nconst next = ((angle + turn) % 360 + 360) % 360;</code></pre>",
+   "p": "<p>All angles are in degrees from 0 to 360. Return the missile's new angle after turning toward <code>target</code> by at most <code>maxTurn</code>, the short way round.</p>",
+   "h": "<p>Combine the two snippets from the lesson and return <code>next</code>.</p>",
+   "s": "function turnToward(angle, target, maxTurn) {\n  const diff = ((target - angle) % 360 + 540) % 360 - 180;\n  const turn = Math.max(-maxTurn, Math.min(maxTurn, diff));\n  return ((angle + turn) % 360 + 360) % 360;\n}\n",
+   "st": "function turnToward(angle, target, maxTurn) {\n  // your code here\n}\n\nconsole.log(turnToward(0, 90, 10)); // should be 10\n"
+  },
+  {
+   "t": "Field of view",
+   "k": "fn",
+   "fn": "canSee",
+   "a": "guard, target",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "facing": 0,
+       "fov": 90,
+       "range": 10
+      },
+      {
+       "x": 5,
+       "y": 0
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "facing": 0,
+       "fov": 90,
+       "range": 10
+      },
+      {
+       "x": 5,
+       "y": 4
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "facing": 0,
+       "fov": 90,
+       "range": 10
+      },
+      {
+       "x": 5,
+       "y": 6
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "facing": 0,
+       "fov": 90,
+       "range": 10
+      },
+      {
+       "x": -5,
+       "y": 0
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "facing": 0,
+       "fov": 90,
+       "range": 10
+      },
+      {
+       "x": 20,
+       "y": 0
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 10,
+       "y": 10,
+       "facing": 90,
+       "fov": 60,
+       "range": 50
+      },
+      {
+       "x": 12,
+       "y": 30
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "facing": 350,
+       "fov": 40,
+       "range": 10
+      },
+      {
+       "x": 5,
+       "y": -1
+      }
+     ],
+     true
+    ]
+   ],
+   "l": "<p>Stealth games give guards a <b>view cone</b>: a range and a field of view. A target is seen if it's close enough <b>and</b> the angle to it is within half the field of view of where the guard is facing.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const deg = Math.atan2(dy, dx) * 180 / Math.PI;     // angle to target\nconst diff = ((deg - facing) % 360 + 540) % 360 - 180; // short way round\nconst inCone = Math.abs(diff) &lt;= fov / 2;</code></pre>",
+   "p": "<p><code>guard</code> is <code>{ x, y, facing, fov, range }</code> with angles in degrees. Return <code>true</code> if <code>target</code> is within <code>range</code> and inside the view cone.</p>",
+   "h": "<p>Check the distance first: if <code>Math.hypot(dx, dy) &gt; guard.range</code> return <code>false</code>. Then use the angle check from the lesson.</p>",
+   "s": "function canSee(guard, target) {\n  const dx = target.x - guard.x, dy = target.y - guard.y;\n  if (Math.hypot(dx, dy) > guard.range) return false;\n  const deg = Math.atan2(dy, dx) * 180 / Math.PI;\n  const diff = ((deg - guard.facing) % 360 + 540) % 360 - 180;\n  return Math.abs(diff) <= guard.fov / 2;\n}\n",
+   "st": "function canSee(guard, target) {\n  // your code here\n}\n\nconsole.log(canSee({ x: 0, y: 0, facing: 0, fov: 90, range: 10 }, { x: 5, y: 0 })); // should be true\n"
+  },
+  {
+   "t": "Capstone: ship physics",
+   "k": "fn",
+   "fn": "shipTick",
+   "a": "ship, input, dt",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "vx": 0,
+       "vy": 0,
+       "angle": 0
+      },
+      {
+       "turn": 0,
+       "thrust": true
+      },
+      0.5
+     ],
+     {
+      "x": 25,
+      "y": 0,
+      "vx": 50,
+      "vy": 0,
+      "angle": 0
+     }
+    ],
+    [
+     [
+      {
+       "x": 10,
+       "y": 10,
+       "vx": 0,
+       "vy": 0,
+       "angle": 0
+      },
+      {
+       "turn": 1,
+       "thrust": true
+      },
+      0.5
+     ],
+     {
+      "x": 10,
+      "y": 35,
+      "vx": 0,
+      "vy": 50,
+      "angle": 90
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "vx": 190,
+       "vy": 0,
+       "angle": 0
+      },
+      {
+       "turn": 0,
+       "thrust": true
+      },
+      0.5
+     ],
+     {
+      "x": 100,
+      "y": 0,
+      "vx": 200,
+      "vy": 0,
+      "angle": 0
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "vx": 10,
+       "vy": -20,
+       "angle": 270
+      },
+      {
+       "turn": 0,
+       "thrust": false
+      },
+      1
+     ],
+     {
+      "x": 10,
+      "y": -20,
+      "vx": 10,
+      "vy": -20,
+      "angle": 270
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "vx": 0,
+       "vy": 0,
+       "angle": 0
+      },
+      {
+       "turn": -1,
+       "thrust": false
+      },
+      0.5
+     ],
+     {
+      "x": 0,
+      "y": 0,
+      "vx": 0,
+      "vy": 0,
+      "angle": 270
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "vx": 150,
+       "vy": 150,
+       "angle": 45
+      },
+      {
+       "turn": 0,
+       "thrust": false
+      },
+      1
+     ],
+     {
+      "x": 141.4213562373095,
+      "y": 141.4213562373095,
+      "vx": 141.4213562373095,
+      "vy": 141.4213562373095,
+      "angle": 45
+     }
+    ]
+   ],
+   "l": "<p>Time to fly. This is one frame of an Asteroids-style ship, using almost everything from this section. Each tick does four things, in order:</p><ul><li><b>Turn</b>: add <code>input.turn * TURN_SPEED * dt</code> to the angle (<code>turn</code> is -1, 0 or 1), then wrap it into 0 to 360.</li><li><b>Thrust</b>: if <code>input.thrust</code> is true, add <code>THRUST * dt</code> to the velocity in the direction the ship faces.</li><li><b>Speed limit</b>: if the speed is more than <code>MAX_SPEED</code>, scale the velocity down so its length is exactly <code>MAX_SPEED</code>.</li><li><b>Move</b>: add <code>velocity * dt</code> to the position.</li></ul><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const TURN_SPEED = 180;   // degrees per second\nconst THRUST = 100;       // speed gained per second\nconst MAX_SPEED = 200;</code></pre>",
+   "p": "<p>Return the ship <code>{ x, y, vx, vy, angle }</code> after one tick of <code>dt</code> seconds, following the four steps.</p>",
+   "h": "<p>For the speed limit: <code>const speed = Math.hypot(vx, vy);</code> and if it's too big, multiply both <code>vx</code> and <code>vy</code> by <code>MAX_SPEED / speed</code>. Remember <code>cos</code> and <code>sin</code> need radians.</p>",
+   "s": "const TURN_SPEED = 180, THRUST = 100, MAX_SPEED = 200;\nfunction shipTick(ship, input, dt) {\n  let angle = ship.angle + input.turn * TURN_SPEED * dt;\n  angle = ((angle % 360) + 360) % 360;\n  let vx = ship.vx, vy = ship.vy;\n  if (input.thrust) {\n    const a = angle * Math.PI / 180;\n    vx += Math.cos(a) * THRUST * dt;\n    vy += Math.sin(a) * THRUST * dt;\n  }\n  const speed = Math.hypot(vx, vy);\n  if (speed > MAX_SPEED) {\n    vx *= MAX_SPEED / speed;\n    vy *= MAX_SPEED / speed;\n  }\n  return { x: ship.x + vx * dt, y: ship.y + vy * dt, vx, vy, angle };\n}\n",
+   "st": "const TURN_SPEED = 180, THRUST = 100, MAX_SPEED = 200;\nfunction shipTick(ship, input, dt) {\n  // your code here\n}\n\nconsole.log(shipTick({ x: 0, y: 0, vx: 0, vy: 0, angle: 0 }, { turn: 0, thrust: true }, 0.5));\n// should be { x: 25, y: 0, vx: 50, vy: 0, angle: 0 }\n"
+  }
+ ]
+}

@@ -1,0 +1,1023 @@
+{
+ "id": "regex",
+ "title": "Regular Expressions",
+ "group": "bonus",
+ "xp": 20,
+ "icon": ".*",
+ "color": "s4",
+ "blurb": "Search, check and pull apart text with patterns: player names, chat commands, dice rolls and log files.",
+ "intro": "<p>A <b>regular expression</b> (regex for short) is a tiny pattern language for text. Instead of asking &quot;does this string contain sword?&quot;, you can ask &quot;does it contain a slash, a word, a space and a number?&quot; in one line.</p><p>In JavaScript a regex lives between two slashes, like <code>/sword/</code>. If you've used Lua, regex is a bigger cousin of Lua patterns: Lua's <code>%d</code> is regex's <code>\\d</code>. Godot has a <code>RegEx</code> class that uses the same syntax you'll learn here.</p><p>You'll start with simple checks, then build up to validating player names, reading chat commands like <code>/give sword 3</code>, decoding dice like <code>2d6+3</code>, and parsing a game log.</p><div class=\"callout\"><b>Tip</b><p>Regex looks scary because it's dense, not because it's hard. Read a pattern one piece at a time, left to right, and it stops being a wall of symbols.</p></div>",
+ "links": [
+  [
+   "MDN: Regular expressions guide",
+   "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions"
+  ],
+  [
+   "MDN: RegExp reference",
+   "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"
+  ],
+  [
+   "regex101: test patterns live",
+   "https://regex101.com/"
+  ],
+  [
+   "Godot Docs: RegEx class",
+   "https://docs.godotengine.org/en/stable/classes/class_regex.html"
+  ]
+ ],
+ "stages": [
+  {
+   "t": "Does it match?",
+   "k": "fn",
+   "fn": "hasSword",
+   "a": "text",
+   "req": "\\.test\\(",
+   "reqMsg": "Use a regex and its test() method.",
+   "c": [
+    [
+     [
+      "You found a sword!"
+     ],
+     true
+    ],
+    [
+     [
+      "swords everywhere"
+     ],
+     true
+    ],
+    [
+     [
+      "A shield"
+     ],
+     false
+    ],
+    [
+     [
+      "Sword"
+     ],
+     false
+    ],
+    [
+     [
+      ""
+     ],
+     false
+    ]
+   ],
+   "l": "<p>A regex is written between slashes. Its <code>test()</code> method answers one question: does this pattern appear <b>anywhere</b> in the text? It returns <code>true</code> or <code>false</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const pattern = /orc/;\npattern.test(&quot;An orc appears&quot;);   // true\npattern.test(&quot;A goblin appears&quot;); // false\npattern.test(&quot;Orc&quot;);              // false, capital O</code></pre><p>By default a regex is case-sensitive, so <code>O</code> and <code>o</code> are different letters.</p>",
+   "p": "<p>Return <code>true</code> if <code>text</code> contains <code>sword</code> (lowercase), otherwise <code>false</code>.</p>",
+   "h": "<p><code>return /sword/.test(text);</code></p>",
+   "s": "function hasSword(text) {\n  return /sword/.test(text);\n}\n",
+   "st": "function hasSword(text) {\n  // your code here\n}\n\nconsole.log(hasSword(\"You found a sword!\")); // should be true\n"
+  },
+  {
+   "t": "Special characters",
+   "k": "fn",
+   "fn": "isSaveFile",
+   "a": "name",
+   "c": [
+    [
+     [
+      "game.sav"
+     ],
+     true
+    ],
+    [
+     [
+      "slot1.sav"
+     ],
+     true
+    ],
+    [
+     [
+      "gamesav"
+     ],
+     false
+    ],
+    [
+     [
+      "notes.txt"
+     ],
+     false
+    ],
+    [
+     [
+      "save"
+     ],
+     false
+    ]
+   ],
+   "l": "<p>Some characters have special meanings in a pattern. The most common one is <code>.</code> which means <b>any single character</b>. So <code>/.sav/</code> matches <code>&quot;esav&quot;</code> too!</p><p>To mean a real dot, put a backslash in front: <code>\\.</code>. This is called <b>escaping</b>. The special characters are:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>.  *  +  ?  ^  $  (  )  [  ]  {  }  |  \\  /</code></pre><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>/a.c/.test(&quot;abc&quot;);    // true, . matches b\n/a\\.c/.test(&quot;abc&quot;);   // false\n/a\\.c/.test(&quot;a.c&quot;);   // true</code></pre>",
+   "p": "<p>Return <code>true</code> if <code>name</code> contains <code>.sav</code> with a real dot.</p>",
+   "h": "<p>Escape the dot: <code>/\\.sav/.test(name)</code></p>",
+   "s": "function isSaveFile(name) {\n  return /\\.sav/.test(name);\n}\n",
+   "st": "function isSaveFile(name) {\n  // your code here\n}\n\nconsole.log(isSaveFile(\"game.sav\")); // should be true\n"
+  },
+  {
+   "t": "Character classes",
+   "k": "fn",
+   "fn": "hasBadChar",
+   "a": "name",
+   "c": [
+    [
+     [
+      "Robin"
+     ],
+     false
+    ],
+    [
+     [
+      "Player1"
+     ],
+     false
+    ],
+    [
+     [
+      "Rob!n"
+     ],
+     true
+    ],
+    [
+     [
+      "x_x"
+     ],
+     true
+    ],
+    [
+     [
+      "two words"
+     ],
+     true
+    ],
+    [
+     [
+      "ABCxyz789"
+     ],
+     false
+    ]
+   ],
+   "l": "<p>Square brackets make a <b>character class</b>: match <b>one</b> character from the set.</p><div class=\"tbl\"><table><tr><th>Pattern</th><th>Matches one...</th></tr><tr><td><code>[aeiou]</code></td><td>vowel</td></tr><tr><td><code>[a-z]</code></td><td>lowercase letter (a range)</td></tr><tr><td><code>[A-Za-z0-9]</code></td><td>letter or digit</td></tr><tr><td><code>[^0-9]</code></td><td>character that is <b>not</b> a digit</td></tr></table></div><p>A <code>^</code> right after <code>[</code> flips the class to mean &quot;anything except these&quot;.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>/[^a-z]/.test(&quot;hello&quot;);   // false, all lowercase\n/[^a-z]/.test(&quot;hello!&quot;);  // true, ! is not a-z</code></pre>",
+   "p": "<p>Return <code>true</code> if <code>name</code> contains any character that is <b>not</b> a letter or a digit.</p>",
+   "h": "<p><code>/[^a-zA-Z0-9]/.test(name)</code></p>",
+   "s": "function hasBadChar(name) {\n  return /[^a-zA-Z0-9]/.test(name);\n}\n",
+   "st": "function hasBadChar(name) {\n  // your code here\n}\n\nconsole.log(hasBadChar(\"Robin\")); // should be false\n"
+  },
+  {
+   "t": "Shortcut classes",
+   "k": "fn",
+   "fn": "classify",
+   "a": "ch",
+   "req": "\\\\d",
+   "reqMsg": "Use the \\d, \\w and \\s shortcuts.",
+   "c": [
+    [
+     [
+      "7"
+     ],
+     "digit"
+    ],
+    [
+     [
+      "a"
+     ],
+     "word"
+    ],
+    [
+     [
+      "_"
+     ],
+     "word"
+    ],
+    [
+     [
+      " "
+     ],
+     "space"
+    ],
+    [
+     [
+      "!"
+     ],
+     "other"
+    ],
+    [
+     [
+      "Z"
+     ],
+     "word"
+    ]
+   ],
+   "l": "<p>Some classes are so common they have shortcuts:</p><div class=\"tbl\"><table><tr><th>Shortcut</th><th>Means</th><th>Same as</th></tr><tr><td><code>\\d</code></td><td>digit</td><td><code>[0-9]</code></td></tr><tr><td><code>\\w</code></td><td>word character</td><td><code>[A-Za-z0-9_]</code></td></tr><tr><td><code>\\s</code></td><td>whitespace</td><td>space, tab, newline</td></tr></table></div><p>Capital letters flip them: <code>\\D</code> is &quot;not a digit&quot;, <code>\\W</code> &quot;not a word character&quot;, <code>\\S</code> &quot;not whitespace&quot;.</p>",
+   "p": "<p><code>ch</code> is one character. Return <code>&quot;digit&quot;</code> if it's a digit, else <code>&quot;word&quot;</code> if it's a word character, else <code>&quot;space&quot;</code> if it's whitespace, else <code>&quot;other&quot;</code>.</p>",
+   "h": "<p>Check digits first, because digits are also word characters: <code>if (/\\d/.test(ch)) return &quot;digit&quot;;</code></p>",
+   "s": "function classify(ch) {\n  if (/\\d/.test(ch)) return \"digit\";\n  if (/\\w/.test(ch)) return \"word\";\n  if (/\\s/.test(ch)) return \"space\";\n  return \"other\";\n}\n",
+   "st": "function classify(ch) {\n  // your code here\n}\n\nconsole.log(classify(\"7\")); // should be \"digit\"\n"
+  },
+  {
+   "t": "One or more",
+   "k": "fn",
+   "fn": "hasCombo",
+   "a": "text",
+   "c": [
+    [
+     [
+      "Combo x12!"
+     ],
+     true
+    ],
+    [
+     [
+      "x3"
+     ],
+     true
+    ],
+    [
+     [
+      "x"
+     ],
+     false
+    ],
+    [
+     [
+      "box"
+     ],
+     false
+    ],
+    [
+     [
+      "xx9"
+     ],
+     true
+    ]
+   ],
+   "l": "<p>A <b>quantifier</b> says how many times the thing before it repeats.</p><ul><li><code>+</code> means one or more</li><li><code>*</code> means zero or more</li></ul><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>/\\d+/.test(&quot;hp 250&quot;);    // true, one or more digits\n/go*al/.test(&quot;gal&quot;);     // true, zero o's is fine with *\n/go+al/.test(&quot;gal&quot;);     // false, + needs at least one\n/go+al/.test(&quot;gooooal&quot;); // true</code></pre>",
+   "p": "<p>Return <code>true</code> if <code>text</code> contains an <code>x</code> followed by one or more digits, like <code>x12</code>.</p>",
+   "h": "<p><code>/x\\d+/.test(text)</code></p>",
+   "s": "function hasCombo(text) {\n  return /x\\d+/.test(text);\n}\n",
+   "st": "function hasCombo(text) {\n  // your code here\n}\n\nconsole.log(hasCombo(\"Combo x12!\")); // should be true\n"
+  },
+  {
+   "t": "Maybe it's there",
+   "k": "fn",
+   "fn": "saysColor",
+   "a": "text",
+   "c": [
+    [
+     [
+      "Pick a color"
+     ],
+     true
+    ],
+    [
+     [
+      "Pick a colour"
+     ],
+     true
+    ],
+    [
+     [
+      "colr"
+     ],
+     false
+    ],
+    [
+     [
+      "colouur"
+     ],
+     false
+    ],
+    [
+     [
+      "COLOR"
+     ],
+     false
+    ]
+   ],
+   "l": "<p><code>?</code> means <b>optional</b>: the thing before it appears zero or one time.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>/hp?/.test(&quot;h&quot;);      // true\n/hp?/.test(&quot;hp&quot;);     // true\n/armou?r/.test(&quot;armor&quot;);  // true\n/armou?r/.test(&quot;armour&quot;); // true</code></pre><p>Handy for British and American spellings!</p>",
+   "p": "<p>Return <code>true</code> if <code>text</code> contains <code>color</code> or <code>colour</code>.</p>",
+   "h": "<p>Make the <code>u</code> optional: <code>/colou?r/</code></p>",
+   "s": "function saysColor(text) {\n  return /colou?r/.test(text);\n}\n",
+   "st": "function saysColor(text) {\n  // your code here\n}\n\nconsole.log(saysColor(\"Pick a color\")); // should be true\n"
+  },
+  {
+   "t": "Exact counts",
+   "k": "fn",
+   "fn": "isShouting",
+   "a": "text",
+   "c": [
+    [
+     [
+      "Run!!!"
+     ],
+     true
+    ],
+    [
+     [
+      "Run!!!!!"
+     ],
+     true
+    ],
+    [
+     [
+      "Run!!"
+     ],
+     false
+    ],
+    [
+     [
+      "Run!"
+     ],
+     false
+    ],
+    [
+     [
+      "!!!"
+     ],
+     true
+    ]
+   ],
+   "l": "<p>Curly braces give an exact count or a range:</p><div class=\"tbl\"><table><tr><th>Pattern</th><th>Means</th></tr><tr><td><code>a{3}</code></td><td>exactly 3 a's</td></tr><tr><td><code>a{2,4}</code></td><td>2 to 4 a's</td></tr><tr><td><code>a{2,}</code></td><td>2 or more a's</td></tr></table></div><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>/\\d{3}/.test(&quot;Room 42&quot;);   // false, only 2 digits in a row\n/\\d{3}/.test(&quot;Room 420&quot;);  // true</code></pre>",
+   "p": "<p>Return <code>true</code> if <code>text</code> contains 3 or more <code>!</code> in a row.</p>",
+   "h": "<p><code>/!{3,}/.test(text)</code></p>",
+   "s": "function isShouting(text) {\n  return /!{3,}/.test(text);\n}\n",
+   "st": "function isShouting(text) {\n  // your code here\n}\n\nconsole.log(isShouting(\"Run!!!\")); // should be true\n"
+  },
+  {
+   "t": "Start and end",
+   "k": "fn",
+   "fn": "isPin",
+   "a": "code",
+   "c": [
+    [
+     [
+      "1234"
+     ],
+     true
+    ],
+    [
+     [
+      "0007"
+     ],
+     true
+    ],
+    [
+     [
+      "12345"
+     ],
+     false
+    ],
+    [
+     [
+      "123"
+     ],
+     false
+    ],
+    [
+     [
+      "12a4"
+     ],
+     false
+    ],
+    [
+     [
+      ""
+     ],
+     false
+    ]
+   ],
+   "l": "<p>So far, a pattern could match <b>anywhere</b> in the text. <b>Anchors</b> pin it down:</p><ul><li><code>^</code> means the start of the text</li><li><code>$</code> means the end of the text</li></ul><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>/\\d{3}/.test(&quot;abc1234&quot;);     // true, 3 digits somewhere\n/^\\d{3}$/.test(&quot;abc1234&quot;);   // false\n/^\\d{3}$/.test(&quot;123&quot;);       // true, the WHOLE text is 3 digits</code></pre><p>Wrapping a pattern in <code>^</code> and <code>$</code> is how you check that a whole string has the right shape.</p>",
+   "p": "<p>Return <code>true</code> only if <code>code</code> is exactly 4 digits and nothing else.</p>",
+   "h": "<p><code>/^\\d{4}$/.test(code)</code></p>",
+   "s": "function isPin(code) {\n  return /^\\d{4}$/.test(code);\n}\n",
+   "st": "function isPin(code) {\n  // your code here\n}\n\nconsole.log(isPin(\"1234\")); // should be true\n"
+  },
+  {
+   "t": "Ignore case",
+   "k": "fn",
+   "fn": "mentionsDragon",
+   "a": "text",
+   "req": "/dragon/i|/DRAGON/i",
+   "reqMsg": "Use the i flag after the closing slash.",
+   "c": [
+    [
+     [
+      "A dragon!"
+     ],
+     true
+    ],
+    [
+     [
+      "DRAGON!!"
+     ],
+     true
+    ],
+    [
+     [
+      "Dragons ahead"
+     ],
+     true
+    ],
+    [
+     [
+      "drag on"
+     ],
+     false
+    ],
+    [
+     [
+      "wyrm"
+     ],
+     false
+    ]
+   ],
+   "l": "<p>Letters after the closing slash are <b>flags</b> that change how the pattern behaves. The <code>i</code> flag makes it ignore upper and lower case.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>/orc/.test(&quot;ORC&quot;);    // false\n/orc/i.test(&quot;ORC&quot;);   // true\n/orc/i.test(&quot;oRc&quot;);   // true</code></pre>",
+   "p": "<p>Return <code>true</code> if <code>text</code> mentions <code>dragon</code> in any mix of capitals.</p>",
+   "h": "<p><code>/dragon/i.test(text)</code></p>",
+   "s": "function mentionsDragon(text) {\n  return /dragon/i.test(text);\n}\n",
+   "st": "function mentionsDragon(text) {\n  // your code here\n}\n\nconsole.log(mentionsDragon(\"A dragon!\")); // should be true\n"
+  },
+  {
+   "t": "Capture with groups",
+   "k": "fn",
+   "fn": "getLevel",
+   "a": "text",
+   "req": "\\.match\\(",
+   "reqMsg": "Use text.match() with a group.",
+   "c": [
+    [
+     [
+      "Level 12 reached"
+     ],
+     12
+    ],
+    [
+     [
+      "You hit Level 3!"
+     ],
+     3
+    ],
+    [
+     [
+      "Level up"
+     ],
+     0
+    ],
+    [
+     [
+      "level 5"
+     ],
+     0
+    ],
+    [
+     [
+      "Level 100"
+     ],
+     100
+    ]
+   ],
+   "l": "<p>Round brackets <code>( )</code> make a <b>group</b> that remembers what it matched. <code>text.match(pattern)</code> returns an array: item <code>0</code> is the whole match, item <code>1</code> is the first group, and so on. If nothing matches, you get <code>null</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const m = &quot;Gold: 250&quot;.match(/Gold: (\\d+)/);\nconsole.log(m[0]);          // &quot;Gold: 250&quot;\nconsole.log(m[1]);          // &quot;250&quot;, still a string\nconsole.log(Number(m[1]));  // 250\n\n&quot;Nothing here&quot;.match(/Gold: (\\d+)/);  // null</code></pre>",
+   "p": "<p>Return the number after <code>Level</code> as a number, or <code>0</code> if there's no match. Capital <code>L</code> only.</p>",
+   "h": "<p><code>const m = text.match(/Level (\\d+)/);</code> then <code>return m ? Number(m[1]) : 0;</code></p>",
+   "s": "function getLevel(text) {\n  const m = text.match(/Level (\\d+)/);\n  return m ? Number(m[1]) : 0;\n}\n",
+   "st": "function getLevel(text) {\n  // your code here\n}\n\nconsole.log(getLevel(\"Level 12 reached\")); // should be 12\n"
+  },
+  {
+   "t": "Find them all",
+   "k": "fn",
+   "fn": "allNumbers",
+   "a": "text",
+   "req": "/g",
+   "reqMsg": "Use the g flag.",
+   "c": [
+    [
+     [
+      "3 orcs and 12 bats"
+     ],
+     [
+      3,
+      12
+     ]
+    ],
+    [
+     [
+      "7"
+     ],
+     [
+      7
+     ]
+    ],
+    [
+     [
+      "none here"
+     ],
+     []
+    ],
+    [
+     [
+      "1 2 3 40"
+     ],
+     [
+      1,
+      2,
+      3,
+      40
+     ]
+    ]
+   ],
+   "l": "<p>Normally a regex stops at the first match. The <code>g</code> flag (global) finds <b>every</b> match. With <code>g</code>, <code>match()</code> returns an array of all the matched strings, or <code>null</code> if there were none.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>&quot;a1 b22 c333&quot;.match(/\\d+/g);   // [&quot;1&quot;, &quot;22&quot;, &quot;333&quot;]\n&quot;abc&quot;.match(/\\d+/g);           // null</code></pre><div class=\"callout\"><b>Tip</b><p><code>text.match(/x/g) || []</code> turns that <code>null</code> into an empty array, so you can safely <code>.map()</code> it.</p></div>",
+   "p": "<p>Return all the whole numbers in <code>text</code> as an array of numbers. Return <code>[]</code> if there are none.</p>",
+   "h": "<p><code>return (text.match(/\\d+/g) || []).map(Number);</code></p>",
+   "s": "function allNumbers(text) {\n  return (text.match(/\\d+/g) || []).map(Number);\n}\n",
+   "st": "function allNumbers(text) {\n  // your code here\n}\n\nconsole.log(allNumbers(\"3 orcs and 12 bats\")); // should be [3, 12]\n"
+  },
+  {
+   "t": "Replace with a pattern",
+   "k": "fn",
+   "fn": "censor",
+   "a": "text",
+   "c": [
+    [
+     [
+      "darn it"
+     ],
+     "**** it"
+    ],
+    [
+     [
+      "Darn, DARN, darn!"
+     ],
+     "****, ****, ****!"
+    ],
+    [
+     [
+      "all good"
+     ],
+     "all good"
+    ],
+    [
+     [
+      "darned"
+     ],
+     "****ed"
+    ]
+   ],
+   "l": "<p><code>text.replace(pattern, newText)</code> swaps matches for something else. Without <code>g</code> it only replaces the first match. Flags can be combined, like <code>gi</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>&quot;lag lag lag&quot;.replace(/lag/, &quot;win&quot;);    // &quot;win lag lag&quot;\n&quot;lag LAG lag&quot;.replace(/lag/gi, &quot;win&quot;);  // &quot;win win win&quot;</code></pre>",
+   "p": "<p>Replace every <code>darn</code> in any mix of capitals with <code>****</code>.</p>",
+   "h": "<p>Use both flags: <code>text.replace(/darn/gi, &quot;****&quot;)</code></p>",
+   "s": "function censor(text) {\n  return text.replace(/darn/gi, \"****\");\n}\n",
+   "st": "function censor(text) {\n  // your code here\n}\n\nconsole.log(censor(\"darn it\")); // should be \"**** it\"\n"
+  },
+  {
+   "t": "Reuse what you caught",
+   "k": "fn",
+   "fn": "prettyStats",
+   "a": "text",
+   "req": "\\$1",
+   "reqMsg": "Use $1 and $2 in the replacement string.",
+   "c": [
+    [
+     [
+      "hp=10 mp=5"
+     ],
+     "hp: 10 mp: 5"
+    ],
+    [
+     [
+      "atk=7"
+     ],
+     "atk: 7"
+    ],
+    [
+     [
+      "no stats"
+     ],
+     "no stats"
+    ],
+    [
+     [
+      "str=18,dex=12"
+     ],
+     "str: 18,dex: 12"
+    ]
+   ],
+   "l": "<p>In a replacement string, <code>$1</code> means &quot;whatever group 1 matched&quot;, <code>$2</code> is group 2, and so on. This lets you rearrange text.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>&quot;Stark, Arya&quot;.replace(/(\\w+), (\\w+)/, &quot;$2 $1&quot;);   // &quot;Arya Stark&quot;\n&quot;3x5&quot;.replace(/(\\d+)x(\\d+)/, &quot;$1 by $2&quot;);         // &quot;3 by 5&quot;</code></pre>",
+   "p": "<p>Turn every <code>name=number</code> into <code>name: number</code>. For example <code>&quot;hp=10 mp=5&quot;</code> becomes <code>&quot;hp: 10 mp: 5&quot;</code>.</p>",
+   "h": "<p><code>text.replace(/(\\w+)=(\\d+)/g, &quot;$1: $2&quot;)</code></p>",
+   "s": "function prettyStats(text) {\n  return text.replace(/(\\w+)=(\\d+)/g, \"$1: $2\");\n}\n",
+   "st": "function prettyStats(text) {\n  // your code here\n}\n\nconsole.log(prettyStats(\"hp=10 mp=5\")); // should be \"hp: 10 mp: 5\"\n"
+  },
+  {
+   "t": "Split on a pattern",
+   "k": "fn",
+   "fn": "items",
+   "a": "text",
+   "req": "split\\(\\s*/",
+   "reqMsg": "Pass a regex to split().",
+   "c": [
+    [
+     [
+      "sword, shield  bow"
+     ],
+     [
+      "sword",
+      "shield",
+      "bow"
+     ]
+    ],
+    [
+     [
+      "a,b,c"
+     ],
+     [
+      "a",
+      "b",
+      "c"
+     ]
+    ],
+    [
+     [
+      "potion"
+     ],
+     [
+      "potion"
+     ]
+    ],
+    [
+     [
+      "gem ,  ring"
+     ],
+     [
+      "gem",
+      "ring"
+     ]
+    ]
+   ],
+   "l": "<p><code>split()</code> can take a regex instead of a plain string. That's great for messy input where people type commas, spaces, or both.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>&quot;1  2   3&quot;.split(&quot; &quot;);      // [&quot;1&quot;, &quot;&quot;, &quot;2&quot;, &quot;&quot;, &quot;&quot;, &quot;3&quot;]  ugh\n&quot;1  2   3&quot;.split(/\\s+/);    // [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]</code></pre>",
+   "p": "<p>Split <code>text</code> into item names. Items are separated by any mix of commas and spaces.</p>",
+   "h": "<p>A class with a quantifier: <code>text.split(/[\\s,]+/)</code></p>",
+   "s": "function items(text) {\n  return text.split(/[\\s,]+/);\n}\n",
+   "st": "function items(text) {\n  // your code here\n}\n\nconsole.log(items(\"sword, shield  bow\")); // should be [\"sword\", \"shield\", \"bow\"]\n"
+  },
+  {
+   "t": "Loop over every match",
+   "k": "fn",
+   "fn": "findCoords",
+   "a": "text",
+   "req": "matchAll",
+   "reqMsg": "Use matchAll.",
+   "c": [
+    [
+     [
+      "(1,2) and (3,4)"
+     ],
+     [
+      [
+       1,
+       2
+      ],
+      [
+       3,
+       4
+      ]
+     ]
+    ],
+    [
+     [
+      "go to (10,0)"
+     ],
+     [
+      [
+       10,
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      "nowhere"
+     ],
+     []
+    ],
+    [
+     [
+      "(5,5)(6,7)(8,9)"
+     ],
+     [
+      [
+       5,
+       5
+      ],
+      [
+       6,
+       7
+      ],
+      [
+       8,
+       9
+      ]
+     ]
+    ]
+   ],
+   "l": "<p><code>match()</code> with <code>g</code> gives you the matched strings but loses the groups. <code>text.matchAll(pattern)</code> gives you <b>every</b> match <b>with</b> its groups. The pattern must have the <code>g</code> flag.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const text = &quot;orc:5 bat:2&quot;;\nfor (const m of text.matchAll(/(\\w+):(\\d+)/g)) {\n  console.log(m[1], Number(m[2]));\n}</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>orc 5\nbat 2</code></pre><p>Remember that <code>(</code> and <code>)</code> are special, so a real bracket is <code>\\(</code>.</p>",
+   "p": "<p>Find every <code>(x,y)</code> in <code>text</code> and return an array of <code>[x, y]</code> number pairs.</p>",
+   "h": "<p>Pattern: <code>/\\((\\d+),(\\d+)\\)/g</code>. Push <code>[Number(m[1]), Number(m[2])]</code> for each match.</p>",
+   "s": "function findCoords(text) {\n  const out = [];\n  for (const m of text.matchAll(/\\((\\d+),(\\d+)\\)/g)) {\n    out.push([Number(m[1]), Number(m[2])]);\n  }\n  return out;\n}\n",
+   "st": "function findCoords(text) {\n  // your code here\n}\n\nconsole.log(findCoords(\"(1,2) and (3,4)\")); // should be [[1, 2], [3, 4]]\n"
+  },
+  {
+   "t": "Named groups",
+   "k": "fn",
+   "fn": "parseTime",
+   "a": "text",
+   "req": "\\(\\?<",
+   "reqMsg": "Use named groups like (?<min>...).",
+   "c": [
+    [
+     [
+      "12:05"
+     ],
+     {
+      "min": 12,
+      "sec": 5
+     }
+    ],
+    [
+     [
+      "Best time 3:59!"
+     ],
+     {
+      "min": 3,
+      "sec": 59
+     }
+    ],
+    [
+     [
+      "no time"
+     ],
+     null
+    ],
+    [
+     [
+      "0:00"
+     ],
+     {
+      "min": 0,
+      "sec": 0
+     }
+    ]
+   ],
+   "l": "<p><code>m[1]</code> and <code>m[2]</code> get confusing in bigger patterns. A <b>named group</b> gives a group a name: <code>(?&lt;name&gt;...)</code>. You read it from <code>m.groups.name</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const m = &quot;x=4 y=9&quot;.match(/x=(?&lt;x&gt;\\d+) y=(?&lt;y&gt;\\d+)/);\nconsole.log(m.groups.x, m.groups.y);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>4 9</code></pre>",
+   "p": "<p>Find a time like <code>12:05</code> in <code>text</code>. Return <code>{ min: 12, sec: 5 }</code> with numbers, or <code>null</code> if there's no time.</p>",
+   "h": "<p><code>/(?&lt;min&gt;\\d+):(?&lt;sec&gt;\\d+)/</code>, then return <code>{ min: Number(m.groups.min), sec: Number(m.groups.sec) }</code></p>",
+   "s": "function parseTime(text) {\n  const m = text.match(/(?<min>\\d+):(?<sec>\\d+)/);\n  if (!m) return null;\n  return { min: Number(m.groups.min), sec: Number(m.groups.sec) };\n}\n",
+   "st": "function parseTime(text) {\n  // your code here\n}\n\nconsole.log(parseTime(\"12:05\")); // should be { min: 12, sec: 5 }\n"
+  },
+  {
+   "t": "Valid player names",
+   "k": "fn",
+   "fn": "isValidName",
+   "a": "name",
+   "c": [
+    [
+     [
+      "Robin"
+     ],
+     true
+    ],
+    [
+     [
+      "x_9"
+     ],
+     true
+    ],
+    [
+     [
+      "Ab"
+     ],
+     false
+    ],
+    [
+     [
+      "9lives"
+     ],
+     false
+    ],
+    [
+     [
+      "Has Space"
+     ],
+     false
+    ],
+    [
+     [
+      "Abcdefghijkl"
+     ],
+     true
+    ],
+    [
+     [
+      "Abcdefghijklm"
+     ],
+     false
+    ],
+    [
+     [
+      "_hidden"
+     ],
+     false
+    ]
+   ],
+   "l": "<p>Now combine anchors, classes and counts to check a whole string. Read this one piece by piece:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>/^[A-Z]\\d{2}$/\n//  ^        start\n//  [A-Z]    one capital letter\n//  \\d{2}    exactly two digits\n//  $        end</code></pre><p>It matches <code>&quot;B12&quot;</code> but not <code>&quot;B123&quot;</code> or <code>&quot;b12&quot;</code>.</p>",
+   "p": "<p>A valid name is 3 to 12 characters long, uses only letters, digits and <code>_</code>, and starts with a letter. Return <code>true</code> or <code>false</code>.</p>",
+   "h": "<p>One letter, then 2 to 11 word characters: <code>/^[A-Za-z]\\w{2,11}$/</code></p>",
+   "s": "function isValidName(name) {\n  return /^[A-Za-z]\\w{2,11}$/.test(name);\n}\n",
+   "st": "function isValidName(name) {\n  // your code here\n}\n\nconsole.log(isValidName(\"Robin\")); // should be true\n"
+  },
+  {
+   "t": "Chat commands",
+   "k": "fn",
+   "fn": "parseCommand",
+   "a": "text",
+   "c": [
+    [
+     [
+      "/give sword 3"
+     ],
+     {
+      "cmd": "give",
+      "args": [
+       "sword",
+       "3"
+      ]
+     }
+    ],
+    [
+     [
+      "/heal"
+     ],
+     {
+      "cmd": "heal",
+      "args": []
+     }
+    ],
+    [
+     [
+      "hello everyone"
+     ],
+     null
+    ],
+    [
+     [
+      "/tp  10   20"
+     ],
+     {
+      "cmd": "tp",
+      "args": [
+       "10",
+       "20"
+      ]
+     }
+    ],
+    [
+     [
+      "/heal "
+     ],
+     {
+      "cmd": "heal",
+      "args": []
+     }
+    ]
+   ],
+   "l": "<p>Lots of games read commands from chat. A regex can split a line into the command name and the rest in one go:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const m = &quot;/kick Bob&quot;.match(/^\\/(\\w+)\\s*(.*)$/);\n// m[1] is &quot;kick&quot;, m[2] is &quot;Bob&quot;</code></pre><p><code>\\/</code> is a real slash, <code>(\\w+)</code> grabs the name, <code>\\s*</code> skips spaces, and <code>(.*)</code> grabs everything left (maybe nothing).</p>",
+   "p": "<p>If <code>text</code> starts with <code>/</code>, return <code>{ cmd, args }</code>: the command name and an array of the words after it. Otherwise return <code>null</code>.</p>",
+   "h": "<p>After matching, <code>m[2]</code> might be <code>&quot;&quot;</code>. Use <code>m[2] ? m[2].trim().split(/\\s+/) : []</code> for the args.</p>",
+   "s": "function parseCommand(text) {\n  const m = text.match(/^\\/(\\w+)\\s*(.*)$/);\n  if (!m) return null;\n  const rest = m[2].trim();\n  return { cmd: m[1], args: rest ? rest.split(/\\s+/) : [] };\n}\n",
+   "st": "function parseCommand(text) {\n  // your code here\n}\n\nconsole.log(parseCommand(\"/give sword 3\")); // should be { cmd: \"give\", args: [\"sword\", \"3\"] }\n"
+  },
+  {
+   "t": "Dice notation",
+   "k": "fn",
+   "fn": "parseDice",
+   "a": "text",
+   "c": [
+    [
+     [
+      "2d6+3"
+     ],
+     {
+      "count": 2,
+      "sides": 6,
+      "bonus": 3
+     }
+    ],
+    [
+     [
+      "d20"
+     ],
+     {
+      "count": 1,
+      "sides": 20,
+      "bonus": 0
+     }
+    ],
+    [
+     [
+      "3d8-2"
+     ],
+     {
+      "count": 3,
+      "sides": 8,
+      "bonus": -2
+     }
+    ],
+    [
+     [
+      "1d4"
+     ],
+     {
+      "count": 1,
+      "sides": 4,
+      "bonus": 0
+     }
+    ],
+    [
+     [
+      "banana"
+     ],
+     null
+    ],
+    [
+     [
+      "2d"
+     ],
+     null
+    ]
+   ],
+   "l": "<p>Tabletop games write dice like <code>2d6+3</code>: roll 2 six-sided dice and add 3. The count is optional (<code>d20</code> means one die) and so is the bonus. A pattern for it:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>/^(\\d*)d(\\d+)([+-]\\d+)?$/</code></pre><ul><li><code>(\\d*)</code>: count, maybe empty</li><li><code>d(\\d+)</code>: the letter d, then the sides</li><li><code>([+-]\\d+)?</code>: an optional plus or minus and a number</li></ul><p><code>Number(&quot;+3&quot;)</code> is <code>3</code> and <code>Number(&quot;-2&quot;)</code> is <code>-2</code>, so the bonus group converts nicely.</p>",
+   "p": "<p>Return <code>{ count, sides, bonus }</code> as numbers, or <code>null</code> if <code>text</code> isn't valid dice. Missing count means 1, missing bonus means 0.</p>",
+   "h": "<p>Groups that didn't match are <code>undefined</code> and <code>(\\d*)</code> can be <code>&quot;&quot;</code>. Use <code>m[1] ? Number(m[1]) : 1</code> and <code>m[3] ? Number(m[3]) : 0</code></p>",
+   "s": "function parseDice(text) {\n  const m = text.match(/^(\\d*)d(\\d+)([+-]\\d+)?$/);\n  if (!m) return null;\n  return {\n    count: m[1] ? Number(m[1]) : 1,\n    sides: Number(m[2]),\n    bonus: m[3] ? Number(m[3]) : 0\n  };\n}\n",
+   "st": "function parseDice(text) {\n  // your code here\n}\n\nconsole.log(parseDice(\"2d6+3\")); // should be { count: 2, sides: 6, bonus: 3 }\n"
+  },
+  {
+   "t": "Capstone: log parser",
+   "k": "fn",
+   "fn": "parseLog",
+   "a": "log",
+   "c": [
+    [
+     [
+      "[12:01] INFO Game started\n[12:02] WARN Low hp\njunk line\n[12:05] ERROR Boss crashed"
+     ],
+     [
+      {
+       "time": "12:01",
+       "level": "INFO",
+       "msg": "Game started"
+      },
+      {
+       "time": "12:02",
+       "level": "WARN",
+       "msg": "Low hp"
+      },
+      {
+       "time": "12:05",
+       "level": "ERROR",
+       "msg": "Boss crashed"
+      }
+     ]
+    ],
+    [
+     [
+      "nothing useful"
+     ],
+     []
+    ],
+    [
+     [
+      "[09:30] INFO Saved\n[9:31] INFO Bad time\n[09:32] DEBUG Not a level"
+     ],
+     [
+      {
+       "time": "09:30",
+       "level": "INFO",
+       "msg": "Saved"
+      }
+     ]
+    ],
+    [
+     [
+      ""
+     ],
+     []
+    ]
+   ],
+   "l": "<p>Time to use everything at once. Game servers write log files, one event per line, like this:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>[12:01] INFO Game started\n[12:02] WARN Low hp\n[12:05] ERROR Boss crashed</code></pre><p>Real logs also contain junk lines, so your pattern should only accept lines with exactly the right shape. <code>(INFO|WARN|ERROR)</code> means &quot;one of these words&quot;: the <code>|</code> means &quot;or&quot;.</p>",
+   "p": "<p>Split <code>log</code> into lines. For each line shaped like <code>[HH:MM] LEVEL message</code> (two-digit hours and minutes, level INFO, WARN or ERROR), collect <code>{ time, level, msg }</code>. Skip every other line. Return the array.</p>",
+   "h": "<p>Split with <code>log.split(/\\n/)</code>. A line pattern: <code>/^\\[(?&lt;time&gt;\\d{2}:\\d{2})\\] (?&lt;level&gt;INFO|WARN|ERROR) (?&lt;msg&gt;.+)$/</code></p>",
+   "s": "function parseLog(log) {\n  const out = [];\n  for (const line of log.split(/\\n/)) {\n    const m = line.match(/^\\[(?<time>\\d{2}:\\d{2})\\] (?<level>INFO|WARN|ERROR) (?<msg>.+)$/);\n    if (m) out.push({ time: m.groups.time, level: m.groups.level, msg: m.groups.msg });\n  }\n  return out;\n}\n",
+   "st": "function parseLog(log) {\n  // your code here\n}\n\nconsole.log(parseLog(\"[12:01] INFO Game started\\n[12:02] WARN Low hp\\njunk line\\n[12:05] ERROR Boss crashed\")); // should be [{ time: \"12:01\", level: \"INFO\", msg: \"Game started\" }, { time: \"12:02\", level: \"WARN\", msg: \"Low hp\" }, { time: \"12:05\", level: \"ERROR\", msg: \"Boss crashed\" }]\n"
+  }
+ ]
+}

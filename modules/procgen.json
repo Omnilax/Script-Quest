@@ -1,0 +1,1801 @@
+{
+ "id": "procgen",
+ "title": "Procedural Generation",
+ "group": "bonus",
+ "xp": 20,
+ "icon": "PG",
+ "color": "s6",
+ "blurb": "Grow caves, rooms, terrain, names and loot from a single seed number, and get the exact same world every time.",
+ "intro": "<p><b>Procedural generation</b> means letting code build your content: dungeons, caves, terrain, loot, even names. Minecraft worlds, Spelunky levels and roguelike dungeons all come from it.</p><p>The secret ingredient is a <b>seeded random number generator</b>. Give it the same seed and it produces the same &quot;random&quot; numbers every time, so a seed like <code>1234</code> always builds the same world. That's how players share seeds, and it's how the checks here can test your code.</p><p>Each starter includes a small generator called <code>mulberry32</code>. You don't need to understand its insides. You just call it with a seed and it hands you a function that returns a new number from 0 up to (but not including) 1 each time you call it.</p><div class=\"callout\"><b>Tip</b><p>Godot's <code>RandomNumberGenerator</code> has a <code>seed</code> property, and GameMaker has <code>random_set_seed()</code>. Same idea, built in.</p></div>",
+ "links": [
+  [
+   "Red Blob Games: Noise functions and map generation",
+   "https://www.redblobgames.com/articles/noise/introduction.html"
+  ],
+  [
+   "RogueBasin: Cellular automata cave generation",
+   "https://www.roguebasin.com/index.php/Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels"
+  ],
+  [
+   "Wikipedia: Fisher-Yates shuffle",
+   "https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle"
+  ],
+  [
+   "Godot Docs: Random number generation",
+   "https://docs.godotengine.org/en/stable/tutorials/math/random_number_generation.html"
+  ]
+ ],
+ "stages": [
+  {
+   "t": "Why seeds?",
+   "k": "fn",
+   "fn": "firstRolls",
+   "a": "seed, n",
+   "cmp": "approx",
+   "l": "<p><code>Math.random()</code> gives a different number every time you run your program. That's great for a dice roll, but terrible if you want to share a cool level with a friend, or test your code.</p><p>A <b>seeded</b> generator fixes that. You make one with a seed, then call it again and again for the next number in its sequence:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const rand = mulberry32(42);\nrand();   // 0.6011...\nrand();   // 0.4482...\nconst again = mulberry32(42);\nagain();  // 0.6011... the same as before!</code></pre><p>Same seed, same sequence. Different seed, different sequence.</p>",
+   "p": "<p>Make a generator from <code>seed</code> and return an array of its first <code>n</code> numbers.</p>",
+   "h": "<p><code>const rand = mulberry32(seed);</code> then loop <code>n</code> times, pushing <code>rand()</code> into an array.</p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n\nfunction firstRolls(seed, n) {\n  const rand = mulberry32(seed);\n  const out = [];\n  for (let i = 0; i < n; i++) out.push(rand());\n  return out;\n}\n",
+   "c": [
+    [
+     [
+      1,
+      3
+     ],
+     [
+      0.6270739405881613,
+      0.002735721180215478,
+      0.5274470399599522
+     ]
+    ],
+    [
+     [
+      42,
+      3
+     ],
+     [
+      0.6011037519201636,
+      0.44829055899754167,
+      0.8524657934904099
+     ]
+    ],
+    [
+     [
+      1,
+      1
+     ],
+     [
+      0.6270739405881613
+     ]
+    ],
+    [
+     [
+      7,
+      0
+     ],
+     []
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n\nfunction firstRolls(seed, n) {\n  // your code here\n}\n\nconsole.log(firstRolls(1, 3)); // should be [0.6270739405881613, 0.002735721180215478, 0.5274470399599522]\n"
+  },
+  {
+   "t": "Whole numbers in a range",
+   "k": "fn",
+   "fn": "randInts",
+   "a": "seed, min, max, count",
+   "l": "<p><code>rand()</code> gives a decimal from 0 up to 1. To get a whole number from <code>min</code> to <code>max</code> (both included):</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>Math.floor(rand() * (max - min + 1)) + min</code></pre><p>Why it works for a six-sided die (<code>min = 1, max = 6</code>):</p><ul><li><code>rand() * 6</code> is somewhere from 0 to 5.999...</li><li><code>Math.floor</code> chops it to 0, 1, 2, 3, 4 or 5</li><li><code>+ 1</code> shifts it to 1 to 6</li></ul>",
+   "p": "<p>Return an array of <code>count</code> whole numbers from <code>min</code> to <code>max</code>, using a generator made from <code>seed</code>.</p>",
+   "h": "<p>Inside a loop: <code>out.push(Math.floor(rand() * (max - min + 1)) + min);</code></p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n\nfunction randInts(seed, min, max, count) {\n  const rand = mulberry32(seed);\n  const out = [];\n  for (let i = 0; i < count; i++) {\n    out.push(Math.floor(rand() * (max - min + 1)) + min);\n  }\n  return out;\n}\n",
+   "c": [
+    [
+     [
+      1,
+      1,
+      6,
+      5
+     ],
+     [
+      4,
+      1,
+      4,
+      6,
+      6
+     ]
+    ],
+    [
+     [
+      42,
+      10,
+      20,
+      4
+     ],
+     [
+      16,
+      14,
+      19,
+      17
+     ]
+    ],
+    [
+     [
+      3,
+      0,
+      1,
+      8
+     ],
+     [
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+     ]
+    ],
+    [
+     [
+      5,
+      7,
+      7,
+      3
+     ],
+     [
+      7,
+      7,
+      7
+     ]
+    ],
+    [
+     [
+      9,
+      1,
+      100,
+      0
+     ],
+     []
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n\nfunction randInts(seed, min, max, count) {\n  // your code here\n}\n\nconsole.log(randInts(1, 1, 6, 5)); // should be [4, 1, 4, 6, 6]\n"
+  },
+  {
+   "t": "Pick from a list",
+   "k": "fn",
+   "fn": "pickMany",
+   "a": "seed, list, n",
+   "l": "<p>To pick a random item, pick a random <b>index</b> from 0 to <code>list.length - 1</code>. From now on the starter includes a <code>randInt(rand, min, max)</code> helper that does the formula from the last stage.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const rand = mulberry32(7);\nconst enemies = [&quot;slime&quot;, &quot;bat&quot;, &quot;orc&quot;];\nconst e = enemies[randInt(rand, 0, enemies.length - 1)];</code></pre>",
+   "p": "<p>Return an array of <code>n</code> random picks from <code>list</code> (the same item can come up more than once).</p>",
+   "h": "<p>Loop <code>n</code> times and push <code>list[randInt(rand, 0, list.length - 1)]</code>.</p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction pickMany(seed, list, n) {\n  const rand = mulberry32(seed);\n  const out = [];\n  for (let i = 0; i < n; i++) out.push(list[randInt(rand, 0, list.length - 1)]);\n  return out;\n}\n",
+   "c": [
+    [
+     [
+      1,
+      [
+       "slime",
+       "bat",
+       "orc",
+       "ghost"
+      ],
+      5
+     ],
+     [
+      "orc",
+      "slime",
+      "orc",
+      "ghost",
+      "ghost"
+     ]
+    ],
+    [
+     [
+      2,
+      [
+       "red",
+       "blue"
+      ],
+      6
+     ],
+     [
+      "blue",
+      "red",
+      "red",
+      "blue",
+      "blue",
+      "blue"
+     ]
+    ],
+    [
+     [
+      3,
+      [
+       "only"
+      ],
+      3
+     ],
+     [
+      "only",
+      "only",
+      "only"
+     ]
+    ],
+    [
+     [
+      4,
+      [
+       "a",
+       "b",
+       "c"
+      ],
+      0
+     ],
+     []
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction pickMany(seed, list, n) {\n  // your code here\n}\n\nconsole.log(pickMany(1, [\"slime\", \"bat\", \"orc\", \"ghost\"], 5)); // should be [\"orc\", \"slime\", \"orc\", \"ghost\", \"ghost\"]\n"
+  },
+  {
+   "t": "Weighted loot tables",
+   "k": "fn",
+   "fn": "rollLoot",
+   "a": "seed, table, n",
+   "l": "<p>Real loot isn't evenly random: coins should drop often and crowns rarely. A <b>loot table</b> gives each item a <b>weight</b>. Bigger weight, more common.</p><p>The trick: roll a number from 0 up to the total weight, then walk down the table subtracting weights until the roll fits.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// table: [[&quot;coin&quot;, 70], [&quot;gem&quot;, 25], [&quot;crown&quot;, 5]]  total 100\nlet r = rand() * 100;       // say r is 82\n// 82 &lt; 70? no.  r = 82 - 70 = 12\n// 12 &lt; 25? yes! it's a gem</code></pre>",
+   "p": "<p><code>table</code> is a list of <code>[item, weight]</code> pairs. Return an array of <code>n</code> items rolled from it. For each roll use exactly one <code>rand()</code>: <code>let r = rand() * total;</code>, then check each pair in order.</p>",
+   "h": "<p>Work out <code>total</code> first. Then for each roll: loop over the pairs, <code>if (r &lt; weight)</code> that's your item, otherwise <code>r -= weight;</code></p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n\nfunction rollLoot(seed, table, n) {\n  const rand = mulberry32(seed);\n  let total = 0;\n  for (const [, w] of table) total += w;\n  const out = [];\n  for (let i = 0; i < n; i++) {\n    let r = rand() * total;\n    for (const [item, w] of table) {\n      if (r < w) { out.push(item); break; }\n      r -= w;\n    }\n  }\n  return out;\n}\n",
+   "c": [
+    [
+     [
+      1,
+      [
+       [
+        "coin",
+        70
+       ],
+       [
+        "gem",
+        25
+       ],
+       [
+        "crown",
+        5
+       ]
+      ],
+      10
+     ],
+     [
+      "coin",
+      "coin",
+      "coin",
+      "crown",
+      "crown",
+      "coin",
+      "coin",
+      "gem",
+      "coin",
+      "crown"
+     ]
+    ],
+    [
+     [
+      2,
+      [
+       [
+        "coin",
+        70
+       ],
+       [
+        "gem",
+        25
+       ],
+       [
+        "crown",
+        5
+       ]
+      ],
+      10
+     ],
+     [
+      "gem",
+      "coin",
+      "coin",
+      "coin",
+      "gem",
+      "coin",
+      "coin",
+      "coin",
+      "gem",
+      "coin"
+     ]
+    ],
+    [
+     [
+      3,
+      [
+       [
+        "junk",
+        1
+       ],
+       [
+        "never",
+        0
+       ]
+      ],
+      4
+     ],
+     [
+      "junk",
+      "junk",
+      "junk",
+      "junk"
+     ]
+    ],
+    [
+     [
+      4,
+      [
+       [
+        "a",
+        1
+       ],
+       [
+        "b",
+        1
+       ]
+      ],
+      6
+     ],
+     [
+      "b",
+      "a",
+      "a",
+      "a",
+      "a",
+      "b"
+     ]
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n\nfunction rollLoot(seed, table, n) {\n  // your code here\n}\n\nconsole.log(rollLoot(1, [[\"coin\", 70], [\"gem\", 25], [\"crown\", 5]], 10)); // should be [\"coin\", \"coin\", \"coin\", \"crown\", \"crown\", \"coin\", \"coin\", \"gem\", \"coin\", \"crown\"]\n"
+  },
+  {
+   "t": "Seeded shuffle",
+   "k": "fn",
+   "fn": "shuffle",
+   "a": "seed, arr",
+   "l": "<p>Shuffling a deck of cards, the order of enemy waves, a playlist: you need a <b>fair</b> shuffle. The classic one is <b>Fisher-Yates</b>. Walk backwards through the array and swap each spot with a random spot at or before it.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>for (let i = a.length - 1; i &gt; 0; i--) {\n  const j = randInt(rand, 0, i);\n  [a[i], a[j]] = [a[j], a[i]];   // swap\n}</code></pre><div class=\"callout\"><b>Tip</b><p><code>[a[i], a[j]] = [a[j], a[i]]</code> swaps two items in one line using destructuring.</p></div>",
+   "p": "<p>Return a shuffled <b>copy</b> of <code>arr</code> using Fisher-Yates exactly as in the example. Don't change <code>arr</code> itself.</p>",
+   "h": "<p>Copy first with <code>const a = arr.slice();</code> then run the loop on <code>a</code> and return it.</p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction shuffle(seed, arr) {\n  const rand = mulberry32(seed);\n  const a = arr.slice();\n  for (let i = a.length - 1; i > 0; i--) {\n    const j = randInt(rand, 0, i);\n    [a[i], a[j]] = [a[j], a[i]];\n  }\n  return a;\n}\n",
+   "c": [
+    [
+     [
+      1,
+      [
+       1,
+       2,
+       3,
+       4,
+       5
+      ]
+     ],
+     [
+      5,
+      3,
+      2,
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      2,
+      [
+       "a",
+       "b",
+       "c",
+       "d"
+      ]
+     ],
+     [
+      "b",
+      "d",
+      "a",
+      "c"
+     ]
+    ],
+    [
+     [
+      3,
+      []
+     ],
+     []
+    ],
+    [
+     [
+      4,
+      [
+       "solo"
+      ]
+     ],
+     [
+      "solo"
+     ]
+    ],
+    [
+     [
+      5,
+      [
+       10,
+       20,
+       30,
+       40,
+       50,
+       60
+      ]
+     ],
+     [
+      30,
+      60,
+      20,
+      10,
+      40,
+      50
+     ]
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction shuffle(seed, arr) {\n  // your code here\n}\n\nconsole.log(shuffle(1, [1, 2, 3, 4, 5])); // should be [5, 3, 2, 1, 4]\n"
+  },
+  {
+   "t": "Random walk",
+   "k": "fn",
+   "fn": "randomWalk",
+   "a": "seed, steps",
+   "l": "<p>A <b>random walk</b> takes one step in a random direction, again and again. It's the starting point for wandering monsters, rivers, and the cave carver in the next stages.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]];   // right, left, down, up\nconst [dx, dy] = DIRS[randInt(rand, 0, 3)];\nx += dx;\ny += dy;</code></pre>",
+   "p": "<p>Start at <code>[0, 0]</code>. Take <code>steps</code> steps, choosing each direction with <code>DIRS[randInt(rand, 0, 3)]</code> using the <code>DIRS</code> order above. Return every position visited as <code>[x, y]</code> pairs, including the start.</p>",
+   "h": "<p>Start the path as <code>[[0, 0]]</code>. After each step, push <code>[x, y]</code>. You should end up with <code>steps + 1</code> positions.</p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nconst DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]];\nfunction randomWalk(seed, steps) {\n  const rand = mulberry32(seed);\n  let x = 0, y = 0;\n  const path = [[0, 0]];\n  for (let i = 0; i < steps; i++) {\n    const [dx, dy] = DIRS[randInt(rand, 0, 3)];\n    x += dx;\n    y += dy;\n    path.push([x, y]);\n  }\n  return path;\n}\n",
+   "c": [
+    [
+     [
+      1,
+      5
+     ],
+     [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      2,
+      8
+     ],
+     [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       -1,
+       1
+      ],
+      [
+       -2,
+       1
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       -2,
+       1
+      ],
+      [
+       -2,
+       2
+      ],
+      [
+       -3,
+       2
+      ],
+      [
+       -4,
+       2
+      ]
+     ]
+    ],
+    [
+     [
+      3,
+      0
+     ],
+     [
+      [
+       0,
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      4,
+      3
+     ],
+     [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       -1
+      ],
+      [
+       -1,
+       -1
+      ],
+      [
+       0,
+       -1
+      ]
+     ]
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction randomWalk(seed, steps) {\n  // your code here\n}\n\nconsole.log(randomWalk(1, 5)); // should be [[0, 0], [0, 1], [1, 1], [1, 2], [1, 1], [1, 0]]\n"
+  },
+  {
+   "t": "Tile grids",
+   "k": "fn",
+   "fn": "makeMap",
+   "a": "w, h",
+   "c": [
+    [
+     [
+      3,
+      2
+     ],
+     [
+      "###",
+      "###"
+     ]
+    ],
+    [
+     [
+      1,
+      1
+     ],
+     [
+      "#"
+     ]
+    ],
+    [
+     [
+      5,
+      1
+     ],
+     [
+      "#####"
+     ]
+    ],
+    [
+     [
+      0,
+      0
+     ],
+     []
+    ],
+    [
+     [
+      2,
+      3
+     ],
+     [
+      "##",
+      "##",
+      "##"
+     ]
+    ]
+   ],
+   "l": "<p>Most generators work on a <b>grid</b> of tiles. An array of arrays is easy to change: <code>grid[y][x]</code> is the tile in row <code>y</code>, column <code>x</code>. To print it or compare it, join each row into a string.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const grid = [];\nfor (let y = 0; y &lt; 2; y++) grid.push(new Array(4).fill(&quot;#&quot;));\ngrid[1][2] = &quot;.&quot;;\nconsole.log(grid.map(row =&gt; row.join(&quot;&quot;)));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>[&quot;####&quot;, &quot;##.#&quot;]</code></pre><p>We'll use <code>#</code> for walls and <code>.</code> for floor.</p>",
+   "p": "<p>Build a grid <code>w</code> tiles wide and <code>h</code> tiles tall, filled with <code>#</code>, and return it as an array of strings.</p>",
+   "h": "<p>Loop <code>h</code> times and push <code>new Array(w).fill(&quot;#&quot;)</code>, then <code>return grid.map(row =&gt; row.join(&quot;&quot;));</code></p>",
+   "s": "function makeMap(w, h) {\n  const grid = [];\n  for (let y = 0; y < h; y++) grid.push(new Array(w).fill(\"#\"));\n  return grid.map(row => row.join(\"\"));\n}\n",
+   "st": "function makeMap(w, h) {\n  // your code here\n}\n\nconsole.log(makeMap(3, 2)); // should be [\"###\", \"###\"]\n"
+  },
+  {
+   "t": "Drunkard's walk caves",
+   "k": "fn",
+   "fn": "carveCave",
+   "a": "seed, w, h, steps",
+   "l": "<p>Combine the last two ideas and you get a cave! The <b>drunkard's walk</b> starts in the middle of a solid map and stumbles around, carving floor wherever it steps.</p><p>To keep a solid border, the walker isn't allowed onto the outer ring of tiles. If a step would take it there, it stays where it is for that step.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const nx = x + dx, ny = y + dy;\nif (nx &gt;= 1 &amp;&amp; nx &lt;= w - 2 &amp;&amp; ny &gt;= 1 &amp;&amp; ny &lt;= h - 2) {\n  x = nx;\n  y = ny;\n}\ngrid[y][x] = &quot;.&quot;;</code></pre>",
+   "p": "<p>Fill a <code>w</code> by <code>h</code> grid with <code>#</code>. Start at <code>x = Math.floor(w / 2)</code>, <code>y = Math.floor(h / 2)</code> and carve it. Then <code>steps</code> times: pick a direction with <code>DIRS[randInt(rand, 0, 3)]</code>, move if allowed, and carve. Return the rows as strings.</p>",
+   "h": "<p>Carve the start before the loop. Inside the loop, carve after the move check, even if the walker didn't move.</p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nconst DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]];\nfunction carveCave(seed, w, h, steps) {\n  const rand = mulberry32(seed);\n  const grid = [];\n  for (let y = 0; y < h; y++) grid.push(new Array(w).fill(\"#\"));\n  let x = Math.floor(w / 2), y = Math.floor(h / 2);\n  grid[y][x] = \".\";\n  for (let i = 0; i < steps; i++) {\n    const [dx, dy] = DIRS[randInt(rand, 0, 3)];\n    const nx = x + dx, ny = y + dy;\n    if (nx >= 1 && nx <= w - 2 && ny >= 1 && ny <= h - 2) {\n      x = nx;\n      y = ny;\n    }\n    grid[y][x] = \".\";\n  }\n  return grid.map(row => row.join(\"\"));\n}\n",
+   "c": [
+    [
+     [
+      1,
+      7,
+      5,
+      10
+     ],
+     [
+      "#######",
+      "###..##",
+      "##...##",
+      "##...##",
+      "#######"
+     ]
+    ],
+    [
+     [
+      2,
+      12,
+      7,
+      40
+     ],
+     [
+      "############",
+      "######.....#",
+      "###.......##",
+      "###..#.#####",
+      "##.....#####",
+      "##...#######",
+      "############"
+     ]
+    ],
+    [
+     [
+      3,
+      5,
+      5,
+      0
+     ],
+     [
+      "#####",
+      "#####",
+      "##.##",
+      "#####",
+      "#####"
+     ]
+    ],
+    [
+     [
+      4,
+      9,
+      6,
+      25
+     ],
+     [
+      "#########",
+      "#..######",
+      "##......#",
+      "####.#..#",
+      "####....#",
+      "#########"
+     ]
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nconst DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]];\nfunction carveCave(seed, w, h, steps) {\n  // your code here\n}\n\nconsole.log(carveCave(1, 7, 5, 10)); // try printing each row on its own line too\n"
+  },
+  {
+   "t": "Random noise grid",
+   "k": "fn",
+   "fn": "noiseGrid",
+   "a": "seed, w, h, fill",
+   "l": "<p>Another way to make caves starts with pure noise: every tile is randomly a wall or a floor. It looks like TV static at first. The next two stages turn that static into smooth caves.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>grid[y][x] = rand() &lt; 0.45 ? &quot;#&quot; : &quot;.&quot;;   // about 45% walls</code></pre><p>The order you visit tiles matters with a seeded generator, because each tile uses the next number in the sequence.</p>",
+   "p": "<p>Build a <code>w</code> by <code>h</code> grid, row by row from the top, left to right. Each tile is <code>#</code> if <code>rand() &lt; fill</code>, otherwise <code>.</code>. Return the rows as strings.</p>",
+   "h": "<p>Two loops, <code>y</code> outside and <code>x</code> inside. Build each row as a string with <code>row += rand() &lt; fill ? &quot;#&quot; : &quot;.&quot;;</code></p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n\nfunction noiseGrid(seed, w, h, fill) {\n  const rand = mulberry32(seed);\n  const rows = [];\n  for (let y = 0; y < h; y++) {\n    let row = \"\";\n    for (let x = 0; x < w; x++) row += rand() < fill ? \"#\" : \".\";\n    rows.push(row);\n  }\n  return rows;\n}\n",
+   "c": [
+    [
+     [
+      1,
+      6,
+      3,
+      0.45
+     ],
+     [
+      ".#...#",
+      "..#...",
+      "####.#"
+     ]
+    ],
+    [
+     [
+      2,
+      8,
+      4,
+      0.5
+     ],
+     [
+      ".##...##",
+      ".#.##..#",
+      ".#.#.###",
+      "#.#..###"
+     ]
+    ],
+    [
+     [
+      3,
+      4,
+      2,
+      0
+     ],
+     [
+      "....",
+      "...."
+     ]
+    ],
+    [
+     [
+      4,
+      3,
+      2,
+      1
+     ],
+     [
+      "###",
+      "###"
+     ]
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n\nfunction noiseGrid(seed, w, h, fill) {\n  // your code here\n}\n\nconsole.log(noiseGrid(1, 6, 3, 0.45)); // should be [\".#...#\", \"..#...\", \"####.#\"]\n"
+  },
+  {
+   "t": "Counting neighbours",
+   "k": "fn",
+   "fn": "countWalls",
+   "a": "grid, x, y",
+   "l": "<p>Cave smoothing needs to know how many of a tile's <b>8 neighbours</b> are walls. Two nested loops from -1 to 1 visit them all; skip the middle one, which is the tile itself.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>for (let dy = -1; dy &lt;= 1; dy++) {\n  for (let dx = -1; dx &lt;= 1; dx++) {\n    if (dx === 0 &amp;&amp; dy === 0) continue;\n    // look at grid[y + dy][x + dx]\n  }\n}</code></pre><p>Tiles outside the map count as <b>walls</b>. That keeps caves closed at the edges. Careful: <code>grid[-1]</code> is <code>undefined</code>, so check the row exists before reading from it.</p>",
+   "p": "<p><code>grid</code> is an array of strings. Return how many of the 8 tiles around <code>(x, y)</code> are walls, counting anything outside the grid as a wall.</p>",
+   "h": "<p><code>const row = grid[y + dy];</code> then count it if <code>row === undefined || row[x + dx] === undefined || row[x + dx] === &quot;#&quot;</code></p>",
+   "s": "function countWalls(grid, x, y) {\n  let n = 0;\n  for (let dy = -1; dy <= 1; dy++) {\n    for (let dx = -1; dx <= 1; dx++) {\n      if (dx === 0 && dy === 0) continue;\n      const row = grid[y + dy];\n      if (row === undefined || row[x + dx] === undefined || row[x + dx] === \"#\") n++;\n    }\n  }\n  return n;\n}\n",
+   "c": [
+    [
+     [
+      [
+       "#..",
+       "...",
+       "..#"
+      ],
+      1,
+      1
+     ],
+     2
+    ],
+    [
+     [
+      [
+       "#..",
+       "...",
+       "..#"
+      ],
+      0,
+      0
+     ],
+     5
+    ],
+    [
+     [
+      [
+       "#..",
+       "...",
+       "..#"
+      ],
+      1,
+      0
+     ],
+     4
+    ],
+    [
+     [
+      [
+       "...",
+       "...",
+       "..."
+      ],
+      1,
+      1
+     ],
+     0
+    ],
+    [
+     [
+      [
+       "###",
+       "#.#",
+       "###"
+      ],
+      1,
+      1
+     ],
+     8
+    ],
+    [
+     [
+      [
+       "#"
+      ],
+      0,
+      0
+     ],
+     8
+    ]
+   ],
+   "st": "function countWalls(grid, x, y) {\n  // your code here\n}\n\nconsole.log(countWalls([\"#..\", \"...\", \"..#\"], 1, 1)); // should be 2\n"
+  },
+  {
+   "t": "Cellular automata smoothing",
+   "k": "fn",
+   "fn": "smooth",
+   "a": "grid",
+   "l": "<p><b>Cellular automata</b> sounds fancy, but it's a simple rule applied to every tile at once. For caves, each tile looks at its neighbours:</p><ul><li>5 or more walls around it: it becomes a <b>wall</b></li><li>3 or fewer: it becomes <b>floor</b></li><li>exactly 4: it stays as it was</li></ul><p>Run that once or twice on random noise and the static clumps into natural-looking caves.</p><div class=\"callout\"><b>Tip</b><p>Build a <b>new</b> grid and read only from the old one. If you change tiles as you go, later tiles see a half-updated map and the result goes lopsided.</p></div>",
+   "p": "<p>Return a new grid (array of strings) after one smoothing step using the rule above. The starter includes <code>countWalls</code> from the last stage.</p>",
+   "h": "<p>For each tile: <code>const n = countWalls(grid, x, y);</code> then <code>n &gt;= 5 ? &quot;#&quot; : n &lt;= 3 ? &quot;.&quot; : grid[y][x]</code></p>",
+   "s": "// From the last stage: walls around (x, y), outside counts as wall\nfunction countWalls(grid, x, y) {\n  let n = 0;\n  for (let dy = -1; dy <= 1; dy++) {\n    for (let dx = -1; dx <= 1; dx++) {\n      if (dx === 0 && dy === 0) continue;\n      const row = grid[y + dy];\n      if (row === undefined || row[x + dx] === undefined || row[x + dx] === \"#\") n++;\n    }\n  }\n  return n;\n}\n\nfunction smooth(grid) {\n  const out = [];\n  for (let y = 0; y < grid.length; y++) {\n    let row = \"\";\n    for (let x = 0; x < grid[y].length; x++) {\n      const n = countWalls(grid, x, y);\n      row += n >= 5 ? \"#\" : n <= 3 ? \".\" : grid[y][x];\n    }\n    out.push(row);\n  }\n  return out;\n}\n",
+   "c": [
+    [
+     [
+      [
+       "#.#.#.",
+       ".#.#.#",
+       "#.#.#.",
+       ".#.#.#"
+      ]
+     ],
+     [
+      "######",
+      "##.#.#",
+      "#.#.##",
+      "######"
+     ]
+    ],
+    [
+     [
+      [
+       "#.....",
+       "......",
+       "...#..",
+       "......"
+      ]
+     ],
+     [
+      "#....#",
+      "......",
+      "......",
+      "#....#"
+     ]
+    ],
+    [
+     [
+      [
+       "###...",
+       "##....",
+       "#.....",
+       "....##"
+      ]
+     ],
+     [
+      "###..#",
+      "##....",
+      "#....#",
+      "#...##"
+     ]
+    ],
+    [
+     [
+      [
+       "......",
+       ".####.",
+       ".####.",
+       "......"
+      ]
+     ],
+     [
+      "######",
+      "#.##.#",
+      "#.##.#",
+      "######"
+     ]
+    ]
+   ],
+   "st": "// From the last stage: walls around (x, y), outside counts as wall\nfunction countWalls(grid, x, y) {\n  let n = 0;\n  for (let dy = -1; dy <= 1; dy++) {\n    for (let dx = -1; dx <= 1; dx++) {\n      if (dx === 0 && dy === 0) continue;\n      const row = grid[y + dy];\n      if (row === undefined || row[x + dx] === undefined || row[x + dx] === \"#\") n++;\n    }\n  }\n  return n;\n}\n\nfunction smooth(grid) {\n  // your code here\n}\n\nconsole.log(smooth([\"#.#.#.\", \".#.#.#\", \"#.#.#.\", \".#.#.#\"])); // should be [\"######\", \"##.#.#\", \"#.#.##\", \"######\"]\n"
+  },
+  {
+   "t": "Do rooms overlap?",
+   "k": "fn",
+   "fn": "roomsOverlap",
+   "a": "a, b",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "w": 4,
+       "h": 4
+      },
+      {
+       "x": 2,
+       "y": 2,
+       "w": 4,
+       "h": 4
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "w": 4,
+       "h": 4
+      },
+      {
+       "x": 4,
+       "y": 0,
+       "w": 3,
+       "h": 3
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "w": 4,
+       "h": 4
+      },
+      {
+       "x": 0,
+       "y": 5,
+       "w": 4,
+       "h": 4
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 1,
+       "y": 1,
+       "w": 10,
+       "h": 10
+      },
+      {
+       "x": 3,
+       "y": 3,
+       "w": 2,
+       "h": 2
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 5,
+       "y": 5,
+       "w": 3,
+       "h": 3
+      },
+      {
+       "x": 0,
+       "y": 0,
+       "w": 6,
+       "h": 6
+      }
+     ],
+     true
+    ]
+   ],
+   "l": "<p>Dungeon generators place rectangular rooms, and two rooms mustn't overlap. A room is <code>{ x, y, w, h }</code>: its top-left tile and its size. Two rectangles overlap when they overlap on <b>both</b> axes:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>a.x &lt; b.x + b.w &amp;&amp;   // a starts before b ends (horizontally)\nb.x &lt; a.x + a.w &amp;&amp;   // b starts before a ends\na.y &lt; b.y + b.h &amp;&amp;   // same two checks, vertically\nb.y &lt; a.y + a.h</code></pre><p>Rooms that only touch edges don't count as overlapping. This check is called <b>AABB</b> (axis-aligned bounding box) and it's the most common collision test in 2D games.</p>",
+   "p": "<p>Return <code>true</code> if rooms <code>a</code> and <code>b</code> overlap.</p>",
+   "h": "<p>Return all four checks joined with <code>&amp;&amp;</code>.</p>",
+   "s": "function roomsOverlap(a, b) {\n  return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;\n}\n",
+   "st": "function roomsOverlap(a, b) {\n  // your code here\n}\n\nconsole.log(roomsOverlap({ x: 0, y: 0, w: 4, h: 4 }, { x: 2, y: 2, w: 4, h: 4 })); // should be true\n"
+  },
+  {
+   "t": "Placing rooms",
+   "k": "fn",
+   "fn": "placeRooms",
+   "a": "seed, w, h, tries",
+   "l": "<p>The simplest room placer just tries: make a random room, and keep it only if it doesn't hit any room you already have. After enough tries, the map fills up.</p><p>To leave at least one wall tile between rooms, test against a <b>grown</b> copy of each existing room:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const grown = { x: r.x - 1, y: r.y - 1, w: r.w + 2, h: r.h + 2 };</code></pre>",
+   "p": "<p>Repeat <code>tries</code> times. Each try, roll in exactly this order: <code>rw = randInt(rand, 3, 6)</code>, <code>rh = randInt(rand, 3, 5)</code>, <code>x = randInt(rand, 1, w - rw - 1)</code>, <code>y = randInt(rand, 1, h - rh - 1)</code>. Keep the room <code>{ x, y, w: rw, h: rh }</code> if it doesn't overlap the grown copy of any kept room. Return the kept rooms.</p>",
+   "h": "<p>Use <code>rooms.some(r =&gt; roomsOverlap(room, { x: r.x - 1, y: r.y - 1, w: r.w + 2, h: r.h + 2 }))</code> to test for a clash. Roll all four numbers every try, even ones that get thrown away.</p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n// From the last stage\nfunction roomsOverlap(a, b) {\n  return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;\n}\n\nfunction placeRooms(seed, w, h, tries) {\n  const rand = mulberry32(seed);\n  const rooms = [];\n  for (let i = 0; i < tries; i++) {\n    const rw = randInt(rand, 3, 6);\n    const rh = randInt(rand, 3, 5);\n    const x = randInt(rand, 1, w - rw - 1);\n    const y = randInt(rand, 1, h - rh - 1);\n    const room = { x, y, w: rw, h: rh };\n    const clash = rooms.some(r => roomsOverlap(room, { x: r.x - 1, y: r.y - 1, w: r.w + 2, h: r.h + 2 }));\n    if (!clash) rooms.push(room);\n  }\n  return rooms;\n}\n",
+   "c": [
+    [
+     [
+      1,
+      30,
+      20,
+      10
+     ],
+     [
+      {
+       "x": 13,
+       "y": 16,
+       "w": 5,
+       "h": 3
+      },
+      {
+       "x": 15,
+       "y": 12,
+       "w": 6,
+       "h": 3
+      },
+      {
+       "x": 7,
+       "y": 3,
+       "w": 3,
+       "h": 4
+      },
+      {
+       "x": 2,
+       "y": 7,
+       "w": 4,
+       "h": 3
+      },
+      {
+       "x": 19,
+       "y": 3,
+       "w": 5,
+       "h": 4
+      }
+     ]
+    ],
+    [
+     [
+      2,
+      20,
+      12,
+      15
+     ],
+     [
+      {
+       "x": 4,
+       "y": 5,
+       "w": 5,
+       "h": 3
+      },
+      {
+       "x": 11,
+       "y": 2,
+       "w": 6,
+       "h": 3
+      },
+      {
+       "x": 11,
+       "y": 8,
+       "w": 5,
+       "h": 3
+      }
+     ]
+    ],
+    [
+     [
+      3,
+      10,
+      8,
+      5
+     ],
+     [
+      {
+       "x": 2,
+       "y": 1,
+       "w": 5,
+       "h": 3
+      }
+     ]
+    ],
+    [
+     [
+      4,
+      40,
+      20,
+      0
+     ],
+     []
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n// From the last stage\nfunction roomsOverlap(a, b) {\n  return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;\n}\n\nfunction placeRooms(seed, w, h, tries) {\n  // your code here\n}\n\nconsole.log(placeRooms(1, 30, 20, 10)); // should be [{ x: 13, y: 16, w: 5, h: 3 }, { x: 15, y: 12, w: 6, h: 3 }, { x: 7, y: 3, w: 3, h: 4 }, { x: 2, y: 7, w: 4, h: 3 }, { x: 19, y: 3, w: 5, h: 4 }]\n"
+  },
+  {
+   "t": "L-shaped corridors",
+   "k": "fn",
+   "fn": "corridor",
+   "a": "from, to",
+   "l": "<p>Rooms need joining up. The easiest corridor is an <b>L shape</b>: go sideways until you line up with the target, then go straight up or down.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// from [1, 1] to [4, 3]\n// sideways: [1,1] [2,1] [3,1] [4,1]\n// then down:              [4,2] [4,3]</code></pre><p><code>Math.sign(to - from)</code> gives <code>1</code>, <code>-1</code> or <code>0</code>: the direction to step in.</p>",
+   "p": "<p><code>from</code> and <code>to</code> are <code>[x, y]</code>. Return every tile of the corridor in order: first along x at <code>from</code>'s row, then along y at <code>to</code>'s column. Include both ends, and don't list the corner twice.</p>",
+   "h": "<p>Start with <code>let x = from[0], y = from[1]; const tiles = [[x, y]];</code> While <code>x !== to[0]</code>, step x and push. Then while <code>y !== to[1]</code>, step y and push.</p>",
+   "s": "function corridor(from, to) {\n  let x = from[0], y = from[1];\n  const tiles = [[x, y]];\n  while (x !== to[0]) {\n    x += Math.sign(to[0] - x);\n    tiles.push([x, y]);\n  }\n  while (y !== to[1]) {\n    y += Math.sign(to[1] - y);\n    tiles.push([x, y]);\n  }\n  return tiles;\n}\n",
+   "c": [
+    [
+     [
+      [
+       1,
+       1
+      ],
+      [
+       4,
+       3
+      ]
+     ],
+     [
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       4,
+       3
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       5,
+       2
+      ],
+      [
+       2,
+       2
+      ]
+     ],
+     [
+      [
+       5,
+       2
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       2,
+       2
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       0
+      ]
+     ],
+     [
+      [
+       0,
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     [
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2,
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       3,
+       0
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     [
+      [
+       3,
+       0
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ]
+    ]
+   ],
+   "st": "function corridor(from, to) {\n  // your code here\n}\n\nconsole.log(corridor([1, 1], [4, 3])); // should be [[1, 1], [2, 1], [3, 1], [4, 1], [4, 2], [4, 3]]\n"
+  },
+  {
+   "t": "Value noise",
+   "k": "fn",
+   "fn": "valueNoise",
+   "a": "seed, length, spacing",
+   "cmp": "approx",
+   "l": "<p>Pure random heights make spiky, ugly hills. <b>Value noise</b> is smoother: pick random values only every few steps (the <b>key points</b>), then <b>lerp</b> between them to fill the gaps.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// spacing 4: random keys at 0, 4, 8...\nconst k = Math.floor(i / spacing);    // key to the left\nconst t = (i % spacing) / spacing;    // how far toward the next key\nconst v = keys[k] + (keys[k + 1] - keys[k]) * t;</code></pre><p>Stack a few layers of this at different spacings and you get the hills of a side-scroller.</p>",
+   "p": "<p>First roll <code>Math.floor((length - 1) / spacing) + 2</code> key values with <code>rand()</code>. Then return an array of <code>length</code> values using the lerp from the example.</p>",
+   "h": "<p>Make the keys array first in its own loop. Then loop <code>i</code> from 0 to <code>length - 1</code> and push the lerped value.</p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n\nfunction valueNoise(seed, length, spacing) {\n  const rand = mulberry32(seed);\n  const keys = [];\n  const count = Math.floor((length - 1) / spacing) + 2;\n  for (let k = 0; k < count; k++) keys.push(rand());\n  const out = [];\n  for (let i = 0; i < length; i++) {\n    const k = Math.floor(i / spacing);\n    const t = (i % spacing) / spacing;\n    out.push(keys[k] + (keys[k + 1] - keys[k]) * t);\n  }\n  return out;\n}\n",
+   "c": [
+    [
+     [
+      1,
+      9,
+      4
+     ],
+     [
+      0.6270739405881613,
+      0.4709893857361749,
+      0.3149048308841884,
+      0.15882027603220195,
+      0.002735721180215478,
+      0.13391355087514967,
+      0.26509138057008386,
+      0.39626921026501805,
+      0.5274470399599522
+     ]
+    ],
+    [
+     [
+      2,
+      5,
+      2
+     ],
+     [
+      0.7342509443406016,
+      0.5296246883226559,
+      0.32499843230471015,
+      0.30514724378008395,
+      0.28529605525545776
+     ]
+    ],
+    [
+     [
+      3,
+      1,
+      3
+     ],
+     [
+      0.7202267837710679
+     ]
+    ],
+    [
+     [
+      4,
+      7,
+      3
+     ],
+     [
+      0.9236361971125007,
+      0.7267727578679721,
+      0.5299093186234435,
+      0.33304587937891483,
+      0.2959198865573853,
+      0.2587938937358558,
+      0.2216679009143263
+     ]
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n\nfunction valueNoise(seed, length, spacing) {\n  // your code here\n}\n\nconsole.log(valueNoise(1, 9, 4)); // should be [0.6270739405881613, 0.4709893857361749, 0.3149048308841884, 0.15882027603220195, 0.002735721180215478, 0.13391355087514967, 0.26509138057008386, 0.39626921026501805, 0.5274470399599522]\n"
+  },
+  {
+   "t": "Smoothing a height line",
+   "k": "fn",
+   "fn": "smoothLine",
+   "a": "heights",
+   "cmp": "approx",
+   "c": [
+    [
+     [
+      [
+       0,
+       9,
+       0
+      ]
+     ],
+     [
+      4.5,
+      3,
+      4.5
+     ]
+    ],
+    [
+     [
+      [
+       1,
+       2,
+       3,
+       4
+      ]
+     ],
+     [
+      1.5,
+      2,
+      3,
+      3.5
+     ]
+    ],
+    [
+     [
+      [
+       5
+      ]
+     ],
+     [
+      5
+     ]
+    ],
+    [
+     [
+      []
+     ],
+     []
+    ],
+    [
+     [
+      [
+       6,
+       0,
+       0,
+       6
+      ]
+     ],
+     [
+      3,
+      2,
+      2,
+      3
+     ]
+    ]
+   ],
+   "l": "<p>Another way to calm down bumpy terrain is a <b>moving average</b>: replace each height with the average of itself and its neighbours. Peaks get lower, dips get filled in.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// [0, 9, 0]\n// first:  (0 + 9) / 2      = 4.5   (no left neighbour)\n// middle: (0 + 9 + 0) / 3  = 3\n// last:   (9 + 0) / 2      = 4.5</code></pre>",
+   "p": "<p>Return a new array where each height is the average of itself and whichever of its left and right neighbours exist.</p>",
+   "h": "<p>For each <code>i</code>, add up <code>heights[i - 1]</code>, <code>heights[i]</code> and <code>heights[i + 1]</code> when they're not <code>undefined</code>, and count how many you added.</p>",
+   "s": "function smoothLine(heights) {\n  return heights.map((h, i) => {\n    let sum = h, n = 1;\n    if (i > 0) { sum += heights[i - 1]; n++; }\n    if (i < heights.length - 1) { sum += heights[i + 1]; n++; }\n    return sum / n;\n  });\n}\n",
+   "st": "function smoothLine(heights) {\n  // your code here\n}\n\nconsole.log(smoothLine([0, 9, 0])); // should be [4.5, 3, 4.5]\n"
+  },
+  {
+   "t": "Terrain from heights",
+   "k": "fn",
+   "fn": "skyline",
+   "a": "heights, rows",
+   "l": "<p>Now draw it! A side-view world like Terraria turns each column's height into a stack of ground tiles. Row 0 is the <b>top</b> of the screen, so a tile at row <code>y</code> is ground when the column is tall enough to reach it:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// heights [1, 3, 2], rows 3\n// row 0 needs height 3:  .#.\n// row 1 needs height 2:  .##\n// row 2 needs height 1:  ###</code></pre><p>In general, the tile at row <code>y</code> is ground if <code>heights[i] &gt;= rows - y</code>.</p><div class=\"callout\"><b>Tip</b><p>To turn heights into biomes instead, map ranges to tiles: low is water, middle is grass, high is mountain.</p></div>",
+   "p": "<p>Return <code>rows</code> strings, top row first. Each string has one character per height: <code>#</code> for ground, <code>.</code> for sky.</p>",
+   "h": "<p>For each <code>y</code> from 0 to <code>rows - 1</code>: <code>heights.map(hh =&gt; hh &gt;= rows - y ? &quot;#&quot; : &quot;.&quot;).join(&quot;&quot;)</code></p>",
+   "s": "function skyline(heights, rows) {\n  const out = [];\n  for (let y = 0; y < rows; y++) {\n    out.push(heights.map(hh => (hh >= rows - y ? \"#\" : \".\")).join(\"\"));\n  }\n  return out;\n}\n",
+   "c": [
+    [
+     [
+      [
+       1,
+       3,
+       2
+      ],
+      3
+     ],
+     [
+      ".#.",
+      ".##",
+      "###"
+     ]
+    ],
+    [
+     [
+      [
+       0,
+       4,
+       4,
+       1,
+       2,
+       0
+      ],
+      4
+     ],
+     [
+      ".##...",
+      ".##...",
+      ".##.#.",
+      ".####."
+     ]
+    ],
+    [
+     [
+      [
+       2,
+       2
+      ],
+      2
+     ],
+     [
+      "##",
+      "##"
+     ]
+    ],
+    [
+     [
+      [],
+      3
+     ],
+     [
+      "",
+      "",
+      ""
+     ]
+    ]
+   ],
+   "st": "function skyline(heights, rows) {\n  // your code here\n}\n\nconsole.log(skyline([1, 3, 2], 3)); // should be [\".#.\", \".##\", \"###\"]\n"
+  },
+  {
+   "t": "Name generator",
+   "k": "fn",
+   "fn": "makeName",
+   "a": "seed, syllables, count",
+   "l": "<p>Glue random syllables together and you get fantasy names for towns, planets and NPCs. Pick each syllable from a list, join them, and give the result a capital letter.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const name = &quot;korami&quot;;\nname[0].toUpperCase() + name.slice(1);   // &quot;Korami&quot;</code></pre>",
+   "p": "<p>Pick <code>count</code> syllables, each with <code>syllables[randInt(rand, 0, syllables.length - 1)]</code>. Join them and return the name with its first letter in capitals.</p>",
+   "h": "<p>Build a string in a loop, then <code>return name[0].toUpperCase() + name.slice(1);</code></p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction makeName(seed, syllables, count) {\n  const rand = mulberry32(seed);\n  let name = \"\";\n  for (let i = 0; i < count; i++) name += syllables[randInt(rand, 0, syllables.length - 1)];\n  return name[0].toUpperCase() + name.slice(1);\n}\n",
+   "c": [
+    [
+     [
+      1,
+      [
+       "ka",
+       "ro",
+       "mi",
+       "zu",
+       "the"
+      ],
+      2
+     ],
+     "Zuka"
+    ],
+    [
+     [
+      2,
+      [
+       "ar",
+       "ben",
+       "dor",
+       "el"
+      ],
+      3
+     ],
+     "Dorbenben"
+    ],
+    [
+     [
+      3,
+      [
+       "x"
+      ],
+      4
+     ],
+     "Xxxx"
+    ],
+    [
+     [
+      4,
+      [
+       "vo",
+       "la",
+       "ris",
+       "an",
+       "tor"
+      ],
+      3
+     ],
+     "Torlala"
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction makeName(seed, syllables, count) {\n  // your code here\n}\n\nconsole.log(makeName(1, [\"ka\", \"ro\", \"mi\", \"zu\", \"the\"], 2)); // should be \"Zuka\"\n"
+  },
+  {
+   "t": "Dice bag",
+   "k": "fn",
+   "fn": "diceBag",
+   "a": "seed, n",
+   "l": "<p>Pure random dice can roll five 1s in a row, which feels unfair. Some board games and puzzle games use a <b>bag</b> instead: put one of each face in a bag, shuffle it, and draw. When the bag is empty, refill it and shuffle again. Every face comes up exactly once per bag. Tetris uses this for its pieces!</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>if (bag.length === 0) {\n  bag = [1, 2, 3, 4, 5, 6];\n  // shuffle bag with Fisher-Yates\n}\nconst roll = bag.shift();   // take from the front</code></pre>",
+   "p": "<p>Return <code>n</code> draws from a six-sided dice bag. Refill with <code>[1, 2, 3, 4, 5, 6]</code> whenever the bag is empty, shuffle with Fisher-Yates exactly like the shuffle stage, and draw from the front.</p>",
+   "h": "<p>Fisher-Yates: <code>for (let i = bag.length - 1; i &gt; 0; i--) { const j = randInt(rand, 0, i); [bag[i], bag[j]] = [bag[j], bag[i]]; }</code></p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction diceBag(seed, n) {\n  const rand = mulberry32(seed);\n  let bag = [];\n  const out = [];\n  for (let k = 0; k < n; k++) {\n    if (bag.length === 0) {\n      bag = [1, 2, 3, 4, 5, 6];\n      for (let i = bag.length - 1; i > 0; i--) {\n        const j = randInt(rand, 0, i);\n        [bag[i], bag[j]] = [bag[j], bag[i]];\n      }\n    }\n    out.push(bag.shift());\n  }\n  return out;\n}\n",
+   "c": [
+    [
+     [
+      1,
+      6
+     ],
+     [
+      5,
+      2,
+      6,
+      3,
+      1,
+      4
+     ]
+    ],
+    [
+     [
+      1,
+      12
+     ],
+     [
+      5,
+      2,
+      6,
+      3,
+      1,
+      4,
+      1,
+      5,
+      6,
+      3,
+      4,
+      2
+     ]
+    ],
+    [
+     [
+      2,
+      8
+     ],
+     [
+      1,
+      3,
+      4,
+      6,
+      2,
+      5,
+      6,
+      1
+     ]
+    ],
+    [
+     [
+      3,
+      0
+     ],
+     []
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction diceBag(seed, n) {\n  // your code here\n}\n\nconsole.log(diceBag(1, 6)); // should be [5, 2, 6, 3, 1, 4]\n"
+  },
+  {
+   "t": "Capstone: tiny dungeon",
+   "k": "fn",
+   "fn": "dungeon",
+   "a": "seed, w, h",
+   "l": "<p>Time to build a whole dungeon from one seed. You've written every piece already; now chain them:</p><ul><li>Place rooms with <b>30 tries</b>, exactly like the placing rooms stage.</li><li>Start with a <code>w</code> by <code>h</code> grid of <code>#</code> and carve every tile of every room to <code>.</code>.</li><li>Each room's centre is <code>[room.x + Math.floor(room.w / 2), room.y + Math.floor(room.h / 2)]</code>.</li><li>Join each room to the one before it with an L-shaped corridor between their centres, carving those tiles too.</li></ul><p>Then summarise what you made, so the game can show it on a loading screen.</p><div class=\"callout\"><b>Tip</b><p>Paste in your <code>roomsOverlap</code> and <code>corridor</code> functions from earlier stages. Reusing small, tested helpers is how real generators are built.</p></div>",
+   "p": "<p>Return <code>{ rooms, floor, start, exit, map }</code>: the number of rooms, how many <code>.</code> tiles the map has, the centre of the first room, the centre of the last room, and the map as an array of strings.</p>",
+   "h": "<p>Use one <code>rand</code> for everything. Count floor tiles at the end with <code>map.join(&quot;&quot;).split(&quot;.&quot;).length - 1</code>, or loop and count.</p>",
+   "s": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction roomsOverlap(a, b) {\n  return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;\n}\nfunction corridor(from, to) {\n  let x = from[0], y = from[1];\n  const tiles = [[x, y]];\n  while (x !== to[0]) { x += Math.sign(to[0] - x); tiles.push([x, y]); }\n  while (y !== to[1]) { y += Math.sign(to[1] - y); tiles.push([x, y]); }\n  return tiles;\n}\nfunction dungeon(seed, w, h) {\n  const rand = mulberry32(seed);\n  const rooms = [];\n  for (let i = 0; i < 30; i++) {\n    const rw = randInt(rand, 3, 6);\n    const rh = randInt(rand, 3, 5);\n    const x = randInt(rand, 1, w - rw - 1);\n    const y = randInt(rand, 1, h - rh - 1);\n    const room = { x, y, w: rw, h: rh };\n    if (!rooms.some(r => roomsOverlap(room, { x: r.x - 1, y: r.y - 1, w: r.w + 2, h: r.h + 2 }))) rooms.push(room);\n  }\n  const grid = [];\n  for (let y = 0; y < h; y++) grid.push(new Array(w).fill(\"#\"));\n  for (const r of rooms) {\n    for (let y = r.y; y < r.y + r.h; y++) {\n      for (let x = r.x; x < r.x + r.w; x++) grid[y][x] = \".\";\n    }\n  }\n  const centres = rooms.map(r => [r.x + Math.floor(r.w / 2), r.y + Math.floor(r.h / 2)]);\n  for (let i = 1; i < centres.length; i++) {\n    for (const [x, y] of corridor(centres[i - 1], centres[i])) grid[y][x] = \".\";\n  }\n  const map = grid.map(row => row.join(\"\"));\n  const floor = map.join(\"\").split(\".\").length - 1;\n  return { rooms: rooms.length, floor, start: centres[0], exit: centres[centres.length - 1], map };\n}\n",
+   "c": [
+    [
+     [
+      1,
+      24,
+      14
+     ],
+     {
+      "rooms": 5,
+      "floor": 87,
+      "start": [
+       12,
+       11
+      ],
+      "exit": [
+       5,
+       9
+      ],
+      "map": [
+       "########################",
+       "########################",
+       "#####...######.....#####",
+       "#####...######.....#####",
+       "#####..............#####",
+       "#####...#....#.....#####",
+       "#####........###########",
+       "#####.###....###########",
+       "###....##....###########",
+       "###....####.############",
+       "###....###.....#########",
+       "##########.....#########",
+       "##########.....#########",
+       "########################"
+      ]
+     }
+    ],
+    [
+     [
+      7,
+      30,
+      16
+     ],
+     {
+      "rooms": 8,
+      "floor": 156,
+      "start": [
+       27,
+       10
+      ],
+      "exit": [
+       21,
+       13
+      ],
+      "map": [
+       "##############################",
+       "##############################",
+       "##############################",
+       "############.....#############",
+       "############.....#######...###",
+       "#####............####......###",
+       "#####......#.....####.##...###",
+       "#####......###.######.###.####",
+       "#####......###.######.###.####",
+       "##########.###.######.###....#",
+       "###....###.###...............#",
+       "###..........................#",
+       "###....#....###...#.....######",
+       "########.........##.....######",
+       "########....#######.....######",
+       "##############################"
+      ]
+     }
+    ],
+    [
+     [
+      99,
+      16,
+      10
+     ],
+     {
+      "rooms": 3,
+      "floor": 53,
+      "start": [
+       8,
+       5
+      ],
+      "exit": [
+       13,
+       5
+      ],
+      "map": [
+       "################",
+       "#...############",
+       "#...############",
+       "#..............#",
+       "#...##....##...#",
+       "#.........##...#",
+       "######....##...#",
+       "######....######",
+       "################",
+       "################"
+      ]
+     }
+    ],
+    [
+     [
+      5,
+      12,
+      9
+     ],
+     {
+      "rooms": 1,
+      "floor": 25,
+      "start": [
+       4,
+       4
+      ],
+      "exit": [
+       4,
+       4
+      ],
+      "map": [
+       "############",
+       "############",
+       "##.....#####",
+       "##.....#####",
+       "##.....#####",
+       "##.....#####",
+       "##.....#####",
+       "############",
+       "############"
+      ]
+     }
+    ]
+   ],
+   "st": "// Seeded random generator (given, no need to change it)\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0;\n    seed = (seed + 0x6d2b79f5) | 0;\n    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;\n    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;\n  };\n}\n// Whole number from min to max, both included\nfunction randInt(rand, min, max) {\n  return Math.floor(rand() * (max - min + 1)) + min;\n}\n\nfunction dungeon(seed, w, h) {\n  // your code here\n}\n\nconst d = dungeon(1, 24, 14);\nconsole.log(d.map.join(\"\\n\"));\nconsole.log(d.rooms, d.floor, d.start, d.exit);\n"
+  }
+ ]
+}

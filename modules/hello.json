@@ -1,0 +1,260 @@
+{
+ "id": "hello",
+ "title": "Hello, World! Tutorial",
+ "group": "bonus",
+ "xp": 10,
+ "icon": "Hi",
+ "color": "s1",
+ "blurb": "Never written code before? Start here. Fifteen tiny steps from your first line to your first function.",
+ "intro": "<p>Welcome! This tutorial is for you if you have <b>never written a line of code</b>. Every stage is tiny: read a few sentences, type a line or two, press <b>RUN</b>, and see what happens.</p><p>You'll print messages, store things in variables, do a bit of math, make a choice with <code>if</code>, repeat with a loop, and write your very first function. Mistakes are completely fine. The game reads your code and tells you what went wrong in plain words.</p><div class=\"callout\"><b>Tip</b><p>When you finish here, head to the <b>Main Path</b> and start with <b>Variables</b>. Everything you see in this tutorial gets a full section there.</p></div>",
+ "links": [
+  [
+   "MDN: JavaScript first steps",
+   "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/What_is_JavaScript"
+  ],
+  [
+   "MDN: console.log()",
+   "https://developer.mozilla.org/en-US/docs/Web/API/console/log_static"
+  ],
+  [
+   "MDN: Grammar and types",
+   "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types"
+  ]
+ ],
+ "stages": [
+  {
+   "t": "Say hello",
+   "k": "out",
+   "o": [
+    "Hello, world!"
+   ],
+   "l": "<p>Hi @@name, welcome to coding! Programmers have a tradition: the very first program anyone writes just says hello.</p><p><code>console.log()</code> prints whatever you put between the brackets. Text goes inside quotes.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;Hello, world!&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>Hello, world!</code></pre><p>Type it exactly like that, then press <b>RUN</b>. Capital letters, the comma and the quotes all matter.</p>",
+   "p": "<p>Print exactly <code>Hello, world!</code> using <code>console.log</code>.</p>",
+   "h": "<p>Copy the example: <code>console.log(&quot;Hello, world!&quot;);</code></p>",
+   "s": "console.log(\"Hello, world!\");\n",
+   "st": "// Type your first line of code below\n"
+  },
+  {
+   "t": "Your own message",
+   "k": "chk",
+   "l": "<p>You did it! That's a real program. Now make it yours. Whatever is between the quotes gets printed, so you can say anything.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;I am going to make a game!&quot;);</code></pre>",
+   "p": "<p>Change the starter so it prints a message of your own, anything except <code>Hello, world!</code>.</p>",
+   "h": "<p>Replace the words between the quotes with your own, like <code>console.log(&quot;Robin was here&quot;);</code></p>",
+   "s": "console.log(\"Robin is learning to code!\");\n",
+   "chk": "function (logs) {\n  if (logs.length === 0) return \"Nothing was printed. Use console.log with your message in quotes.\";\n  if (logs.length > 1) return \"Print just one message for this stage.\";\n  if (!logs[0].trim()) return \"Your message is empty. Put some words between the quotes.\";\n  if (logs[0].trim() === \"Hello, world!\") return \"That's the old message. Change the words between the quotes to your own.\";\n  return true;\n}",
+   "st": "console.log(\"Hello, world!\");\n"
+  },
+  {
+   "t": "Several lines",
+   "k": "out",
+   "o": [
+    "Ready",
+    "Set",
+    "Go!"
+   ],
+   "l": "<p>A program runs from <b>top to bottom</b>, one line at a time. Each <code>console.log</code> prints on its own line.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;Player 1&quot;);\nconsole.log(&quot;Player 2&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>Player 1\nPlayer 2</code></pre>",
+   "p": "<p>Print three lines, in this order: <code>Ready</code>, then <code>Set</code>, then <code>Go!</code></p>",
+   "h": "<p>Three <code>console.log</code> lines, one under the other. The first is <code>console.log(&quot;Ready&quot;);</code></p>",
+   "s": "console.log(\"Ready\");\nconsole.log(\"Set\");\nconsole.log(\"Go!\");\n",
+   "st": "// Print Ready, Set, Go! on three lines\n"
+  },
+  {
+   "t": "Text and numbers",
+   "k": "out",
+   "o": [
+    "2 + 2",
+    "4"
+   ],
+   "req": "console\\.log\\(\\s*2\\s*\\+\\s*2\\s*\\)",
+   "reqMsg": "For the second line, write the math without quotes so JavaScript works it out: console.log(2 + 2);",
+   "l": "<p>Quotes tell JavaScript &quot;this is text, print it exactly&quot;. Numbers don't need quotes, and without quotes JavaScript does the math for you.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;10 + 5&quot;);\nconsole.log(10 + 5);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>10 + 5\n15</code></pre><p>Text in quotes is called a <b>string</b>. A plain number is a <b>number</b>.</p>",
+   "p": "<p>Print the text <code>2 + 2</code> on the first line, then let JavaScript work out <code>2 + 2</code> on the second line.</p>",
+   "h": "<p>First line uses quotes: <code>console.log(&quot;2 + 2&quot;);</code> Second line has none: <code>console.log(2 + 2);</code></p>",
+   "s": "console.log(\"2 + 2\");\nconsole.log(2 + 2);\n",
+   "st": "// line 1: the text 2 + 2\n// line 2: the answer\n"
+  },
+  {
+   "t": "Comments",
+   "k": "out",
+   "o": [
+    "Sword",
+    "Bow"
+   ],
+   "req": "//\\s*console\\.log\\(\\s*\"Shield\"",
+   "reqMsg": "Keep the Shield line, but turn it into a comment by putting // in front of it.",
+   "l": "<p>Any line that starts with <code>//</code> is a <b>comment</b>. JavaScript skips it completely. Comments are notes for humans, and they're handy for switching a line off without deleting it.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// This is a note. It doesn't run.\nconsole.log(&quot;Hi&quot;);\n// console.log(&quot;This line is switched off&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>Hi</code></pre><p>You've already seen comments in the starter code. Now you know what they are!</p>",
+   "p": "<p>The starter prints three items. Turn the <code>Shield</code> line into a comment so only <code>Sword</code> and <code>Bow</code> print.</p>",
+   "h": "<p>Put <code>//</code> at the very start of the middle line.</p>",
+   "s": "console.log(\"Sword\");\n// console.log(\"Shield\");\nconsole.log(\"Bow\");\n",
+   "st": "console.log(\"Sword\");\nconsole.log(\"Shield\");\nconsole.log(\"Bow\");\n"
+  },
+  {
+   "t": "Fix the typo",
+   "k": "out",
+   "o": [
+    "Level up!"
+   ],
+   "l": "<p>Here's a secret: every programmer sees errors <b>all the time</b>. An error just means JavaScript got confused by something you typed. It's not a disaster, it's a clue.</p><p>When your code has an error, press <b>RUN</b> anyway. The game shows the message and explains it in plain words, usually with the line number. A very common one is a missing quote: text has to start <b>and</b> end with <code>&quot;</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;Oops);    // broken: no closing quote\nconsole.log(&quot;Oops&quot;);   // fixed</code></pre>",
+   "p": "<p>The starter has a mistake. Press <b>RUN</b> to see the error, then fix it so it prints <code>Level up!</code></p>",
+   "h": "<p>The text starts with a quote but never ends with one. Add <code>&quot;</code> right after the <code>!</code></p>",
+   "s": "console.log(\"Level up!\");\n",
+   "st": "console.log(\"Level up!);\n"
+  },
+  {
+   "t": "Your first variable",
+   "k": "vars",
+   "v": {
+    "coins": 5
+   },
+   "l": "<p>A <b>variable</b> is a labelled box that holds a value. You make one with <code>let</code>, a name, <code>=</code>, and the value.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let lives = 3;</code></pre><p>Read it as &quot;let <b>lives</b> be 3&quot;. From now on, the name <code>lives</code> means 3.</p>",
+   "p": "<p>Make a variable called <code>coins</code> that holds the number <code>5</code>.</p>",
+   "h": "<p><code>let coins = 5;</code></p>",
+   "s": "let coins = 5;\n",
+   "st": "// Make your coins variable here\n"
+  },
+  {
+   "t": "Print a variable",
+   "k": "out",
+   "o": [
+    "Robin"
+   ],
+   "req": "console\\.log\\(\\s*hero\\s*\\)",
+   "reqMsg": "Print the variable itself: console.log(hero); with no quotes around hero.",
+   "l": "<p>To see what's inside a variable, print its name <b>without quotes</b>. With quotes you'd just print the word itself.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let lives = 3;\nconsole.log(lives);\nconsole.log(&quot;lives&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>3\nlives</code></pre>",
+   "p": "<p>The starter makes a variable <code>hero</code>. Print what's inside it.</p>",
+   "h": "<p><code>console.log(hero);</code></p>",
+   "s": "let hero = \"Robin\";\nconsole.log(hero);\n",
+   "st": "let hero = \"Robin\";\n// print hero here\n"
+  },
+  {
+   "t": "Change a variable",
+   "k": "vars",
+   "v": {
+    "hp": 7
+   },
+   "req": "hp\\s*(-=\\s*3|=\\s*hp\\s*-\\s*3)",
+   "reqMsg": "Take the damage away from hp itself: hp = hp - 3;",
+   "l": "<p>Variables can change. That's why they're called variables! Use <code>=</code> again, but <b>without</b> <code>let</code> this time, because the box already exists.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let lives = 3;\nlives = lives - 1;   // now 2</code></pre><p><code>lives = lives - 1</code> means &quot;work out lives minus 1, then put that back into lives&quot;.</p>",
+   "p": "<p>Your hero has <code>10</code> hp and gets hit for <code>3</code> damage. Subtract 3 from <code>hp</code>.</p>",
+   "h": "<p>On the empty line write <code>hp = hp - 3;</code></p>",
+   "s": "let hp = 10;\nhp = hp - 3;\n",
+   "st": "let hp = 10;\n// take 3 damage here\n"
+  },
+  {
+   "t": "Doing math",
+   "k": "out",
+   "o": [
+    "24",
+    "7"
+   ],
+   "req": "coins\\s*\\*\\s*2",
+   "reqMsg": "Use the variables in your math, for example coins * 2.",
+   "l": "<p>JavaScript is a great calculator. These are the math symbols:</p><div class=\"tbl\"><table><tr><th>Symbol</th><th>Meaning</th><th>Example</th></tr><tr><td><code>+</code></td><td>add</td><td><code>4 + 2</code> is 6</td></tr><tr><td><code>-</code></td><td>subtract</td><td><code>4 - 2</code> is 2</td></tr><tr><td><code>*</code></td><td>multiply</td><td><code>4 * 2</code> is 8</td></tr><tr><td><code>/</code></td><td>divide</td><td><code>4 / 2</code> is 2</td></tr></table></div><p>You can do math with variables too:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let lives = 3;\nconsole.log(lives + 1);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>4</code></pre>",
+   "p": "<p>Using the variables, print <code>coins</code> doubled, then print <code>coins</code> minus <code>price</code>.</p>",
+   "h": "<p><code>console.log(coins * 2);</code> and then <code>console.log(coins - price);</code></p>",
+   "s": "let coins = 12;\nlet price = 5;\nconsole.log(coins * 2);\nconsole.log(coins - price);\n",
+   "st": "let coins = 12;\nlet price = 5;\n// print coins doubled\n// print coins minus price\n"
+  },
+  {
+   "t": "Joining text",
+   "k": "out",
+   "o": [
+    "Hello, Robin!"
+   ],
+   "req": "\\+\\s*name|name\\s*\\+",
+   "reqMsg": "Build the message with + and the name variable.",
+   "l": "<p>With text, <code>+</code> <b>joins</b> pieces together, end to end.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let item = &quot;potion&quot;;\nconsole.log(&quot;You found a &quot; + item + &quot;!&quot;);\nconsole.log(&quot;Coins: &quot; + 12);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>You found a potion!\nCoins: 12</code></pre><div class=\"callout\"><b>Tip</b><p>Spaces matter. Put the space inside the quotes, like <code>&quot;You found a &quot;</code>, or the words will be squashed together.</p></div>",
+   "p": "<p>Use <code>+</code> and the <code>name</code> variable to print <code>Hello, Robin!</code></p>",
+   "h": "<p><code>console.log(&quot;Hello, &quot; + name + &quot;!&quot;);</code></p>",
+   "s": "let name = \"Robin\";\nconsole.log(\"Hello, \" + name + \"!\");\n",
+   "st": "let name = \"Robin\";\n// print Hello, Robin! using name\n"
+  },
+  {
+   "t": "Making a choice",
+   "k": "out",
+   "o": [
+    "Game over"
+   ],
+   "req": "if\\s*\\(",
+   "reqMsg": "Use an if to decide whether to print.",
+   "l": "<p><code>if</code> lets your program make a choice. The code inside the curly braces <code>{ }</code> only runs when the check in the brackets is true.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let coins = 20;\nif (coins &gt;= 10) {\n  console.log(&quot;You can buy a sword&quot;);\n}</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>You can buy a sword</code></pre><p>Some handy checks: <code>&gt;</code> more than, <code>&lt;</code> less than, <code>&gt;=</code> at least, <code>&lt;=</code> at most, <code>===</code> exactly equal.</p>",
+   "p": "<p>Print <code>Game over</code>, but only if <code>hp</code> is <code>0</code> or less.</p>",
+   "h": "<p><code>if (hp &lt;= 0) { console.log(&quot;Game over&quot;); }</code></p>",
+   "s": "let hp = 0;\nif (hp <= 0) {\n  console.log(\"Game over\");\n}\n",
+   "st": "let hp = 0;\n// if hp is 0 or less, print Game over\n"
+  },
+  {
+   "t": "Repeat with a loop",
+   "k": "out",
+   "o": [
+    "1",
+    "2",
+    "3"
+   ],
+   "req": "for\\s*\\(",
+   "reqMsg": "Use a for loop for this one.",
+   "l": "<p>A <code>for</code> loop repeats code for you. This one counts with a variable <code>i</code>:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>for (let i = 1; i &lt;= 5; i++) {\n  console.log(i);\n}</code></pre><p>It has three parts, split by <code>;</code></p><ul><li><code>let i = 1</code>: start at 1</li><li><code>i &lt;= 5</code>: keep going while i is 5 or less</li><li><code>i++</code>: add 1 to i after each round</li></ul>",
+   "p": "<p>Use a <code>for</code> loop to print <code>1</code>, <code>2</code> and <code>3</code>, each on its own line.</p>",
+   "h": "<p>Change the example to stop at 3: <code>i &lt;= 3</code></p>",
+   "s": "for (let i = 1; i <= 3; i++) {\n  console.log(i);\n}\n",
+   "st": "// count from 1 to 3 with a for loop\n"
+  },
+  {
+   "t": "Your first function",
+   "k": "fn",
+   "fn": "greet",
+   "a": "name",
+   "c": [
+    [
+     [
+      "Robin"
+     ],
+     "Hi, Robin!"
+    ],
+    [
+     [
+      "Ada"
+     ],
+     "Hi, Ada!"
+    ],
+    [
+     [
+      "Zed"
+     ],
+     "Hi, Zed!"
+    ],
+    [
+     [
+      ""
+     ],
+     "Hi, !"
+    ]
+   ],
+   "l": "<p>A <b>function</b> is a named recipe you can use again and again. You give it inputs, and <code>return</code> hands back an answer.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>function double(n) {\n  return n * 2;\n}\nconsole.log(double(4));\nconsole.log(double(10));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>8\n20</code></pre><p><code>n</code> is the input. Each time you call <code>double(...)</code>, <code>n</code> is whatever you put in the brackets.</p>",
+   "p": "<p>Finish <code>greet(name)</code> so it returns <code>&quot;Hi, &quot;</code>, then the name, then <code>&quot;!&quot;</code>. For example <code>greet(&quot;Robin&quot;)</code> returns <code>&quot;Hi, Robin!&quot;</code>.</p>",
+   "h": "<p>Join with <code>+</code> and return it: <code>return &quot;Hi, &quot; + name + &quot;!&quot;;</code></p>",
+   "s": "function greet(name) {\n  return \"Hi, \" + name + \"!\";\n}\n",
+   "st": "function greet(name) {\n  // your code here\n}\n\nconsole.log(greet(\"Robin\")); // should be \"Hi, Robin!\"\n"
+  },
+  {
+   "t": "Your intro card",
+   "k": "out",
+   "o": [
+    "== Intro card ==",
+    "Name: Robin",
+    "Class: Mage",
+    "Level: 3",
+    "Next level: 4"
+   ],
+   "req": "level\\s*\\+\\s*1",
+   "reqMsg": "Work out the next level with math: level + 1.",
+   "ban": "console\\.log\\([^)]*(Robin|Mage)",
+   "banMsg": "Use the name and job variables instead of typing Robin or Mage into the console.log lines.",
+   "l": "<p>Time to put it all together: variables, joining text with <code>+</code>, and a little math. Once this card prints, you've finished the tutorial. Amazing work!</p><p>Next stop: the <b>Main Path</b>. Start with <b>Variables</b> and keep going from there. You already know more than you think.</p>",
+   "p": "<p>Use the variables to print this card exactly:</p><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>== Intro card ==\nName: Robin\nClass: Mage\nLevel: 3\nNext level: 4</code></pre>",
+   "h": "<p>The second line is <code>console.log(&quot;Name: &quot; + name);</code> For the last line, put the math in brackets: <code>&quot;Next level: &quot; + (level + 1)</code></p>",
+   "s": "let name = \"Robin\";\nlet job = \"Mage\";\nlet level = 3;\nconsole.log(\"== Intro card ==\");\nconsole.log(\"Name: \" + name);\nconsole.log(\"Class: \" + job);\nconsole.log(\"Level: \" + level);\nconsole.log(\"Next level: \" + (level + 1));\n",
+   "st": "let name = \"Robin\";\nlet job = \"Mage\";\nlet level = 3;\nconsole.log(\"== Intro card ==\");\n// print the other four lines using the variables\n"
+  }
+ ]
+}
