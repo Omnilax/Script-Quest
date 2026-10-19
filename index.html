@@ -19920,7 +19920,7 @@ function skipHtml(s) {
   XQUIZ[id] = { id: id, title: "Skip-ahead test", qs: shuffle(pool).slice(0, 8).map(questionAt).filter(Boolean), onFinish: function (V, score, total) {
     var pass = score / total >= .8, marked = 0;
     if (pass) s.stages.slice(0, upto).forEach(function (st) { if (!S.done[st.id]) { S.done[st.id] = { xp: 0, at: Date.now(), skip: true }; marked++; } });
-    if (marked) save("done", S.done);
+    if (marked) { save("done", S.done); checkMedals(900); }
     quizEnd(V, "SKIP-AHEAD TEST · " + s.title.toUpperCase(), score, total, pass ? "You know this already. Stages 1 to " + upto + " are marked as known (no XP), so jump in at stage " + (upto + 1) + "." : "You need 80% to skip ahead. No problem: the stages will fill in the gaps.", '<button class="btn primary" data-go="section" data-arg="' + s.id + '">Back to ' + h(s.title) + "</button>", pass);
   } };
   return '<p class="muted" style="margin:10px 0 0">Already know this? <button class="linkish" type="button" data-go="quiz" data-arg="' + id + '">Take the skip-ahead test</button> to mark stages 1 to ' + upto + " as known.</p>";
@@ -20374,6 +20374,7 @@ function viewStage(V, id) {
       if ($("play2")) $("play2").onclick = function () { openCabinet(st.game.engine, editor.get(), st); };
       SFX.pass(); if (first) confetti();
       if (lvAfter > lvBefore) { setTimeout(function () { SFX.level(); toast("Level up! You're now level " + lvAfter + ": " + rankOf(lvAfter)); }, 500); }
+      if (first) checkMedals(lvAfter > lvBefore ? 3200 : 700);
       renderTop();
       var dots = V.querySelectorAll(".dots i"); if (dots[st.n - 1]) dots[st.n - 1].className = "c d";
     } else {
@@ -20554,7 +20555,7 @@ function viewQuiz(V, id) {
     var prev = S.quiz[q.id], bestBefore = prev ? prev.best : 0;
     var best = Math.max(bestBefore, score);
     var gain = Math.max(0, best - bestBefore) * 5;
-    S.quiz[q.id] = { best: best, total: qs.length, xp: best * 5, at: Date.now() }; save("quiz", S.quiz);
+    S.quiz[q.id] = { best: best, total: qs.length, xp: best * 5, at: Date.now() }; save("quiz", S.quiz); checkMedals(900);
     var pct = Math.round(score / qs.length * 100), pass = pct >= 70;
     if (pass) { SFX.pass(); confetti(); } else SFX.fail();
     var ni = D.quizzes.indexOf(q) + 1, nq = D.quizzes[ni];
@@ -20575,8 +20576,8 @@ function viewSandbox(V) {
   var sb = S.sbx, slot = sb.slots[sb.cur];
   var snipQ = "";
   V.innerHTML = '<div class="wrap sandbox"><div class="stage-top"><div><p class="eyebrow">FREE PLAY</p><h1 class="title">Sandbox</h1></div><div class="row"><span class="seg" role="group" aria-label="Run mode"><button type="button" data-mode="console" aria-pressed="' + (sb.mode === "console") + '">CONSOLE</button><button type="button" data-mode="page" aria-pressed="' + (sb.mode === "page") + '">PAGE</button></span>' +
-    '<select class="sel" id="slotSel" aria-label="Save slot">' + sb.slots.map(function (s, i) { return '<option value="' + i + '"' + (i === sb.cur ? " selected" : "") + ">" + h(s.name) + "</option>"; }).join("") + '</select><button class="ghost" id="renSlot">Rename</button></div></div>' +
-    '<div class="sbx"><section class="card console" aria-label="Sandbox console"><div class="cbar"><span class="file"><i></i><span id="slotName">' + h(slot.name) + '.js</span></span><div class="row"><button class="ghost" id="sbCopy">Copy</button><button class="ghost" id="sbClear">Clear</button><button class="ghost" id="sbStop"' + (sb.mode === "page" ? "" : " hidden") + '>Stop</button><button class="btn primary" id="sbRun">▶ RUN</button></div></div>' +
+    '<select class="sel" id="slotSel" aria-label="Save slot">' + sb.slots.map(function (s, i) { return '<option value="' + i + '"' + (i === sb.cur ? " selected" : "") + ">" + h(s.name) + "</option>"; }).join("") + '</select><button class="ghost" id="renSlot">Rename</button><button class="ghost" id="newSlot" title="New empty slot">+ New</button><button class="ghost" id="delSlot"' + (sb.slots.length > 1 ? "" : " disabled") + '>Delete</button></div></div>' +
+    '<div class="sbx"><section class="card console" aria-label="Sandbox console"><div class="cbar"><span class="file"><i></i><span id="slotName">' + h(slot.name) + '.js</span></span><div class="row"><button class="ghost" id="sbCopy">Copy</button><button class="ghost" id="sbSave" title="Download this slot as a .js file">Download</button><button class="ghost" id="sbClear">Clear</button><button class="ghost" id="sbStop"' + (sb.mode === "page" ? "" : " hidden") + '>Stop</button><button class="btn primary" id="sbRun">▶ RUN</button></div></div>' +
     '<div class="preview" id="sbPrev"' + (sb.mode === "page" ? "" : " hidden") + '><div class="lbl"><span>PAGE · root</span><span>canvas 320×200</span></div><div class="stagebox" id="sbRoot"></div><canvas id="sbCv" width="320" height="200"></canvas></div>' +
     '<div class="edwrap" id="sbHost"></div>' + keysHtml() + '<div class="outh"><span>OUTPUT</span></div><div class="out" id="sbOut"><span class="dim">Press RUN.</span></div><div id="sbRes"></div></section>' +
     '<aside class="card drawer" aria-label="Snippets"><div class="dh"><h2 class="sub" style="margin:0">SNIPPET DRAWER</h2><input id="snipQ" placeholder="Search snippets (loop, array, fetch…)" aria-label="Search snippets"><span class="muted" style="font-size:13px">Tap Insert to drop code at your cursor.</span></div><div class="dl" id="snipList"></div></aside></div></div>';
@@ -20614,6 +20615,21 @@ function viewSandbox(V) {
     inp.onkeydown = function (e) { if (e.key === "Enter") done(); if (e.key === "Escape") viewSandbox(V); };
     inp.onblur = done;
   };
+  $("newSlot").onclick = function () {
+    if (sb.slots.length >= 8) { toast("8 slots is the limit. Delete one first."); return; }
+    var n = sb.slots.length + 1; while (sb.slots.some(function (x) { return x.name === "Slot " + n; })) n++;
+    sb.slots.push({ name: "Slot " + n, code: "" }); sb.cur = sb.slots.length - 1; save("sandbox", sb); viewSandbox(V); highlightAll(V);
+  };
+  $("delSlot").onclick = function () {
+    var b = $("delSlot"); if (sb.slots.length < 2) return;
+    if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to delete " + sb.slots[sb.cur].name; return; }
+    var gone = sb.slots.splice(sb.cur, 1)[0]; sb.cur = Math.max(0, sb.cur - 1); save("sandbox", sb); viewSandbox(V); highlightAll(V); toast("Deleted " + gone.name);
+  };
+  $("sbSave").onclick = function () {
+    var a = document.createElement("a"), url = URL.createObjectURL(new Blob([editor.get()], { type: "text/javascript" }));
+    a.href = url; a.download = (sb.slots[sb.cur].name.replace(/[^\w\- ]+/g, "").trim() || "sandbox") + ".js";
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  };
   $("sbCopy").onclick = function () { copyText(editor.get(), $("sbCopy")); };
   $("sbClear").onclick = function () { $("sbOut").innerHTML = '<span class="dim">Cleared.</span>'; $("sbRes").innerHTML = ""; };
   $("sbStop").onclick = function () { if (pageCleanup) pageCleanup(); pageCleanup = null; toast("Stopped"); };
@@ -20633,7 +20649,7 @@ function viewSandbox(V) {
     if (!$("sbOut")) return;
     renderOutput(out, r.logs || [], r.err);
     if (r.err) { var x = explainHtml(r.err, code); res.innerHTML = x.html + lintHtml(code); if (x.line) editor.markErr(x.line); SFX.fail(); }
-    else res.innerHTML = lintHtml(code);
+    else { res.innerHTML = lintHtml(code); sb.runs = (sb.runs || 0) + 1; save("sandbox", sb); checkMedals(600); }
   }
 }
 
@@ -20673,19 +20689,37 @@ function viewRef(V) {
 }
 
 // ---------------- PROFILE ----------------
+function medalList() {
+  var cleared = Object.keys(S.done).length, aces = Object.keys(S.quiz).filter(function (k) { return S.quiz[k].best === S.quiz[k].total; }).length;
+  var clean = Object.keys(S.done).filter(function (k) { return !S.done[k].sol && !S.done[k].skip; }).length;
+  var qTaken = D.quizzes.filter(function (q) { return S.quiz[q.id]; }).length, runs = (S.sbx && S.sbx.runs) || 0;
+  var arcadeGames = {}; if (SEC.arcade) SEC.arcade.stages.forEach(function (st) { if (st.game) { var e = st.game.engine; arcadeGames[e] = arcadeGames[e] || { all: 0, done: 0 }; arcadeGames[e].all++; if (S.done[st.id]) arcadeGames[e].done++; } });
+  var medals = SECS.map(function (s) { var d = secDone(s); return { id: "sec:" + s.id, t: s.title, got: d === s.stages.length, sub: d + "/" + s.stages.length, sc: s.color, m: s.icon }; });
+  Object.keys(arcadeGames).forEach(function (e) { medals.push({ id: "arc:" + e, t: SQ_ENGINES[e].title + " built", got: arcadeGames[e].done === arcadeGames[e].all, sub: arcadeGames[e].done + "/" + arcadeGames[e].all, sc: "s2", m: "▶" }); });
+  medals.push({ id: "first", t: "First stage", got: cleared >= 1, sub: cleared >= 1 ? "done" : "0/1", sc: "s3", m: "1" }, { id: "c100", t: "100 stages", got: cleared >= 100, sub: Math.min(cleared, 100) + "/100", sc: "s5", m: "C" },
+    { id: "clean25", t: "Sharp eye ×25", got: clean >= 25, sub: Math.min(clean, 25) + "/25 without peeking", sc: "s4", m: "◉" }, { id: "ace10", t: "Quiz ace ×10", got: aces >= 10, sub: Math.min(aces, 10) + "/10", sc: "s1", m: "★" },
+    { id: "qall", t: "Quiz Hall regular", got: qTaken >= D.quizzes.length, sub: qTaken + "/" + D.quizzes.length + " quizzes", sc: "s1", m: "?" }, { id: "sbx10", t: "Tinkerer", got: runs >= 10, sub: Math.min(runs, 10) + "/10 clean sandbox runs", sc: "s2", m: "{}" });
+  return medals;
+}
+// toast medals the player hasn't seen yet; quiet just records them (first boot, loaded saves)
+function checkMedals(delay, quiet) {
+  var fresh = medalList().filter(function (m) { return m.got && !S.medalsSeen[m.id]; });
+  if (!fresh.length) return;
+  fresh.forEach(function (m) { S.medalsSeen[m.id] = Date.now(); }); save("medals", S.medalsSeen);
+  if (quiet) return;
+  setTimeout(function () { SFX.level(); toast(fresh.length === 1 ? "Medal earned: " + fresh[0].t + "! See it on your player card." : fresh.length + " medals earned! See them on your player card."); }, delay || 0);
+}
+function seedMedals() { if (load("medals", null) === null) { S.medalsSeen = {}; checkMedals(0, true); save("medals", S.medalsSeen); } }
 function viewMe(V) {
   var xp = totalXp(), lv = levelOf(xp), into = xp - xpFor(lv), need = xpFor(lv + 1) - xpFor(lv);
   var cleared = Object.keys(S.done).length, quizzes = Object.keys(S.quiz).length, aces = Object.keys(S.quiz).filter(function (k) { return S.quiz[k].best === S.quiz[k].total; }).length;
-  var arcadeGames = {}; if (SEC.arcade) SEC.arcade.stages.forEach(function (st) { if (st.game) { var e = st.game.engine; arcadeGames[e] = arcadeGames[e] || { all: 0, done: 0 }; arcadeGames[e].all++; if (S.done[st.id]) arcadeGames[e].done++; } });
-  var medals = SECS.map(function (s) { var d = secDone(s); return { t: s.title, got: d === s.stages.length, sub: d + "/" + s.stages.length, sc: s.color, m: s.icon }; });
-  Object.keys(arcadeGames).forEach(function (e) { medals.push({ t: SQ_ENGINES[e].title + " built", got: arcadeGames[e].done === arcadeGames[e].all, sub: arcadeGames[e].done + "/" + arcadeGames[e].all, sc: "s2", m: "▶" }); });
-  medals.push({ t: "First stage", got: cleared >= 1, sub: cleared >= 1 ? "done" : "0/1", sc: "s3", m: "1" }, { t: "100 stages", got: cleared >= 100, sub: Math.min(cleared, 100) + "/100", sc: "s5", m: "C" }, { t: "Quiz ace ×10", got: aces >= 10, sub: Math.min(aces, 10) + "/10", sc: "s1", m: "★" });
+  var medals = medalList();
   V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">PLAYER CARD</p><h1>' + h(nameOf()) + '</h1><p class="muted" style="margin:6px 0 0">Level ' + lv + " · " + rankOf(lv) + " · " + xp.toLocaleString() + ' XP</p></div><button class="btn" data-go="settings">Change name</button></section>' +
     '<section class="card"><div class="row" style="justify-content:space-between"><b>Level ' + lv + '</b><span class="muted">' + into + " / " + need + " XP to level " + (lv + 1) + '</span></div><div class="bar" style="margin-top:8px;height:16px"><i style="width:' + (into / need * 100) + '%"></i></div></section>' +
     '<section class="stats"><div class="stat"><b>' + cleared + '</b><span>stages cleared</span></div><div class="stat"><b>' + Object.keys(S.done).filter(function (k) { return !S.done[k].sol && !S.done[k].skip; }).length + '</b><span>solved without peeking</span></div><div class="stat"><b>' + quizzes + '</b><span>quizzes taken</span></div><div class="stat"><b>' + aces + '</b><span>perfect quiz scores</span></div></section>' +
     '<div class="board"><section class="card"><h2 class="sub">SECTIONS</h2><div class="secbars">' + SECS.map(function (s) { var d = secDone(s); return '<div class="secbar" style="--sc:var(--' + s.color + ')"><span>' + h(s.title) + '</span><span class="bar"><i style="width:' + (d / s.stages.length * 100) + '%"></i></span><span>' + d + "/" + s.stages.length + "</span></div>"; }).join("") + "</div></section>" +
     '<section class="card"><h2 class="sub">RANKS</h2><div class="ranks">' + RANKS.map(function (r) { return '<div class="rank' + (lv >= r[0] ? " got" : "") + '"><span class="lvn">LV ' + r[0] + "</span><span>" + r[1] + "</span></div>"; }).join("") + "</div></section></div>" +
-    '<section class="card"><h2 class="sub">MEDALS</h2><div class="medals">' + medals.map(function (m) { return '<div class="medal' + (m.got ? " got" : "") + '" style="--sc:var(--' + m.sc + ')"><span class="m">' + h(m.m) + "</span><b>" + h(m.t) + '</b><span class="muted">' + h(m.sub) + "</span></div>"; }).join("") + "</div></section></div>";
+    '<section class="card"><h2 class="sub">MEDALS</h2><div class="medals">' + medals.map(function (m) { var at = m.got && S.medalsSeen[m.id]; return '<div class="medal' + (m.got ? " got" : "") + '" style="--sc:var(--' + m.sc + ')"' + (at ? ' title="Earned ' + new Date(at).toLocaleDateString() + '"' : "") + ">" + '<span class="m">' + h(m.m) + "</span><b>" + h(m.t) + '</b><span class="muted">' + h(m.sub) + "</span></div>"; }).join("") + "</div></section></div>";
 }
 
 // ---------------- SETTINGS ----------------
@@ -20735,7 +20769,7 @@ function viewSettings(V) {
         var t = $("impTa").value.trim(); if (t.indexOf("SQ1:") !== 0) throw new Error("x");
         var dump = JSON.parse(decodeURIComponent(escape(atob(t.slice(4)))));
         allKeys().forEach(del); Object.keys(dump).forEach(function (k) { save(k, dump[k]); });
-        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.last = load("last", null);
+        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.last = load("last", null); S.medalsSeen = load("medals", {}); seedMedals();
         S.lastStage = load("lastStage", S.last && S.last.v === "stage" ? S.last.arg : null);
         applySettings(); toast("Save loaded. Welcome back, " + nameOf() + "!"); go("map");
       } catch (e) { $("impMsg").innerHTML = '<p style="color:var(--fail)">That code didn\'t work. Make sure you copied all of it, starting with SQ1:</p>'; }
@@ -20746,7 +20780,7 @@ function viewSettings(V) {
     if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to erase everything"; return; }
     var keepName = nameOf(), keepSet = S.set;
     allKeys().forEach(del);
-    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist();
+    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.medalsSeen = {}; save("medals", {});
     toast("Progress erased."); go("map");
   };
 }
@@ -20766,6 +20800,7 @@ function onboard() {
 
 // ---------------- boot ----------------
 applySettings();
+seedMedals();
 var startHash = (location.hash || "").replace(/^#/, "");
 if (S.profile && startHash && /^(map|quizzes|sandbox|ref|settings|me)$/.test(startHash)) go(startHash);
 else go("map");
