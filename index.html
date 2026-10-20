@@ -947,6 +947,11 @@ textarea.fallback{display:block;width:100%;min-height:280px;border:0;background:
 .vbox.no{border-color:var(--fail)}
 .vlbl{font-family:var(--f-display);font-size:10px;letter-spacing:.06em;color:var(--muted);margin-top:10px}
 .tile.extra{opacity:.72}
+.fastbtn{display:inline-flex;align-items:center;gap:6px;vertical-align:middle}
+.fastbtn[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+.placeq{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.warm.daily b{color:var(--pass)}
+.warm .done{color:var(--pass);font-family:var(--f-display);font-size:12px;letter-spacing:.08em}
 .tile.extra .n{border-style:dashed}
 .tile.st-predict .n,.tile.st-prove .n{border-radius:50%}
 .tile.st-bug .n{border-color:var(--fail)}
@@ -20252,7 +20257,7 @@ var DEFAULTS = {
   wrap: false, indent: 2, brackets: true, edHeight: "medium", readAloud: true, readRate: 1, quizShuffle: true, quizAuto: false, clickSound: true,
   soundPack: "retro", typeSound: false, bgFx: "off", bgColor: "theme", bgDensity: "normal", bgSpeed: "normal", bgStrength: "normal", bgMouse: true, bgCalm: true, bgFps: "smooth",
   bgGlow: false, bgMove: false, bgScan: false, pageAnim: "off", hoverFx: "off", trail: "off", clickFx: false, backTop: true, toastPos: "bottom",
-  topicColors: true, showStreak: true, splash: true
+  topicColors: true, showStreak: true, splash: true, fastTrack: false
 };
 var S = {
   profile: load("profile", null),
@@ -20411,6 +20416,11 @@ function stepChip(st) { var x = STEPS[stepOf(st)]; return '<span class="stepchip
 function isCore(st) { return st.sec.group === "fun" || st.sec.group === "secret" || !!st.step || !!st.l || st.k === "predict" || st.k === "pick" || st.mode === "order" || st.n === st.sec.stages.length; }
 function coreStages(s) { return s.stages.filter(isCore); }
 function coreDone(s) { return coreStages(s).every(function (st) { return S.done[st.id]; }); }
+// fast track: with the setting on, extra-practice stages are hidden and skipped by Next, Prev and the Map
+function fastSkip(st) { return !!S.set.fastTrack && st.sec.group !== "fun" && !isCore(st); }
+function stepFrom(st, dir) { var a = st.sec.stages; for (var i = st.n - 1 + dir; i >= 0 && i < a.length; i += dir) if (!fastSkip(a[i])) return a[i]; return null; }
+function fastBtnHtml() { return '<button class="ghost small fastbtn" type="button" data-fast aria-pressed="' + !!S.set.fastTrack + '" title="Core only: hide the extra-practice stages so you get through the essentials faster">' + glyph("bolt") + "Fast track: " + (S.set.fastTrack ? "on" : "off") + "</button>"; }
+function wireFast(V, redraw) { V.querySelectorAll("[data-fast]").forEach(function (b) { b.onclick = function () { S.set.fastTrack = !S.set.fastTrack; save("settings", S.set); toast(S.set.fastTrack ? "Fast track on: core stages only. Extra practice is hidden, not lost." : "Fast track off: every stage is back."); redraw(); }; }); }
 function loopLine() { return '<div class="loopline"><span class="muted">Each new skill:</span>' + LOOP.map(function (k) { return '<span class="stepchip" title="' + h(STEPS[k].d) + '">' + STEPS[k].t + "</span>"; }).join('<span class="muted">›</span>') + "</div>"; }
 function hookHtml(st) { return st.hook ? '<div class="callout hook"><b>THE PROBLEM</b>' + personal(st.hook) + "</div>" : ""; }
 // Parsons puzzles: the solution's lines, minus blanks and comments, plus any distractor lines
@@ -20529,6 +20539,68 @@ function warmupHtml() {
     quizEnd(V, "WARM-UP", score, total, score === total ? "All correct. Those ones are sticking now." : "Anything you missed comes back in a later warm-up.", '<button class="btn primary" data-go="quizzes">Quiz Hall</button>', score === total);
   } };
   return '<section class="card warm"><div><b>WARM-UP</b><p class="muted" style="margin:4px 0 0">' + all.length + " question" + (all.length === 1 ? "" : "s") + " you missed earlier. Answer one right and it leaves your Review Deck.</p></div>" + '<div class="row"><button class="btn" data-go="review">Review Deck</button><button class="btn primary" data-go="quiz" data-arg="warmup">Start warm-up (' + qs.length + ")</button></div></section>";
+}
+// placement test: 3 questions per Main Path module (early, middle, late quiz), in order; a wrong answer ends it
+var PLACE_SECS = ["vars", "math", "types", "cond", "loops", "funcs"], PLACE_N = 3;
+function placement() { return load("placement", null); }
+function placementQuiz() {
+  var srcs = [], secs = [];
+  PLACE_SECS.forEach(function (id) {
+    var s = SEC[id], qz = s ? secQuizzes(s) : []; if (!qz.length) return;
+    var picks = [qz[0], qz[Math.floor(qz.length / 2)], qz[qz.length - 1]].slice(0, PLACE_N), used = {};
+    picks.forEach(function (q) {
+      var pool = []; q.qs.forEach(function (x, i) { if (x.type !== "tf" && !used[q.id + ":" + i]) pool.push({ q: q.id, i: i }); });
+      var p = shuffle(pool)[0]; if (p) { used[p.q + ":" + p.i] = 1; srcs.push(p); secs.push(s); }
+    });
+  });
+  XQUIZ.placement = { id: "placement", title: "Placement test", noReview: true, idk: true, qs: srcs.map(questionAt).filter(Boolean),
+    stopEarly: function (marks, i) { return marks[i] === false; },
+    onFinish: function (V, score, total, marks) {
+      var known = [], marked = 0;
+      for (var k = 0; k < secs.length; k += PLACE_N) {
+        var s = secs[k], ok = true;
+        for (var j = k; j < k + PLACE_N && j < secs.length; j++) if (secs[j] === s && marks[j] !== true) ok = false;
+        if (!ok) break;
+        known.push(s);
+      }
+      known.forEach(function (s) { coreStages(s).forEach(function (st) { if (!S.done[st.id]) { S.done[st.id] = { xp: 0, at: Date.now(), skip: true }; marked++; } }); });
+      if (marked) save("done", S.done);
+      save("placement", { at: Date.now(), known: known.map(function (s) { return s.id; }), score: score, of: marks.length });
+      markActive(900); checkMedals(900);
+      var start = SECS.filter(function (s) { return s.group === "core" && known.indexOf(s) < 0; })[0];
+      var msg = known.length ? "You already know " + known.map(function (s) { return s.title; }).join(", ") + ". Their core stages are marked as known (no XP), and the extra practice is still there if you want it." + (start ? " Jump in at " + start.title + "." : " That's the whole Main Path. Try the Advanced Path next.") :
+        "No problem, that's what Script Quest is for. Start at the beginning" + (SEC.hello ? ", or try Hello, World! first if you've never coded." : ".");
+      quizEnd(V, "PLACEMENT TEST", score, marks.length, msg, (start ? '<button class="btn primary" data-go="section" data-arg="' + start.id + '">Start ' + h(start.title) + "</button>" : '<button class="btn primary" data-go="map">Back to the Map</button>') + (!known.length && SEC.hello ? '<button class="btn" data-go="section" data-arg="hello">Hello, World!</button>' : ""), known.length > 0);
+    } };
+  return "placement";
+}
+function placementHtml() {
+  if (placement() || Object.keys(S.done).length >= 3) return "";
+  placementQuiz();
+  return '<section class="card warm place"><div><b>PLACEMENT TEST</b><p class="muted" style="margin:4px 0 0">Know some JavaScript already? Answer a few questions and skip the modules you know. About 5 minutes.</p></div><div class="row"><button class="btn" type="button" data-noplace>No thanks</button><button class="btn primary" data-go="quiz" data-arg="placement">Take the test</button></div></section>';
+}
+// daily warm-up: 3 quick questions from modules you've started (missed ones first); finishing counts for the streak
+var DAILY_N = 3;
+function dailyQuiz() {
+  var seen = {}, out = [];
+  var add = function (src) { var k = src.q + ":" + src.i; if (!seen[k] && out.length < DAILY_N && questionAt(src)) { seen[k] = 1; out.push({ q: src.q, i: src.i }); } };
+  shuffle(rvQs()).slice(0, 1).forEach(add);
+  var pool = [];
+  D.quizzes.forEach(function (q) { var s = QSEC[q.id]; if ((s && secDone(s) > 0) || S.quiz[q.id]) q.qs.forEach(function (x, i) { pool.push({ q: q.id, i: i }); }); });
+  shuffle(pool).forEach(add);
+  if (!out.length) return null;
+  XQUIZ.daily = { id: "daily", title: "Daily warm-up", qs: out.map(questionAt).filter(Boolean), onFinish: function (V, score, total) {
+    save("daily", { day: dayKey(), score: score, total: total });
+    markActive(900); checkMedals(900);
+    quizEnd(V, "DAILY WARM-UP", score, total, (score === total ? "All correct, " + h(nameOf()) + ". Your brain is warmed up." : "Anything you missed is in your Review Deck now.") + " " + (streakNow() > 1 ? "That's a " + streakNow() + "-day streak." : "Come back tomorrow to start a streak."), '<button class="btn primary" data-go="map">Back to the Map</button><button class="btn" data-go="review">Review Deck</button>', score === total);
+  } };
+  return "daily";
+}
+function dailyHtml() {
+  var d = load("daily", null);
+  if (d && d.day === dayKey()) return '<section class="card warm daily"><div><b>DAILY WARM-UP</b><p class="muted" style="margin:4px 0 0">Done for today: ' + d.score + " / " + d.total + ". New questions tomorrow.</p></div><span class=\"done\">✓ DONE</span></section>";
+  if (!dailyQuiz()) return "";
+  return '<section class="card warm daily"><div><b>DAILY WARM-UP</b><p class="muted" style="margin:4px 0 0">' + XQUIZ.daily.qs.length + " quick question" + (XQUIZ.daily.qs.length === 1 ? "" : "s") + " from things you've already learned. Keeps your streak going" + (streakNow() ? " (" + streakNow() + " day" + (streakNow() === 1 ? "" : "s") + " so far)" : "") + '.</p></div><button class="btn primary" data-go="quiz" data-arg="daily">Start warm-up</button></section>';
 }
 function skipHtml(s) {
   if (s.group !== "core" && s.group !== "adv") return "";
@@ -21442,7 +21514,8 @@ var GLYPH = {
   down: ["#.....#", "##...##", ".##.##.", "..###..", "...#..."],
   left: ["...##", "..##.", ".##..", "##...", ".##..", "..##.", "...##"],
   right: ["##...", ".##..", "..##.", "...##", "..##.", ".##..", "##..."],
-  lock: [".###.", "#...#", "#...#", "#####", "##.##", "##.##", "#####"]
+  lock: [".###.", "#...#", "#...#", "#####", "##.##", "##.##", "#####"],
+  bolt: ["...##", "..##.", ".##..", "#####", "..##.", ".##..", "##..."]
 };
 function glyph(name) {
   var g = GLYPH[name], w = g[0].length, r = "";
@@ -21560,7 +21633,7 @@ function codeBlock(txt, kind) { return '<pre class="cb" data-k="' + (kind || "ex
 
 // ---------------- MAP ----------------
 function nextStageGlobal() {
-  for (var i = 0; i < SECS.length; i++) { var s = SECS[i]; if (s.group !== "core") continue; for (var j = 0; j < s.stages.length; j++) if (!S.done[s.stages[j].id]) return s.stages[j]; }
+  for (var i = 0; i < SECS.length; i++) { var s = SECS[i]; if (s.group !== "core") continue; for (var j = 0; j < s.stages.length; j++) if (!S.done[s.stages[j].id] && !fastSkip(s.stages[j]) && (isCore(s.stages[j]) || !coreDone(s))) return s.stages[j]; }
   return null;
 }
 function viewMap(V) {
@@ -21578,7 +21651,7 @@ function viewMap(V) {
   if (!storageOk) html += '<div class="banner">This browser is blocking saved data, so progress lasts only until you close the tab. Copy your save code from <b>Settings → Save data</b> before leaving.</div>';
   html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + (streakNow() > 1 ? " · " + streakNow() + "-DAY STREAK" : "") + "</p><h1>" + greet + '</h1><p class="muted nextunl"><button class="linkish" type="button" data-go="me" data-arg="unlocks">' + h(nextUnlockLine(lv, xp)) + "</button></p></div>" +
     '<div class="hacts"><div class="row">' + (cont ? '<button class="btn primary" data-go="stage" data-arg="' + cont.id + '">' + icon("play") + "Continue: " + h(cont.sec.title) + " " + cont.n + "</button>" : "") +
-    (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="review">Review Deck: ' + (rvQs().length + rvStages().length) + " to review</button>" : "") + "</div>" + foldAllHtml() + "</div></section>";
+    (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="review">Review Deck: ' + (rvQs().length + rvStages().length) + " to review</button>" : "") + "</div>" + '<div class="row">' + fastBtnHtml() + foldAllHtml() + "</div></div></section>" + placementHtml() + dailyHtml();
   html += '<section class="stats" aria-label="Your stats">' +
     '<div class="stat"><b>' + stagesDone + '</b><span>stages cleared of ' + totalStages + "</span></div>" +
     '<div class="stat"><b>' + puzzles + '</b><span>puzzles solved</span></div>' +
@@ -21594,8 +21667,8 @@ function viewMap(V) {
     html += '<div class="fgrp mapgrp" data-fk="g-' + g.id + '"><div class="group-h"><h2>' + g.title.toUpperCase() + '</h2><span class="muted">' + g.sub + '</span><span class="gstat">' + secs.length + " MODULE" + (secs.length === 1 ? "" : "S") + (gfull ? " · " + gfull + " CLEARED" : "") + "<br>" + Math.round(gd / gt * 100) + "% DONE</span></div>";
     if (g.id === "core") {
       html += '<section class="path card" aria-label="Main path">' + secs.map(function (s) {
-        var d = secDone(s), pct = d / s.stages.length;
-        return '<button class="node' + (d === s.stages.length ? " full" : "") + '" data-go="section" data-arg="' + s.id + '" style="--sc:var(--' + s.color + ");--clip:" + ((1 - pct) * 100) + '%"><span class="disc"><span class="ring"></span>' + h(s.icon) + '</span><span class="nm">' + h(s.title) + '</span><span class="ct">' + d + " / " + s.stages.length + "</span></button>";
+        var all = S.set.fastTrack ? coreStages(s) : s.stages, d = all.filter(function (st) { return S.done[st.id]; }).length, pct = d / all.length;
+        return '<button class="node' + (d === all.length ? " full" : "") + '" data-go="section" data-arg="' + s.id + '" style="--sc:var(--' + s.color + ");--clip:" + ((1 - pct) * 100) + '%"><span class="disc"><span class="ring"></span>' + h(s.icon) + '</span><span class="nm">' + h(s.title) + '</span><span class="ct">' + d + " / " + all.length + (S.set.fastTrack ? " core" : "") + "</span></button>";
       }).join("") + "</section>";
     } else {
       html += '<section class="carts">' + secs.map(cartHtml).join("") + "</section>";
@@ -21604,12 +21677,14 @@ function viewMap(V) {
   });
   html += "</div>";
   V.innerHTML = html;
+  wireFast(V, function () { viewMap(V); });
+  var np = V.querySelector("[data-noplace]"); if (np) np.onclick = function () { save("placement", { at: Date.now(), skipped: true }); viewMap(V); };
 }
 function cartHtml(s) {
-  var d = secDone(s), pct = d / s.stages.length * 100, n = isLocked("section", s.id) ? lockLv("section", s.id) : 0;
+  var fast = S.set.fastTrack && s.group !== "fun", all = fast ? coreStages(s) : s.stages, d = all.filter(function (st) { return S.done[st.id]; }).length, pct = d / all.length * 100, n = isLocked("section", s.id) ? lockLv("section", s.id) : 0;
   if (n) return '<button class="cart locked" data-go="section" data-arg="' + s.id + '" style="--sc:var(--' + s.color + ')"><span class="band"><span>' + glyph("lock") + "LOCKED</span><span>LEVEL " + n + '</span></span><span class="body"><h3>' + h(s.title) + "</h3><p>Reach level " + n + " to open this module.</p></span></button>";
-  return '<button class="cart" data-go="section" data-arg="' + s.id + '" style="--sc:var(--' + s.color + ')"><span class="band"><span>' + h(s.icon) + " " + s.stages.length + " STAGES</span><span>+" + s.xp + " XP EACH</span></span>" +
-    '<span class="body"><h3>' + h(s.title) + "</h3><p>" + h(s.blurb) + '</p><span class="meta"><span class="bar"><i style="width:' + pct + '%"></i></span><span>' + d + "/" + s.stages.length + "</span></span></span></button>";
+  return '<button class="cart" data-go="section" data-arg="' + s.id + '" style="--sc:var(--' + s.color + ')"><span class="band"><span>' + h(s.icon) + " " + all.length + (fast && all.length < s.stages.length ? " CORE" : "") + " STAGES</span><span>+" + s.xp + " XP EACH</span></span>" +
+    '<span class="body"><h3>' + h(s.title) + "</h3><p>" + h(s.blurb) + '</p><span class="meta"><span class="bar"><i style="width:' + pct + '%"></i></span><span>' + d + "/" + all.length + "</span></span></span></button>";
 }
 
 // ---------------- SECTION ----------------
@@ -21633,16 +21708,18 @@ function viewSection(V, id) {
     '<h1 class="title">' + h(s.title) + '</h1><div class="prose">' + personal(s.intro) + '</div><div class="row" style="margin-top:12px">' +
     (nx && !(split && cd === cs.length) ? '<button class="btn primary" data-go="stage" data-arg="' + nxc.id + '">' + icon("play") + (d ? "Next: stage " + nxc.n : "Start stage 1") + "</button>" : '<span class="stamp">' + (nx ? "CORE CLEAR" : "SECTION CLEAR") + "</span>" + (nextSection(s) ? '<button class="btn primary" data-go="section" data-arg="' + nextSection(s).id + '">Next section: ' + h(nextSection(s).title) + " ›</button>" : "") + (nx ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Extra practice</button>' : "")) +
     '<span class="bar" style="flex:1;max-width:240px"><i style="width:' + (d / s.stages.length * 100) + '%"></i></span><b class="muted">' + d + " / " + s.stages.length + "</b></div>" +
-    (split ? '<p class="muted" style="margin:8px 0 0">Core stages: <b>' + cd + " / " + cs.length + "</b>. Clear the core to move on. Faded tiles are extra practice for whenever you want more.</p>" : "") +
+    (split ? '<p class="muted" style="margin:8px 0 0">Core stages: <b>' + cd + " / " + cs.length + "</b>. " + (S.set.fastTrack ? "Fast track is on, so the " + (s.stages.length - cs.length) + " extra-practice stages are hidden." : "Clear the core to move on. Faded tiles are extra practice for whenever you want more.") + " " + fastBtnHtml() + "</p>" : "") +
     (s.stages.some(function (st) { return st.step; }) ? loopLine() : "") + skipHtml(s) +
     (secQuizzes(s).length ? '<div class="row sec-quiz" style="margin-top:12px"><span class="muted">Check your understanding:</span>' + secQuizzes(s).map(function (q) { var r = S.quiz[q.id], ok = r && r.best / r.total >= .7; return '<button class="btn small" data-go="quiz" data-arg="' + q.id + '">' + (ok ? "✓ " : "") + h(q.title) + "</button>"; }).join("") + "</div>" : "") + "</div>" +
     '<div class="sidecol"><aside class="card"><h2 class="sub">READ MORE</h2><ul class="links">' + s.links.map(function (l) { return '<li><a href="' + h(l[1]) + '" target="_blank" rel="noopener">' + h(l[0]) + "</a></li>"; }).join("") + "</ul></aside>" + refWordsHtml(s) + "</div></section>" +
     '<section class="grid50" aria-label="Stages">' + s.stages.map(function (st) {
       var dn = S.done[st.id];
       var ex = split && !isCore(st);
+      if (ex && S.set.fastTrack) return ckptTiles(s, st.n);
       return '<button class="tile st-' + stepOf(st) + (ex ? " extra" : "") + (dn ? " done" + (dn.sol ? " half" : "") + (dn.skip ? " skip" : "") : "") + (nxc && nxc.id === st.id ? " next" : "") + '" data-go="stage" data-arg="' + st.id + '" title="' + STEPS[stepOf(st)].t + (ex ? " · extra practice" : "") + '" aria-label="Stage ' + st.n + ": " + h(st.t) + " (" + STEPS[stepOf(st)].t.toLowerCase() + (ex ? ", extra practice" : "") + ")" + (dn ? " (cleared)" : "") + '"><span class="n">' + (dn ? "✓" : st.n) + '</span><span class="t">' + h(st.t) + "</span></button>" + ckptTiles(s, st.n);
     }).join("") + "</section></div>";
   V.innerHTML = html;
+  wireFast(V, function () { viewSection(V, id); });
 }
 
 // ---------------- EDITOR ----------------
@@ -21850,7 +21927,7 @@ function orderBoard(st, V) {
 function viewStage(V, id) {
   var st = STAGE[id], s = st ? st.sec : SEC[String(id).split(":")[0]]; if (!s) return viewMap(V);
   if (!st || isLocked("section", s.id)) return viewSection(V, s.id);
-  var prev = s.stages[st.n - 2], next = s.stages[st.n];
+  var prev = stepFrom(st, -1), next = stepFrom(st, 1);
   var isDom = st.k === "dom", isGame = !!st.game;
   var isPredict = st.k === "predict", isPick = st.k === "pick", isSteps = st.k === "steps", isOrder = st.mode === "order" || isSteps, noCode = isPredict || isPick || isSteps;
   var showHint = S.set.hints !== "off" && st.h;
@@ -21861,10 +21938,10 @@ function viewStage(V, id) {
     '<div class="row"><div class="dots" aria-hidden="true">' + s.stages.map(function (x) { return "<i class=\"" + (x.id === st.id ? "c" : S.done[x.id] ? "d" : "") + '"></i>'; }).join("") + "</div>" +
     (prev ? '<button class="btn small" data-go="stage" data-arg="' + prev.id + '" aria-label="Previous stage">‹ Prev</button>' : "") +
     (next ? '<button class="btn small" data-go="stage" data-arg="' + next.id + '" aria-label="Next stage">Next ›</button>' : "") + "</div></div>" +
-    '<div class="board"><article class="card lesson' + (S.fold["l:" + st.id] ? " lfolded" : "") + '"><p class="eyebrow">' + h(s.title.toUpperCase()) + " · STAGE " + st.n + (S.done[st.id] ? ' · <span style="color:var(--pass)">CLEARED</span>' : "") + stepChip(st) + "</p><h1>" + h(st.t) + "</h1>" + readBtnHtml() + (st.l || st.hook ? '<button class="ghost small lfoldbtn" type="button" data-lfold="' + st.id + '" aria-expanded="' + !S.fold["l:" + st.id] + '">' + (S.fold["l:" + st.id] ? "Show the lesson" : "Hide the lesson") + "</button>" : "") + '<div class="lbody">' + hookHtml(st) +
+    '<div class="board"><article class="card lesson' + (S.fold["l:" + st.id] ? " lfolded" : "") + '"><p class="eyebrow">' + h(s.title.toUpperCase()) + " · STAGE " + st.n + (S.done[st.id] ? (S.done[st.id].skip ? ' · <span class="muted">SKIPPED</span>' : ' · <span style="color:var(--pass)">CLEARED</span>') : "") + stepChip(st) + "</p><h1>" + h(st.t) + "</h1>" + readBtnHtml() + (st.l || st.hook ? '<button class="ghost small lfoldbtn" type="button" data-lfold="' + st.id + '" aria-expanded="' + !S.fold["l:" + st.id] + '">' + (S.fold["l:" + st.id] ? "Show the lesson" : "Hide the lesson") + "</button>" : "") + '<div class="lbody">' + hookHtml(st) +
     (inDeck ? '<div class="callout"><b>REVIEW DECK</b><p>This stage tripped you up before. Clear it again to take it off your <button class="linkish" type="button" data-go="review">Review Deck</button>.</p></div>' : "") + lessonExtras(st) + (st.l ? '<div class="prose">' + personal(st.l) + "</div>" : recapHtml(st)) + "</div>" +
     '<div class="mission"><b>YOUR MISSION</b><div class="prose">' + personal(st.p) + "</div></div>" +
-    (st.k !== "free" ? '<div class="row" style="margin-top:12px">' + (showHint && S.set.hints === "button" ? '<button class="ghost" type="button" id="hintBtn">Show hint</button>' : "") + (S.set.solutions && st.s && !noCode ? '<button class="ghost" type="button" id="solBtn" hidden>Show solution</button>' : "") + (isGame ? '<button class="btn gold small" type="button" id="playBtn">' + icon("play") + "Play " + h(SQ_ENGINES[st.game.engine].title) + "</button>" : "") + "</div>" : "") +
+    (st.k !== "free" ? '<div class="row" style="margin-top:12px">' + (showHint && S.set.hints === "button" ? '<button class="ghost" type="button" id="hintBtn">Show hint</button>' : "") + (S.set.solutions && st.s && !noCode ? '<button class="ghost" type="button" id="solBtn" hidden>Show solution</button>' : "") + (!isPredict && !isPick && (!S.done[st.id] || S.done[st.id].skip) ? '<button class="ghost" type="button" id="skipBtn" hidden title="It goes to your Review Deck, so you can come back to it later">Skip for now</button>' : "") + (isGame ? '<button class="btn gold small" type="button" id="playBtn">' + icon("play") + "Play " + h(SQ_ENGINES[st.game.engine].title) + "</button>" : "") + "</div>" : "") +
     '<div class="hintbox" id="hintBox"></div>' +
     (s.group !== "fun" && st.l ? '<button class="ghost small confbtn" type="button" id="confBtn">' + (inDeck ? "Saved to your Review Deck" : "This part confused me") + "</button>" : "") +
     ((st.links || s.links).length ? '<div class="reslinks fgrp" data-fk="learnmore"><div class="group-h"><h2>LEARN MORE</h2></div><ul class="links">' + (st.links || s.links.slice(0, 3)).map(function (l) { return '<li><a href="' + h(l[1]) + '" target="_blank" rel="noopener">' + h(l[0]) + "</a></li>"; }).join("") + "</ul></div>" : "") +
@@ -21895,7 +21972,16 @@ function viewStage(V, id) {
     gateSol();
   }
   // show the solution button only after a real attempt or the full hint
-  function gateSol() { if ($("solBtn") && ((fails[st.id] || 0) > 0 || hintLevel === 2)) $("solBtn").hidden = false; }
+  function gateSol() { if ($("solBtn") && ((fails[st.id] || 0) > 0 || hintLevel === 2)) $("solBtn").hidden = false; if ($("skipBtn") && (fails[st.id] || 0) >= 3) $("skipBtn").hidden = false; }
+  // after 3 misses a stage can be skipped: it counts as known (no XP) so the path moves on, and waits in the Review Deck
+  if ($("skipBtn")) $("skipBtn").onclick = function () {
+    var at = rvFind(function (r) { return r.s === st.id; });
+    if (at < 0) S.review.push({ s: st.id, n: fails[st.id] || 1, at: Date.now(), conf: true }); else { S.review[at].conf = true; rvMiss(S.review[at]); }
+    rvSave();
+    if (!S.done[st.id]) { S.done[st.id] = { xp: 0, at: Date.now(), skip: true }; save("done", S.done); }
+    toast("Skipped for now. It's waiting in your Review Deck. Clear it later for the full XP.");
+    if (next) go("stage", next.id); else go("section", s.id);
+  };
   if ($("confBtn")) $("confBtn").onclick = function () {
     if (rvFind(function (r) { return r.s === st.id; }) < 0) { S.review.push({ s: st.id, n: 1, at: Date.now(), conf: true }); rvSave(); }
     $("confBtn").textContent = "Saved to your Review Deck"; $("confBtn").disabled = true;
@@ -21958,7 +22044,7 @@ function viewStage(V, id) {
   }
   function passStage(rows) {
       var res = $("res");
-      var first = !S.done[st.id], gain = 0, lvBefore = levelOf(totalXp());
+      var first = !S.done[st.id] || !!S.done[st.id].skip, gain = 0, lvBefore = levelOf(totalXp());
       var tr = st.game ? false : trackStage(st, true, visit, fails[st.id] || 0, !!revealed[st.id]);
       if (tr === "gone") queueToast("Cleared from your Review Deck for good. " + (rvQs().length + rvStages().length) + " left.", 900);
       else if (tr === "later") queueToast("Nice. It comes back in a few days, to make sure it sticks.", 900);
@@ -22037,7 +22123,7 @@ function viewStage(V, id) {
     }
     if (picked.length < want.length && log.every(function (l) { return l.ok; })) log.push({ ok: false, t: "(waits)", r: "The robot stops and waits. It needs more orders to finish the job." });
     $("out").innerHTML = '<ol class="robot">' + log.map(function (l) { return '<li class="' + (l.ok ? "" : "no") + '"><b>' + h(l.t) + "</b><br>" + h(l.r) + "</li>"; }).join("") + "</ol>";
-    fails[st.id] = (fails[st.id] || 0) + 1; trackStage(st, false, visit); SFX.fail(); maybeAutoHint();
+    fails[st.id] = (fails[st.id] || 0) + 1; trackStage(st, false, visit); SFX.fail(); maybeAutoHint(); gateSol();
     $("res").innerHTML = '<div class="verdict no" role="status"><div class="vt">✗ Not yet</div><div>The robot did exactly what you said. Computers only do exactly what you tell them, in the order you tell them.</div></div>';
   }
   function maybeAutoHint() { if (S.set.hints !== "auto" || !st.h || revealed[st.id]) return; var f = fails[st.id] || 0; if ((f >= 2 && hintLevel === 0) || (f >= 4 && hintLevel === 1)) showHintNow(); }
@@ -22200,8 +22286,10 @@ function viewQuiz(V, id) {
     if (x.opts) html += '<div class="opts">' + x.opts.map(function (o, i) { return '<button class="opt" data-o="' + i + '"><span class="k">' + "ABCDEFG"[i] + "</span><span>" + fmtOpt(o) + "</span></button>"; }).join("") + "</div>";
     if (x.type === "fb") html += '<form class="fbin" id="fbf"><input id="fbi" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your answer" placeholder="Type the missing part"><button class="btn primary" type="submit">Check</button></form>';
     if (x.type === "order") html += '<div class="order"><div><span class="lbl">YOUR PROGRAM (tap a line to remove it)</span><div class="ans" id="oa"></div></div><div><span class="lbl">TAP LINES IN ORDER</span><div class="pool" id="op"></div></div><div class="row"><button class="btn primary" id="oc">Check order</button><button class="ghost" id="or">Start over</button></div></div>';
+    if (q.idk) html += '<div class="placeq"><button class="ghost small" type="button" id="idkBtn">I don\'t know this yet</button></div>';
     html += '<div id="why"></div></div></div>';
     V.innerHTML = html; highlightAll(V);
+    if ($("idkBtn")) $("idkBtn").onclick = function () { $("idkBtn").disabled = true; V.querySelectorAll(".opt").forEach(function (b) { b.disabled = true; }); answer(false); };
     if (x.opts) V.querySelectorAll(".opt").forEach(function (b) { b.onclick = function () { answer(Number(b.getAttribute("data-o")) === x.ans, b); }; });
     if (x.type === "fb") { $("fbi").focus(); $("fbf").onsubmit = function (e) { e.preventDefault(); var v = normAns($("fbi").value); answer(x.accept.some(function (a) { return normAns(a) === v; })); }; }
     if (x.type === "order") {
@@ -22226,20 +22314,21 @@ function viewQuiz(V, id) {
   function answer(ok, btn) {
     var x = qs[idx]; if (marks[idx] !== undefined) return;
     marks[idx] = ok; if (ok) { score++; SFX.right(); } else SFX.wrong();
-    trackReview(x.src, ok);
+    if (!q.noReview) trackReview(x.src, ok);
+    var last = idx + 1 >= qs.length || !!(q.stopEarly && q.stopEarly(marks, idx));
     if (x.opts) V.querySelectorAll(".opt").forEach(function (b, i) { b.disabled = true; if (i === x.ans) b.classList.add("right"); else if (b === btn) b.classList.add("wrong"); });
     if (x.type === "fb") { $("fbi").disabled = true; }
     var right = x.type === "fb" ? "Answer: <code>" + h(x.accept[0]) + "</code>. " : x.type === "order" ? "" : "";
     var orderShow = x.type === "order" && !ok ? codeBlock(x.lines.join("\n"), "ex") : "";
-    $("why").innerHTML = '<div class="why ' + (ok ? "ok" : "no") + '"><b>' + (ok ? "Correct." : "Not quite.") + "</b> " + right + (x.why || "") + "</div>" + orderShow + '<div class="row" style="margin-top:12px"><button class="btn primary" id="qn">' + (idx + 1 < qs.length ? "Next question ›" : "See results") + "</button></div>";
+    $("why").innerHTML = '<div class="why ' + (ok ? "ok" : "no") + '"><b>' + (ok ? "Correct." : "Not quite.") + "</b> " + right + (x.why || "") + "</div>" + orderShow + '<div class="row" style="margin-top:12px"><button class="btn primary" id="qn">' + (!last ? "Next question ›" : "See results") + "</button></div>";
     highlightAll($("why"));
     var qp = V.querySelectorAll(".qprog i"); if (qp[idx]) qp[idx].className = ok ? "ok" : "no";
-    $("qn").onclick = function () { idx++; render(); };
+    $("qn").onclick = function () { idx = last ? qs.length : idx + 1; render(); };
     $("qn").focus();
     if (ok && S.set.quizAuto) { var at = idx; setTimeout(function () { if (idx === at && $("qn")) $("qn").click(); }, 1400); }
   }
   function finish() {
-    if (q.onFinish) return q.onFinish(V, score, qs.length);
+    if (q.onFinish) return q.onFinish(V, score, qs.length, marks);
     var prev = S.quiz[q.id], bestBefore = prev ? prev.best : 0;
     var best = Math.max(bestBefore, score);
     var gain = Math.max(0, best - bestBefore) * 5;
@@ -23420,7 +23509,7 @@ function viewSettings(V) {
     '<div class="field"><label for="setEdH">Editor height</label>' + sel("setEdH", [["short", "Short"], ["medium", "Medium"], ["tall", "Tall"]], st.edHeight) + "</div>" +  tog("setGuides", "Indent guide lines", st.guides) +
     '<div class="field" style="margin-top:12px"><label for="setKeySize">Symbol key size</label>' + sel("setKeySize", [["small", "Small"], ["normal", "Normal"], ["large", "Large"]], st.keySize) + "</div>" + "</section>" +
     '<section class="card" id="setLearn"><h2 class="sub">LEARNING</h2><div class="field"><label for="setHints">Hints</label>' + sel("setHints", [["button", "Show a hint button"], ["auto", "Show hints automatically after 2 misses"], ["off", "No hints (hard mode)"]], st.hints) + "</div>" +
-    tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + "</section>" +
+    tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + tog("setFast", "Fast track: core stages only", st.fastTrack) + '<span class="hint2">Hides the extra-practice stages in every module (about 4 in 10 stages), so you get through the essentials faster. Lessons, the learning loop and boss stages stay.</span>' + '<div class="row" style="margin-top:10px"><button class="btn" type="button" data-go="quiz" data-arg="' + placementQuiz() + '">' + (placement() && !placement().skipped ? "Retake" : "Take") + " the placement test</button></div>" + "</section>" +
     '<section class="card" id="setQuiz"><h2 class="sub">QUIZZES</h2>' + tog("setShuffle", "Shuffle answer choices", st.quizShuffle) + tog("setQAuto", "Go to the next question after a right answer", st.quizAuto) + "</section>" +
     '<section class="card" id="setFeel"><h2 class="sub">SOUND & FEEL</h2>' + tog("setSound", "Sound effects", st.sound) + tog("setClick", "Click sounds on buttons", st.clickSound) + tog("setTypeSnd", "Typing sounds in code and answer boxes", st.typeSound) +
     '<p class="hint2" style="margin-top:10px">Sound themes are on your <button class="linkish" type="button" data-go="me" data-arg="style">player card</button>.</p>' + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
@@ -23438,7 +23527,7 @@ function viewSettings(V) {
   bind("setCodeSize", "codeSize", function (e) { $("csv").textContent = e.value + "px"; return Number(e.value); });
   bind("setLines", "lineNumbers", function (e) { return e.checked; }); bind("setClose", "autoClose", function (e) { return e.checked; }); bind("setKeys", "keys", function (e) { return e.checked; });
   bind("setActive", "activeLine", function (e) { return e.checked; }); bind("setRunKey", "runKey", function (e) { return e.checked; });
-  bind("setHints", "hints"); bind("setSol", "solutions", function (e) { return e.checked; }); bind("setDetails", "details", function (e) { return e.checked; }); bind("setLint", "lint", function (e) { return e.checked; });
+  bind("setHints", "hints"); bind("setSol", "solutions", function (e) { return e.checked; }); bind("setDetails", "details", function (e) { return e.checked; }); bind("setLint", "lint", function (e) { return e.checked; }); bind("setFast", "fastTrack", function (e) { return e.checked; });
   bind("setSound", "sound", function (e) { return e.checked; }); bind("setVol", "volume", function (e) { return Number(e.value); }); bind("setCele", "celebrate", function (e) { return e.checked; });
   bind("setMotion", "motion", function (e) { return e.checked ? "on" : "off"; });
   bind("setBarPos", "barPos"); bind("setBarHide", "barHidden", function (e) { return e.checked; });
