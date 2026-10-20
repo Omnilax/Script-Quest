@@ -1,0 +1,853 @@
+{
+ "id": "web",
+ "title": "Web Design with JavaScript",
+ "group": "build",
+ "xp": 20,
+ "icon": "WWW",
+ "color": "s3",
+ "blurb": "How good websites are designed, then how to build them: buttons, links, pages, sliders, dashboards and dark mode.",
+ "intro": "<p>Websites are where most JavaScript lives. This module teaches both halves of making one: <b>design</b> (what the parts of a page are called, where things go, how color and space guide the eye, how dashboards show data) and <b>code</b> (making buttons, links, pages, sliders and forms actually work).</p><p>Design stages show a small page and ask you to spot what works and what doesn't. Coding stages have a <b>Page Preview</b> of the <i>Pixel Park</i> game studio site above the editor. Your code runs on that page, and you can click around in it afterwards.</p><div class=\"callout\"><b>Tip</b><p>The <b>DOM &amp; Events</b> section in the Advanced Path covers the building blocks used here (<code>querySelector</code>, <code>classList</code>, <code>addEventListener</code>) in more depth. You can do this module first, and come back to it when something feels new.</p></div>",
+ "links": [
+  [
+   "MDN: Learn web development",
+   "https://developer.mozilla.org/en-US/docs/Learn_web_development"
+  ],
+  [
+   "MDN: Document and website structure",
+   "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Structuring_documents"
+  ],
+  [
+   "WebAIM: Contrast checker",
+   "https://webaim.org/resources/contrastchecker/"
+  ],
+  [
+   "Nielsen Norman Group: F-shaped reading pattern",
+   "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/"
+  ],
+  [
+   "Laws of UX",
+   "https://lawsofux.com/"
+  ]
+ ],
+ "stages": [
+  {
+   "uid": "w1",
+   "t": "Anatomy of a web page",
+   "k": "pick",
+   "step": "learn",
+   "hook": "<p>Open almost any website and you'll find the same handful of parts in nearly the same places. Designers give each part a name so they can talk about it, and so visitors always know where to look.</p>",
+   "l": "<p>Here are the parts nearly every site has, from top to bottom:</p><div class=\"tbl\"><table><thead><tr><th>Part</th><th>What it holds</th><th>Where it lives</th></tr></thead><tbody><tr><td><b>Header</b></td><td>The logo (which links home) and the main navigation</td><td>Across the very top</td></tr><tr><td><b>Navigation</b> (nav)</td><td>Links to the main pages. On phones it often folds into a ☰ <b>hamburger</b> button</td><td>Inside the header</td></tr><tr><td><b>Hero</b></td><td>A big headline, one short sentence, a main button and often a picture</td><td>Right under the header</td></tr><tr><td><b>Main content</b></td><td>The stuff the page is actually about: articles, products, games</td><td>The middle</td></tr><tr><td><b>Sidebar</b></td><td>Extras: related links, top scores, filters</td><td>Beside the main content</td></tr><tr><td><b>Footer</b></td><td>Copyright, contact, privacy and links to every important page</td><td>Across the very bottom</td></tr></tbody></table></div><p>The part of the page you can see before you scroll is called <b>above the fold</b>, a name borrowed from newspapers, where the top half of the front page shows on the stand. Whatever matters most goes above the fold.</p>",
+   "p": "<p>Look at the Pixel Park page and find the <b>hero</b>.</p>",
+   "q": "Which letter marks the hero section?",
+   "html": "<header class=\"top\"><span class=\"logo\"><span class=\"tag\">A</span>Pixel Park</span><nav><a href=\"#\">Games</a><a href=\"#\">Blog</a><a href=\"#\">About</a></nav></header>\n<section class=\"hero\"><span class=\"tag\">B</span><h1>Build your first game this weekend</h1><p>Free lessons, real projects.</p><a class=\"btn\" href=\"#\">Start free</a></section>\n<main style=\"display:grid;grid-template-columns:2fr 1fr;gap:10px\"><div><span class=\"tag\">C</span><h2>Latest games</h2><div class=\"cards\"><div class=\"card\">Rocket Run</div><div class=\"card\">Slime Farm</div></div></div><aside class=\"card\"><span class=\"tag\">D</span><b>Top players</b><br>1. Kit<br>2. Robin</aside></main>\n<footer><span class=\"tag\">E</span>© Pixel Park · Contact · Privacy</footer>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "opts": [
+    "A",
+    "B",
+    "C",
+    "E"
+   ],
+   "ans": 1,
+   "miss": [
+    "A is the header: the logo and navigation across the top.",
+    "",
+    "C is the main content, the list of games.",
+    "E is the footer at the very bottom."
+   ],
+   "why": "<p>B is the hero: the big headline, one line of text and a main button, right under the header. Its job is to tell visitors what the site is and what to do first.</p>",
+   "h": "<p>Look for the big, bold banner just under the top bar.</p>"
+  },
+  {
+   "uid": "w2",
+   "t": "Where things go",
+   "k": "pick",
+   "step": "prove",
+   "p": "<p>Visitors don't read websites, they hunt. They expect things in the usual places.</p>",
+   "q": "Where do visitors expect to find the copyright line, contact details and the privacy policy?",
+   "opts": [
+    "In the header, next to the logo",
+    "In the hero, under the headline",
+    "In the footer, at the very bottom",
+    "In a pop-up when the page opens"
+   ],
+   "ans": 2,
+   "miss": [
+    "The header is prime space for the logo and main links. Legal details would crowd it.",
+    "The hero is for your one big message and main button.",
+    "",
+    "Pop-ups that show up uninvited annoy people, and they'll close it without reading."
+   ],
+   "why": "<p>The footer is the site's back cover. People scroll to the bottom on purpose to find contact info, legal links and a full list of pages. Following these habits (designers call it <b>Jakob's Law</b>: people expect your site to work like the other sites they use) makes your site feel easy.</p>",
+   "h": "<p>Think of the last time you looked for a company's phone number on a website. Where did you scroll to?</p>"
+  },
+  {
+   "uid": "w3",
+   "t": "The call to action",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>A <b>call to action</b> (CTA) is the button that asks the visitor to do the thing the page is for: <i>Start free</i>, <i>Buy now</i>, <i>Play</i>. A page should have <b>one main CTA</b>. It gets the boldest color, sits above the fold, and says exactly what happens when you press it.</p><div class=\"tbl\"><table><thead><tr><th>Weak CTA</th><th>Strong CTA</th></tr></thead><tbody><tr><td>Submit</td><td>Create my account</td></tr><tr><td>Click here</td><td>Download the game</td></tr><tr><td>Learn more (x5)</td><td>One bright <b>Start free</b>, plus a quiet <b>See pricing</b> link</td></tr></tbody></table></div><div class=\"callout\"><b>Tip</b><p>Other buttons can still exist. They just look quieter: an outline instead of a fill, or a plain link.</p></div>",
+   "p": "<p>This hero has three buttons that all look exactly the same.</p>",
+   "q": "What's the main problem?",
+   "html": "<section class=\"hero\"><h1>Build your first game this weekend</h1><p>Free lessons, real projects.</p><a class=\"btn\" href=\"#\">Start free</a> <a class=\"btn\" href=\"#\">Blog</a> <a class=\"btn\" href=\"#\">Newsletter</a></section>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "opts": [
+    "The buttons should be blue, not yellow",
+    "Nobody can tell which action matters most",
+    "There should be more buttons",
+    "Buttons don't belong in a hero"
+   ],
+   "ans": 1,
+   "miss": [
+    "Yellow on blue stands out well. The color isn't the issue.",
+    "",
+    "More equal buttons makes the choice even harder.",
+    "The hero is exactly where the main button belongs."
+   ],
+   "why": "<p>When everything shouts, nothing gets heard. Make <b>Start free</b> the bright main CTA, and turn Blog and Newsletter into quiet outline buttons or links.</p>",
+   "h": "<p>If you only had two seconds on this page, which button would you press?</p>"
+  },
+  {
+   "uid": "w4",
+   "t": "Landmark tags",
+   "k": "dom",
+   "step": "learn",
+   "l": "<p>HTML has tags named after the parts of a page: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;aside&gt;</code> (sidebar) and <code>&lt;footer&gt;</code>. They're called <b>landmarks</b>. They look just like a plain <code>&lt;div&gt;</code>, but screen readers let blind visitors jump between them, search engines understand your page better, and your own code becomes easier to read.</p><p>JavaScript can find them by tag name, just like by class or id:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const aside = document.querySelector(&quot;aside&quot;);\nconst items = aside.querySelectorAll(&quot;li&quot;);\nconsole.log(&quot;Sidebar items: &quot; + items.length);</code></pre><p><code>new Date().getFullYear()</code> gives the current year as a number. Sites use it so the copyright line never goes out of date.</p>",
+   "p": "<p>Print how many links are in the <code>nav</code>, in the form <code>Nav links: 3</code>. Then put the current year into the footer's <code>#year</code> span using <code>new Date().getFullYear()</code>.</p>",
+   "h": "<p>Search inside the nav with <code>nav.querySelectorAll(\"a\")</code> and use its <code>.length</code>. For the year, set <code>textContent</code> of the span.</p>",
+   "html": "<header class=\"top\"><span class=\"logo\">Pixel Park</span><nav><a href=\"#\">Games</a><a href=\"#\">Blog</a><a href=\"#\">About</a></nav></header><main><h2>Welcome!</h2><p>Lessons and games made by students.</p></main><footer>© <span id=\"year\">????</span> Pixel Park</footer>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "chk": "function (root, logs) {\n    if (logs.indexOf(\"Nav links: 3\") < 0) return \"Print exactly Nav links: 3 (count the a tags inside nav).\";\n    var y = root.querySelector(\"#year\").textContent;\n    if (y !== String(new Date().getFullYear())) return \"#year should show \" + new Date().getFullYear() + \". It shows \" + y + \".\";\n    return true;\n  }",
+   "req": "getFullYear",
+   "reqMsg": "Use new Date().getFullYear() so the year updates itself.",
+   "s": "const nav = document.querySelector(\"nav\");\nconst links = nav.querySelectorAll(\"a\");\nconsole.log(\"Nav links: \" + links.length);\ndocument.querySelector(\"#year\").textContent = new Date().getFullYear();\n",
+   "st": "// 1. count the links in the nav and print \"Nav links: N\"\n\n// 2. put this year into #year\n"
+  },
+  {
+   "uid": "w5",
+   "t": "How eyes scan a page",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>People don't read a web page top to bottom. Eye-tracking studies show two common paths:</p><ul><li><b>F-pattern</b> on pages full of text: read across the top, then down the left edge, dipping right now and then. Put key words at the <b>start</b> of headings and lines.</li><li><b>Z-pattern</b> on simple pages with few words: top-left (logo), across to top-right, diagonally down to bottom-left, then across to bottom-right.</li></ul><div class=\"callout\"><b>Tip</b><p>Both paths start top-left. That's why logos live there, and why dashboards put their most important number there too.</p></div>",
+   "p": "<p>This sign-up page has very few words, so eyes travel in a Z.</p>",
+   "q": "Where should the Join button go so it's the last stop of the Z?",
+   "html": "<div style=\"display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 90px auto;gap:8px;padding:12px;min-height:220px\"><div><b>Pixel Park</b></div><div style=\"text-align:right\">Log in</div><div style=\"grid-column:1/3;background:#dfe5ff;border-radius:10px;display:grid;place-items:center;font-weight:700\">Make games with friends</div><div><span class=\"tag\">1</span>Bottom-left</div><div style=\"text-align:right\"><span class=\"tag\">2</span>Bottom-right</div></div>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "opts": [
+    "Top-left, next to the logo",
+    "Bottom-left (spot 1)",
+    "Bottom-right (spot 2)",
+    "Anywhere, position doesn't matter"
+   ],
+   "ans": 2,
+   "miss": [
+    "That's where the eye starts, before it knows what the page is about.",
+    "That's the third stop of the Z, not the last.",
+    "",
+    "Position matters a lot. People find buttons in the places they expect."
+   ],
+   "why": "<p>The Z ends bottom-right, after the visitor has read the logo, the top line and the big message. A button there catches them at the moment they're ready to act.</p>",
+   "h": "<p>Trace a Z with your finger over the page. Where does it end?</p>"
+  },
+  {
+   "uid": "w6",
+   "t": "Visual hierarchy",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p><b>Visual hierarchy</b> means the most important thing looks the most important. You control it with:</p><div class=\"tbl\"><table><thead><tr><th>Tool</th><th>Louder</th><th>Quieter</th></tr></thead><tbody><tr><td>Size</td><td>Big</td><td>Small</td></tr><tr><td>Weight</td><td><b>Bold</b></td><td>Regular</td></tr><tr><td>Color</td><td>Bright or high contrast</td><td>Grey or soft</td></tr><tr><td>Position</td><td>Top, left, centre</td><td>Bottom, edges</td></tr><tr><td>Space</td><td>Lots of room around it</td><td>Packed in</td></tr></tbody></table></div><p>A quick test: squint at the page until it's blurry. The first thing you still notice should be the most important thing.</p>",
+   "p": "<p>Here's a game shop card.</p>",
+   "q": "What's wrong with this card's hierarchy?",
+   "html": "<div class=\"card\" style=\"margin:12px;max-width:260px\"><div style=\"font-size:26px;font-weight:800\">Terms and conditions apply</div><div style=\"font-size:11px;color:#888\">Rocket Run</div><div style=\"font-size:11px;color:#888\">$4.99</div><button class=\"btn\" style=\"font-size:11px;padding:3px 6px\">Buy</button></div>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "opts": [
+    "The card needs a picture",
+    "The least important text is the biggest and boldest",
+    "The font is wrong",
+    "Nothing, it's fine"
+   ],
+   "ans": 1,
+   "miss": [
+    "A picture could help, but the bigger problem is what's loud and what's quiet.",
+    "",
+    "The font is fine. Look at the sizes instead.",
+    "Squint at it. What do you notice first?"
+   ],
+   "why": "<p>The game's name and price should be big and bold, the Buy button clear, and <i>Terms apply</i> small and grey. Size, weight and color tell people what to read first.</p>",
+   "h": "<p>Squint. Which line jumps out first? Is that what a shopper cares about most?</p>"
+  },
+  {
+   "uid": "w7",
+   "t": "Group what belongs together",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Our brains treat things that are close together as a group. Designers call this the <b>Law of Proximity</b> (it's one of the <b>Gestalt</b> principles about how we see). Put related things close, and put more space between groups than inside them.</p><p>Other ways to group things: a shared background (a <b>card</b>), a line between sections, or the same color for things that do the same job.</p>",
+   "p": "<p>This form has every label and box spaced exactly the same.</p>",
+   "q": "Which change helps most?",
+   "html": "<form style=\"padding:12px;display:grid;gap:14px;max-width:260px\"><label>Name</label><input><label>Email</label><input><label>Password</label><input></form>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "opts": [
+    "Make every label red",
+    "Put each label right above its box, with bigger gaps between the pairs",
+    "Make the boxes wider",
+    "Add more space everywhere"
+   ],
+   "ans": 1,
+   "miss": [
+    "Color won't fix which label belongs to which box.",
+    "",
+    "Wider boxes keep the same confusing spacing.",
+    "Equal space everywhere is the problem. The space needs to be uneven on purpose."
+   ],
+   "why": "<p>With equal gaps, the label <i>Email</i> sits just as close to the Name box as to its own box. Small gap inside a pair and big gap between pairs makes each label and box read as one unit.</p>",
+   "h": "<p>Look at the label <i>Email</i>. Is it closer to its own box or to the one above?</p>"
+  },
+  {
+   "uid": "w8",
+   "t": "Space and the 8-point grid",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Empty space (designers say <b>white space</b>, whatever its color) isn't wasted. It makes pages calm and easy to scan.</p><p>To keep spacing consistent, many teams only use multiples of 8 pixels: 8, 16, 24, 32, 48. This is the <b>8-point grid</b>. Small gaps inside a component (8px), bigger gaps between components (16 to 24px), biggest between sections (32 to 48px). Layouts are also often split into a <b>12-column grid</b>, since 12 divides into halves, thirds and quarters.</p><div class=\"callout\"><b>Tip</b><p>Buttons and links people tap should be at least about 44px tall on phones. Fingers are much bigger than mouse pointers.</p></div>",
+   "p": "<p>A designer is choosing spacing values for a new site.</p>",
+   "q": "Which set follows the 8-point grid?",
+   "opts": [
+    "5px, 13px, 22px, 31px",
+    "8px, 16px, 24px, 48px",
+    "10px, 10px, 10px, 10px",
+    "7px, 9px, 11px, 13px"
+   ],
+   "ans": 1,
+   "miss": [
+    "These are random, so the page will feel slightly off everywhere.",
+    "",
+    "One value for everything means no difference between small and big gaps.",
+    "These aren't multiples of 8, and they're too close to each other to tell apart."
+   ],
+   "why": "<p>8, 16, 24 and 48 are all multiples of 8 and clearly different from each other, so small, medium and large gaps are easy to tell apart.</p>",
+   "h": "<p>Which set divides evenly by 8?</p>"
+  },
+  {
+   "uid": "w9",
+   "t": "Grid or list view",
+   "k": "dom",
+   "l": "<p>Lots of sites let you switch how items are laid out: a <b>grid</b> of cards or a <b>list</b> of rows. The trick is that JavaScript doesn't move anything itself. It just adds or removes a <b>class</b>, and the site's CSS already says how each class looks.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const box = document.querySelector(&quot;.gallery&quot;);\nbox.classList.add(&quot;big&quot;);      // CSS for .gallery.big takes over\nbox.classList.remove(&quot;big&quot;);   // back to normal</code></pre>",
+   "p": "<p>Clicking <code>#listBtn</code> should add the class <code>list</code> to <code>.cards</code>. Clicking <code>#gridBtn</code> should remove it. Watch the cards rearrange in the preview.</p>",
+   "h": "<p>Two click listeners: one calls <code>classList.add(\"list\")</code>, the other <code>classList.remove(\"list\")</code>.</p>",
+   "html": "<main><button class=\"btn ghost\" id=\"gridBtn\">▦ Grid</button> <button class=\"btn ghost\" id=\"listBtn\">☰ List</button><div class=\"cards\" style=\"margin-top:10px\"><div class=\"card\">Rocket Run</div><div class=\"card\">Slime Farm</div><div class=\"card\">Pixel Golf</div><div class=\"card\">Moon Maze</div></div></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.cards.list{grid-template-columns:1fr}.cards.list .card{padding:8px 12px}",
+   "chk": "function (root) {\n    var c = root.querySelector(\".cards\");\n    root.querySelector(\"#listBtn\").click();\n    if (!c.classList.contains(\"list\")) return \"After clicking List, .cards should have the class list.\";\n    root.querySelector(\"#gridBtn\").click();\n    if (c.classList.contains(\"list\")) return \"After clicking Grid, the list class should be gone.\";\n    return true;\n  }",
+   "s": "const cards = document.querySelector(\".cards\");\ndocument.querySelector(\"#listBtn\").addEventListener(\"click\", () => {\n  cards.classList.add(\"list\");\n});\ndocument.querySelector(\"#gridBtn\").addEventListener(\"click\", () => {\n  cards.classList.remove(\"list\");\n});\n",
+   "st": "const cards = document.querySelector(\".cards\");\n"
+  },
+  {
+   "uid": "w10",
+   "t": "Phones first",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>More than half of all web visits happen on phones. A site that adjusts to any screen size is called <b>responsive</b>. Common moves when the screen gets narrow:</p><ul><li>Side-by-side columns <b>stack</b> into one column.</li><li>The nav folds into a ☰ <b>hamburger menu</b>.</li><li>Text stays at least 16px, and buttons get bigger, not smaller.</li></ul><p>Many designers sketch the phone version <b>first</b>, then add columns as the screen grows. It forces you to decide what really matters.</p>",
+   "p": "<p>A page has three columns of cards side by side on a laptop. Now it's on a phone 375 pixels wide.</p>",
+   "q": "What do most well-designed sites do?",
+   "opts": [
+    "Shrink all three columns until the text is tiny",
+    "Stack the cards into one column",
+    "Hide two of the columns",
+    "Make the visitor scroll sideways"
+   ],
+   "ans": 1,
+   "miss": [
+    "Tiny text is unreadable on a phone.",
+    "",
+    "Hiding content means phone visitors miss things.",
+    "Sideways scrolling is awkward and easy to miss."
+   ],
+   "why": "<p>Stacking keeps every card readable at full size. Visitors on phones are used to scrolling down, not sideways.</p>",
+   "h": "<p>Think of your favorite site on your phone. Do things sit side by side, or one under another?</p>"
+  },
+  {
+   "uid": "w11",
+   "t": "What colors say",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Colors carry meaning before anyone reads a word. On the web, people have learned a few strong habits:</p><div class=\"tbl\"><table><thead><tr><th>Color</th><th>Usually means</th></tr></thead><tbody><tr><td><span class=\"sw\" style=\"background:#2e9e5b;color:#fff\">Green</span></td><td>Success, done, go, money</td></tr><tr><td><span class=\"sw\" style=\"background:#d62f3a;color:#fff\">Red</span></td><td>Error, danger, delete, stop</td></tr><tr><td><span class=\"sw\" style=\"background:#f2b705;color:#1d2330\">Yellow</span></td><td>Warning, careful, attention</td></tr><tr><td><span class=\"sw\" style=\"background:#2457d6;color:#fff\">Blue</span></td><td>Links, trust, calm (banks and social sites love it)</td></tr><tr><td><span class=\"sw\" style=\"background:#6b7280;color:#fff\">Grey</span></td><td>Disabled, less important, background details</td></tr></tbody></table></div><p><b>Warm</b> colors (red, orange, yellow) feel energetic and jump forward. <b>Cool</b> colors (blue, green, purple) feel calm and sit back. That's why a warm button pops on a cool page.</p><div class=\"callout warn\"><b>Watch out</b><p>About 1 in 12 boys can't tell some reds and greens apart. Never use color alone: add an icon or a word too, like ✓ Saved or ✗ Error.</p></div>",
+   "p": "<p>A shop shows this message after someone pays.</p>",
+   "q": "What's off about it?",
+   "html": "<div style=\"margin:12px;padding:12px;border-radius:8px;background:#fde2e4;border:2px solid #d62f3a;color:#8a1520;font-weight:700\">Your payment worked! Thanks for your order.</div>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "opts": [
+    "The text is too short",
+    "Red says something went wrong, but the news is good",
+    "It should be a pop-up",
+    "The corners should be square"
+   ],
+   "ans": 1,
+   "miss": [
+    "Short is good for a status message.",
+    "",
+    "A pop-up wouldn't fix the mixed signal.",
+    "Corners won't confuse anyone. The color will."
+   ],
+   "why": "<p>People see red and think <i>error</i> before they read a word. Success messages should be green, with a ✓ so color isn't the only clue.</p>",
+   "h": "<p>If you only saw the color, without reading, what would you think happened?</p>"
+  },
+  {
+   "uid": "w12",
+   "t": "The 60-30-10 rule",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>A simple recipe for a palette that feels balanced:</p><ul><li><b>60%</b> a calm <b>main</b> color, usually a light or dark neutral for the background.</li><li><b>30%</b> a <b>secondary</b> color for big areas like the header, cards and sidebar.</li><li><b>10%</b> an <b>accent</b> color, saved for the things you want clicked: the main button, links, highlights.</li></ul><p>Pixel Park uses <span class=\"sw\" style=\"background:#f5f6fa;color:#1d2330\">light grey</span> for 60%, <span class=\"sw\" style=\"background:#1d2a4d;color:#fff\">navy</span> for 30% and <span class=\"sw\" style=\"background:#ffb703;color:#1d2330\">gold</span> for 10%. Look back at the earlier pages: gold only shows up on the main button.</p><div class=\"callout\"><b>Tip</b><p>The accent only works because it's rare. If every button is gold, none of them stands out.</p></div>",
+   "p": "<p>Four students describe their site's colors.</p>",
+   "q": "Which one follows 60-30-10?",
+   "opts": [
+    "Everything bright orange so it feels exciting",
+    "White background, dark green header and cards, pink only on the Buy buttons",
+    "Equal amounts of red, blue and yellow",
+    "A different color for every section"
+   ],
+   "ans": 1,
+   "miss": [
+    "With orange everywhere, nothing can stand out.",
+    "",
+    "Equal amounts means no main color and no accent.",
+    "Too many colors makes a page feel messy and hard to scan."
+   ],
+   "why": "<p>White is the calm 60%, dark green is the 30% for big areas, and pink is the rare 10% accent that pulls eyes to the Buy buttons.</p>",
+   "h": "<p>Look for one big calm color, one supporting color, and one rare bright one.</p>"
+  },
+  {
+   "uid": "w13",
+   "t": "Contrast you can read",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p><b>Contrast</b> is the difference in brightness between text and its background. The web's accessibility rules (WCAG) give it a number from 1:1 (no difference) to 21:1 (black on white):</p><div class=\"tbl\"><table><thead><tr><th>Text</th><th>Needs at least</th></tr></thead><tbody><tr><td>Normal text</td><td><b>4.5 : 1</b></td></tr><tr><td>Large text (24px, or bold 19px)</td><td><b>3 : 1</b></td></tr><tr><td>Icons and button borders</td><td>3 : 1</td></tr></tbody></table></div><p>Low contrast is one of the most common problems on the web. Light grey on white looks stylish on a bright monitor and disappears on a phone in sunlight.</p>",
+   "p": "<p>Here are four button styles.</p>",
+   "q": "Which one is easiest for everyone to read?",
+   "opts": [
+    "<span class=\"sw\" style=\"background:#ffffff;color:#ffb703\">Start free</span> Gold text on white",
+    "<span class=\"sw\" style=\"background:#ffffff;color:#999999\">Start free</span> Grey text on white",
+    "<span class=\"sw\" style=\"background:#1d2a4d;color:#ffffff\">Start free</span> White text on navy",
+    "<span class=\"sw\" style=\"background:#2e9e5b;color:#d62f3a\">Start free</span> Red text on green"
+   ],
+   "ans": 2,
+   "miss": [
+    "Gold on white is only about 1.8 : 1. Many people can barely see it.",
+    "Light grey on white is about 2.9 : 1, below the 4.5 : 1 rule.",
+    "",
+    "Red on green is low contrast and invisible to many color-blind people."
+   ],
+   "why": "<p>White on navy is about 14 : 1, way past the 4.5 : 1 minimum. Strong contrast helps everyone: people with low vision, tired eyes, old screens or bright sunlight.</p>",
+   "h": "<p>Which pair is most different in <b>brightness</b>, not just in color?</p>"
+  },
+  {
+   "uid": "w14",
+   "t": "Colors are numbers",
+   "k": "predict",
+   "hook": "<p>A designer hands you the color <code>#ff8800</code>. To check its contrast, your code needs to know how much red, green and blue are inside. How do you get numbers out of that string?</p>",
+   "l": "<p>A hex color is three pairs of base-16 digits: red, green, blue. Each pair runs from 00 (none) to ff (full).</p>",
+   "p": "<p>What does this program print?</p>",
+   "code": "const color = \"#ff8800\";\nconst red = color.slice(1, 3);\nconsole.log(red, parseInt(red, 16));",
+   "opts": [
+    "ff 255",
+    "ff8800 255",
+    "#f 15",
+    "ff 16"
+   ],
+   "miss": [
+    "",
+    "slice(1, 3) takes characters 1 and 2 only.",
+    "slice starts at index 1, which skips the #.",
+    "parseInt with 16 reads ff as a base-16 number, and ff is the biggest two-digit hex value."
+   ],
+   "why": "<p><code>slice(1, 3)</code> takes the characters at index 1 and 2, which is <code>ff</code>. <code>parseInt(text, 16)</code> reads text as a base-16 number: f is 15, so ff is 15 × 16 + 15 = 255, full red.</p>",
+   "h": "<p>Count positions from 0: # is 0, f is 1, f is 2. Then remember ff in hex is the biggest two-digit value.</p>"
+  },
+  {
+   "uid": "w15",
+   "t": "Hex to RGB",
+   "k": "fn",
+   "fn": "hexToRgb",
+   "a": "hex",
+   "l": "<p>Each pair of a hex color sits at a fixed spot: red at index 1 to 3, green at 3 to 5, blue at 5 to 7. Slice each one out and turn it into a number with <code>parseInt(pair, 16)</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const hex = &quot;#00ccff&quot;;\nconst blue = parseInt(hex.slice(5, 7), 16);\nconsole.log(blue); // 255</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>255</code></pre>",
+   "p": "<p>Write <code>hexToRgb(hex)</code> that returns an array <code>[red, green, blue]</code> of numbers. <code>hexToRgb(\"#ff8800\")</code> should return <code>[255, 136, 0]</code>.</p>",
+   "h": "<p>Use the same slice-and-parse as the example three times, with the start index 1, 3 and 5, and return all three in an array.</p>",
+   "c": [
+    [
+     [
+      "#ff8800"
+     ],
+     [
+      255,
+      136,
+      0
+     ]
+    ],
+    [
+     [
+      "#000000"
+     ],
+     [
+      0,
+      0,
+      0
+     ]
+    ],
+    [
+     [
+      "#ffffff"
+     ],
+     [
+      255,
+      255,
+      255
+     ]
+    ],
+    [
+     [
+      "#1d2a4d"
+     ],
+     [
+      29,
+      42,
+      77
+     ]
+    ]
+   ],
+   "s": "function hexToRgb(hex) {\n  const r = parseInt(hex.slice(1, 3), 16);\n  const g = parseInt(hex.slice(3, 5), 16);\n  const b = parseInt(hex.slice(5, 7), 16);\n  return [r, g, b];\n}\n",
+   "st": "function hexToRgb(hex) {\n  // slice out each pair and parse it as base 16\n}\n\nconsole.log(hexToRgb(\"#ff8800\")); // [255, 136, 0]\n"
+  },
+  {
+   "uid": "w16",
+   "t": "Build a contrast checker",
+   "k": "fn",
+   "fn": "contrast",
+   "a": "a, b",
+   "l": "<p>Real design tools check contrast with a formula from the WCAG rules. The starter already has <code>luminance(hex)</code>, which says how bright a color looks (0 is black, 1 is white). The contrast ratio is:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Formula\"><code>(brighter + 0.05) / (darker + 0.05)</code></pre><p>The brighter one always goes on top, whichever color you pass first. <code>Math.max</code> and <code>Math.min</code> sort that out.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const big = Math.max(0.2, 0.9);   // 0.9\nconst small = Math.min(0.2, 0.9); // 0.2\nconsole.log(Math.round(3.14159 * 100) / 100); // 3.14</code></pre>",
+   "p": "<p>Write <code>contrast(a, b)</code> that returns the contrast ratio of two hex colors, rounded to 2 decimal places. Black and white should give <code>21</code>, white and white <code>1</code>, and <code>#777777</code> on white <code>4.48</code> (just under the 4.5 rule!).</p>",
+   "h": "<p>Get both luminances first. Then use <code>Math.max</code> for the brighter and <code>Math.min</code> for the darker, plug them into the formula, and round with <code>Math.round(x * 100) / 100</code>.</p>",
+   "c": [
+    [
+     [
+      "#000000",
+      "#ffffff"
+     ],
+     21
+    ],
+    [
+     [
+      "#ffffff",
+      "#000000"
+     ],
+     21
+    ],
+    [
+     [
+      "#ffffff",
+      "#ffffff"
+     ],
+     1
+    ],
+    [
+     [
+      "#777777",
+      "#ffffff"
+     ],
+     4.48
+    ],
+    [
+     [
+      "#1d2a4d",
+      "#ffffff"
+     ],
+     14.09
+    ],
+    [
+     [
+      "#ffb703",
+      "#ffffff"
+     ],
+     1.75
+    ]
+   ],
+   "s": "// how bright a color looks to people, from 0 (black) to 1 (white)\nfunction luminance(hex) {\n  const parts = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);\n  const lin = parts.map(c => c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);\n  return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];\n}\n\nfunction contrast(a, b) {\n  const la = luminance(a);\n  const lb = luminance(b);\n  const ratio = (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);\n  return Math.round(ratio * 100) / 100;\n}\n",
+   "st": "// how bright a color looks to people, from 0 (black) to 1 (white)\nfunction luminance(hex) {\n  const parts = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);\n  const lin = parts.map(c => c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);\n  return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];\n}\n\nfunction contrast(a, b) {\n  // your code here\n}\n\nconsole.log(contrast(\"#000000\", \"#ffffff\")); // 21\nconsole.log(contrast(\"#777777\", \"#ffffff\")); // 4.48\n"
+  },
+  {
+   "uid": "w17",
+   "t": "Theme colors with variables",
+   "k": "dom",
+   "l": "<p>Big sites don't write the same color in fifty places. They store it once in a <b>CSS variable</b> (its name starts with <code>--</code>) and every rule uses <code>var(--name)</code>. Change the variable and the whole site changes at once.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"CSS\"><code>/* in the site's CSS */\n.btn { background: var(--brand); }</code></pre><p>JavaScript can change a variable with <code>style.setProperty</code>:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>document.body.style.setProperty(&quot;--size&quot;, &quot;20px&quot;);</code></pre><p>In these previews, <code>document.body</code> is the whole preview page. Each swatch button also stores its color in a <code>data-color</code> attribute, which you can read with <code>button.dataset.color</code>.</p>",
+   "p": "<p>When any <code>.swatch</code> button is clicked, set the <code>--accent</code> variable on <code>document.body</code> to that button's <code>data-color</code>. Try the swatches in the preview and watch the button and links change.</p>",
+   "h": "<p>Loop over <code>document.querySelectorAll(\".swatch\")</code> and give each one a click listener that calls <code>document.body.style.setProperty(\"--accent\", btn.dataset.color)</code>.</p>",
+   "html": "<header class=\"top\"><span class=\"logo\">Pixel Park</span><nav><a href=\"#\">Games</a><a href=\"#\">Blog</a></nav></header><main><p>Pick an accent color:</p><p><button class=\"swatch\" data-color=\"#ffb703\">Gold</button> <button class=\"swatch\" data-color=\"#2ec4b6\">Teal</button> <button class=\"swatch\" data-color=\"#ff6b9a\">Pink</button></p><p><a class=\"btn\" href=\"#\">Start free</a> <a class=\"more\" href=\"#\">See all games ›</a></p></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.page{--accent:#ffb703}.btn{background:var(--accent)}.more{color:#1d2330;border-bottom:3px solid var(--accent);text-decoration:none}.swatch{border:2px solid #1d2330;border-radius:6px;padding:6px 10px;background:#fff}.swatch[data-color=\"#ffb703\"]{border-left:14px solid #ffb703}.swatch[data-color=\"#2ec4b6\"]{border-left:14px solid #2ec4b6}.swatch[data-color=\"#ff6b9a\"]{border-left:14px solid #ff6b9a}",
+   "chk": "function (root) {\n    var sws = root.querySelectorAll(\".swatch\");\n    sws[1].click();\n    var v = getComputedStyle(root).getPropertyValue(\"--accent\").trim().toLowerCase();\n    if (v !== \"#2ec4b6\") return \"After clicking Teal, --accent should be #2ec4b6. It's \" + (v || \"not set\") + \".\";\n    sws[2].click();\n    v = getComputedStyle(root).getPropertyValue(\"--accent\").trim().toLowerCase();\n    if (v !== \"#ff6b9a\") return \"After clicking Pink, --accent should be #ff6b9a.\";\n    return true;\n  }",
+   "req": "setProperty",
+   "reqMsg": "Change the CSS variable with style.setProperty(\"--accent\", ...).",
+   "s": "const swatches = document.querySelectorAll(\".swatch\");\nswatches.forEach(btn => {\n  btn.addEventListener(\"click\", () => {\n    document.body.style.setProperty(\"--accent\", btn.dataset.color);\n  });\n});\n",
+   "st": "const swatches = document.querySelectorAll(\".swatch\");\n"
+  },
+  {
+   "uid": "w18",
+   "t": "Dark mode switch",
+   "k": "dom",
+   "l": "<p>Dark mode is just a class. The site's CSS has a second set of colors for <code>.dark</code>, and the switch toggles that class on and off.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>panel.classList.toggle(&quot;open&quot;); // adds it if missing, removes it if there\nconst isOpen = panel.classList.contains(&quot;open&quot;);</code></pre><p>A switch should also say what it does next, and tell screen readers whether it's on with <code>aria-pressed</code>.</p>",
+   "p": "<p>Clicking <code>#theme</code> toggles the class <code>dark</code> on <code>document.body</code>. When dark mode is on, the button reads <code>☀ Light mode</code> and has <code>aria-pressed=\"true\"</code>. When it's off, it reads <code>☾ Dark mode</code> with <code>aria-pressed=\"false\"</code>.</p>",
+   "h": "<p>Inside the click listener: toggle the class, then check <code>classList.contains(\"dark\")</code> and set the button's <code>textContent</code> and <code>setAttribute(\"aria-pressed\", ...)</code> to match.</p>",
+   "html": "<header class=\"top\"><span class=\"logo\">Pixel Park</span><button id=\"theme\" class=\"btn ghost\" aria-pressed=\"false\">☾ Dark mode</button></header><main><h2>Latest games</h2><div class=\"cards\"><div class=\"card\">Rocket Run</div><div class=\"card\">Slime Farm</div></div></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.page.dark{background:#10131c;color:#e7eaf3}.page.dark .card{background:#1b2030;color:#e7eaf3}.page.dark header.top{background:#000}",
+   "chk": "function (root) {\n    var b = root.querySelector(\"#theme\");\n    b.click();\n    if (!root.classList.contains(\"dark\")) return \"After one click, document.body should have the class dark.\";\n    if (b.textContent.trim() !== \"☀ Light mode\") return \"When dark, the button should say ☀ Light mode.\";\n    if (b.getAttribute(\"aria-pressed\") !== \"true\") return \"When dark, aria-pressed should be \\\"true\\\".\";\n    b.click();\n    if (root.classList.contains(\"dark\")) return \"A second click should turn dark mode off.\";\n    if (b.textContent.trim() !== \"☾ Dark mode\" || b.getAttribute(\"aria-pressed\") !== \"false\") return \"When light, the button should say ☾ Dark mode with aria-pressed \\\"false\\\".\";\n    return true;\n  }",
+   "s": "const btn = document.querySelector(\"#theme\");\nbtn.addEventListener(\"click\", () => {\n  document.body.classList.toggle(\"dark\");\n  const dark = document.body.classList.contains(\"dark\");\n  btn.textContent = dark ? \"☀ Light mode\" : \"☾ Dark mode\";\n  btn.setAttribute(\"aria-pressed\", String(dark));\n});\n",
+   "st": "const btn = document.querySelector(\"#theme\");\n"
+  },
+  {
+   "uid": "w19",
+   "t": "What makes a dashboard",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>A <b>dashboard</b> shows the important numbers about something on one screen: a game's players, a shop's sales, a school's grades. A good one answers its main question <b>at a glance</b>, in about five seconds.</p><p>Most dashboards use three bands, from most to least important:</p><ol><li><b>KPI tiles</b> across the top. A KPI (key performance indicator) is one big number that matters, like <i>Players today</i>. Keep it to about 3 to 6.</li><li><b>Charts</b> in the middle, showing trends and comparisons.</li><li><b>Detail tables</b> at the bottom, for people who want to dig in.</li></ol><div class=\"callout\"><b>Tip</b><p>Eyes start top-left, so that's where the single most important number goes, biggest of all.</p></div>",
+   "p": "<p>Here's a dashboard for the Pixel Park game servers.</p>",
+   "q": "Which letter marks the KPI tiles?",
+   "html": "<div style=\"padding:10px;display:grid;gap:8px\"><div style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px\"><div class=\"card\"><span class=\"tag\">A</span><small>Players today</small><div style=\"font-size:24px;font-weight:800\">1,284</div></div><div class=\"card\"><small>New sign-ups</small><div style=\"font-size:18px;font-weight:700\">96</div></div><div class=\"card\"><small>Games played</small><div style=\"font-size:18px;font-weight:700\">5,310</div></div><div class=\"card\"><small>Crashes</small><div style=\"font-size:18px;font-weight:700\">3</div></div></div><div class=\"card\" style=\"height:70px\"><span class=\"tag\">B</span><small>Players per day</small><svg viewBox=\"0 0 200 40\" style=\"width:100%;height:40px\"><polyline fill=\"none\" stroke=\"#2457d6\" stroke-width=\"2\" points=\"0,30 25,28 50,22 75,25 100,15 125,18 150,10 175,12 200,5\"/></svg></div><div class=\"card\"><span class=\"tag\">C</span><small>Recent players</small><div style=\"font-size:12px\">Kit · 32 min · Rocket Run<br>Robin · 14 min · Slime Farm</div></div></div>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "opts": [
+    "A",
+    "B",
+    "C"
+   ],
+   "ans": 0,
+   "miss": [
+    "",
+    "B is a chart showing a trend over time.",
+    "C is a detail table with individual players."
+   ],
+   "why": "<p>A is the row of KPI tiles: a few big numbers across the top, with the most important one, <i>Players today</i>, in the top-left and the largest.</p>",
+   "h": "<p>KPIs are single big numbers.</p>"
+  },
+  {
+   "uid": "w20",
+   "t": "Pick the right chart",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Each kind of chart answers a different kind of question:</p><div class=\"tbl\"><table><thead><tr><th>Question</th><th>Best choice</th></tr></thead><tbody><tr><td>How did it change over time?</td><td><b>Line chart</b></td></tr><tr><td>Which category is biggest?</td><td><b>Bar chart</b> (sorted biggest first)</td></tr><tr><td>What's the one number right now?</td><td><b>KPI tile</b> with an arrow showing up or down</td></tr><tr><td>How close are we to a goal?</td><td><b>Progress bar</b></td></tr><tr><td>What are the exact details?</td><td><b>Table</b></td></tr></tbody></table></div><div class=\"callout warn\"><b>Watch out</b><p>Pie charts with lots of slices are hard to read, because people are bad at comparing angles. A sorted bar chart is almost always clearer.</p></div>",
+   "p": "<p>The Pixel Park team wants to see how many people visited the site each day over the last 30 days.</p>",
+   "q": "Which chart fits best?",
+   "opts": [
+    "A pie chart with 30 slices",
+    "A line chart",
+    "A single KPI tile",
+    "A table of 30 rows"
+   ],
+   "ans": 1,
+   "miss": [
+    "30 slices would be impossible to compare.",
+    "",
+    "One number can't show how it changed across the month.",
+    "A table has the numbers, but you can't see the trend at a glance."
+   ],
+   "why": "<p>Change over time is exactly what line charts are for. The eye follows the line and instantly sees whether it's going up or down.</p>",
+   "h": "<p>The question is about change over time.</p>"
+  },
+  {
+   "uid": "w21",
+   "t": "KPI tiles from data",
+   "k": "dom",
+   "l": "<p>Real dashboards don't have numbers typed into the HTML. The numbers arrive as <b>data</b> (usually an array of objects) and JavaScript builds the tiles.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const tags = [&quot;new&quot;, &quot;hot&quot;];\nconst box = document.querySelector(&quot;.tags&quot;);\nfor (const t of tags) {\n  const span = document.createElement(&quot;span&quot;);\n  span.className = &quot;pill&quot;;\n  span.textContent = t;\n  box.append(span);\n}</code></pre>",
+   "p": "<p>For each item in <code>stats</code>, add a <code>div</code> with class <code>kpi</code> to <code>#kpis</code>. Inside it, put a <code>&lt;b&gt;</code> holding the value and a <code>&lt;span&gt;</code> holding the label. Tip: <code>innerHTML</code> with a template string is fine here, because you wrote the data yourself.</p>",
+   "h": "<p>Loop with <code>for (const s of stats)</code>, create the div, give it <code>className = \"kpi\"</code>, fill it with <code>`&lt;b&gt;${s.value}&lt;/b&gt;&lt;span&gt;${s.label}&lt;/span&gt;`</code> and append it to <code>#kpis</code>.</p>",
+   "html": "<main><h2>Today</h2><div id=\"kpis\"></div></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n#kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}.kpi{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14);display:flex;flex-direction:column-reverse}.kpi b{font-size:24px}.kpi span{font-size:12px;color:#55607a;text-transform:uppercase;letter-spacing:.05em}.kpi:first-child b{color:#2457d6;font-size:28px}",
+   "chk": "function (root) {\n    var k = root.querySelectorAll(\"#kpis .kpi\");\n    if (k.length !== 4) return \"There should be 4 .kpi tiles in #kpis. Found \" + k.length + \".\";\n    var want = [[\"1284\", \"Players today\"], [\"96\", \"New sign-ups\"], [\"5310\", \"Games played\"], [\"3\", \"Crashes\"]];\n    for (var i = 0; i < 4; i++) {\n      var b = k[i].querySelector(\"b\"), s = k[i].querySelector(\"span\");\n      if (!b || !s) return \"Each tile needs a <b> for the value and a <span> for the label.\";\n      if (b.textContent.replace(/,/g, \"\") !== want[i][0] || s.textContent !== want[i][1]) return \"Tile \" + (i + 1) + \" should show \" + want[i][0] + \" and \" + want[i][1] + \".\";\n    }\n    return true;\n  }",
+   "s": "const stats = [\n  { label: \"Players today\", value: 1284 },\n  { label: \"New sign-ups\", value: 96 },\n  { label: \"Games played\", value: 5310 },\n  { label: \"Crashes\", value: 3 }\n];\nconst box = document.querySelector(\"#kpis\");\nfor (const s of stats) {\n  const tile = document.createElement(\"div\");\n  tile.className = \"kpi\";\n  tile.innerHTML = `<b>${s.value}</b><span>${s.label}</span>`;\n  box.append(tile);\n}\n",
+   "st": "const stats = [\n  { label: \"Players today\", value: 1284 },\n  { label: \"New sign-ups\", value: 96 },\n  { label: \"Games played\", value: 5310 },\n  { label: \"Crashes\", value: 3 }\n];\nconst box = document.querySelector(\"#kpis\");\n"
+  },
+  {
+   "uid": "w22",
+   "t": "Readable numbers",
+   "k": "dom",
+   "l": "<p><code>1284</code> is harder to read than <code>1,284</code>, and <code>4999.5</code> is worse than <code>$4,999.50</code>. <code>toLocaleString</code> formats numbers the way people expect in their country:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const n = 2500000;\nconsole.log(n.toLocaleString(&quot;en-US&quot;));            // 2,500,000\nconsole.log((0.25).toLocaleString(&quot;en-US&quot;, { style: &quot;percent&quot; }));  // 25%\nconsole.log((9.5).toLocaleString(&quot;en-US&quot;, { style: &quot;currency&quot;, currency: &quot;EUR&quot; })); // €9.50</code></pre>",
+   "p": "<p>Show <code>players</code> in <code>#players</code> as <code>12,345</code>, <code>sales</code> in <code>#sales</code> as US dollars (<code>$4,999.50</code>), and <code>growth</code> in <code>#growth</code> as a percent (<code>8%</code>).</p>",
+   "h": "<p>Use <code>toLocaleString(\"en-US\")</code> for players, add <code>{ style: \"currency\", currency: \"USD\" }</code> for sales and <code>{ style: \"percent\" }</code> for growth. Put each result in the element's <code>textContent</code>.</p>",
+   "html": "<main><div class=\"cards\"><div class=\"card\"><small>Players</small><h2 id=\"players\"></h2></div><div class=\"card\"><small>Sales</small><h2 id=\"sales\"></h2></div><div class=\"card\"><small>Growth</small><h2 id=\"growth\"></h2></div></div></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "chk": "function (root) {\n    var g = function (id) { return root.querySelector(id).textContent.trim(); };\n    if (g(\"#players\") !== \"12,345\") return \"#players should read 12,345. It reads \" + (g(\"#players\") || \"nothing\") + \".\";\n    if (g(\"#sales\") !== \"$4,999.50\") return \"#sales should read $4,999.50. It reads \" + (g(\"#sales\") || \"nothing\") + \".\";\n    if (g(\"#growth\") !== \"8%\") return \"#growth should read 8%. It reads \" + (g(\"#growth\") || \"nothing\") + \".\";\n    return true;\n  }",
+   "req": "toLocaleString",
+   "reqMsg": "Format the numbers with toLocaleString instead of typing the text yourself.",
+   "s": "const players = 12345;\nconst sales = 4999.5;\nconst growth = 0.08;\ndocument.querySelector(\"#players\").textContent = players.toLocaleString(\"en-US\");\ndocument.querySelector(\"#sales\").textContent = sales.toLocaleString(\"en-US\", { style: \"currency\", currency: \"USD\" });\ndocument.querySelector(\"#growth\").textContent = growth.toLocaleString(\"en-US\", { style: \"percent\" });\n",
+   "st": "const players = 12345;\nconst sales = 4999.5;\nconst growth = 0.08;\n"
+  },
+  {
+   "uid": "w23",
+   "t": "Progress bars",
+   "k": "dom",
+   "l": "<p>A progress bar is two boxes: a grey track and a colored fill inside it. JavaScript sets the fill's <b>width</b> as a percent.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const pct = Math.round(30 / 120 * 100);   // 25\nfill.style.width = pct + &quot;%&quot;;</code></pre><p>Careful: if someone beats the goal, the percent goes over 100 and the bar pokes out of its track. <code>Math.min(pct, 100)</code> caps it.</p>",
+   "p": "<p>For each goal in <code>goals</code>, find the bar with the matching <code>data-goal</code> attribute (like <code>.bar[data-goal=\"lessons\"]</code>). Set its <code>.fill</code> width to the percent done, capped at 100, and put the percent text (like <code>25%</code>) in its <code>.pct</code>. Show the real percent there even when it's over 100.</p>",
+   "h": "<p>Loop over the goals. Build the selector with a template string: <code>`.bar[data-goal=\"${g.id}\"]`</code>. Work out the percent with <code>Math.round</code>, then set <code>style.width</code> with <code>Math.min</code>.</p>",
+   "html": "<main><h2>Weekly goals</h2><div class=\"bar\" data-goal=\"lessons\"><span>Lessons</span><div class=\"track\"><div class=\"fill\"></div></div><b class=\"pct\"></b></div><div class=\"bar\" data-goal=\"games\"><span>Games built</span><div class=\"track\"><div class=\"fill\"></div></div><b class=\"pct\"></b></div><div class=\"bar\" data-goal=\"minutes\"><span>Minutes coded</span><div class=\"track\"><div class=\"fill\"></div></div><b class=\"pct\"></b></div></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.bar{display:grid;grid-template-columns:110px 1fr 48px;align-items:center;gap:8px;margin:8px 0}.track{height:14px;background:#dde1ec;border-radius:999px;overflow:hidden}.fill{height:100%;width:0;background:#2e9e5b;border-radius:999px;transition:width .4s}",
+   "chk": "function (root) {\n    var want = { lessons: [75, \"75%\"], games: [100, \"150%\"], minutes: [40, \"40%\"] };\n    for (var id in want) {\n      var bar = root.querySelector('.bar[data-goal=\"' + id + '\"]');\n      var w = bar.querySelector(\".fill\").style.width, p = bar.querySelector(\".pct\").textContent.trim();\n      if (w !== want[id][0] + \"%\") return \"The \" + id + \" fill should be \" + want[id][0] + \"% wide. It's \" + (w || \"not set\") + \".\";\n      if (p !== want[id][1]) return \"The \" + id + \" text should read \" + want[id][1] + \".\";\n    }\n    return true;\n  }",
+   "s": "const goals = [\n  { id: \"lessons\", done: 15, goal: 20 },\n  { id: \"games\", done: 3, goal: 2 },\n  { id: \"minutes\", done: 120, goal: 300 }\n];\nfor (const g of goals) {\n  const bar = document.querySelector(`.bar[data-goal=\"${g.id}\"]`);\n  const pct = Math.round(g.done / g.goal * 100);\n  bar.querySelector(\".fill\").style.width = Math.min(pct, 100) + \"%\";\n  bar.querySelector(\".pct\").textContent = pct + \"%\";\n}\n",
+   "st": "const goals = [\n  { id: \"lessons\", done: 15, goal: 20 },\n  { id: \"games\", done: 3, goal: 2 },\n  { id: \"minutes\", done: 120, goal: 300 }\n];\n"
+  },
+  {
+   "uid": "w24",
+   "t": "A bar chart from divs",
+   "k": "dom",
+   "l": "<p>You don't need a chart library for a simple bar chart. Each bar is a <code>div</code> whose height is a percent of the <b>tallest</b> value, so the biggest bar fills the chart.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const scores = [4, 10, 7];\nconst top = Math.max(...scores);       // 10\nconsole.log(scores.map(s =&gt; s / top * 100)); // [40, 100, 70]</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>[ 40, 100, 70 ]</code></pre>",
+   "p": "<p>For each game in <code>plays</code>, add a <code>div</code> with class <code>col</code> to <code>#chart</code>. Set its <code>style.height</code> to its share of the biggest value as a percent (the biggest is <code>100%</code>), and its <code>title</code> to the game name. Inside it, put the game name as text.</p>",
+   "h": "<p>Find the biggest with <code>Math.max(...plays.map(p =&gt; p.count))</code>. Then loop, create each div, and set <code>style.height = (p.count / top * 100) + \"%\"</code>.</p>",
+   "html": "<main><h2>Plays this week</h2><div id=\"chart\"></div></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n#chart{height:160px;display:flex;align-items:flex-end;gap:10px;border-bottom:2px solid #1d2330;padding:0 6px}.col{flex:1;background:#2457d6;color:#fff;font-size:11px;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;border-radius:6px 6px 0 0;overflow:hidden}",
+   "chk": "function (root) {\n    var c = root.querySelectorAll(\"#chart .col\");\n    if (c.length !== 4) return \"There should be 4 .col bars in #chart. Found \" + c.length + \".\";\n    var want = [[\"Rocket Run\", 60], [\"Slime Farm\", 100], [\"Pixel Golf\", 25], [\"Moon Maze\", 80]];\n    for (var i = 0; i < 4; i++) {\n      if (Math.abs(parseFloat(c[i].style.height) - want[i][1]) > 0.5 || !/%$/.test(c[i].style.height)) return want[i][0] + \" should be \" + want[i][1] + \"% tall. It's \" + (c[i].style.height || \"not set\") + \".\";\n      if (c[i].title !== want[i][0] || c[i].textContent.trim() !== want[i][0]) return \"Bar \" + (i + 1) + \" needs the title and text \" + want[i][0] + \".\";\n    }\n    return true;\n  }",
+   "s": "const plays = [\n  { game: \"Rocket Run\", count: 300 },\n  { game: \"Slime Farm\", count: 500 },\n  { game: \"Pixel Golf\", count: 125 },\n  { game: \"Moon Maze\", count: 400 }\n];\nconst chart = document.querySelector(\"#chart\");\nconst top = Math.max(...plays.map(p => p.count));\nfor (const p of plays) {\n  const col = document.createElement(\"div\");\n  col.className = \"col\";\n  col.style.height = (p.count / top * 100) + \"%\";\n  col.title = p.game;\n  col.textContent = p.game;\n  chart.append(col);\n}\n",
+   "st": "const plays = [\n  { game: \"Rocket Run\", count: 300 },\n  { game: \"Slime Farm\", count: 500 },\n  { game: \"Pixel Golf\", count: 125 },\n  { game: \"Moon Maze\", count: 400 }\n];\nconst chart = document.querySelector(\"#chart\");\n"
+  },
+  {
+   "uid": "w25",
+   "t": "Up or down at a glance",
+   "k": "dom",
+   "l": "<p>A number alone doesn't say if things are good. Dashboards add a <b>trend</b>: green and ▲ for up, red and ▼ for down. Remember the rule from earlier: never color alone, so the arrow matters as much as the color.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const temp = -3;\nconst label = temp &lt; 0 ? &quot;freezing&quot; : &quot;fine&quot;;\nel.classList.add(temp &lt; 0 ? &quot;cold&quot; : &quot;warm&quot;);</code></pre>",
+   "p": "<p>Each <code>.trend</code> has a <code>data-change</code> number. If it's above 0, add class <code>up</code> and set its text to <code>▲ </code> plus the number (like <code>▲ 12</code>). If it's below 0, add class <code>down</code> and use <code>▼ </code> plus the number without its minus sign (<code>▼ 4</code>). If it's exactly 0, add class <code>flat</code> and show <code>– 0</code>.</p>",
+   "h": "<p>Turn <code>el.dataset.change</code> into a number with <code>Number()</code>. Use <code>Math.abs(n)</code> to drop the minus sign. An <code>if / else if / else</code> handles the three cases.</p>",
+   "html": "<main><div class=\"cards\"><div class=\"card\"><small>Players</small><h2>1,284</h2><span class=\"trend\" data-change=\"12\"></span></div><div class=\"card\"><small>Sign-ups</small><h2>96</h2><span class=\"trend\" data-change=\"-4\"></span></div><div class=\"card\"><small>Crashes</small><h2>3</h2><span class=\"trend\" data-change=\"0\"></span></div></div></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.trend{font-weight:700;font-size:13px}.trend.up{color:#1f7a45}.trend.down{color:#c0262f}.trend.flat{color:#55607a}",
+   "chk": "function (root) {\n    var t = root.querySelectorAll(\".trend\");\n    var want = [[\"up\", \"▲ 12\"], [\"down\", \"▼ 4\"], [\"flat\", \"– 0\"]];\n    for (var i = 0; i < 3; i++) {\n      if (!t[i].classList.contains(want[i][0])) return \"The trend with data-change \" + t[i].dataset.change + \" needs the class \" + want[i][0] + \".\";\n      if (t[i].textContent.trim() !== want[i][1]) return \"The trend with data-change \" + t[i].dataset.change + \" should read \" + want[i][1] + \". It reads \" + (t[i].textContent || \"nothing\") + \".\";\n    }\n    return true;\n  }",
+   "s": "document.querySelectorAll(\".trend\").forEach(el => {\n  const n = Number(el.dataset.change);\n  if (n > 0) {\n    el.classList.add(\"up\");\n    el.textContent = \"▲ \" + n;\n  } else if (n < 0) {\n    el.classList.add(\"down\");\n    el.textContent = \"▼ \" + Math.abs(n);\n  } else {\n    el.classList.add(\"flat\");\n    el.textContent = \"– 0\";\n  }\n});\n",
+   "st": "document.querySelectorAll(\".trend\").forEach(el => {\n  const n = Number(el.dataset.change);\n  // add the right class and text\n});\n"
+  },
+  {
+   "uid": "w26",
+   "t": "Filter buttons",
+   "k": "dom",
+   "l": "<p>Dashboards and shops let you narrow down a list: <i>All</i>, <i>Open</i>, <i>Done</i>. Each item carries a <code>data-</code> attribute, and the filter hides items that don't match by setting their <code>hidden</code> property.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>for (const row of rows) {\n  row.hidden = row.dataset.size !== &quot;big&quot;;\n}</code></pre>",
+   "p": "<p>Each <code>.filter</code> button has a <code>data-show</code> of <code>all</code>, <code>open</code> or <code>done</code>. Clicking one hides every <code>li</code> whose <code>data-status</code> doesn't match (<code>all</code> shows everything) and gives that button the class <code>active</code>, removing it from the others.</p>",
+   "h": "<p>In each button's click listener, read <code>btn.dataset.show</code>. Loop the <code>li</code>s and set <code>li.hidden = show !== \"all\" &amp;&amp; li.dataset.status !== show</code>. Then loop the buttons and use <code>classList.toggle(\"active\", b === btn)</code>.</p>",
+   "html": "<main><h2>Bug tracker</h2><p><button class=\"filter active\" data-show=\"all\">All</button> <button class=\"filter\" data-show=\"open\">Open</button> <button class=\"filter\" data-show=\"done\">Done</button></p><ul id=\"bugs\"><li data-status=\"open\">Player falls through floor</li><li data-status=\"done\">Score resets on pause</li><li data-status=\"open\">Music too loud</li><li data-status=\"done\">Typo on title screen</li></ul></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.filter{border:2px solid #1d2a4d;background:#fff;border-radius:999px;padding:4px 12px}.filter.active{background:#1d2a4d;color:#fff}#bugs li{padding:4px 0}#bugs li[data-status=done]{color:#55607a;text-decoration:line-through}",
+   "chk": "function (root) {\n    var b = root.querySelectorAll(\".filter\"), li = root.querySelectorAll(\"#bugs li\");\n    var vis = function () { return [].filter.call(li, function (x) { return !x.hidden; }).map(function (x) { return x.dataset.status; }).join(\",\"); };\n    b[1].click();\n    if (vis() !== \"open,open\") return \"After clicking Open, only the 2 open bugs should show.\";\n    if (!b[1].classList.contains(\"active\") || b[0].classList.contains(\"active\")) return \"The clicked button should be the only one with class active.\";\n    b[2].click();\n    if (vis() !== \"done,done\") return \"After clicking Done, only the 2 done bugs should show.\";\n    b[0].click();\n    if (vis().split(\",\").length !== 4) return \"After clicking All, every bug should show again.\";\n    if (!b[0].classList.contains(\"active\") || b[2].classList.contains(\"active\")) return \"Only All should be active now.\";\n    return true;\n  }",
+   "s": "const buttons = document.querySelectorAll(\".filter\");\nconst items = document.querySelectorAll(\"#bugs li\");\nbuttons.forEach(btn => {\n  btn.addEventListener(\"click\", () => {\n    const show = btn.dataset.show;\n    items.forEach(li => {\n      li.hidden = show !== \"all\" && li.dataset.status !== show;\n    });\n    buttons.forEach(b => b.classList.toggle(\"active\", b === btn));\n  });\n});\n",
+   "st": "const buttons = document.querySelectorAll(\".filter\");\nconst items = document.querySelectorAll(\"#bugs li\");\n"
+  },
+  {
+   "uid": "w27",
+   "t": "Buttons that do things",
+   "k": "dom",
+   "step": "learn",
+   "hook": "<p>Everything up to now was about how a site <i>looks</i>. Now it needs to <i>do</i> things. Every like, add-to-cart and play button on the web works the same way: wait for a click, then change something on the page.</p>",
+   "l": "<p>Use a real <code>&lt;button&gt;</code> for anything that <b>does</b> something, and a link (<code>&lt;a&gt;</code>) for anything that <b>goes</b> somewhere. Buttons work with the keyboard and screen readers for free.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let stars = 0;\nconst starBtn = document.querySelector(&quot;#star&quot;);\nstarBtn.addEventListener(&quot;click&quot;, () =&gt; {\n  stars++;\n  starBtn.textContent = &quot;★ &quot; + stars;\n});</code></pre><div class=\"callout\"><b>Tip</b><p>Good buttons give feedback straight away: the count changes, the color changes, or the label changes. If nothing visible happens, people click again and again.</p></div>",
+   "p": "<p>Make the <code>#like</code> button work. Each click adds 1 to <code>likes</code>, shows the new number in <code>#count</code>, and adds the class <code>liked</code> to the button (so it turns pink).</p>",
+   "h": "<p>Same shape as the star example: a click listener that adds 1 to <code>likes</code>, then updates <code>#count</code>'s <code>textContent</code> and calls <code>classList.add(\"liked\")</code> on the button.</p>",
+   "html": "<main><div class=\"card\" style=\"max-width:260px\"><h2>Rocket Run</h2><p>Dodge asteroids, grab fuel, reach the moon.</p><button id=\"like\" class=\"likebtn\">♥ Like</button> <span id=\"count\">0</span> likes</div></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.likebtn{border:2px solid #d0d5e2;background:#fff;border-radius:999px;padding:6px 14px;transition:transform .1s}.likebtn:active{transform:scale(.94)}.likebtn.liked{background:#ff6b9a;border-color:#ff6b9a;color:#fff}",
+   "chk": "function (root) {\n    var b = root.querySelector(\"#like\"), c = root.querySelector(\"#count\");\n    b.click(); b.click(); b.click();\n    if (c.textContent.trim() !== \"3\") return \"After 3 clicks, #count should show 3. It shows \" + c.textContent + \".\";\n    if (!b.classList.contains(\"liked\")) return \"After a click, the button should have the class liked.\";\n    return true;\n  }",
+   "s": "let likes = 0;\nconst likeBtn = document.querySelector(\"#like\");\nconst count = document.querySelector(\"#count\");\nlikeBtn.addEventListener(\"click\", () => {\n  likes++;\n  count.textContent = likes;\n  likeBtn.classList.add(\"liked\");\n});\n",
+   "st": "let likes = 0;\nconst likeBtn = document.querySelector(\"#like\");\nconst count = document.querySelector(\"#count\");\n"
+  },
+  {
+   "uid": "w28",
+   "t": "Order: a subscribe button",
+   "k": "dom",
+   "step": "order",
+   "mode": "order",
+   "l": "<p>A button that only works once should say so: change its label and <b>disable</b> it, so nobody subscribes twice.</p>",
+   "p": "<p>Tap the lines into the right order so clicking <code>#sub</code> shows the thank-you message, changes the button to <code>Subscribed ✓</code> and disables it.</p>",
+   "h": "<p>Find both elements first. Then the listener opens, does its three jobs, and closes.</p>",
+   "html": "<section class=\"hero\"><h1>Get new games first</h1><p>One email a month. No spam.</p><button id=\"sub\" class=\"btn\">Subscribe</button><p id=\"msg\"></p></section>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.btn:disabled{background:#c9d0e0;color:#55607a;cursor:default}#msg{margin:10px 0 0;font-weight:700}",
+   "chk": "function (root) {\n    var b = root.querySelector(\"#sub\");\n    b.click();\n    if (root.querySelector(\"#msg\").textContent !== \"Thanks for subscribing!\") return \"After a click, #msg should say Thanks for subscribing!\";\n    if (b.textContent !== \"Subscribed ✓\" || !b.disabled) return \"The button should read Subscribed ✓ and be disabled.\";\n    return true;\n  }",
+   "s": "const sub = document.querySelector(\"#sub\");\nconst msg = document.querySelector(\"#msg\");\nsub.addEventListener(\"click\", () => {\nmsg.textContent = \"Thanks for subscribing!\";\nsub.textContent = \"Subscribed ✓\";\nsub.disabled = true;\n});\n",
+   "dl": [
+    "sub.disabled = false;",
+    "msg.addEventListener(\"click\", () => {"
+   ]
+  },
+  {
+   "uid": "w29",
+   "t": "Links from data",
+   "k": "dom",
+   "l": "<p>A link needs an <code>href</code> (where it goes) and text (what people click). Links to <b>other sites</b> usually open in a new tab with <code>target=\"_blank\"</code>, plus <code>rel=\"noopener\"</code> so the other site can't reach back and mess with yours.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const docs = document.querySelector(&quot;#docs&quot;);\ndocs.setAttribute(&quot;href&quot;, &quot;https://developer.mozilla.org&quot;);\ndocs.setAttribute(&quot;target&quot;, &quot;_blank&quot;);   // open in a new tab\ndocs.setAttribute(&quot;rel&quot;, &quot;noopener&quot;);    // keep our page safe</code></pre><p>You can also set them as properties, like <code>link.href = ...</code>, which is shorter.</p><div class=\"callout\"><b>Tip</b><p>Link text should make sense on its own. Screen reader users often jump from link to link, so ten links that all say <i>click here</i> are useless.</p></div>",
+   "p": "<p>Build the nav from <code>links</code>. For each one, add an <code>a</code> to the <code>nav</code> with its <code>href</code> and <code>text</code>. If <code>external</code> is true, also set <code>target</code> to <code>_blank</code> and <code>rel</code> to <code>noopener</code>.</p>",
+   "h": "<p>Loop over <code>links</code>, create an <code>a</code>, set <code>href</code> and <code>textContent</code>, and use an <code>if (link.external)</code> for the extra two properties. Append each one to the nav.</p>",
+   "html": "<header class=\"top\"><span class=\"logo\">Pixel Park</span><nav></nav></header><main><p>Links open here as a preview only.</p></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\nnav a[target=_blank]::after{content:\" ↗\"}",
+   "chk": "function (root) {\n    var a = root.querySelectorAll(\"nav a\");\n    if (a.length !== 4) return \"The nav should have 4 links. Found \" + a.length + \".\";\n    var want = [[\"Games\", \"#games\", 0], [\"Blog\", \"#blog\", 0], [\"About\", \"#about\", 0], [\"GitHub\", \"https://github.com\", 1]];\n    for (var i = 0; i < 4; i++) {\n      if (a[i].textContent !== want[i][0] || a[i].getAttribute(\"href\") !== want[i][1]) return \"Link \" + (i + 1) + \" should say \" + want[i][0] + \" and go to \" + want[i][1] + \".\";\n      if (want[i][2] && (a[i].target !== \"_blank\" || a[i].rel !== \"noopener\")) return \"The external GitHub link needs target _blank and rel noopener.\";\n      if (!want[i][2] && a[i].target === \"_blank\") return \"Only external links should open in a new tab. \" + want[i][0] + \" is on our own site.\";\n    }\n    return true;\n  }",
+   "s": "const links = [\n  { text: \"Games\", href: \"#games\" },\n  { text: \"Blog\", href: \"#blog\" },\n  { text: \"About\", href: \"#about\" },\n  { text: \"GitHub\", href: \"https://github.com\", external: true }\n];\nconst nav = document.querySelector(\"nav\");\nfor (const link of links) {\n  const a = document.createElement(\"a\");\n  a.href = link.href;\n  a.textContent = link.text;\n  if (link.external) {\n    a.target = \"_blank\";\n    a.rel = \"noopener\";\n  }\n  nav.append(a);\n}\n",
+   "st": "const links = [\n  { text: \"Games\", href: \"#games\" },\n  { text: \"Blog\", href: \"#blog\" },\n  { text: \"About\", href: \"#about\" },\n  { text: \"GitHub\", href: \"https://github.com\", external: true }\n];\nconst nav = document.querySelector(\"nav\");\n"
+  },
+  {
+   "uid": "w30",
+   "t": "Many pages, one site",
+   "k": "dom",
+   "step": "learn",
+   "l": "<p>A website can have many pages in two ways. A <b>multi-page site</b> has a separate HTML file for each page, and every link loads a whole new page. A <b>single-page app</b> (SPA) loads once and JavaScript swaps which section is showing. Games, Gmail and most dashboards work like this, because switching is instant.</p><p>The simplest SPA: every page is a <code>section</code> with a <code>data-page</code> name, and only one is visible at a time. The nav links say which page they want with <code>data-link</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>function showTab(name) {\n  document.querySelectorAll(&quot;.tab&quot;).forEach(t =&gt; {\n    t.hidden = t.dataset.tab !== name;\n  });\n}</code></pre><p>Two more details make it feel right. <code>event.preventDefault()</code> stops the browser following the link the normal way, and <code>aria-current=\"page\"</code> marks the link for the page you're on (the site's CSS underlines it in gold).</p>",
+   "p": "<p>Clicking a nav link shows only the <code>.view</code> whose <code>data-page</code> matches the link's <code>data-link</code>, and hides the others. The clicked link gets <code>aria-current=\"page\"</code>, and the other links lose it (use <code>removeAttribute</code>).</p>",
+   "h": "<p>Give each <code>nav a</code> a click listener. Inside it: <code>e.preventDefault()</code>, read <code>link.dataset.link</code>, loop over the <code>.view</code>s setting <code>hidden</code>, then loop over the links calling <code>setAttribute</code> or <code>removeAttribute</code>.</p>",
+   "html": "<header class=\"top\"><span class=\"logo\">Pixel Park</span><nav><a href=\"#home\" data-link=\"home\" aria-current=\"page\">Home</a><a href=\"#games\" data-link=\"games\">Games</a><a href=\"#about\" data-link=\"about\">About</a></nav></header>\n<section class=\"view\" data-page=\"home\"><div class=\"hero\"><h1>Welcome to Pixel Park</h1><p>Games made by students, for everyone.</p></div></section>\n<section class=\"view\" data-page=\"games\" hidden><main><h2>All games</h2><div class=\"cards\"><div class=\"card\">Rocket Run</div><div class=\"card\">Slime Farm</div><div class=\"card\">Pixel Golf</div></div></main></section>\n<section class=\"view\" data-page=\"about\" hidden><main><h2>About us</h2><p>We're a coding club that builds a new game every month.</p></main></section>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "chk": "function (root) {\n    var links = root.querySelectorAll(\"nav a\"), v = function () { return [].filter.call(root.querySelectorAll(\".view\"), function (x) { return !x.hidden; }).map(function (x) { return x.dataset.page; }).join(\",\"); };\n    links[1].click();\n    if (v() !== \"games\") return \"After clicking Games, only the games page should show. Showing: \" + (v() || \"nothing\") + \".\";\n    if (links[1].getAttribute(\"aria-current\") !== \"page\" || links[0].hasAttribute(\"aria-current\")) return \"Games should have aria-current=\\\"page\\\" and Home should lose it.\";\n    links[2].click();\n    if (v() !== \"about\") return \"After clicking About, only the about page should show.\";\n    links[0].click();\n    if (v() !== \"home\" || links[2].hasAttribute(\"aria-current\")) return \"Clicking Home should bring the home page back and move aria-current to it.\";\n    return true;\n  }",
+   "s": "const links = document.querySelectorAll(\"nav a\");\nconst views = document.querySelectorAll(\".view\");\nlinks.forEach(link => {\n  link.addEventListener(\"click\", e => {\n    e.preventDefault();\n    const name = link.dataset.link;\n    views.forEach(v => { v.hidden = v.dataset.page !== name; });\n    links.forEach(l => {\n      if (l === link) l.setAttribute(\"aria-current\", \"page\");\n      else l.removeAttribute(\"aria-current\");\n    });\n  });\n});\n",
+   "st": "const links = document.querySelectorAll(\"nav a\");\nconst views = document.querySelectorAll(\".view\");\n"
+  },
+  {
+   "uid": "w31",
+   "t": "Page not found",
+   "k": "dom",
+   "l": "<p>Every site needs a plan for addresses that don't exist: a <b>404 page</b> (404 is the web's error code for \"not found\"). A good one is friendly and links back home.</p><p>A clean way to organise a single-page site is one function, often called a <b>router</b>, that takes a page name and shows it. Then links, buttons and the start-up code all call the same function.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const sizes = [&quot;small&quot;, &quot;medium&quot;, &quot;large&quot;];\nconst pick = sizes.includes(wanted) ? wanted : &quot;medium&quot;;</code></pre>",
+   "p": "<p>Write <code>showPage(name)</code>. If a <code>.view</code> with that <code>data-page</code> exists, show only that one. Otherwise show only the <code>notfound</code> page. At the end of your code, call <code>showPage(\"home\")</code> so the site starts on the home page.</p>",
+   "h": "<p>Make a list of the page names with <code>[...views].map(v =&gt; v.dataset.page)</code>. If it doesn't <code>includes(name)</code>, switch <code>name</code> to <code>\"notfound\"</code>. Then hide every view except that one.</p>",
+   "ex": [
+    "showPage"
+   ],
+   "html": "<header class=\"top\"><span class=\"logo\">Pixel Park</span></header><section class=\"view\" data-page=\"home\" hidden><div class=\"hero\"><h1>Welcome to Pixel Park</h1></div></section><section class=\"view\" data-page=\"games\" hidden><main><h2>All games</h2></main></section><section class=\"view\" data-page=\"notfound\" hidden><main style=\"text-align:center\"><h2>404: this page wandered off</h2><p>Try the <a href=\"#home\">home page</a>.</p></main></section>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n",
+   "chk": "function (root, logs, ex) {\n    var v = function () { return [].filter.call(root.querySelectorAll(\".view\"), function (x) { return !x.hidden; }).map(function (x) { return x.dataset.page; }).join(\",\"); };\n    if (v() !== \"home\") return \"When your code runs, it should call showPage(\\\"home\\\") so only the home page shows.\";\n    if (typeof ex.showPage !== \"function\") return \"Write a function called showPage.\";\n    ex.showPage(\"games\");\n    if (v() !== \"games\") return \"showPage(\\\"games\\\") should show only the games page.\";\n    ex.showPage(\"banana\");\n    if (v() !== \"notfound\") return \"showPage(\\\"banana\\\") should show only the notfound page, since there's no banana page.\";\n    return true;\n  }",
+   "s": "const views = document.querySelectorAll(\".view\");\nfunction showPage(name) {\n  const names = [...views].map(v => v.dataset.page);\n  if (!names.includes(name)) name = \"notfound\";\n  views.forEach(v => { v.hidden = v.dataset.page !== name; });\n}\nshowPage(\"home\");\n",
+   "st": "const views = document.querySelectorAll(\".view\");\nfunction showPage(name) {\n  // show the page called name, or the notfound page\n}\n"
+  },
+  {
+   "uid": "w32",
+   "t": "Scroll to a section",
+   "k": "dom",
+   "step": "learn",
+   "l": "<p>Long one-page sites jump to a section when you click its nav link. The page scrolls so the section's top lines up with the top of the window.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const box = document.querySelector(&quot;#faq&quot;);\nconsole.log(box.offsetTop);   // how far down the page it starts\nwindow.scrollTo({ top: 0, behavior: &quot;smooth&quot; }); // glide back to the top</code></pre><p><code>offsetTop</code> is how many pixels from the top of the page an element starts. <code>window.scrollTo</code> scrolls there, and <code>behavior: \"smooth\"</code> makes it glide instead of jump, so people can tell where they went.</p>",
+   "p": "<p>Each nav link has a <code>data-to</code> with the id of its section. When a link is clicked, stop the normal link behavior and smoothly scroll the window to that section's <code>offsetTop</code>.</p>",
+   "h": "<p>Find the section with <code>document.getElementById(link.dataset.to)</code>, then <code>window.scrollTo({ top: section.offsetTop, behavior: \"smooth\" })</code>.</p>",
+   "html": "<header class=\"top\"><span class=\"logo\">Pixel Park</span><nav><a href=\"#\" data-to=\"games\">Games</a><a href=\"#\" data-to=\"team\">Team</a><a href=\"#\" data-to=\"contact\">Contact</a></nav></header>\n<div class=\"hero\"><h1>Pixel Park</h1><p>Scroll down, or use the nav.</p></div>\n<section id=\"games\" class=\"sec\"><h2>Games</h2><p>Rocket Run, Slime Farm, Pixel Golf and Moon Maze.</p></section>\n<section id=\"team\" class=\"sec\"><h2>Team</h2><p>Kit draws, Robin codes, Sam makes the music.</p></section>\n<section id=\"contact\" class=\"sec\"><h2>Contact</h2><p>hello@pixelpark.example</p></section>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.page{height:300px}.sec{min-height:260px;padding:14px;border-top:1px solid #dde1ec}header.top{position:sticky;top:0;z-index:2}",
+   "chk": "async function (root, logs, ex, code, t) {\n    var a = root.querySelectorAll(\"nav a\"), max = root.scrollHeight - root.clientHeight;\n    var near = function (id) { var top = Math.min(root.querySelector(\"#\" + id).offsetTop, max); return Math.abs(root.scrollTop - top) < 6; };\n    a[1].click(); await t.wait(900);\n    if (!near(\"team\")) return \"After clicking Team, the page should scroll to the team section.\";\n    a[0].click(); await t.wait(900);\n    if (!near(\"games\")) return \"After clicking Games, the page should scroll to the games section.\";\n    root.scrollTop = 0;\n    return true;\n  }",
+   "req": "scrollTo",
+   "reqMsg": "Use window.scrollTo to move the page.",
+   "s": "document.querySelectorAll(\"nav a\").forEach(link => {\n  link.addEventListener(\"click\", e => {\n    e.preventDefault();\n    const section = document.getElementById(link.dataset.to);\n    window.scrollTo({ top: section.offsetTop, behavior: \"smooth\" });\n  });\n});\n",
+   "st": "document.querySelectorAll(\"nav a\").forEach(link => {\n  // scroll to the section named in link.dataset.to\n});\n"
+  },
+  {
+   "uid": "w33",
+   "t": "Back to top",
+   "k": "dom",
+   "l": "<p>On long pages, a small <b>back to top</b> button saves a lot of scrolling. It should only appear once you've scrolled down, or it just gets in the way.</p><p>The window fires a <code>scroll</code> event every time the page moves, and <code>window.scrollY</code> says how far down it is.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>window.addEventListener(&quot;scroll&quot;, () =&gt; {\n  console.log(&quot;Scrolled to &quot; + window.scrollY);\n});</code></pre>",
+   "p": "<p>Show <code>#toTop</code> (set <code>hidden</code> to false) once <code>window.scrollY</code> is more than 150, and hide it again when it's 150 or less. Clicking it smoothly scrolls back to the top.</p>",
+   "h": "<p>Inside a scroll listener: <code>toTop.hidden = window.scrollY &lt;= 150;</code>. In the click listener, scroll to <code>top: 0</code>.</p>",
+   "html": "<header class=\"top\"><span class=\"logo\">Pixel Park</span><nav><a href=\"#\" data-to=\"games\">Games</a><a href=\"#\" data-to=\"team\">Team</a><a href=\"#\" data-to=\"contact\">Contact</a></nav></header>\n<div class=\"hero\"><h1>Pixel Park</h1><p>Scroll down, or use the nav.</p></div>\n<section id=\"games\" class=\"sec\"><h2>Games</h2><p>Rocket Run, Slime Farm, Pixel Golf and Moon Maze.</p></section>\n<section id=\"team\" class=\"sec\"><h2>Team</h2><p>Kit draws, Robin codes, Sam makes the music.</p></section>\n<section id=\"contact\" class=\"sec\"><h2>Contact</h2><p>hello@pixelpark.example</p></section><button id=\"toTop\" hidden aria-label=\"Back to top\">↑</button>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.page{height:300px}.sec{min-height:260px;padding:14px;border-top:1px solid #dde1ec}header.top{position:sticky;top:0;z-index:2}#toTop{position:sticky;bottom:12px;display:block;margin:0 12px 0 auto;width:44px;height:44px;border-radius:50%;border:0;background:#ffb703;font-size:20px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,.3)}",
+   "chk": "async function (root, logs, ex, code, t) {\n    var b = root.querySelector(\"#toTop\");\n    root.scrollTop = 300; root.dispatchEvent(new Event(\"scroll\")); await t.wait(60);\n    if (b.hidden) return \"After scrolling down 300px, #toTop should show.\";\n    b.click(); await t.wait(900);\n    if (root.scrollTop > 4) return \"Clicking #toTop should scroll back to the top.\";\n    root.dispatchEvent(new Event(\"scroll\")); await t.wait(60);\n    if (!b.hidden) return \"Back at the top, #toTop should hide again.\";\n    return true;\n  }",
+   "s": "const toTop = document.querySelector(\"#toTop\");\nwindow.addEventListener(\"scroll\", () => {\n  toTop.hidden = window.scrollY <= 150;\n});\ntoTop.addEventListener(\"click\", () => {\n  window.scrollTo({ top: 0, behavior: \"smooth\" });\n});\n",
+   "st": "const toTop = document.querySelector(\"#toTop\");\n"
+  },
+  {
+   "uid": "w34",
+   "t": "Reading progress bar",
+   "k": "dom",
+   "l": "<p>Blogs often show a thin bar at the top that fills up as you read. To work out the percent, you need how far you've scrolled and how far you <b>can</b> scroll:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const page = document.body;\nconst most = page.scrollHeight - page.clientHeight; // the furthest you can scroll\nconsole.log(most);</code></pre><p><code>scrollHeight</code> is the full height of the content, and <code>clientHeight</code> is the part you can see.</p>",
+   "p": "<p>Every time the page scrolls, set the width of <code>#bar</code> to how far down the reader is, as a percent (<code>0%</code> at the top, <code>100%</code> at the bottom).</p>",
+   "h": "<p>In a scroll listener, divide <code>window.scrollY</code> by <code>document.body.scrollHeight - document.body.clientHeight</code>, multiply by 100, and set <code>bar.style.width</code> to that plus <code>\"%\"</code>.</p>",
+   "html": "<div id=\"bar\"></div><header class=\"top\"><span class=\"logo\">Pixel Park</span><nav><a href=\"#\" data-to=\"games\">Games</a><a href=\"#\" data-to=\"team\">Team</a><a href=\"#\" data-to=\"contact\">Contact</a></nav></header>\n<div class=\"hero\"><h1>Pixel Park</h1><p>Scroll down, or use the nav.</p></div>\n<section id=\"games\" class=\"sec\"><h2>Games</h2><p>Rocket Run, Slime Farm, Pixel Golf and Moon Maze.</p></section>\n<section id=\"team\" class=\"sec\"><h2>Team</h2><p>Kit draws, Robin codes, Sam makes the music.</p></section>\n<section id=\"contact\" class=\"sec\"><h2>Contact</h2><p>hello@pixelpark.example</p></section>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.page{height:300px}.sec{min-height:260px;padding:14px;border-top:1px solid #dde1ec}header.top{position:sticky;top:0;z-index:2}#bar{position:sticky;top:0;height:5px;width:0;background:#ffb703;z-index:3}header.top{top:5px}",
+   "chk": "async function (root, logs, ex, code, t) {\n    var bar = root.querySelector(\"#bar\"), max = root.scrollHeight - root.clientHeight;\n    root.scrollTop = Math.round(max / 2); root.dispatchEvent(new Event(\"scroll\")); await t.wait(60);\n    var w = parseFloat(bar.style.width);\n    if (!/%$/.test(bar.style.width) || Math.abs(w - root.scrollTop / max * 100) > 1.5) return \"Halfway down, #bar should be about 50% wide. It's \" + (bar.style.width || \"not set\") + \".\";\n    root.scrollTop = max; root.dispatchEvent(new Event(\"scroll\")); await t.wait(60);\n    if (Math.abs(parseFloat(bar.style.width) - 100) > 1.5) return \"At the bottom, #bar should be 100% wide.\";\n    root.scrollTop = 0; root.dispatchEvent(new Event(\"scroll\"));\n    return true;\n  }",
+   "s": "const bar = document.querySelector(\"#bar\");\nwindow.addEventListener(\"scroll\", () => {\n  const most = document.body.scrollHeight - document.body.clientHeight;\n  bar.style.width = (window.scrollY / most * 100) + \"%\";\n});\n",
+   "st": "const bar = document.querySelector(\"#bar\");\n"
+  },
+  {
+   "uid": "w35",
+   "t": "Image slider",
+   "k": "dom",
+   "l": "<p>A <b>slider</b> (or carousel) shows one slide at a time with ‹ and › buttons. The whole thing runs on one number: the index of the current slide. The <code>%</code> (remainder) operator makes it wrap around, so › on the last slide goes back to the first.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];\nlet i = 2;\ni = (i + 1) % colors.length;                  // 0, wrapped to the start\ni = (i - 1 + colors.length) % colors.length;  // 2, wrapped to the end</code></pre>",
+   "p": "<p>Write <code>show()</code> so only <code>slides[index]</code> is visible and <code>#where</code> reads like <code>2 / 4</code>. <code>#next</code> moves forward and <code>#prev</code> moves back, both wrapping around. Call <code>show()</code> once at the start.</p>",
+   "h": "<p>In <code>show()</code>, loop with <code>forEach((s, n) =&gt; s.hidden = n !== index)</code> and set <code>#where</code> to <code>(index + 1) + \" / \" + slides.length</code>. Each button changes <code>index</code> with <code>%</code> as in the example, then calls <code>show()</code>.</p>",
+   "html": "<main><div class=\"slider\"><div class=\"slide\" style=\"background:#2457d6\">Rocket Run</div><div class=\"slide\" style=\"background:#2e9e5b\">Slime Farm</div><div class=\"slide\" style=\"background:#6a3fd1\">Pixel Golf</div><div class=\"slide\" style=\"background:#e07a1f\">Moon Maze</div></div><p class=\"ctrl\"><button id=\"prev\" aria-label=\"Previous\">‹</button> <span id=\"where\"></span> <button id=\"next\" aria-label=\"Next\">›</button></p></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.slide{height:120px;border-radius:12px;color:#fff;font-size:22px;font-weight:800;display:grid;place-items:center}.ctrl{text-align:center}.ctrl button{width:44px;height:44px;border-radius:50%;border:2px solid #1d2a4d;background:#fff;font-size:20px}",
+   "chk": "function (root) {\n    var s = root.querySelectorAll(\".slide\"), w = root.querySelector(\"#where\");\n    var cur = function () { var v = [].filter.call(s, function (x) { return !x.hidden; }); return v.length === 1 ? [].indexOf.call(s, v[0]) : -1; };\n    if (cur() !== 0 || w.textContent.trim() !== \"1 / 4\") return \"At the start, only slide 1 should show and #where should read 1 / 4.\";\n    root.querySelector(\"#next\").click();\n    if (cur() !== 1 || w.textContent.trim() !== \"2 / 4\") return \"After ›, only slide 2 should show with 2 / 4.\";\n    root.querySelector(\"#prev\").click(); root.querySelector(\"#prev\").click();\n    if (cur() !== 3 || w.textContent.trim() !== \"4 / 4\") return \"Going back from slide 1 should wrap around to slide 4 (4 / 4).\";\n    root.querySelector(\"#next\").click();\n    if (cur() !== 0) return \"Going forward from the last slide should wrap to slide 1.\";\n    return true;\n  }",
+   "s": "const slides = document.querySelectorAll(\".slide\");\nlet index = 0;\nfunction show() {\n  slides.forEach((s, n) => { s.hidden = n !== index; });\n  document.querySelector(\"#where\").textContent = (index + 1) + \" / \" + slides.length;\n}\ndocument.querySelector(\"#next\").addEventListener(\"click\", () => {\n  index = (index + 1) % slides.length;\n  show();\n});\ndocument.querySelector(\"#prev\").addEventListener(\"click\", () => {\n  index = (index - 1 + slides.length) % slides.length;\n  show();\n});\nshow();\n",
+   "st": "const slides = document.querySelectorAll(\".slide\");\nlet index = 0;\nfunction show() {\n  // show only slides[index] and update #where\n}\n"
+  },
+  {
+   "uid": "w36",
+   "t": "A range slider",
+   "k": "dom",
+   "l": "<p>An <code>&lt;input type=\"range\"&gt;</code> is a slider you drag. It fires an <code>input</code> event every time it moves, and its <code>value</code> is always a <b>string</b>, so turn it into a number when you need to do math.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>volume.addEventListener(&quot;input&quot;, () =&gt; {\n  console.log(&quot;Volume: &quot; + volume.value);\n});</code></pre><div class=\"callout\"><b>Tip</b><p>Always show the current value next to a slider. Otherwise people have to guess what setting they chose.</p></div>",
+   "p": "<p>When <code>#size</code> moves, set the font size of <code>#sample</code> to the slider's value in pixels (like <code>24px</code>) and show the same text in <code>#sizeLabel</code>.</p>",
+   "h": "<p>In an <code>input</code> listener, build the text once: <code>const px = size.value + \"px\";</code> Then use it for <code>sample.style.fontSize</code> and <code>sizeLabel.textContent</code>.</p>",
+   "html": "<main><label for=\"size\">Text size</label> <input type=\"range\" id=\"size\" min=\"12\" max=\"40\" value=\"16\"> <b id=\"sizeLabel\">16px</b><p id=\"sample\" style=\"font-size:16px\">The quick brown fox jumps over the lazy dog.</p></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n#size{vertical-align:middle;width:160px}",
+   "chk": "function (root) {\n    var r = root.querySelector(\"#size\");\n    r.value = \"24\"; r.dispatchEvent(new Event(\"input\"));\n    if (root.querySelector(\"#sample\").style.fontSize !== \"24px\") return \"At 24, #sample's font size should be 24px.\";\n    if (root.querySelector(\"#sizeLabel\").textContent.trim() !== \"24px\") return \"At 24, #sizeLabel should read 24px.\";\n    r.value = \"33\"; r.dispatchEvent(new Event(\"input\"));\n    if (root.querySelector(\"#sample\").style.fontSize !== \"33px\") return \"It should keep following the slider (33 should give 33px).\";\n    return true;\n  }",
+   "s": "const size = document.querySelector(\"#size\");\nconst sample = document.querySelector(\"#sample\");\nconst sizeLabel = document.querySelector(\"#sizeLabel\");\nsize.addEventListener(\"input\", () => {\n  const px = size.value + \"px\";\n  sample.style.fontSize = px;\n  sizeLabel.textContent = px;\n});\n",
+   "st": "const size = document.querySelector(\"#size\");\nconst sample = document.querySelector(\"#sample\");\nconst sizeLabel = document.querySelector(\"#sizeLabel\");\n"
+  },
+  {
+   "uid": "w37",
+   "t": "Hamburger menu",
+   "k": "dom",
+   "l": "<p>On phones there's no room for a row of links, so the nav hides behind a ☰ <b>hamburger</b> button (three lines, like a burger). Tap it and the menu opens.</p><p>The button should tell screen readers whether the menu is open with <code>aria-expanded</code>, which is <code>\"true\"</code> or <code>\"false\"</code> as a string.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const open = drawer.classList.toggle(&quot;show&quot;); // toggle returns true if it's now on\nconsole.log(open);</code></pre>",
+   "p": "<p>Clicking <code>#menuBtn</code> toggles the class <code>open</code> on the <code>nav</code> and sets the button's <code>aria-expanded</code> to <code>\"true\"</code> when open and <code>\"false\"</code> when closed.</p>",
+   "h": "<p><code>classList.toggle</code> returns whether the class is now there. Pass that to <code>setAttribute(\"aria-expanded\", String(...))</code>.</p>",
+   "html": "<header class=\"top\"><span class=\"logo\">Pixel Park</span><button id=\"menuBtn\" aria-expanded=\"false\" aria-label=\"Menu\">☰</button><nav><a href=\"#\">Games</a><a href=\"#\">Blog</a><a href=\"#\">About</a></nav></header><main><p>Imagine this is a phone screen.</p></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n#menuBtn{width:44px;height:44px;border:2px solid #fff;background:transparent;color:#fff;border-radius:8px;font-size:20px}nav{display:none;flex-basis:100%}nav.open{display:grid;gap:4px}nav a{margin:0;padding:8px 0;border-top:1px solid #33416b}",
+   "chk": "function (root) {\n    var b = root.querySelector(\"#menuBtn\"), n = root.querySelector(\"nav\");\n    b.click();\n    if (!n.classList.contains(\"open\") || b.getAttribute(\"aria-expanded\") !== \"true\") return \"After one click, the nav should have class open and the button aria-expanded=\\\"true\\\".\";\n    b.click();\n    if (n.classList.contains(\"open\") || b.getAttribute(\"aria-expanded\") !== \"false\") return \"A second click should close it and set aria-expanded=\\\"false\\\".\";\n    return true;\n  }",
+   "s": "const menuBtn = document.querySelector(\"#menuBtn\");\nconst nav = document.querySelector(\"nav\");\nmenuBtn.addEventListener(\"click\", () => {\n  const open = nav.classList.toggle(\"open\");\n  menuBtn.setAttribute(\"aria-expanded\", String(open));\n});\n",
+   "st": "const menuBtn = document.querySelector(\"#menuBtn\");\nconst nav = document.querySelector(\"nav\");\n"
+  },
+  {
+   "uid": "w38",
+   "t": "Pop-up window",
+   "k": "dom",
+   "l": "<p>A <b>modal</b> is a box that pops up over the page and needs an answer before you carry on: a sign-in form, \"Are you sure?\", a big picture. Every modal needs a clear way out: a ✕ button, and the <b>Escape</b> key.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>document.addEventListener(&quot;keydown&quot;, e =&gt; {\n  if (e.key === &quot;Enter&quot;) console.log(&quot;Enter pressed&quot;);\n});</code></pre><div class=\"callout warn\"><b>Watch out</b><p>Don't open pop-ups the moment a page loads. People haven't even seen your site yet, and most will close it without reading.</p></div>",
+   "p": "<p><code>#openBtn</code> shows <code>#modal</code> (set <code>hidden</code> to false). <code>#closeBtn</code> hides it, and so does pressing the <code>Escape</code> key.</p>",
+   "h": "<p>Three listeners. The keydown one checks <code>e.key === \"Escape\"</code> before hiding the modal.</p>",
+   "html": "<main><h2>Rocket Run</h2><p>Dodge asteroids, grab fuel, reach the moon.</p><button class=\"btn\" id=\"openBtn\">Play now</button></main><div id=\"modal\" hidden><div class=\"box\" role=\"dialog\" aria-label=\"Ready?\"><button id=\"closeBtn\" aria-label=\"Close\">✕</button><h2>Ready for launch?</h2><p>Use the arrow keys to steer.</p></div></div>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n#modal{position:absolute;inset:0;background:rgba(10,14,30,.6);display:grid;place-items:center}.box{background:#fff;border-radius:12px;padding:18px;width:min(260px,90%);position:relative;box-shadow:0 10px 30px rgba(0,0,0,.4)}#closeBtn{position:absolute;top:6px;right:6px;border:0;background:none;font-size:18px;width:36px;height:36px}",
+   "chk": "function (root) {\n    var m = root.querySelector(\"#modal\");\n    root.querySelector(\"#openBtn\").click();\n    if (m.hidden) return \"Clicking #openBtn should show #modal.\";\n    root.querySelector(\"#closeBtn\").click();\n    if (!m.hidden) return \"Clicking ✕ should hide #modal.\";\n    root.querySelector(\"#openBtn\").click();\n    window.dispatchEvent(new KeyboardEvent(\"keydown\", { key: \"Escape\" }));\n    if (!m.hidden) return \"Pressing Escape should hide #modal.\";\n    return true;\n  }",
+   "s": "const modal = document.querySelector(\"#modal\");\ndocument.querySelector(\"#openBtn\").addEventListener(\"click\", () => {\n  modal.hidden = false;\n});\ndocument.querySelector(\"#closeBtn\").addEventListener(\"click\", () => {\n  modal.hidden = true;\n});\ndocument.addEventListener(\"keydown\", e => {\n  if (e.key === \"Escape\") modal.hidden = true;\n});\n",
+   "st": "const modal = document.querySelector(\"#modal\");\n"
+  },
+  {
+   "uid": "w39",
+   "t": "Contact form check",
+   "k": "dom",
+   "l": "<p>Forms are how websites listen: sign-ups, searches, messages. Before sending anything, check the answers and explain problems <b>in words, next to the form</b>, not just with a red border.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>form.addEventListener(&quot;submit&quot;, e =&gt; {\n  e.preventDefault();          // stay on this page\n  const name = nameBox.value.trim();\n  if (name === &quot;&quot;) error.textContent = &quot;Please add your name.&quot;;\n});</code></pre><p><code>.trim()</code> removes spaces from both ends, so a box with only spaces counts as empty.</p>",
+   "p": "<p>When the form is submitted: if the email doesn't include <code>@</code>, put <code>Please enter a valid email.</code> in <code>#err</code>. Otherwise, if the message (trimmed) is shorter than 10 characters, put <code>Please write at least 10 characters.</code> in <code>#err</code>. If both are fine, clear <code>#err</code>, hide the form and show <code>#thanks</code>.</p>",
+   "h": "<p>In the submit listener: <code>e.preventDefault()</code>, read both <code>.value</code>s, then an <code>if / else if / else</code>. Use <code>email.includes(\"@\")</code> and <code>message.trim().length &lt; 10</code>.</p>",
+   "html": "<main><form id=\"contact\"><label>Email<br><input id=\"email\" type=\"text\"></label><br><label>Message<br><textarea id=\"message\" rows=\"3\"></textarea></label><br><p id=\"err\" role=\"alert\"></p><button class=\"btn\">Send</button></form><p id=\"thanks\" hidden>✓ Thanks! We'll write back soon.</p></main>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n#contact input,#contact textarea{width:100%;padding:8px;border:2px solid #c9d0e0;border-radius:6px;font:inherit;margin:4px 0 8px}#err{color:#c0262f;font-weight:700;min-height:1em;margin:0 0 8px}#thanks{color:#1f7a45;font-weight:700}",
+   "chk": "function (root) {\n    var f = root.querySelector(\"#contact\"), em = root.querySelector(\"#email\"), ms = root.querySelector(\"#message\"), err = root.querySelector(\"#err\");\n    var send = function (a, b) { em.value = a; ms.value = b; if (f.requestSubmit) f.requestSubmit(); else f.dispatchEvent(new Event(\"submit\", { cancelable: true })); };\n    send(\"kit.example.com\", \"Hello there, nice games!\");\n    if (err.textContent !== \"Please enter a valid email.\") return \"An email without @ should show: Please enter a valid email.\";\n    send(\"kit@example.com\", \"   hi    \");\n    if (err.textContent !== \"Please write at least 10 characters.\") return \"A short message (after trimming) should show: Please write at least 10 characters.\";\n    if (!f.hidden && !root.querySelector(\"#thanks\").hidden) return \"Don't show #thanks while there's an error.\";\n    send(\"kit@example.com\", \"Hello there, nice games!\");\n    if (err.textContent !== \"\") return \"When everything's fine, #err should be empty.\";\n    if (!f.hidden || root.querySelector(\"#thanks\").hidden) return \"When everything's fine, hide the form and show #thanks.\";\n    return true;\n  }",
+   "s": "const form = document.querySelector(\"#contact\");\nconst err = document.querySelector(\"#err\");\nform.addEventListener(\"submit\", e => {\n  e.preventDefault();\n  const email = document.querySelector(\"#email\").value;\n  const message = document.querySelector(\"#message\").value;\n  if (!email.includes(\"@\")) {\n    err.textContent = \"Please enter a valid email.\";\n  } else if (message.trim().length < 10) {\n    err.textContent = \"Please write at least 10 characters.\";\n  } else {\n    err.textContent = \"\";\n    form.hidden = true;\n    document.querySelector(\"#thanks\").hidden = false;\n  }\n});\n",
+   "st": "const form = document.querySelector(\"#contact\");\nconst err = document.querySelector(\"#err\");\n"
+  },
+  {
+   "uid": "w40",
+   "t": "Design review",
+   "k": "pick",
+   "step": "prove",
+   "p": "<p>A student made this landing page for their game.</p>",
+   "q": "Which single change would help this page the most?",
+   "html": "<div style=\"background:#ff4fd8;padding:14px;min-height:200px\"><div style=\"display:flex;justify-content:space-between\"><span style=\"color:#ffe14d\">STAR BLASTER</span><span style=\"color:#ffe14d;font-size:12px\">games · blog · about</span></div><p style=\"color:#ffb3f0;font-size:13px\">Star Blaster is a space shooter where you blast stars. Download now to play!</p><div style=\"display:flex;gap:6px;flex-wrap:wrap\"><button style=\"background:#ffe14d;border:0;padding:4px\">Download</button><button style=\"background:#ffe14d;border:0;padding:4px\">Blog</button><button style=\"background:#ffe14d;border:0;padding:4px\">Credits</button><button style=\"background:#ffe14d;border:0;padding:4px\">Settings</button></div></div>",
+   "css": " ",
+   "opts": [
+    "Add a spinning logo",
+    "Calm neutral background, big readable headline, and one bold Download button with quiet links for the rest",
+    "Make every button a different color",
+    "Add more text explaining the game"
+   ],
+   "ans": 1,
+   "miss": [
+    "Motion grabs attention, but it won't fix the low contrast or the four equal buttons.",
+    "",
+    "Rainbow buttons makes it even harder to see which one matters.",
+    "More low-contrast text won't help. The words that are there are already hard to read."
+   ],
+   "why": "<p>That one change fixes the three biggest problems: pale pink on hot pink fails contrast, there's no clear hierarchy (the game's name is tiny), and four equal buttons hide the real CTA. You used 60-30-10, hierarchy and the CTA rule all at once.</p>",
+   "h": "<p>Think back: contrast, hierarchy, and one main call to action. Which answer fixes the most of those?</p>"
+  },
+  {
+   "uid": "w41",
+   "t": "Boss: launch your site",
+   "k": "dom",
+   "step": "boss",
+   "l": "<p>Time to put it together. Here's the Pixel Park site with an empty nav, three pages and a theme switch. Make it work like a real site.</p>",
+   "p": "<p>1. For each item in <code>pages</code>, add a link to the <code>nav</code> with <code>href</code> <code>\"#\" + page.id</code> and the page's <code>title</code> as its text.<br>2. Write <code>showPage(id)</code>: show only the <code>.view</code> with that <code>data-page</code>, give the matching nav link <code>aria-current=\"page\"</code> and remove it from the others.<br>3. Clicking a nav link calls <code>showPage</code> (and prevents the normal link behavior).<br>4. <code>#theme</code> toggles the class <code>dark</code> on <code>document.body</code>.<br>5. Start on <code>showPage(\"home\")</code>.</p>",
+   "h": "<p>Build the links in a loop first, and add each link's click listener right there, while you still have <code>page</code>. In <code>showPage</code>, compare <code>a.getAttribute(\"href\")</code> with <code>\"#\" + id</code> to find the matching link.</p>",
+   "ex": [
+    "showPage"
+   ],
+   "html": "<header class=\"top\"><span class=\"logo\">Pixel Park</span><nav></nav><button id=\"theme\" class=\"btn ghost\">◐ Theme</button></header>\n<section class=\"view\" data-page=\"home\"><div class=\"hero\"><h1>Welcome to Pixel Park</h1><p>Games made by students, for everyone.</p><a class=\"btn\" href=\"#\">Start free</a></div></section>\n<section class=\"view\" data-page=\"games\"><main><h2>All games</h2><div class=\"cards\"><div class=\"card\">Rocket Run</div><div class=\"card\">Slime Farm</div><div class=\"card\">Pixel Golf</div></div></main></section>\n<section class=\"view\" data-page=\"about\"><main><h2>About us</h2><p>We're a coding club that builds a new game every month.</p></main></section><footer>© Pixel Park</footer>",
+   "css": "\n.page{background:#f5f6fa}\nheader.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#1d2a4d;color:#fff}\n.logo{font-weight:800;letter-spacing:.02em}\nnav a{color:#d9e1ff;text-decoration:none;margin-left:12px;font-size:14px;padding-bottom:2px}\nnav a[aria-current=page],nav a.active{color:#fff;border-bottom:2px solid #ffb703}\n.hero{padding:20px 14px;background:linear-gradient(135deg,#2457d6,#6a3fd1);color:#fff}\n.hero h1{margin:0 0 6px;font-size:22px;line-height:1.2}\n.hero p{margin:0 0 12px;opacity:.9}\n.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:0;background:#ffb703;color:#1d2330;font-weight:700;text-decoration:none}\n.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}\nmain{padding:14px}\nh2{font-size:17px;margin:0 0 8px}\n.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}\n.card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.14)}\nfooter{padding:12px 14px;background:#e6e9f2;color:#55607a;font-size:13px}\n.tag{display:inline-block;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:2px}\n[hidden]{display:none!important}\n.page.dark{background:#10131c;color:#e7eaf3}.page.dark .card{background:#1b2030;color:#e7eaf3}.page.dark footer{background:#000;color:#aab}#theme{padding:5px 10px}",
+   "chk": "function (root, logs, ex) {\n    var a = root.querySelectorAll(\"nav a\");\n    if (a.length !== 3) return \"The nav should have 3 links, one per page. Found \" + a.length + \".\";\n    var want = [[\"Home\", \"#home\"], [\"Games\", \"#games\"], [\"About\", \"#about\"]];\n    for (var i = 0; i < 3; i++) if (a[i].textContent !== want[i][0] || a[i].getAttribute(\"href\") !== want[i][1]) return \"Link \" + (i + 1) + \" should say \" + want[i][0] + \" with href \" + want[i][1] + \".\";\n    var v = function () { return [].filter.call(root.querySelectorAll(\".view\"), function (x) { return !x.hidden; }).map(function (x) { return x.dataset.page; }).join(\",\"); };\n    var cur = function () { return [].filter.call(a, function (x) { return x.getAttribute(\"aria-current\") === \"page\"; }).map(function (x) { return x.textContent; }).join(\",\"); };\n    if (v() !== \"home\" || cur() !== \"Home\") return \"The site should start on home, with only Home marked aria-current.\";\n    a[2].click();\n    if (v() !== \"about\" || cur() !== \"About\") return \"Clicking About should show only the about page and move aria-current to About.\";\n    if (typeof ex.showPage !== \"function\") return \"Write a function called showPage.\";\n    ex.showPage(\"games\");\n    if (v() !== \"games\" || cur() !== \"Games\") return \"showPage(\\\"games\\\") should show only the games page and mark Games.\";\n    root.querySelector(\"#theme\").click();\n    if (!root.classList.contains(\"dark\")) return \"#theme should turn on the dark class.\";\n    root.querySelector(\"#theme\").click();\n    if (root.classList.contains(\"dark\")) return \"Clicking #theme again should turn dark mode off.\";\n    return true;\n  }",
+   "s": "const pages = [\n  { id: \"home\", title: \"Home\" },\n  { id: \"games\", title: \"Games\" },\n  { id: \"about\", title: \"About\" }\n];\nconst nav = document.querySelector(\"nav\");\nfor (const page of pages) {\n  const a = document.createElement(\"a\");\n  a.href = \"#\" + page.id;\n  a.textContent = page.title;\n  a.addEventListener(\"click\", e => {\n    e.preventDefault();\n    showPage(page.id);\n  });\n  nav.append(a);\n}\nfunction showPage(id) {\n  document.querySelectorAll(\".view\").forEach(v => { v.hidden = v.dataset.page !== id; });\n  nav.querySelectorAll(\"a\").forEach(a => {\n    if (a.getAttribute(\"href\") === \"#\" + id) a.setAttribute(\"aria-current\", \"page\");\n    else a.removeAttribute(\"aria-current\");\n  });\n}\ndocument.querySelector(\"#theme\").addEventListener(\"click\", () => {\n  document.body.classList.toggle(\"dark\");\n});\nshowPage(\"home\");\n",
+   "st": "const pages = [\n  { id: \"home\", title: \"Home\" },\n  { id: \"games\", title: \"Games\" },\n  { id: \"about\", title: \"About\" }\n];\nconst nav = document.querySelector(\"nav\");\n"
+  }
+ ]
+}
