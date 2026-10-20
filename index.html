@@ -786,6 +786,49 @@ section.card.foldable.folded>h2.sub,section.card.foldable.folded>.row,aside.card
 .vid .thumb .play{position:absolute;inset:0;display:grid;place-items:center;font-size:34px;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.7)}
 .vid .thumb .len{position:absolute;right:6px;bottom:6px;background:rgba(0,0,0,.8);color:#fff;font-size:12px;font-family:var(--f-code);padding:2px 6px}
 .resnote{font-size:13px;margin:0}
+/* map: readable group headings, tidy hero and even card heights */
+.mapgrp>.group-h{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 16px;margin:6px 0 12px;padding:0 0 10px 14px;border-bottom:3px solid var(--ink);border-left:6px solid var(--accent)}
+.mapgrp>.group-h h2{font-size:calc(18px * var(--scale));letter-spacing:.06em;grid-column:1}
+.mapgrp>.group-h>.muted{grid-column:1;font-size:calc(16px * var(--scale));line-height:1.4;color:var(--muted);max-width:70ch}
+.mapgrp>.group-h .gstat{grid-column:2;grid-row:1/span 2;font-family:var(--f-display);font-size:calc(11px * var(--scale));letter-spacing:.06em;color:var(--muted);text-align:right;white-space:nowrap}
+.mapgrp.folded>.group-h{margin-bottom:0}
+@media (max-width:600px){.mapgrp>.group-h{grid-template-columns:minmax(0,1fr)}.mapgrp>.group-h .gstat{grid-column:1;grid-row:auto;text-align:left}}
+.hello .hacts{display:grid;gap:10px;justify-items:end;align-content:end}
+.hello .hacts>.row{justify-content:flex-end}
+@media (max-width:760px){.hello .hacts{justify-items:start}.hello .hacts>.row{justify-content:flex-start}}
+.stat span{font-size:14px}
+.carts{align-items:stretch}
+.cart .body{grid-template-rows:auto 1fr auto}
+.cart .body>p{margin:0}
+/* Hello, World! start-up splash */
+.splash{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:var(--bg);transition:opacity .45s ease,visibility .45s;cursor:pointer}
+.splash.out{opacity:0;visibility:hidden}
+.sp-in{display:grid;gap:14px;justify-items:center;text-align:center;padding:24px}
+.sp-logo{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-size:calc(26px * var(--scale));color:var(--ink);letter-spacing:.04em}
+.sp-logo .cart{width:34px;height:34px}
+.sp-code{background:var(--code-bg);color:var(--code-ink);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--shadow);font-family:var(--f-code);font-size:calc(18px * var(--scale));padding:16px 20px;margin:0;text-align:left;min-width:min(86vw,420px)}
+.sp-code .ty{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;width:0;animation:sptype .9s steps(var(--n)) .15s forwards}
+.sp-code .cur{display:inline-block;width:.6em;height:1.1em;background:var(--code-ink);vertical-align:text-bottom;animation:spblink .5s steps(1) infinite}
+.sp-code .k{color:var(--t-def)}.sp-code .s{color:var(--t-str)}
+.sp-out{font-family:var(--f-code);font-size:calc(18px * var(--scale));color:var(--pass);opacity:0;animation:spshow .2s 1.15s forwards}
+.sp-tip{font-size:13px;color:var(--muted);margin:0}
+@keyframes sptype{to{width:calc(var(--n) * 1ch)}}
+@keyframes spblink{50%{opacity:0}}
+@keyframes spshow{to{opacity:1}}
+html[data-motion="off"] .sp-code .ty{animation:none;width:auto}html[data-motion="off"] .sp-out{animation:none;opacity:1}
+/* easter eggs */
+.eggs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:10px}
+.egg{border:2px dashed var(--line);padding:10px 12px;display:grid;gap:4px;font-size:14px}
+.egg b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.06em}
+.egg.got{border-style:solid;border-color:var(--gold);background:var(--panel2)}
+.egg .muted{font-size:13px}
+@keyframes barrel{to{transform:rotate(360deg)}}
+html.barrel .app{animation:barrel 1.2s ease-in-out}
+@keyframes logospin{to{transform:rotateY(720deg)}}
+.logo.spin .cart{animation:logospin 1s ease-in-out}
+@keyframes eggpop{0%{transform:scale(1)}40%{transform:scale(1.25) rotate(-6deg)}100%{transform:scale(1)}}
+.stat.pop b{display:inline-block;animation:eggpop .5s}
+@media (prefers-reduced-motion:reduce){html.barrel .app,.logo.spin .cart,.stat.pop b{animation:none}}
 .reslinks b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px}
 .console{padding:0;display:flex;flex-direction:column;overflow:hidden;position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--bar-off,78px))}
 .cbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-bottom:2px solid var(--ink);flex-wrap:wrap;background:var(--panel)}
@@ -20209,7 +20252,7 @@ var DEFAULTS = {
   wrap: false, indent: 2, brackets: true, edHeight: "medium", readAloud: true, readRate: 1, quizShuffle: true, quizAuto: false, clickSound: true,
   soundPack: "retro", typeSound: false, bgFx: "off", bgColor: "theme", bgDensity: "normal", bgSpeed: "normal", bgStrength: "normal", bgMouse: true, bgCalm: true, bgFps: "smooth",
   bgGlow: false, bgMove: false, bgScan: false, pageAnim: "off", hoverFx: "off", trail: "off", clickFx: false, backTop: true, toastPos: "bottom",
-  topicColors: true, showStreak: true
+  topicColors: true, showStreak: true, splash: true
 };
 var S = {
   profile: load("profile", null),
@@ -21534,20 +21577,21 @@ function viewMap(V) {
   var html = '<div class="wrap">';
   if (!storageOk) html += '<div class="banner">This browser is blocking saved data, so progress lasts only until you close the tab. Copy your save code from <b>Settings → Save data</b> before leaving.</div>';
   html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + (streakNow() > 1 ? " · " + streakNow() + "-DAY STREAK" : "") + "</p><h1>" + greet + '</h1><p class="muted nextunl"><button class="linkish" type="button" data-go="me" data-arg="unlocks">' + h(nextUnlockLine(lv, xp)) + "</button></p></div>" +
-    '<div class="row">' + (cont ? '<button class="btn primary" data-go="stage" data-arg="' + cont.id + '">' + icon("play") + "Continue: " + h(cont.sec.title) + " " + cont.n + "</button>" : "") +
-    (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="review">Review Deck: ' + (rvQs().length + rvStages().length) + " to review</button>" : "") + "</div></section>";
-  html += foldAllHtml() + '<section class="stats" aria-label="Your stats">' +
+    '<div class="hacts"><div class="row">' + (cont ? '<button class="btn primary" data-go="stage" data-arg="' + cont.id + '">' + icon("play") + "Continue: " + h(cont.sec.title) + " " + cont.n + "</button>" : "") +
+    (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="review">Review Deck: ' + (rvQs().length + rvStages().length) + " to review</button>" : "") + "</div>" + foldAllHtml() + "</div></section>";
+  html += '<section class="stats" aria-label="Your stats">' +
     '<div class="stat"><b>' + stagesDone + '</b><span>stages cleared of ' + totalStages + "</span></div>" +
     '<div class="stat"><b>' + puzzles + '</b><span>puzzles solved</span></div>' +
     '<div class="stat"><b>' + quizzesPassed + '</b><span>quizzes passed of ' + D.quizzes.length + "</span></div>" +
-    '<div class="stat"><b>' + xp.toLocaleString() + '</b><span>XP · ' + arcade + " arcade stages</span></div></section>";
+    '<div class="stat xpstat" title="' + xp.toLocaleString() + ' XP"><b>' + xp.toLocaleString() + '</b><span>XP · ' + arcade + " arcade stages</span></div></section>";
   html += weeklyCard() + medalShelf();
   var rvN = rvQs().length + rvStages().length;
-  if (rvN || S.rvCleared) html += '<div class="fgrp" data-fk="review"><div class="group-h"><h2>REVIEW DECK</h2><span class="muted">Mistakes collect here so you can come back and beat them.</span></div><section class="carts"><button class="cart" data-go="review" style="--sc:var(--fail)"><span class="band"><span>↻ ' + rvN + " TO REVIEW</span><span>" + S.rvCleared + ' CLEARED</span></span><span class="body"><h3>Review Deck</h3><p>' + (rvN ? rvQs().length + " quiz question" + (rvQs().length === 1 ? "" : "s") + " and " + rvStages().length + " stage" + (rvStages().length === 1 ? "" : "s") + " to try again." : "All clear. New mistakes will show up here.") + "</p></span></button></section></div>";
+  if (rvN || S.rvCleared) html += '<div class="fgrp mapgrp" data-fk="review" style="--accent:var(--fail)"><div class="group-h"><h2>REVIEW DECK</h2><span class="muted">Mistakes collect here so you can come back and beat them.</span></div><section class="carts"><button class="cart" data-go="review" style="--sc:var(--fail)"><span class="band"><span>↻ ' + rvN + " TO REVIEW</span><span>" + S.rvCleared + ' CLEARED</span></span><span class="body"><h3>Review Deck</h3><p>' + (rvN ? rvQs().length + " quiz question" + (rvQs().length === 1 ? "" : "s") + " and " + rvStages().length + " stage" + (rvStages().length === 1 ? "" : "s") + " to try again." : "All clear. New mistakes will show up here.") + "</p></span></button></section></div>";
   GROUPS.forEach(function (g) {
     var secs = SECS.filter(function (s) { return s.group === g.id && !(s.secret && isLocked("section", s.id, lv)); });
     if (!secs.length) return;
-    html += '<div class="fgrp" data-fk="g-' + g.id + '"><div class="group-h"><h2>' + g.title.toUpperCase() + '</h2><span class="muted">' + g.sub + "</span></div>";
+    var gd = secs.reduce(function (a, s) { return a + secDone(s); }, 0), gt = secs.reduce(function (a, s) { return a + s.stages.length; }, 0), gfull = secs.filter(function (s) { return secDone(s) === s.stages.length; }).length;
+    html += '<div class="fgrp mapgrp" data-fk="g-' + g.id + '"><div class="group-h"><h2>' + g.title.toUpperCase() + '</h2><span class="muted">' + g.sub + '</span><span class="gstat">' + secs.length + " MODULE" + (secs.length === 1 ? "" : "S") + (gfull ? " · " + gfull + " CLEARED" : "") + "<br>" + Math.round(gd / gt * 100) + "% DONE</span></div>";
     if (g.id === "core") {
       html += '<section class="path card" aria-label="Main path">' + secs.map(function (s) {
         var d = secDone(s), pct = d / s.stages.length;
@@ -21741,6 +21785,7 @@ async function runDomStage(st, code, root) {
 function renderOutput(out, logs, err) {
   if (!logs.length && !err) { out.innerHTML = '<span class="dim">(nothing printed)</span>'; return; }
   out.innerHTML = logs.map(function (l) { return '<div class="ln ' + l.t + '">' + h(l.txt) + "</div>"; }).join("");
+  if (logs.some(function (l) { return /^\s*hello,?\s+world!?\s*$/i.test(l.txt); }) && eggFound("hello")) toast("Hello right back! Every coder's first program.");
   out.scrollTop = out.scrollHeight;
 }
 function explainHtml(err, code) {
@@ -22820,6 +22865,7 @@ function viewRef(V, tab) {
   };
   var group = function (key, title, n, style, extra, inner) { return '<div class="fgrp reftopic" data-fk="' + key + '"' + (style ? ' style="' + style + '"' : "") + '><div class="group-h"><h2>' + h(title.toUpperCase()) + '</h2><span class="muted">' + n + " word" + (n === 1 ? "" : "s") + "</span>" + (extra || "") + '</div><div class="reflist look-' + refState.look + '">' + inner + "</div></div>"; };
   var draw = function () {
+    if (!$("refList")) return;
     var q = refState.q.trim().toLowerCase();
     var list = D.ref.filter(function (e) {
       if (refState.cat !== "All" && e.cat !== refState.cat) return false;
@@ -22861,7 +22907,11 @@ function viewRef(V, tab) {
   function keyOf(e) { return e.term.replace(/^[^A-Za-z]+/, "").toLowerCase() || "#" + e.term; }
   function letterOf(e) { var c = e.term.replace(/^[.\s]+/, "")[0] || "#"; return /[A-Za-z]/.test(c) ? c.toUpperCase() : "#"; }
   draw();
-  var t; $("refQ").oninput = function () { refState.q = this.value; clearTimeout(t); t = setTimeout(draw, 80); };
+  var t; $("refQ").oninput = function () { refState.q = this.value; clearTimeout(t); t = setTimeout(draw, 80);
+    var v = this.value.trim().toLowerCase();
+    if (v === "42" || v === "the answer" || v === "meaning of life") { if (eggFound("answer")) toast("42. Now you just need the question."); }
+    if (v === "sudo" || v.indexOf("sudo ") === 0) { if (eggFound("sudo")) toast("Nice try. You're not in the sudoers file. This incident will be reported."); }
+  };
   var redo = function () { var y = window.scrollY; viewRef(V); highlightAll(V); window.scrollTo(0, y); };
   V.querySelectorAll("[data-rc]").forEach(function (b) { b.onclick = function () { refState.cat = b.getAttribute("data-rc"); redo(); }; });
   bindPick(V);
@@ -22890,6 +22940,7 @@ function resPage(V, o) {
     pickRow("Arrange", "xby", [["cat", "By kind"], ["az", "A to Z"]].concat(o.extraBy || []), st.by) + foldAllHtml() + "</div></div>" +
     '<section class="reslist" id="resList"></section><p class="muted resnote">' + o.foot + "</p></div>";
   var draw = function () {
+    if (!$("resList")) return;
     var q = st.q.trim().toLowerCase();
     var list = o.items.filter(function (x) {
       if (st.cat !== "all" && x.cat !== st.cat) return false;
@@ -22944,6 +22995,70 @@ function viewVideos(V) {
 // "3h 26m" -> 206 minutes, "12m" -> 12, "45s" -> 1
 function vidMins(x) { var m = /(?:(\d+)\s*h)?\s*(?:(\d+)\s*m)?\s*(?:(\d+)\s*s)?/.exec(x.len || ""); if (!m || !(m[1] || m[2] || m[3])) return 0; return (+m[1] || 0) * 60 + (+m[2] || 0) + (m[3] && !m[1] && !m[2] ? 1 : 0); }
 
+
+// ---------------- EASTER EGGS ----------------
+// little secrets around the game; each one is found once and counts toward the egg medals
+var EGGS = [
+  ["konami", "Old-school code", "An old video game cheat code works here too. Up, up, down, down…"],
+  ["logo", "Spin cycle", "The Script Quest logo doesn't like being poked over and over."],
+  ["hello", "Classic", "Make any program print the most famous first words in coding."],
+  ["answer", "Deep Thought", "Ask the Reference for the answer to life, the universe and everything."],
+  ["sudo", "Nice try", "Some people type a superuser word to get their way. Try it in the Reference search."],
+  ["xp", "Number go up", "Your XP total on the Map likes attention. Lots of attention."],
+  ["settings", "Hidden setting", "The Settings title is hiding something. Tap it a few times."],
+  ["console", "Behind the curtain", "Real developers open the browser console (F12). Say hi to the game there."],
+  ["rare", "Lucky greeting", "Once in a while the start-up screen says hello in another language."]
+];
+var eggsFound = load("eggs", {});
+function eggFound(id) {
+  var e = EGGS.filter(function (x) { return x[0] === id; })[0]; if (!e || eggsFound[id]) return false;
+  eggsFound[id] = Date.now(); save("eggs", eggsFound);
+  if (S.profile) { queueToast("Easter egg found: " + e[1] + "! (" + Object.keys(eggsFound).length + " of " + EGGS.length + ")", 200); checkMedals(1500); }
+  return true;
+}
+function eggCard() {
+  var n = Object.keys(eggsFound).length;
+  return '<section class="card"><h2 class="sub">EASTER EGGS · ' + n + " / " + EGGS.length + '</h2><p class="muted" style="margin:0">Secrets hidden around the game. Found ones show here, and the rest come with a clue.</p><div class="eggs">' + EGGS.map(function (e) { var got = eggsFound[e[0]]; return '<div class="egg' + (got ? " got" : "") + '"><b>' + (got ? "✓ " + h(e[1]).toUpperCase() : "? ? ?") + '</b><span class="muted">' + h(e[2]) + "</span></div>"; }).join("") + "</div></section>";
+}
+var eggTaps = {};
+function eggTap(key, need) { var t = eggTaps[key] || { n: 0, at: 0 }, now = Date.now(); t.n = now - t.at < 900 ? t.n + 1 : 1; t.at = now; eggTaps[key] = t; if (t.n >= need) { t.n = 0; return true; } return false; }
+document.addEventListener("click", function (e) {
+  if (e.target.closest(".logo") && eggTap("logo", 7)) { var lg = document.querySelector(".logo"); if (lg) { lg.classList.remove("spin"); void lg.offsetWidth; lg.classList.add("spin"); } SFX.level(); eggFound("logo"); }
+  var xs = e.target.closest(".xpstat"); if (xs && eggTap("xp", 5)) { xs.classList.remove("pop"); void xs.offsetWidth; xs.classList.add("pop"); SFX.level(); if (!eggFound("xp")) toast("Number go up!"); }
+  if (e.target.closest("#setH1") && eggTap("set", 5)) { if (!eggFound("settings")) toast("Hidden setting: Awesomeness is already at 100%."); else toast("Awesomeness: still 100%."); }
+}, true);
+var KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"], konamiAt = 0;
+document.addEventListener("keydown", function (e) {
+  var t = e.target; if (t && t.closest && t.closest("input,textarea,select,.CodeMirror")) { konamiAt = 0; return; }
+  var k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+  if (k === KONAMI[konamiAt]) {
+    konamiAt++;
+    // once the arrows are in, B and A belong to the code, not to the menu-bar and other shortcuts
+    if (konamiAt > 8) e.preventDefault();
+    if (konamiAt === KONAMI.length) {
+      konamiAt = 0; var r = document.documentElement; r.classList.remove("barrel"); void r.offsetWidth; r.classList.add("barrel"); setTimeout(function () { r.classList.remove("barrel"); }, 1300);
+      SFX.level(); if (!eggFound("konami")) toast("Barrel roll!");
+    }
+  } else konamiAt = k === KONAMI[0] ? 1 : 0;
+}, true);
+// for the curious: a hello in the browser console, and a tiny API to poke at
+try {
+  window.scriptQuest = { hello: function () { eggFound("console"); return "Hello, " + nameOf() + "! You found the console, where real developers test ideas. Try typing 2 + 2 here."; }, eggs: function () { return Object.keys(eggsFound).length + " of " + EGGS.length + " easter eggs found"; } };
+  console.log("%cScript Quest%c\nHello, World! Curious coder detected. Type scriptQuest.hello() and press Enter.", "font:bold 18px monospace;color:#2C52C4", "font:13px monospace");
+} catch (e) {}
+// the Hello, World! start-up screen; tap or press any key to skip
+var GREETS = ["Hola, Mundo!", "Bonjour, le Monde !", "Hallo, Welt!", "Ciao, Mondo!", "Olá, Mundo!", "Hej, Världen!", "Merhaba, Dünya!"];
+function splashScreen() {
+  if (!S.set.splash) return;
+  var rare = Math.random() < 1 / 15, msg = rare ? GREETS[Math.floor(Math.random() * GREETS.length)] : "Hello, World!", code = 'console.log("' + msg + '");';
+  var el = document.createElement("div"); el.className = "splash"; el.id = "splash"; el.setAttribute("aria-hidden", "true");
+  el.innerHTML = '<div class="sp-in"><div class="sp-logo">' + icon("cart", "cart") + 'Script Quest</div><pre class="sp-code"><span class="ty" style="--n:' + code.length + '"><span class="k">console</span>.log(<span class="s">"' + h(msg) + '"</span>);</span><span class="cur"></span></pre><div class="sp-out">› ' + h(msg) + '</div><p class="sp-tip">Tap or press any key to start</p></div>';
+  document.body.appendChild(el);
+  var gone = false, end = function () { if (gone) return; gone = true; el.classList.add("out"); setTimeout(function () { el.remove(); }, 500); document.removeEventListener("keydown", end, true); };
+  el.addEventListener("click", end); document.addEventListener("keydown", end, true);
+  setTimeout(end, S.set.motion === "off" ? 900 : 2100);
+  if (rare) setTimeout(function () { eggFound("rare"); }, 2300);
+}
 // ---------------- PROFILE ----------------
 // real: the player's true medals (checkMedals); otherwise dev mode shows every medal as earned
 function medalList(real) {
@@ -22993,6 +23108,7 @@ function medalList(real) {
   medals.push({ id: "core", t: "Pathfinder", got: gd("core"), sub: groupDone("core") + " Main Path sections", sc: "s1", m: "⌂" }, { id: "adv", t: "Deep diver", got: gd("adv"), sub: groupDone("adv") + " Advanced sections", sc: "s4", m: "▼" });
   cnt("sbx50", "Mad scientist", 50, runs, "clean sandbox runs", "s2", "{}"); cnt("arcade25", "Arcade regular", 25, plays, "arcade plays", "s3", "▶");
   medals.push({ id: "look", t: "Looking sharp", got: !!stored, sub: "Customize your profile", sc: "s1", m: "☺" }, { id: "show3", t: "Show-off", got: !!(stored && stored.show && stored.show.length >= 3), sub: "Pin 3 medals to your profile", sc: "s5", m: "✦" });
+  var eggN = Object.keys(eggsFound).length; cnt("egg1", "Egg spotter", 1, eggN, "easter eggs", "s3", "◒"); cnt("egg5", "Egg hunter", 5, eggN, "easter eggs", "s3", "◒"); cnt("eggall", "Easter egg master", EGGS.length, eggN, "easter eggs", "s5", "◒");
   cnt("collector", "Collector", 25, owned, "unlocks", "s4", "◆"); cnt("hoarder", "Treasure hoarder", 75, owned, "unlocks", "s4", "◆");
   var wkN = S.weekly ? Object.keys(S.weekly.done || {}).length : 0, wkRun = S.weekly ? weeklyRun() : 0;
   cnt("wk1", "Challenger", 1, wkN, "weekly challenges", "s5", "W"); cnt("wk4", "Weekly regular", 4, wkN, "weekly challenges", "s5", "W"); cnt("wk12", "Season champion", 12, wkN, "weekly challenges", "s5", "W");
@@ -23221,7 +23337,7 @@ function viewMe(V, tab) {
       arcadeCard() + medalShelf();
   } else if (tab === "look") html += lookTab(lv);
   else if (tab === "style") html += styleTab(st);
-  else if (tab === "medals") html += '<section class="card"><h2 class="sub">MEDALS · ' + got + " / " + medals.length + '</h2><p class="muted" style="margin-top:0">Every medal is worth +' + MEDAL_XP + ' XP, and some unlock a theme, effect or profile item.</p><div class="medals">' + medals.map(medalTile).join("") + "</div></section>";
+  else if (tab === "medals") html += '<section class="card"><h2 class="sub">MEDALS · ' + got + " / " + medals.length + '</h2><p class="muted" style="margin-top:0">Every medal is worth +' + MEDAL_XP + ' XP, and some unlock a theme, effect or profile item.</p><div class="medals">' + medals.map(medalTile).join("") + "</div></section>" + eggCard();
   else if (tab === "report") html += reportTab();
   else html += unlockCard(lv, xp);
   V.innerHTML = html + "</div>";
@@ -23256,7 +23372,7 @@ function viewSettings(V) {
   var sel = function (id, opts, val) { return '<select class="sel" id="' + id + '">' + opts.map(function (o) { var v = Array.isArray(o) ? o[0] : o, l = Array.isArray(o) ? o[1] : o; return '<option value="' + h(v) + '"' + (String(v) === String(val) ? " selected" : "") + ">" + h(l) + "</option>"; }).join("") + "</select>"; };
   var myLv = levelOf(totalXp()), lk = function (kind, key) { return lockReq(kind, key, myLv); };
   var tog = function (id, label, on) { return '<label class="toggle"><span>' + label + '</span><input type="checkbox" class="switch" id="' + id + '"' + (on ? " checked" : "") + "></label>"; };
-  V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">OPTIONS</p><h1>Settings</h1><p class="muted" style="margin:6px 0 0">Changes save as you make them.</p></div><button class="ghost" id="resetSet">Reset settings to defaults</button></section>' +
+  V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">OPTIONS</p><h1 id="setH1">Settings</h1><p class="muted" style="margin:6px 0 0">Changes save as you make them.</p></div><button class="ghost" id="resetSet">Reset settings to defaults</button></section>' +
     '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Themes & sounds"], ["setBg", "Background & effects"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setLayout", "Layout & look"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setKeys2", "Shortcuts"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" + foldAllHtml() +
     '<div class="setgrid">' +
     '<section class="card" id="setPlayer"><h2 class="sub">PLAYER</h2><div class="field"><label for="setName">Your name</label><input type="text" id="setName" maxlength="24" value="' + h(nameOf()) + '"><span class="hint2">Lessons, greetings, and some starter code use this name.</span></div></section>' +
@@ -23280,7 +23396,7 @@ function viewSettings(V) {
     '<div class="field"><label for="setBorders">Box outlines</label>' + sel("setBorders", [["bold", "Bold"], ["soft", "Soft"], ["off", "Off"]], st.borders) + "</div>" +
     '<div class="field"><label for="setShadows">Shadows</label>' + sel("setShadows", [["hard", "Blocky (retro)"], ["soft", "Soft"], ["off", "Off"]], st.shadows) + "</div>" +
     '<div class="field"><label for="setCorners">Corners</label>' + sel("setCorners", [["square", "Square"], ["round", "Rounded"]], st.corners) + "</div>" +
-    tog("setIcons", "Show icons", st.icons) + tog("setTop", "Back to top button on long pages", st.backTop) + tog("setTopicColors", "Color-code modules by topic", st.topicColors) + tog("setDots", "Show the stage progress dots", st.dots) + tog("setLinks", "Show \"Learn more\" links in lessons", st.learnLinks) + "</section>" +
+    tog("setIcons", "Show icons", st.icons) + tog("setTop", "Back to top button on long pages", st.backTop) + tog("setTopicColors", "Color-code modules by topic", st.topicColors) + tog("setSplash", "Hello, World! start-up screen", st.splash) + tog("setDots", "Show the stage progress dots", st.dots) + tog("setLinks", "Show \"Learn more\" links in lessons", st.learnLinks) + "</section>" +
     '<section class="card" id="setMenu"><h2 class="sub">MENU BAR</h2><div class="field"><label for="setBarPos">Position</label>' + sel("setBarPos", [["top", "Top"], ["left", "Left side"], ["right", "Right side"], ["bottom", "Bottom"]], st.barPos) + '<span class="hint2">On phones, Left and Right stay at the top.</span></div>' +
     tog("setBarHide", "Hide the menu bar", st.barHidden) + '<span class="hint2">A small Menu button stays in the corner to bring it back.</span>' +
     tog("setNavLabels", "Words on menu buttons", st.navLabels) + tog("setNavIcons", "Icons on menu buttons", st.navIcons) + tog("setShowCont", "Continue button", st.showCont) + tog("setShowMe", "Player card (level and XP)", st.showMe) + tog("setShowStreak", "Daily streak counter", st.showStreak) + "</section>" +
@@ -23341,7 +23457,7 @@ function viewSettings(V) {
   var chk = function (e) { return e.checked; };
   bind("setBtnSize", "btnSize"); bind("setDensity", "density"); bind("setPageW", "pageWidth"); bind("setBorders", "borders"); bind("setShadows", "shadows"); bind("setCorners", "corners");
   bind("setIcons", "icons", chk); bind("setDots", "dots", chk); bind("setLinks", "learnLinks", chk);
-  bind("setNavLabels", "navLabels", chk); bind("setNavIcons", "navIcons", chk); bind("setShowCont", "showCont", chk); bind("setShowMe", "showMe", chk); bind("setShowStreak", "showStreak", chk); bind("setTopicColors", "topicColors", chk);
+  bind("setNavLabels", "navLabels", chk); bind("setNavIcons", "navIcons", chk); bind("setShowCont", "showCont", chk); bind("setShowMe", "showMe", chk); bind("setShowStreak", "showStreak", chk); bind("setTopicColors", "topicColors", chk); bind("setSplash", "splash", chk);
   ["setShowCont", "setShowMe", "setShowStreak"].forEach(function (id) { $(id).addEventListener("change", renderTop); });
   bind("setGuides", "guides", chk); bind("setKeySize", "keySize"); bind("setShortcuts", "shortcuts", chk);
   V.querySelectorAll("button[data-bgfx]").forEach(function (b) { b.onclick = function () { if (b.classList.contains("locked")) return lockedMsg("bg", b.getAttribute("data-bgfx"), b.querySelector("b").textContent); st.bgFx = b.getAttribute("data-bgfx"); save("settings", st); applySettings(); V.querySelectorAll("button[data-bgfx]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); }; });
@@ -23442,6 +23558,7 @@ window.addEventListener("popstate", function (e) {
   if (s.y) window.scrollTo(0, s.y);
 });
 if (!S.profile) onboard();
+splashScreen();
 // ---------------- keyboard shortcuts ----------------
 var SHORTCUTS = [
   ["Getting around", [["M", "Map"], ["Q", "Quizzes"], ["S", "Sandbox"], ["R", "Reference"], ["O", "Settings"], ["P", "Your player card"], ["C", "Continue where you left off"]]],
