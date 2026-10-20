@@ -1,0 +1,1961 @@
+{
+ "id": "gamedev",
+ "title": "Game Design with JavaScript",
+ "group": "build",
+ "xp": 20,
+ "icon": "GD",
+ "color": "s2",
+ "blurb": "How games are designed and built: genres, look and feel, collision, hitboxes and hurtboxes, level design and game mechanics.",
+ "intro": "<p>Making a game is half <b>design</b> (deciding what's fun, how it looks and feels, how levels teach the player) and half <b>code</b> (making things move, collide, score and get harder). This module does both.</p><p>You'll learn what makes a game a game, pick genres and art styles, add juice, then code movement, gravity, box and circle collision, walls, <b>hitboxes and hurtboxes</b>, invincibility frames, stomps, tile-based levels, difficulty curves, game states, combos and cooldowns. The boss stage is the heart of a real platformer.</p><div class=\"callout\"><b>Make your own game</b><p>Everything here also lives in the <button class=\"linkish\" type=\"button\" data-go=\"games\">Game Studio</button> in the Sandbox: pick a starter game, add features with one click, press H to see the hitboxes, and change the code to make it yours.</p></div>",
+ "links": [
+  [
+   "MDN: 2D collision detection",
+   "https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection"
+  ],
+  [
+   "MDN: Canvas tutorial",
+   "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial"
+  ],
+  [
+   "MDN: Anatomy of a video game",
+   "https://developer.mozilla.org/en-US/docs/Games/Anatomy"
+  ],
+  [
+   "MDA: A Formal Approach to Game Design (paper)",
+   "https://users.cs.northwestern.edu/~hunicke/MDA.pdf"
+  ]
+ ],
+ "stages": [
+  {
+   "uid": "g1",
+   "t": "What makes it a game?",
+   "k": "pick",
+   "step": "learn",
+   "hook": "<p>Snake, Minecraft, chess and tag look nothing alike. So what do they have in common that a movie or a fireworks show doesn't?</p>",
+   "l": "<p>Almost every game has the same four ingredients:</p><div class=\"tbl\"><table><thead><tr><th>Ingredient</th><th>What it means</th><th>In Snake</th></tr></thead><tbody><tr><td><b>A goal</b></td><td>Something to aim for</td><td>Get as long as you can</td></tr><tr><td><b>Rules</b></td><td>What you can and can't do</td><td>You can't touch walls or your own tail</td></tr><tr><td><b>Choices</b></td><td>Decisions that change what happens</td><td>Which way to turn, and when</td></tr><tr><td><b>Feedback</b></td><td>The game shows you how you're doing</td><td>The snake grows and the score goes up</td></tr></tbody></table></div><p>Take away the choices and it's a movie. Take away the goal and it's a toy (toys are great too, but they're not quite games).</p>",
+   "p": "<p>A student made an app where colorful fireworks explode on the screen forever. You can watch, but you can't do anything.</p>",
+   "q": "Which ingredients is it missing to become a game?",
+   "opts": [
+    "Better graphics",
+    "A goal and choices for the player",
+    "Music",
+    "More fireworks"
+   ],
+   "ans": 1,
+   "miss": [
+    "Lots of great games have simple graphics. Pretty pictures don't make a game.",
+    "",
+    "Music adds mood, but you still can't do anything.",
+    "More of the same is still just watching."
+   ],
+   "why": "<p>With nothing to aim for and nothing to decide, it's a show. Add a goal (pop 20 fireworks before time runs out) and a choice (tap the ones you want), and it becomes a game.</p>",
+   "h": "<p>Look at the table. What can the viewer actually <i>do</i>, and what are they trying to achieve?</p>"
+  },
+  {
+   "uid": "g2",
+   "t": "Mechanics, dynamics, feelings",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Game designers often use a model called <b>MDA</b> (from a 2004 paper by Hunicke, LeBlanc and Zubek):</p><ul><li><b>Mechanics</b>: the rules and actions written in code. <i>Jump is 9 pixels high. Coins add 1 point.</i></li><li><b>Dynamics</b>: what happens when players use those rules. <i>Players learn to chain jumps across enemies.</i></li><li><b>Aesthetics</b>: the feelings it creates. <i>Tension, pride, surprise, being in control.</i></li></ul><p>The designer builds <b>mechanics</b> and hopes for certain <b>feelings</b>. The player meets it the other way round: they feel first, and only later notice the rules. You only control the mechanics directly, so you tweak them until the feeling is right.</p>",
+   "p": "<p>In a game of tag, think about each statement.</p>",
+   "q": "Which one is a <b>dynamic</b>?",
+   "opts": [
+    "Whoever is It must touch another player",
+    "Players gang up near the safe zone and dodge together",
+    "The thrill of a narrow escape",
+    "The game ends after 10 minutes"
+   ],
+   "ans": 1,
+   "miss": [
+    "That's a rule, so it's a mechanic.",
+    "",
+    "That's a feeling, so it's aesthetics.",
+    "That's a rule too, a mechanic."
+   ],
+   "why": "<p>Nobody wrote a rule saying \"gang up near the safe zone\". It happens because of the rules. That's a dynamic: behavior that grows out of the mechanics.</p>",
+   "h": "<p>Mechanics are rules, aesthetics are feelings. Dynamics are what players end up <i>doing</i> because of the rules.</p>"
+  },
+  {
+   "uid": "g3",
+   "t": "The core loop",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>The <b>core loop</b> is the small set of actions players repeat over and over. If the core loop is fun, the game is fun. If it isn't, no amount of levels will fix it.</p><div class=\"tbl\"><table><thead><tr><th>Game</th><th>Core loop</th></tr></thead><tbody><tr><td>Minecraft</td><td>Explore → gather → craft → build → explore further</td></tr><tr><td>Pac-Man</td><td>Move → eat dots → dodge ghosts → grab a power pellet → chase ghosts</td></tr><tr><td>Clicker games</td><td>Click → earn → buy an upgrade → earn faster</td></tr></tbody></table></div><div class=\"callout\"><b>Tip</b><p>Before making levels or art, make a tiny version of your core loop with plain boxes. If moving the boxes around is already fun, you're onto something.</p></div>",
+   "p": "<p>In a farming game, you plant seeds, wait for them to grow, harvest the crops, sell them, and buy better seeds.</p>",
+   "q": "What is this game's core loop?",
+   "opts": [
+    "The title screen",
+    "Plant → grow → harvest → sell → buy better seeds",
+    "The music and art style",
+    "The ending cutscene"
+   ],
+   "ans": 1,
+   "miss": [
+    "The title screen happens once. A loop repeats.",
+    "",
+    "Art and music matter a lot, but they aren't actions the player repeats.",
+    "An ending happens once, not over and over."
+   ],
+   "why": "<p>That cycle is what players do again and again, and each lap leaves them a little stronger, which makes them want one more lap.</p>",
+   "h": "<p>A loop is something you repeat. Which answer describes actions that cycle back to the start?</p>"
+  },
+  {
+   "uid": "g4",
+   "t": "Kinds of games",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>A <b>genre</b> is a family of games that play in a similar way. Picking one tells you what players will expect.</p><div class=\"tbl\"><table><thead><tr><th>Genre</th><th>You mostly...</th><th>Examples</th></tr></thead><tbody><tr><td>Platformer</td><td>Run and jump between platforms, seen from the side</td><td>Mario, Celeste</td></tr><tr><td>Top-down adventure</td><td>Explore a map from above, talk, fight, find items</td><td>Zelda, Pokémon</td></tr><tr><td>Shooter</td><td>Aim and fire at enemies</td><td>Space Invaders, Splatoon</td></tr><tr><td>Puzzle</td><td>Figure out a tricky problem</td><td>Tetris, Portal</td></tr><tr><td>Racing</td><td>Get to the finish first</td><td>Mario Kart</td></tr><tr><td>Strategy</td><td>Plan ahead and manage resources</td><td>Chess, Clash Royale</td></tr><tr><td>Rhythm</td><td>Press buttons in time with music</td><td>Beat Saber, Guitar Hero</td></tr><tr><td>Roguelike</td><td>Try a new random run each time, starting over when you lose</td><td>Hades, Spelunky</td></tr></tbody></table></div>",
+   "p": "<p>A student wants to make a game where each run makes a brand-new random dungeon, and if you die you start over from the beginning, a little wiser.</p>",
+   "q": "Which genre is it?",
+   "opts": [
+    "Racing",
+    "Rhythm",
+    "Roguelike",
+    "Puzzle"
+   ],
+   "ans": 2,
+   "miss": [
+    "There's no finish line to race to.",
+    "Nothing here is about timing to music.",
+    "",
+    "Puzzles usually have one fixed solution. Here, the dungeon is random each time."
+   ],
+   "why": "<p>Random levels plus starting over when you lose is exactly what roguelikes are about. Every run is different, so it stays fresh.</p>",
+   "h": "<p>Look for the genre with random runs and starting over.</p>"
+  },
+  {
+   "uid": "g5",
+   "t": "Pick one art style",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>The <b>art style</b> is how everything in your game looks: <b>pixel art</b>, flat shapes, hand-drawn, cartoon, low-poly 3D. Simple styles are great for small teams. What matters most is that everything <b>matches</b>: the same level of detail, the same outlines, the same palette.</p><p>A good trick is to pick a small <b>palette</b> of 4 to 8 colors and use only those. Limits make games look planned instead of thrown together.</p>",
+   "p": "<p>This screenshot mixes a photo-like background, a pixel-art hero and a smooth cartoon coin.</p>",
+   "q": "What's the biggest problem?",
+   "html": "<div class=\"scr\" style=\"background:linear-gradient(#7aa2c9,#c9d8b6 60%,#6b8f4e 60%)\"><div class=\"box\" style=\"left:60px;top:120px;width:24px;height:24px;background:repeating-linear-gradient(90deg,#d62828 0 6px,#f77f00 6px 12px)\"></div><div class=\"box\" style=\"left:200px;top:90px;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff7b0,#ffbe0b 45%,#c77d00);box-shadow:0 2px 6px #0006\"></div><div class=\"hud\" style=\"font-family:Georgia,serif;font-style:italic\">Score: 0</div></div>",
+   "css": ".scr{position:relative;height:200px;background:#1b1f3a;overflow:hidden;font-family:system-ui,sans-serif}.box{position:absolute}.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}.hud{position:absolute;left:8px;top:6px;color:#fff;font-weight:700;font-size:13px}",
+   "opts": [
+    "The coin is too small",
+    "The styles don't match, so nothing feels like it belongs together",
+    "There should be more colors",
+    "The game needs a story"
+   ],
+   "ans": 1,
+   "miss": [
+    "Size isn't the issue here.",
+    "",
+    "Even more colors would make it messier.",
+    "A story won't fix how it looks."
+   ],
+   "why": "<p>Three different styles fight each other. Choose one style and one small palette, and use it for the hero, the coins, the background and even the score font.</p>",
+   "h": "<p>Look at how each object is drawn. Do they look like they come from the same game?</p>"
+  },
+  {
+   "uid": "g6",
+   "t": "Color tells players what's what",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>In a fast game, players don't have time to read. Color does the talking:</p><ul><li>The <b>player</b> should stand out from everything else, often with the brightest color.</li><li><b>Danger</b> is usually warm and loud: red, orange, spiky shapes.</li><li><b>Good stuff</b> (coins, health) is shiny or soft: gold, green, round shapes.</li><li>The <b>background</b> is darker or duller, so it never competes.</li></ul><div class=\"callout\"><b>Tip</b><p>Squint at a screenshot. You should still be able to find the player, the danger and the goal. Pair color with shape too, so color-blind players can tell them apart.</p></div>",
+   "p": "<p>Here's a level from a student's game.</p>",
+   "q": "Why do players keep losing track of their character?",
+   "html": "<div class=\"scr\" style=\"background:#2a9d8f\"><div class=\"hud\">Lives 3</div><div class=\"box\" style=\"left:70px;top:130px;width:24px;height:24px;background:#2aa597\"></div><div class=\"box\" style=\"left:180px;top:150px;width:24px;height:24px;background:#e63946\"></div><div class=\"box\" style=\"left:300px;top:100px;width:16px;height:16px;border-radius:50%;background:#ffd23f\"></div><div class=\"box\" style=\"left:0;top:174px;width:100%;height:26px;background:#21867a\"></div></div>",
+   "css": ".scr{position:relative;height:200px;background:#1b1f3a;overflow:hidden;font-family:system-ui,sans-serif}.box{position:absolute}.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}.hud{position:absolute;left:8px;top:6px;color:#fff;font-weight:700;font-size:13px}",
+   "opts": [
+    "The enemy is red",
+    "The player is almost the same color as the background",
+    "The coin is round",
+    "The floor is too thin"
+   ],
+   "ans": 1,
+   "miss": [
+    "Red for danger is a good choice.",
+    "",
+    "Round, shiny pickups are a good choice.",
+    "The floor is fine. Look for the hero."
+   ],
+   "why": "<p>Teal on teal disappears. Give the player a color nothing else uses, like bright white or yellow, and they'll never lose sight of it.</p>",
+   "h": "<p>Can you even find the player? It's at the left.</p>"
+  },
+  {
+   "uid": "g7",
+   "t": "Game feel and juice",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p><b>Game feel</b> is how good it is to just move and act. Designers add <b>juice</b>: small effects that make every action feel strong. The term was popularised by Martin Jonasson and Petri Purho.</p><ul><li><b>Particles</b>: sparkles when you grab a coin, dust when you land.</li><li><b>Screen shake</b>: a quick wobble when something big happens.</li><li><b>Sound</b>: a satisfying blip for every pickup.</li><li><b>Squash and stretch</b>: the hero squishes when landing and stretches when jumping.</li><li><b>Hit pause</b>: the game freezes for a few frames when a big hit lands.</li></ul><p>Good feedback comes <b>instantly</b>, within about a tenth of a second, and is <b>sized to the event</b>: tiny for a coin, big for a boss.</p>",
+   "p": "<p>Players say defeating enemies in a student's game feels flat. The enemy just vanishes.</p>",
+   "q": "Which change adds the most juice?",
+   "opts": [
+    "Make enemies have more health",
+    "Add a burst of particles, a short shake and a sound when an enemy is defeated",
+    "Add a menu screen",
+    "Make the enemy disappear more slowly over 5 seconds"
+   ],
+   "ans": 1,
+   "miss": [
+    "More health makes fights longer, not more satisfying.",
+    "",
+    "A menu doesn't change how a hit feels.",
+    "Five seconds is far too slow. Feedback should be instant."
+   ],
+   "why": "<p>Several small effects at once, all within a fraction of a second, make the hit feel powerful. Nothing about the rules changed, only the feedback.</p>",
+   "h": "<p>Juice is extra feedback, not extra rules.</p>"
+  },
+  {
+   "uid": "g8",
+   "t": "Telegraph the danger",
+   "k": "pick",
+   "step": "prove",
+   "p": "<p>A boss in a student's game does a huge slam attack with no warning. Players say it feels cheap.</p>",
+   "q": "What's the best fix?",
+   "opts": [
+    "Make the slam weaker",
+    "Give the boss a clear wind-up first, like raising its arms and flashing, before it slams",
+    "Remove the boss",
+    "Give the player more lives"
+   ],
+   "ans": 1,
+   "miss": [
+    "A weak surprise attack still feels unfair.",
+    "",
+    "Bosses are fun when they're fair, so keep it.",
+    "More lives hides the problem but doesn't fix it."
+   ],
+   "why": "<p>A warning before an attack is called a <b>telegraph</b>. When players can see it coming, getting hit feels like their mistake, and dodging it feels great. Fair danger is fun danger.</p>",
+   "h": "<p>Players don't mind dying when they could have seen it coming.</p>"
+  },
+  {
+   "uid": "g9",
+   "t": "Draw the world",
+   "k": "dom",
+   "step": "learn",
+   "hook": "<p>Time to build. Every 2D game, from Pong to Celeste, starts by drawing rectangles on a <b>canvas</b>.</p>",
+   "l": "<p>A <code>&lt;canvas&gt;</code> is a grid of pixels you can draw on. You draw with its <b>context</b>, usually called <code>ctx</code>. In these stages (and in the Game Studio), <code>canvas</code> and <code>ctx</code> are already set up for you. The top-left corner is <code>(0, 0)</code>. <b>x goes right and y goes down</b>, which is upside down compared to math class.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>ctx.fillStyle = &quot;skyblue&quot;;          // pick a color\nctx.fillRect(10, 20, 50, 30);        // x, y, width, height</code></pre><p>Things you draw later go <b>on top</b> of things drawn earlier, so draw the background first.</p>",
+   "p": "<p>On the 320 by 180 canvas: fill the whole thing with <code>#1b1f3a</code> (dark blue). Then draw the ground: a <code>#5c6a99</code> rectangle at x 0, y 160, 320 wide and 20 tall. Then draw the player: a <code>#4cc9f0</code> square at x 40, y 136, size 24.</p>",
+   "h": "<p>Three pairs of lines: set <code>ctx.fillStyle</code>, then call <code>ctx.fillRect(x, y, w, h)</code>. Background first, then ground, then player.</p>",
+   "html": "<canvas width=\"320\" height=\"180\"></canvas>",
+   "css": "canvas{display:block;width:100%;max-width:480px;background:#000;image-rendering:pixelated}.page{background:#111;padding:8px}",
+   "chk": "function (root) {\n    var c = root.querySelector(\"canvas\").getContext(\"2d\");\n    var px = function (x, y) { var d = c.getImageData(x, y, 1, 1).data; return [d[0], d[1], d[2]].join(\",\"); };\n    if (px(300, 10) !== \"27,31,58\") return \"The background (top-right corner) should be #1b1f3a.\";\n    if (px(200, 170) !== \"92,106,153\") return \"The ground at the bottom should be #5c6a99, from y 160 down.\";\n    if (px(200, 155) !== \"27,31,58\") return \"The ground should start at y 160, not higher.\";\n    if (px(52, 148) !== \"76,201,240\") return \"The player should be a #4cc9f0 square at x 40, y 136, 24 wide.\";\n    if (px(70, 148) === \"76,201,240\") return \"The player should be 24 pixels wide, not wider.\";\n    return true;\n  }",
+   "s": "ctx.fillStyle = \"#1b1f3a\";\nctx.fillRect(0, 0, 320, 180);\nctx.fillStyle = \"#5c6a99\";\nctx.fillRect(0, 160, 320, 20);\nctx.fillStyle = \"#4cc9f0\";\nctx.fillRect(40, 136, 24, 24);\n",
+   "st": "// 1. background  2. ground  3. player\n"
+  },
+  {
+   "uid": "g10",
+   "t": "Moving is just changing x",
+   "k": "predict",
+   "hook": "<p>Games look smooth, but nothing really moves. The game redraws the screen about 60 times a second, and each time the player is drawn a little further along.</p>",
+   "l": "<p>Each redraw is called a <b>frame</b>. Movement is just adding the speed to the position once per frame.</p>",
+   "p": "<p>This simulates 3 frames. What does it print?</p>",
+   "code": "const player = { x: 10, speed: 4 };\nfor (let frame = 1; frame <= 3; frame++) {\n  player.x += player.speed;\n  console.log(\"frame \" + frame + \": x = \" + player.x);\n}",
+   "opts": [
+    "frame 1: x = 14\nframe 2: x = 18\nframe 3: x = 22",
+    "frame 1: x = 10\nframe 2: x = 14\nframe 3: x = 18",
+    "frame 1: x = 4\nframe 2: x = 8\nframe 3: x = 12",
+    "frame 3: x = 22"
+   ],
+   "miss": [
+    "",
+    "The speed is added before printing, so frame 1 already shows 14.",
+    "x starts at 10, not 0.",
+    "console.log runs on every pass of the loop, not just the last one."
+   ],
+   "why": "<p>Each frame adds 4 to x: 10 becomes 14, 18, then 22. At 60 frames a second, a speed of 4 means 240 pixels every second.</p>",
+   "h": "<p>Add 4 to x, print, and repeat three times. Start from 10.</p>"
+  },
+  {
+   "uid": "g11",
+   "t": "Arrow-key movement",
+   "k": "fn",
+   "fn": "move",
+   "a": "p, keys",
+   "l": "<p>Most games keep a <code>keys</code> object that says which keys are held down right now. Each frame, the game checks it and moves the player.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>function fly(bird, keys) {\n  if (keys.space) bird.y -= 5;   // up means a smaller y!\n  return bird;\n}</code></pre><p>Remember: on screen, <b>up is minus y</b> and down is plus y.</p>",
+   "p": "<p>Write <code>move(p, keys)</code>. <code>p</code> has <code>x</code>, <code>y</code> and <code>speed</code>. <code>keys</code> has true or false for <code>left</code>, <code>right</code>, <code>up</code> and <code>down</code>. Change <code>p.x</code> and <code>p.y</code> by <code>p.speed</code> for each held key, then return <code>p</code>.</p>",
+   "h": "<p>Four separate <code>if</code>s (not else-ifs, so diagonals work). Left subtracts from x, right adds, up subtracts from y, down adds.</p>",
+   "c": [
+    [
+     [
+      {
+       "x": 50,
+       "y": 50,
+       "speed": 3
+      },
+      {
+       "left": false,
+       "right": true,
+       "up": false,
+       "down": false
+      }
+     ],
+     {
+      "x": 53,
+      "y": 50,
+      "speed": 3
+     }
+    ],
+    [
+     [
+      {
+       "x": 50,
+       "y": 50,
+       "speed": 3
+      },
+      {
+       "left": true,
+       "right": false,
+       "up": true,
+       "down": false
+      }
+     ],
+     {
+      "x": 47,
+      "y": 47,
+      "speed": 3
+     }
+    ],
+    [
+     [
+      {
+       "x": 10,
+       "y": 10,
+       "speed": 5
+      },
+      {
+       "left": false,
+       "right": false,
+       "up": false,
+       "down": true
+      }
+     ],
+     {
+      "x": 10,
+      "y": 15,
+      "speed": 5
+     }
+    ],
+    [
+     [
+      {
+       "x": 10,
+       "y": 10,
+       "speed": 5
+      },
+      {
+       "left": false,
+       "right": false,
+       "up": false,
+       "down": false
+      }
+     ],
+     {
+      "x": 10,
+      "y": 10,
+      "speed": 5
+     }
+    ]
+   ],
+   "s": "function move(p, keys) {\n  if (keys.left) p.x -= p.speed;\n  if (keys.right) p.x += p.speed;\n  if (keys.up) p.y -= p.speed;\n  if (keys.down) p.y += p.speed;\n  return p;\n}\n",
+   "st": "function move(p, keys) {\n  // change p.x and p.y for each held key\n  return p;\n}\n\nconsole.log(move({ x: 50, y: 50, speed: 3 }, { right: true, up: true }));\n"
+  },
+  {
+   "uid": "g12",
+   "t": "Stay on the screen",
+   "k": "fn",
+   "fn": "clamp",
+   "a": "value, min, max",
+   "l": "<p>Without limits, players walk right off the edge of the world. The fix is called <b>clamping</b>: if a number goes past a limit, snap it back to the limit.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>Math.max(0, -12)    // 0   (picks the bigger one)\nMath.min(100, 140)  // 100 (picks the smaller one)</code></pre><p>For a player 24 pixels wide on a 480-wide screen, x must stay between 0 and 480 - 24 = 456.</p>",
+   "p": "<p>Write <code>clamp(value, min, max)</code> that returns <code>value</code>, but never less than <code>min</code> and never more than <code>max</code>.</p>",
+   "h": "<p>Combine them: one call stops it going too low, the other stops it going too high. You can nest one inside the other.</p>",
+   "c": [
+    [
+     [
+      50,
+      0,
+      456
+     ],
+     50
+    ],
+    [
+     [
+      -12,
+      0,
+      456
+     ],
+     0
+    ],
+    [
+     [
+      470,
+      0,
+      456
+     ],
+     456
+    ],
+    [
+     [
+      0,
+      0,
+      456
+     ],
+     0
+    ],
+    [
+     [
+      456,
+      0,
+      456
+     ],
+     456
+    ]
+   ],
+   "s": "function clamp(value, min, max) {\n  return Math.max(min, Math.min(max, value));\n}\n",
+   "st": "function clamp(value, min, max) {\n  // your code here\n}\n\nconsole.log(clamp(470, 0, 456)); // 456\n"
+  },
+  {
+   "uid": "g13",
+   "t": "Gravity",
+   "k": "fn",
+   "fn": "fall",
+   "a": "p",
+   "l": "<p>Gravity isn't a speed, it's a <b>change in speed</b>. Every frame, gravity adds a little to the falling speed <code>vy</code> (v for velocity), then <code>vy</code> is added to <code>y</code>. That's why falls start slow and get faster.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>ball.vx += wind;    // wind changes the speed\nball.x += ball.vx;  // the speed changes the position</code></pre><p>When the player reaches the floor, it should stop: put it exactly on the floor and set <code>vy</code> back to 0.</p>",
+   "p": "<p>Write <code>fall(p)</code> for one frame. Add <code>0.5</code> to <code>p.vy</code>, then add <code>p.vy</code> to <code>p.y</code>. If <code>p.y</code> is now more than <code>300</code> (the floor), set <code>p.y</code> to <code>300</code> and <code>p.vy</code> to <code>0</code>. Return <code>p</code>.</p>",
+   "h": "<p>Speed first, then position, then the floor check with an <code>if</code>.</p>",
+   "c": [
+    [
+     [
+      {
+       "y": 100,
+       "vy": 0
+      }
+     ],
+     {
+      "y": 100.5,
+      "vy": 0.5
+     }
+    ],
+    [
+     [
+      {
+       "y": 100,
+       "vy": 4
+      }
+     ],
+     {
+      "y": 104.5,
+      "vy": 4.5
+     }
+    ],
+    [
+     [
+      {
+       "y": 296,
+       "vy": 6
+      }
+     ],
+     {
+      "y": 300,
+      "vy": 0
+     }
+    ],
+    [
+     [
+      {
+       "y": 200,
+       "vy": -8
+      }
+     ],
+     {
+      "y": 192.5,
+      "vy": -7.5
+     }
+    ]
+   ],
+   "s": "function fall(p) {\n  p.vy += 0.5;\n  p.y += p.vy;\n  if (p.y > 300) {\n    p.y = 300;\n    p.vy = 0;\n  }\n  return p;\n}\n",
+   "st": "function fall(p) {\n  // 1. gravity changes vy  2. vy changes y  3. stop at the floor (300)\n  return p;\n}\n\nconsole.log(fall({ y: 100, vy: 4 })); // { y: 104.5, vy: 4.5 }\n"
+  },
+  {
+   "uid": "g14",
+   "t": "Jump and coyote time",
+   "k": "fn",
+   "fn": "canJump",
+   "a": "p",
+   "l": "<p>A jump is just setting <code>vy</code> to a big negative number. Gravity does the rest, slowing the rise and pulling the player back down.</p><p>But you can only jump from the ground. Here's a pro trick called <b>coyote time</b> (named after the cartoon coyote who runs off cliffs): let players jump for a few frames <b>after</b> walking off a ledge. Players press jump a moment too late all the time, and this forgives them. Players rarely notice it, but games without it feel unfair.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// p.onGround: is the player standing on something?\n// p.airFrames: how many frames since it last stood on something</code></pre>",
+   "p": "<p>Write <code>canJump(p)</code>. Return <code>true</code> if <code>p.onGround</code> is true, <b>or</b> if <code>p.airFrames</code> is less than <code>6</code> (coyote time). Otherwise return <code>false</code>.</p>",
+   "h": "<p>One <code>return</code> with <code>||</code> between the two conditions.</p>",
+   "c": [
+    [
+     [
+      {
+       "onGround": true,
+       "airFrames": 0
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "onGround": false,
+       "airFrames": 3
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "onGround": false,
+       "airFrames": 6
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "onGround": false,
+       "airFrames": 40
+      }
+     ],
+     false
+    ]
+   ],
+   "s": "function canJump(p) {\n  return p.onGround || p.airFrames < 6;\n}\n",
+   "st": "function canJump(p) {\n  // on the ground, or only just left it\n}\n\nconsole.log(canJump({ onGround: false, airFrames: 3 })); // true\n"
+  },
+  {
+   "uid": "g15",
+   "t": "Boxes, not pixels",
+   "k": "pick",
+   "step": "learn",
+   "hook": "<p>How does a game know a sword hit a slime, or Mario landed on a Goomba? Checking every pixel of every picture 60 times a second would be far too slow.</p>",
+   "l": "<p>Instead, games wrap things in invisible simple shapes, usually <b>boxes</b> or <b>circles</b>, and only check whether the shapes touch. This is called <b>collision detection</b>.</p><p>The boxes don't have to match the picture exactly. Designers make them <b>a little smaller</b> than the player's sprite, so near misses count as misses. Players think \"phew, close one!\" instead of \"that didn't touch me!\"</p>",
+   "p": "<p>Players complain they keep dying when a spike only <i>looks</i> like it brushed past their hair.</p>",
+   "q": "What's the best fix?",
+   "html": "<div class=\"scr\"><div class=\"box\" style=\"left:120px;top:90px;width:40px;height:56px;background:#4cc9f0;border-radius:10px 10px 4px 4px\"></div><div class=\"box\" style=\"left:112px;top:82px;width:56px;height:72px;border:2px dashed #ff3b5c\"></div><div class=\"box\" style=\"left:170px;top:70px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:24px solid #e9ecef\"></div><div class=\"hud\">dashed line = the player's collision box</div></div>",
+   "css": ".scr{position:relative;height:200px;background:#1b1f3a;overflow:hidden;font-family:system-ui,sans-serif}.box{position:absolute}.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}.hud{position:absolute;left:8px;top:6px;color:#fff;font-weight:700;font-size:13px}",
+   "opts": [
+    "Make the player's box a bit smaller than the picture",
+    "Make the box even bigger to be safe",
+    "Remove all spikes",
+    "Check every pixel instead"
+   ],
+   "ans": 0,
+   "miss": [
+    "",
+    "A bigger box makes the problem worse: even more hits that don't look like hits.",
+    "Spikes are good challenge. They just need fair boxes.",
+    "Pixel checks are slow and still feel harsh at the edges."
+   ],
+   "why": "<p>The box sticks out past the picture, so the spike \"hits\" empty air. Shrinking the box a little makes collisions match what players see, and close calls feel exciting instead of unfair.</p>",
+   "h": "<p>Compare the dashed box with the blue body. Which one does the spike actually touch?</p>"
+  },
+  {
+   "uid": "g16",
+   "t": "Is the point inside?",
+   "k": "fn",
+   "fn": "pointIn",
+   "a": "px, py, r",
+   "step": "learn",
+   "l": "<p>The simplest collision: is a point inside a box? You need this for clicking buttons, mouse aiming, and bullets that are just a dot.</p><p>A box <code>r</code> has <code>x</code>, <code>y</code> (its top-left corner), <code>w</code> and <code>h</code>. A point is inside when it's between the left and right edges <b>and</b> between the top and bottom edges.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// is a number between two others?\nconst inRange = n &gt;= low &amp;&amp; n &lt;= high;</code></pre>",
+   "p": "<p>Write <code>pointIn(px, py, r)</code> that returns <code>true</code> if the point is inside box <code>r</code> (edges count as inside) and <code>false</code> otherwise.</p>",
+   "h": "<p>The right edge is at <code>r.x + r.w</code> and the bottom edge at <code>r.y + r.h</code>. You need four comparisons joined with <code>&amp;&amp;</code>.</p>",
+   "c": [
+    [
+     [
+      15,
+      15,
+      {
+       "x": 10,
+       "y": 10,
+       "w": 20,
+       "h": 20
+      }
+     ],
+     true
+    ],
+    [
+     [
+      5,
+      15,
+      {
+       "x": 10,
+       "y": 10,
+       "w": 20,
+       "h": 20
+      }
+     ],
+     false
+    ],
+    [
+     [
+      15,
+      31,
+      {
+       "x": 10,
+       "y": 10,
+       "w": 20,
+       "h": 20
+      }
+     ],
+     false
+    ],
+    [
+     [
+      30,
+      30,
+      {
+       "x": 10,
+       "y": 10,
+       "w": 20,
+       "h": 20
+      }
+     ],
+     true
+    ],
+    [
+     [
+      100,
+      50,
+      {
+       "x": 90,
+       "y": 40,
+       "w": 30,
+       "h": 5
+      }
+     ],
+     false
+    ]
+   ],
+   "s": "function pointIn(px, py, r) {\n  return px >= r.x && px <= r.x + r.w &&\n         py >= r.y && py <= r.y + r.h;\n}\n",
+   "st": "function pointIn(px, py, r) {\n  // is px between the left and right edges, and py between the top and bottom?\n}\n\nconsole.log(pointIn(15, 15, { x: 10, y: 10, w: 20, h: 20 })); // true\n"
+  },
+  {
+   "uid": "g17",
+   "t": "Do two boxes touch?",
+   "k": "predict",
+   "hook": "<p>Two boxes overlap when they overlap <b>left-to-right</b> AND <b>top-to-bottom</b>. If there's a gap on either axis, they're apart. This test is called <b>AABB</b> (axis-aligned bounding boxes), and almost every 2D game uses it.</p>",
+   "l": "<p>On one axis, A and B overlap when A's left edge is before B's right edge, and A's right edge is after B's left edge.</p>",
+   "p": "<p>What does this print?</p>",
+   "code": "const a = { x: 10, w: 20 };   // covers 10 to 30\nconst b = { x: 25, w: 20 };   // covers 25 to 45\nconst c = { x: 40, w: 10 };   // covers 40 to 50\nconsole.log(a.x < b.x + b.w && a.x + a.w > b.x);\nconsole.log(a.x < c.x + c.w && a.x + a.w > c.x);",
+   "opts": [
+    "true\nfalse",
+    "false\ntrue",
+    "true\ntrue",
+    "false\nfalse"
+   ],
+   "miss": [
+    "",
+    "A ends at 30 and B starts at 25, so they share 25 to 30.",
+    "A ends at 30 but C doesn't start until 40, so there's a gap.",
+    "A and B share the stretch from 25 to 30."
+   ],
+   "why": "<p>A (10 to 30) and B (25 to 45) share 25 to 30, so they overlap. A and C have a gap from 30 to 40, so they don't. Do the same check on y as well, and you have full box collision.</p>",
+   "h": "<p>Draw the three ranges on a number line from 0 to 50.</p>"
+  },
+  {
+   "uid": "g18",
+   "t": "Box collision",
+   "k": "fn",
+   "fn": "overlaps",
+   "a": "a, b",
+   "l": "<p>Now both axes at once. Two boxes touch when all four of these are true:</p><div class=\"tbl\"><table><thead><tr><th>Check</th><th>Meaning</th></tr></thead><tbody><tr><td><code>a.x &lt; b.x + b.w</code></td><td>A's left edge is before B's right edge</td></tr><tr><td><code>a.x + a.w &gt; b.x</code></td><td>A's right edge is after B's left edge</td></tr><tr><td>(same for y and h)</td><td>A's top is above B's bottom, and A's bottom is below B's top</td></tr></tbody></table></div><div class=\"callout\"><b>Tip</b><p>If boxes only touch edge to edge, like a player standing exactly on the floor, this counts as not overlapping. That's what you want, or players would get stuck in every floor.</p></div>",
+   "p": "<p>Write <code>overlaps(a, b)</code> for two boxes with <code>x</code>, <code>y</code>, <code>w</code> and <code>h</code>. Return <code>true</code> when they overlap.</p>",
+   "h": "<p>Copy the two x checks from the table, then write the two matching checks using <code>y</code> and <code>h</code>. Join all four with <code>&amp;&amp;</code>.</p>",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      },
+      {
+       "x": 10,
+       "y": 10,
+       "w": 20,
+       "h": 20
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      },
+      {
+       "x": 30,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      },
+      {
+       "x": 5,
+       "y": 40,
+       "w": 20,
+       "h": 20
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      },
+      {
+       "x": 20,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 50,
+       "y": 50,
+       "w": 10,
+       "h": 10
+      },
+      {
+       "x": 0,
+       "y": 0,
+       "w": 100,
+       "h": 100
+      }
+     ],
+     true
+    ]
+   ],
+   "s": "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n",
+   "st": "function overlaps(a, b) {\n  // true when a and b overlap on x AND on y\n}\n\nconsole.log(overlaps({ x: 0, y: 0, w: 20, h: 20 }, { x: 10, y: 10, w: 20, h: 20 })); // true\n"
+  },
+  {
+   "uid": "g19",
+   "t": "Order: collecting coins",
+   "k": "fn",
+   "fn": "collect",
+   "a": "player, coins",
+   "step": "order",
+   "mode": "order",
+   "l": "<p>Here's how almost every game picks things up: check each coin against the player, and for each one touching, count it and remove it. <code>filter</code> keeps only the coins that weren't touched. In this game, positions are the <b>centers</b> of things, and a coin counts as touched when it's less than 16 pixels away on both x and y.</p>",
+   "p": "<p>Tap the lines into order so <code>collect(player, coins)</code> returns how many coins the player touched and the coins that are left.</p>",
+   "h": "<p>Start the count at 0, then filter. Inside the filter, work out whether this coin is touching, and an <code>if</code> handles touched coins. Return the count and the remaining coins together at the end.</p>",
+   "c": [
+    [
+     [
+      {
+       "x": 50,
+       "y": 50
+      },
+      [
+       {
+        "x": 60,
+        "y": 40
+       },
+       {
+        "x": 200,
+        "y": 50
+       }
+      ]
+     ],
+     {
+      "got": 1,
+      "left": [
+       {
+        "x": 200,
+        "y": 50
+       }
+      ]
+     }
+    ],
+    [
+     [
+      {
+       "x": 50,
+       "y": 50
+      },
+      [
+       {
+        "x": 50,
+        "y": 50
+       },
+       {
+        "x": 40,
+        "y": 60
+       }
+      ]
+     ],
+     {
+      "got": 2,
+      "left": []
+     }
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0
+      },
+      []
+     ],
+     {
+      "got": 0,
+      "left": []
+     }
+    ]
+   ],
+   "s": "function collect(player, coins) {\nlet got = 0;\nconst left = coins.filter(coin => {\nconst touching = Math.abs(coin.x - player.x) < 16 && Math.abs(coin.y - player.y) < 16;\nif (touching) {\ngot++;\nreturn false;\n}\nreturn true;\n});\nreturn { got: got, left: left };\n}\n",
+   "dl": [
+    "got--;",
+    "coins.push(coin);"
+   ]
+  },
+  {
+   "uid": "g20",
+   "t": "Bug hunt: stuck in the floor",
+   "k": "fn",
+   "fn": "overlaps",
+   "a": "a, b",
+   "step": "bug",
+   "l": "<p>A student's player keeps getting stuck: it stands on the floor, but the game thinks it's <i>inside</i> the floor, so it can't walk.</p>",
+   "p": "<p>This <code>overlaps</code> says a box sitting exactly on top of the floor is overlapping it. Fix it so boxes that only touch edge to edge do <b>not</b> count.</p>",
+   "h": "<p>Look at the comparison signs. Should touching edges (equal values) count?</p>",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 280,
+       "w": 20,
+       "h": 20
+      },
+      {
+       "x": 0,
+       "y": 300,
+       "w": 480,
+       "h": 20
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 285,
+       "w": 20,
+       "h": 20
+      },
+      {
+       "x": 0,
+       "y": 300,
+       "w": 480,
+       "h": 20
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      },
+      {
+       "x": 20,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      },
+      {
+       "x": 15,
+       "y": 5,
+       "w": 20,
+       "h": 20
+      }
+     ],
+     true
+    ]
+   ],
+   "s": "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n",
+   "st": "function overlaps(a, b) {\n  return a.x <= b.x + b.w && a.x + a.w >= b.x &&\n         a.y <= b.y + b.h && a.y + a.h >= b.y;\n}\n\n// player standing on the floor: should be false\nconsole.log(overlaps({ x: 0, y: 280, w: 20, h: 20 }, { x: 0, y: 300, w: 480, h: 20 }));\n"
+  },
+  {
+   "uid": "g21",
+   "t": "Round things",
+   "k": "fn",
+   "fn": "circlesHit",
+   "a": "a, b",
+   "l": "<p>Balls, bubbles and planets fit circles better than boxes. Two circles touch when the distance between their centers is less than their two radiuses added together.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// distance between two points (Pythagoras)\nconst d = Math.hypot(x2 - x1, y2 - y1);\nconsole.log(Math.hypot(3, 4)); // 5</code></pre>",
+   "p": "<p>Write <code>circlesHit(a, b)</code>. Each circle has <code>x</code>, <code>y</code> (its center) and <code>r</code> (radius). Return <code>true</code> if the distance between centers is less than <code>a.r + b.r</code>.</p>",
+   "h": "<p>Work out the distance with <code>Math.hypot(b.x - a.x, b.y - a.y)</code>, then compare it with the two radiuses added together.</p>",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "r": 5
+      },
+      {
+       "x": 3,
+       "y": 4,
+       "r": 1
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "r": 2
+      },
+      {
+       "x": 3,
+       "y": 4,
+       "r": 2
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "x": 10,
+       "y": 10,
+       "r": 10
+      },
+      {
+       "x": 25,
+       "y": 10,
+       "r": 6
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "r": 3
+      },
+      {
+       "x": 0,
+       "y": 6,
+       "r": 3
+      }
+     ],
+     false
+    ]
+   ],
+   "s": "function circlesHit(a, b) {\n  const d = Math.hypot(b.x - a.x, b.y - a.y);\n  return d < a.r + b.r;\n}\n",
+   "st": "function circlesHit(a, b) {\n  // distance between centers, compared with the radiuses added up\n}\n\nconsole.log(circlesHit({ x: 0, y: 0, r: 5 }, { x: 3, y: 4, r: 1 })); // true\n"
+  },
+  {
+   "uid": "g22",
+   "t": "Walls stop you",
+   "k": "fn",
+   "fn": "moveX",
+   "a": "p, dx, walls",
+   "l": "<p>Detecting a collision isn't enough. For walls, you have to <b>push the player back out</b>. The standard way:</p><ol><li>Move the player on <b>x only</b>.</li><li>If it now overlaps a wall: moving right means put its right edge on the wall's left edge (<code>p.x = wall.x - p.w</code>). Moving left means put its left edge on the wall's right edge (<code>p.x = wall.x + wall.w</code>).</li><li>Then do the same for y separately.</li></ol><p>Doing the axes one at a time is what lets players slide smoothly along walls.</p>",
+   "p": "<p>Write <code>moveX(p, dx, walls)</code>: add <code>dx</code> to <code>p.x</code>, then push <code>p</code> out of any wall it overlaps, as above. Return <code>p.x</code>. <code>overlaps</code> is already in the starter.</p>",
+   "h": "<p>After <code>p.x += dx</code>, loop with <code>for (const wall of walls)</code>. Inside, if they overlap, use <code>dx &gt; 0</code> to choose which side to snap to.</p>",
+   "c": [
+    [
+     [
+      {
+       "x": 0,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      },
+      5,
+      [
+       {
+        "x": 100,
+        "y": 0,
+        "w": 20,
+        "h": 100
+       }
+      ]
+     ],
+     5
+    ],
+    [
+     [
+      {
+       "x": 75,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      },
+      10,
+      [
+       {
+        "x": 100,
+        "y": 0,
+        "w": 20,
+        "h": 100
+       }
+      ]
+     ],
+     80
+    ],
+    [
+     [
+      {
+       "x": 125,
+       "y": 0,
+       "w": 20,
+       "h": 20
+      },
+      -10,
+      [
+       {
+        "x": 100,
+        "y": 0,
+        "w": 20,
+        "h": 100
+       }
+      ]
+     ],
+     120
+    ],
+    [
+     [
+      {
+       "x": 75,
+       "y": 200,
+       "w": 20,
+       "h": 20
+      },
+      10,
+      [
+       {
+        "x": 100,
+        "y": 0,
+        "w": 20,
+        "h": 100
+       }
+      ]
+     ],
+     85
+    ]
+   ],
+   "s": "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n\nfunction moveX(p, dx, walls) {\n  p.x += dx;\n  for (const wall of walls) {\n    if (overlaps(p, wall)) {\n      p.x = dx > 0 ? wall.x - p.w : wall.x + wall.w;\n    }\n  }\n  return p.x;\n}\n",
+   "st": "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n\nfunction moveX(p, dx, walls) {\n  p.x += dx;\n  // push p back out of any wall it now overlaps\n  return p.x;\n}\n"
+  },
+  {
+   "uid": "g23",
+   "t": "Hitboxes and hurtboxes",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Action games give characters <b>several</b> boxes, each with its own job:</p><div class=\"tbl\"><table><thead><tr><th>Box</th><th>Job</th><th>Usually drawn as</th></tr></thead><tbody><tr><td><b>Hurtbox</b></td><td>Where you can <b>be hit</b>. Your body.</td><td>Green</td></tr><tr><td><b>Hitbox</b></td><td>Where your attack <b>hits</b>. A sword swing, a punch, a bullet. Usually only there while the attack is active.</td><td>Red or yellow</td></tr><tr><td><b>Collision box</b> (pushbox)</td><td>Stops you walking through walls and other characters.</td><td>Blue</td></tr></tbody></table></div><p>An attack lands when an attacker's <b>hitbox</b> overlaps a defender's <b>hurtbox</b>. Fighting games like Street Fighter move these boxes every frame to match the animation, so a kick's hitbox only reaches out while the leg is out.</p>",
+   "p": "<p>Here's a knight swinging a sword at a slime, with debug boxes turned on.</p>",
+   "q": "Which box is the knight's <b>hitbox</b>?",
+   "html": "<div class=\"scr\" style=\"background:#2b2d42\"><div class=\"box\" style=\"left:70px;top:80px;width:36px;height:60px;background:#adb5bd;border-radius:6px\"></div><div class=\"box\" style=\"left:66px;top:76px;width:44px;height:68px;border:2px solid #57f287\"></div><span class=\"tag\" style=\"left:50px;top:66px\">A</span><div class=\"box\" style=\"left:106px;top:100px;width:56px;height:8px;background:#e9ecef\"></div><div class=\"box\" style=\"left:104px;top:92px;width:62px;height:24px;border:2px solid #ffd23f\"></div><span class=\"tag\" style=\"left:150px;top:72px\">B</span><div class=\"box\" style=\"left:180px;top:116px;width:40px;height:26px;background:#80ed99;border-radius:20px 20px 4px 4px\"></div><div class=\"box\" style=\"left:176px;top:112px;width:48px;height:34px;border:2px solid #57f287\"></div><span class=\"tag\" style=\"left:226px;top:100px\">C</span><div class=\"box\" style=\"left:0;top:146px;width:100%;height:54px;background:#3d405b\"></div></div>",
+   "css": ".scr{position:relative;height:200px;background:#1b1f3a;overflow:hidden;font-family:system-ui,sans-serif}.box{position:absolute}.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}.hud{position:absolute;left:8px;top:6px;color:#fff;font-weight:700;font-size:13px}",
+   "opts": [
+    "A, around the knight's body",
+    "B, around the sword",
+    "C, around the slime"
+   ],
+   "ans": 1,
+   "miss": [
+    "A is the knight's hurtbox: where the knight can get hit.",
+    "",
+    "C is the slime's hurtbox: where the slime can get hit."
+   ],
+   "why": "<p>B is the hitbox. It only exists while the sword swings. If B overlaps the slime's hurtbox C, the slime takes damage. Notice that B doesn't touch C yet, so this swing would miss.</p>",
+   "h": "<p>Hitbox = what hits. Which box belongs to the weapon?</p>"
+  },
+  {
+   "uid": "g24",
+   "t": "Did the attack land?",
+   "k": "fn",
+   "fn": "attackLands",
+   "a": "attack, target",
+   "l": "<p>An attack has a <code>hitbox</code> and an <code>active</code> flag (true only during the frames where the swing can hurt). A target has a <code>hurtbox</code>. The attack lands only when it's active <b>and</b> the boxes overlap.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// a box inside an object is just another object\nconst sword = { active: true, hitbox: { x: 100, y: 92, w: 62, h: 24 } };\nconsole.log(sword.hitbox.w); // 62</code></pre>",
+   "p": "<p>Write <code>attackLands(attack, target)</code> that returns <code>true</code> only if <code>attack.active</code> is true and <code>attack.hitbox</code> overlaps <code>target.hurtbox</code>. <code>overlaps</code> is in the starter.</p>",
+   "h": "<p>Combine <code>attack.active</code> and a call to <code>overlaps(...)</code> with <code>&amp;&amp;</code>.</p>",
+   "c": [
+    [
+     [
+      {
+       "active": true,
+       "hitbox": {
+        "x": 100,
+        "y": 90,
+        "w": 60,
+        "h": 24
+       }
+      },
+      {
+       "hurtbox": {
+        "x": 150,
+        "y": 100,
+        "w": 40,
+        "h": 40
+       }
+      }
+     ],
+     true
+    ],
+    [
+     [
+      {
+       "active": false,
+       "hitbox": {
+        "x": 100,
+        "y": 90,
+        "w": 60,
+        "h": 24
+       }
+      },
+      {
+       "hurtbox": {
+        "x": 150,
+        "y": 100,
+        "w": 40,
+        "h": 40
+       }
+      }
+     ],
+     false
+    ],
+    [
+     [
+      {
+       "active": true,
+       "hitbox": {
+        "x": 100,
+        "y": 90,
+        "w": 60,
+        "h": 24
+       }
+      },
+      {
+       "hurtbox": {
+        "x": 180,
+        "y": 100,
+        "w": 40,
+        "h": 40
+       }
+      }
+     ],
+     false
+    ]
+   ],
+   "s": "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n\nfunction attackLands(attack, target) {\n  return attack.active && overlaps(attack.hitbox, target.hurtbox);\n}\n",
+   "st": "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n\nfunction attackLands(attack, target) {\n  // active, and the hitbox overlaps the target's hurtbox\n}\n"
+  },
+  {
+   "uid": "g25",
+   "t": "Invincibility frames",
+   "k": "fn",
+   "fn": "takeHit",
+   "a": "p",
+   "l": "<p>Without protection, touching an enemy for one second would take 60 lives, one per frame! So after getting hurt, the player gets <b>invincibility frames</b> (i-frames): a short time where its hurtbox is switched off. Most games make the player blink during i-frames so you can see it.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// counting down a timer each frame\nif (shield.timer &gt; 0) shield.timer--;</code></pre>",
+   "p": "<p>Write <code>takeHit(p)</code>. If <code>p.iframes</code> is more than 0, nothing happens. Otherwise take 1 from <code>p.hp</code> and set <code>p.iframes</code> to <code>60</code>. Return <code>p</code> either way.</p>",
+   "h": "<p>One <code>if</code> checking <code>p.iframes === 0</code> (or <code>&lt;= 0</code>) with two lines inside, then <code>return p</code>.</p>",
+   "c": [
+    [
+     [
+      {
+       "hp": 3,
+       "iframes": 0
+      }
+     ],
+     {
+      "hp": 2,
+      "iframes": 60
+     }
+    ],
+    [
+     [
+      {
+       "hp": 2,
+       "iframes": 45
+      }
+     ],
+     {
+      "hp": 2,
+      "iframes": 45
+     }
+    ],
+    [
+     [
+      {
+       "hp": 1,
+       "iframes": 0
+      }
+     ],
+     {
+      "hp": 0,
+      "iframes": 60
+     }
+    ]
+   ],
+   "s": "function takeHit(p) {\n  if (p.iframes <= 0) {\n    p.hp -= 1;\n    p.iframes = 60;\n  }\n  return p;\n}\n",
+   "st": "function takeHit(p) {\n  // only get hurt if not invincible right now\n  return p;\n}\n\nconsole.log(takeHit({ hp: 3, iframes: 0 }));  // { hp: 2, iframes: 60 }\nconsole.log(takeHit({ hp: 2, iframes: 45 })); // unchanged\n"
+  },
+  {
+   "uid": "g26",
+   "t": "Stomp or ouch?",
+   "k": "fn",
+   "fn": "stompOrHurt",
+   "a": "p, enemy",
+   "l": "<p>In Mario, touching a Goomba from the side hurts you, but landing on its head defeats it. Same overlap, different result! The game checks <b>which way you were moving</b>:</p><ul><li>The player must be <b>falling</b> (<code>vy &gt; 0</code>).</li><li>Last frame, the player's feet were <b>above</b> the enemy's top. Last frame's bottom edge is <code>p.y + p.h - p.vy</code>.</li></ul>",
+   "p": "<p>Write <code>stompOrHurt(p, enemy)</code> for a player that is already overlapping the enemy. Return <code>\"stomp\"</code> if <code>p.vy &gt; 0</code> and last frame's bottom (<code>p.y + p.h - p.vy</code>) was at or above <code>enemy.y</code>. Otherwise return <code>\"hurt\"</code>.</p>",
+   "h": "<p>Store last frame's bottom in a variable first. Then one <code>if</code> with <code>&amp;&amp;</code> and <code>&lt;=</code>.</p>",
+   "c": [
+    [
+     [
+      {
+       "y": 85,
+       "h": 20,
+       "vy": 6
+      },
+      {
+       "y": 100
+      }
+     ],
+     "stomp"
+    ],
+    [
+     [
+      {
+       "y": 95,
+       "h": 20,
+       "vy": 2
+      },
+      {
+       "y": 100
+      }
+     ],
+     "hurt"
+    ],
+    [
+     [
+      {
+       "y": 90,
+       "h": 20,
+       "vy": -4
+      },
+      {
+       "y": 100
+      }
+     ],
+     "hurt"
+    ],
+    [
+     [
+      {
+       "y": 84,
+       "h": 20,
+       "vy": 4
+      },
+      {
+       "y": 100
+      }
+     ],
+     "stomp"
+    ]
+   ],
+   "s": "function stompOrHurt(p, enemy) {\n  const lastBottom = p.y + p.h - p.vy;\n  if (p.vy > 0 && lastBottom <= enemy.y) return \"stomp\";\n  return \"hurt\";\n}\n",
+   "st": "function stompOrHurt(p, enemy) {\n  // falling, and last frame the feet were above the enemy's top?\n}\n\nconsole.log(stompOrHurt({ y: 85, h: 20, vy: 6 }, { y: 100 })); // \"stomp\"\n"
+  },
+  {
+   "uid": "g27",
+   "t": "Draw the hitboxes",
+   "k": "dom",
+   "l": "<p>Pro developers add a <b>debug view</b> that draws every box, so they can see exactly why something did or didn't hit. <code>strokeRect</code> draws just the outline of a rectangle.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>ctx.strokeStyle = &quot;white&quot;;\nctx.lineWidth = 2;\nctx.strokeRect(5, 5, 40, 40);</code></pre>",
+   "p": "<p>Draw an outline for every box in <code>boxes</code> with <code>lineWidth</code> 2. Hurtboxes (<code>kind</code> is <code>\"hurt\"</code>) are green <code>#57f287</code>, and hitboxes (<code>kind</code> is <code>\"hit\"</code>) are red <code>#ff3b5c</code>.</p>",
+   "h": "<p>Loop over <code>boxes</code>. Pick the color with <code>b.kind === \"hit\" ? ... : ...</code>, set it as <code>ctx.strokeStyle</code>, then call <code>strokeRect</code>.</p>",
+   "html": "<canvas width=\"320\" height=\"180\"></canvas>",
+   "css": "canvas{display:block;width:100%;max-width:480px;background:#000;image-rendering:pixelated}.page{background:#111;padding:8px}",
+   "chk": "function (root) {\n    var c = root.querySelector(\"canvas\").getContext(\"2d\");\n    var px = function (x, y) { var d = c.getImageData(x, y, 1, 1).data; return [d[0], d[1], d[2]].join(\",\"); };\n    if (px(40, 61) !== \"87,242,135\" && px(40, 60) !== \"87,242,135\") return \"The knight's hurtbox (at 40, 60) should have a green #57f287 outline.\";\n    if (px(90, 81) !== \"255,59,92\" && px(90, 80) !== \"255,59,92\") return \"The sword hitbox (at 90, 80) should have a red #ff3b5c outline.\";\n    if (px(220, 101) !== \"87,242,135\" && px(220, 100) !== \"87,242,135\") return \"The slime's hurtbox (at 220, 100) should have a green outline.\";\n    if (px(55, 90) === \"87,242,135\") return \"Use strokeRect for outlines, not fillRect.\";\n    return true;\n  }",
+   "s": "const boxes = [\n  { kind: \"hurt\", x: 40, y: 60, w: 30, h: 50 },\n  { kind: \"hit\", x: 70, y: 80, w: 60, h: 16 },\n  { kind: \"hurt\", x: 200, y: 100, w: 40, h: 30 }\n];\nctx.lineWidth = 2;\nfor (const b of boxes) {\n  ctx.strokeStyle = b.kind === \"hit\" ? \"#ff3b5c\" : \"#57f287\";\n  ctx.strokeRect(b.x, b.y, b.w, b.h);\n}\n",
+   "st": "const boxes = [\n  { kind: \"hurt\", x: 40, y: 60, w: 30, h: 50 },\n  { kind: \"hit\", x: 70, y: 80, w: 60, h: 16 },\n  { kind: \"hurt\", x: 200, y: 100, w: 40, h: 30 }\n];\n"
+  },
+  {
+   "uid": "g28",
+   "t": "Teach, test, twist",
+   "k": "pick",
+   "step": "learn",
+   "hook": "<p>The first level of Super Mario Bros. has no tutorial text, yet millions of people learned to play from it. How?</p>",
+   "l": "<p>Nintendo's designers often build each level in four beats. Super Mario 3D World's director, Koichi Hayashida, compared it to <b>kishōtenketsu</b>, a four-part way of telling stories:</p><ol><li><b>Introduce</b> one new idea somewhere <b>safe</b>, where failing costs almost nothing. <i>A moving platform over solid ground.</i></li><li><b>Develop</b> it: the same idea, a little harder. <i>Now the platform is over a pit.</i></li><li><b>Twist</b> it: combine it with something else, or turn it upside down. <i>Now enemies ride the platforms.</i></li><li><b>Conclude</b>: one last test that uses everything, then a reward.</li></ol><div class=\"callout\"><b>Tip</b><p>One new idea per level is plenty. Players remember a level by its idea: the windy level, the ice level, the level where the floor falls.</p></div>",
+   "p": "<p>A student's level introduces bouncy mushrooms. Here are four sections, out of order.</p>",
+   "q": "Which section should come <b>first</b>?",
+   "opts": [
+    "Bouncing across mushrooms over a long pit",
+    "One mushroom on flat ground, with a coin above it",
+    "Bouncing on mushrooms while dodging cannonballs",
+    "A tricky final run of mushrooms leading to the flag"
+   ],
+   "ans": 1,
+   "miss": [
+    "That's develop: the same idea with real danger.",
+    "",
+    "That's the twist: mushrooms combined with something new.",
+    "That's the conclusion that tests everything."
+   ],
+   "why": "<p>A single mushroom on safe ground lets players try it with nothing to lose, and the coin above it quietly says \"jump on this\". That's teaching without any text.</p>",
+   "h": "<p>Where can a player try the new thing without any risk?</p>"
+  },
+  {
+   "uid": "g29",
+   "t": "Difficulty curve",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Players have the most fun when the challenge is <b>just a bit</b> above their skill. Too easy is boring, too hard is frustrating. Psychologists call the happy middle <b>flow</b>.</p><p>Since players get better as they play, the challenge should rise too. But not in a straight line: good games go up in a <b>sawtooth</b>, with a hard part followed by a short breather, like a calm room with a save point after a boss.</p><div class=\"tbl\"><table><thead><tr><th>Too easy</th><th>Flow</th><th>Too hard</th></tr></thead><tbody><tr><td>Bored</td><td>Focused, \"one more try\"</td><td>Frustrated, quits</td></tr></tbody></table></div>",
+   "p": "<p>Testers of a student's game play level 1 and 2 happily. Most quit during level 3.</p>",
+   "q": "What's the most likely problem?",
+   "opts": [
+    "Level 3 is a big jump in difficulty instead of a step",
+    "The game needs more levels",
+    "Level 1 is too hard",
+    "The music is too quiet"
+   ],
+   "ans": 0,
+   "miss": [
+    "",
+    "More levels won't help if players quit at level 3.",
+    "They enjoyed level 1, so it's not that.",
+    "Music rarely makes people quit in one specific level."
+   ],
+   "why": "<p>When everyone quits at the same spot, that spot is a <b>difficulty spike</b>. Split it into smaller steps, or teach the new skill earlier, so the curve rises smoothly.</p>",
+   "h": "<p>Everyone quits at the same place. What's different about that place?</p>"
+  },
+  {
+   "uid": "g30",
+   "t": "Guide the player",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Good levels lead players without signs saying \"go here\". Designers use:</p><ul><li><b>Breadcrumbs</b>: a trail of coins showing the path, or the jump to make.</li><li><b>Light and color</b>: the exit glows, important doors are a different color.</li><li><b>Landmarks</b>: a big tower you can see from anywhere.</li><li><b>Risk and reward</b>: a shortcut over spikes with extra coins. Brave players take it, careful players don't have to.</li></ul>",
+   "p": "<p>Testers keep missing a secret area above the start of a level.</p>",
+   "q": "What's the gentlest way to hint at it?",
+   "html": "<div class=\"scr\"><div class=\"box\" style=\"left:0;top:160px;width:100%;height:40px;background:#3d405b\"></div><div class=\"box\" style=\"left:40px;top:136px;width:22px;height:22px;background:#4cc9f0\"></div><div class=\"box\" style=\"left:120px;top:40px;width:120px;height:14px;background:#5c6a99\"></div><div class=\"hud\">The secret ledge is up top. Nothing points to it.</div></div>",
+   "css": ".scr{position:relative;height:200px;background:#1b1f3a;overflow:hidden;font-family:system-ui,sans-serif}.box{position:absolute}.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}.hud{position:absolute;left:8px;top:6px;color:#fff;font-weight:700;font-size:13px}",
+   "opts": [
+    "A big sign saying SECRET HERE",
+    "A short trail of coins leading up toward the ledge",
+    "Make the ledge invisible",
+    "Remove the secret"
+   ],
+   "ans": 1,
+   "miss": [
+    "A sign ruins the surprise. Secrets feel best when players work them out.",
+    "",
+    "Invisible makes it even harder to find.",
+    "Secrets are a great reward for curious players. Keep it, just hint at it."
+   ],
+   "why": "<p>Coins are a breadcrumb trail. Players already love collecting them, so a trail that leads upward pulls them toward the secret, and finding it feels like their own discovery.</p>",
+   "h": "<p>What do players already chase without being told?</p>"
+  },
+  {
+   "uid": "g31",
+   "t": "Levels made of letters",
+   "k": "fn",
+   "fn": "findTiles",
+   "a": "map, ch",
+   "l": "<p>Many games store levels as text. Each character is a <b>tile</b>, so you can design levels in a text editor without changing any code:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const LEVEL = [\n  &quot;     o   &quot;,\n  &quot;  ####   &quot;,\n  &quot;P      e &quot;,\n  &quot;#########&quot;\n];\nconsole.log(LEVEL[2][0]); // &quot;P&quot;   (row 2, column 0)</code></pre><p>The row number is <code>y</code> and the position in the string is <code>x</code>. <code>map[y][x]</code> gets one tile.</p>",
+   "p": "<p>Write <code>findTiles(map, ch)</code> that returns an array of <code>[x, y]</code> pairs for every tile in <code>map</code> that equals <code>ch</code>, going row by row, left to right.</p>",
+   "h": "<p>Two loops: the outer one over the rows (<code>y</code>), the inner one over the characters in that row (<code>x</code>). When <code>map[y][x] === ch</code>, push <code>[x, y]</code>.</p>",
+   "c": [
+    [
+     [
+      [
+       "  o ",
+       "o  o",
+       "####"
+      ],
+      "o"
+     ],
+     [
+      [
+       2,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       "P  e",
+       "####"
+      ],
+      "P"
+     ],
+     [
+      [
+       0,
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       "    ",
+       "####"
+      ],
+      "e"
+     ],
+     []
+    ]
+   ],
+   "s": "function findTiles(map, ch) {\n  const found = [];\n  for (let y = 0; y < map.length; y++) {\n    for (let x = 0; x < map[y].length; x++) {\n      if (map[y][x] === ch) found.push([x, y]);\n    }\n  }\n  return found;\n}\n",
+   "st": "function findTiles(map, ch) {\n  const found = [];\n  // look at every tile, row by row\n  return found;\n}\n\nconsole.log(findTiles([\"  o \", \"o  o\", \"####\"], \"o\")); // [[2,0],[0,1],[3,1]]\n"
+  },
+  {
+   "uid": "g32",
+   "t": "What tile am I standing on?",
+   "k": "fn",
+   "fn": "tileAt",
+   "a": "map, px, py, size",
+   "l": "<p>With a tile map, collision gets easy: turn a <b>pixel</b> position into a <b>tile</b> position by dividing by the tile size and rounding down.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const size = 16;\nconsole.log(Math.floor(40 / size)); // 2  (pixel 40 is in tile 2)</code></pre><p>Outside the map, treat it as a wall (<code>\"#\"</code>), so nothing can wander off the edge of the world.</p>",
+   "p": "<p>Write <code>tileAt(map, px, py, size)</code> that returns the character of the tile at pixel <code>(px, py)</code>. If the tile is outside the map, return <code>\"#\"</code>.</p>",
+   "h": "<p>Work out <code>tx</code> and <code>ty</code> with <code>Math.floor</code>. If <code>ty</code> is below 0 or past the last row, or <code>tx</code> is below 0 or past the end of the row, return <code>\"#\"</code>.</p>",
+   "c": [
+    [
+     [
+      [
+       "  o ",
+       "o  o",
+       "####"
+      ],
+      40,
+      5,
+      20
+     ],
+     "o"
+    ],
+    [
+     [
+      [
+       "  o ",
+       "o  o",
+       "####"
+      ],
+      70,
+      45,
+      20
+     ],
+     "#"
+    ],
+    [
+     [
+      [
+       "  o ",
+       "o  o",
+       "####"
+      ],
+      25,
+      25,
+      20
+     ],
+     " "
+    ],
+    [
+     [
+      [
+       "  o ",
+       "o  o",
+       "####"
+      ],
+      -5,
+      5,
+      20
+     ],
+     "#"
+    ],
+    [
+     [
+      [
+       "  o ",
+       "o  o",
+       "####"
+      ],
+      10,
+      70,
+      20
+     ],
+     "#"
+    ],
+    [
+     [
+      [
+       "  o ",
+       "o  o",
+       "####"
+      ],
+      85,
+      5,
+      20
+     ],
+     "#"
+    ]
+   ],
+   "s": "function tileAt(map, px, py, size) {\n  const tx = Math.floor(px / size);\n  const ty = Math.floor(py / size);\n  if (ty < 0 || ty >= map.length || tx < 0 || tx >= map[ty].length) return \"#\";\n  return map[ty][tx];\n}\n",
+   "st": "function tileAt(map, px, py, size) {\n  // pixel position to tile position, then look it up\n}\n\nconsole.log(tileAt([\"  o \", \"o  o\", \"####\"], 40, 5, 20)); // \"o\"\n"
+  },
+  {
+   "uid": "g33",
+   "t": "Ramp up the challenge",
+   "k": "fn",
+   "fn": "spawnDelay",
+   "a": "frame",
+   "l": "<p>Endless games get harder over time by spawning enemies more often. A smooth way: start with a long gap between spawns, shrink it a bit every few seconds, and stop at a minimum so it never becomes impossible.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// every 600 frames (10 seconds), level goes up by 1\nconst level = Math.floor(frame / 600);</code></pre>",
+   "p": "<p>Write <code>spawnDelay(frame)</code>. Start at <code>60</code> frames between spawns. Every <code>300</code> frames, it gets <code>5</code> shorter. It never goes below <code>15</code>.</p>",
+   "h": "<p>Count the steps with <code>Math.floor(frame / 300)</code>, take 5 times that from 60, and use <code>Math.max</code> so it can't go under 15.</p>",
+   "c": [
+    [
+     [
+      0
+     ],
+     60
+    ],
+    [
+     [
+      299
+     ],
+     60
+    ],
+    [
+     [
+      300
+     ],
+     55
+    ],
+    [
+     [
+      1500
+     ],
+     35
+    ],
+    [
+     [
+      2700
+     ],
+     15
+    ],
+    [
+     [
+      99999
+     ],
+     15
+    ]
+   ],
+   "s": "function spawnDelay(frame) {\n  return Math.max(15, 60 - Math.floor(frame / 300) * 5);\n}\n",
+   "st": "function spawnDelay(frame) {\n  // 60, then 5 less every 300 frames, never below 15\n}\n\nconsole.log(spawnDelay(1500)); // 35\n"
+  },
+  {
+   "uid": "g34",
+   "t": "Game states",
+   "k": "fn",
+   "fn": "nextState",
+   "a": "state, event",
+   "l": "<p>A game is always in one <b>state</b>: the title screen, playing, paused, or game over. Each state reacts to different things. This is called a <b>state machine</b>, and it keeps the code tidy: pressing P on the title screen shouldn't pause anything.</p><div class=\"tbl\"><table><thead><tr><th>State</th><th>Event</th><th>New state</th></tr></thead><tbody><tr><td>title</td><td>start</td><td>play</td></tr><tr><td>play</td><td>pause</td><td>paused</td></tr><tr><td>paused</td><td>pause</td><td>play</td></tr><tr><td>play</td><td>die</td><td>over</td></tr><tr><td>over</td><td>start</td><td>play</td></tr></tbody></table></div><p>Any other combination leaves the state as it is.</p>",
+   "p": "<p>Write <code>nextState(state, event)</code> that follows the table and returns the new state. For anything not in the table, return <code>state</code> unchanged.</p>",
+   "h": "<p>A chain of <code>if</code>s works, checking both the state and the event each time. Or use a <code>switch</code> on the state.</p>",
+   "c": [
+    [
+     [
+      "title",
+      "start"
+     ],
+     "play"
+    ],
+    [
+     [
+      "play",
+      "pause"
+     ],
+     "paused"
+    ],
+    [
+     [
+      "paused",
+      "pause"
+     ],
+     "play"
+    ],
+    [
+     [
+      "play",
+      "die"
+     ],
+     "over"
+    ],
+    [
+     [
+      "over",
+      "start"
+     ],
+     "play"
+    ],
+    [
+     [
+      "title",
+      "pause"
+     ],
+     "title"
+    ],
+    [
+     [
+      "paused",
+      "die"
+     ],
+     "paused"
+    ]
+   ],
+   "s": "function nextState(state, event) {\n  if (state === \"title\" && event === \"start\") return \"play\";\n  if (state === \"play\" && event === \"pause\") return \"paused\";\n  if (state === \"paused\" && event === \"pause\") return \"play\";\n  if (state === \"play\" && event === \"die\") return \"over\";\n  if (state === \"over\" && event === \"start\") return \"play\";\n  return state;\n}\n",
+   "st": "function nextState(state, event) {\n  // follow the table\n  return state;\n}\n\nconsole.log(nextState(\"play\", \"pause\")); // \"paused\"\n"
+  },
+  {
+   "uid": "g35",
+   "t": "Combos",
+   "k": "fn",
+   "fn": "comboPoints",
+   "a": "combo",
+   "l": "<p>A <b>combo</b> rewards doing well several times in a row. It's a classic mechanic that creates a great dynamic: players take more risks to keep the streak going.</p><p>A common rule: every 5 hits in a row adds 1 to a <b>multiplier</b>, up to a cap.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const bonus = Math.min(1 + Math.floor(streak / 10), 3);</code></pre>",
+   "p": "<p>Write <code>comboPoints(combo)</code>. A hit is worth <code>10</code> points times a multiplier. The multiplier is <code>1 + Math.floor(combo / 5)</code>, but never more than <code>4</code>.</p>",
+   "h": "<p>Work out the multiplier with <code>Math.min(..., 4)</code>, then return 10 times it.</p>",
+   "c": [
+    [
+     [
+      0
+     ],
+     10
+    ],
+    [
+     [
+      4
+     ],
+     10
+    ],
+    [
+     [
+      5
+     ],
+     20
+    ],
+    [
+     [
+      12
+     ],
+     30
+    ],
+    [
+     [
+      15
+     ],
+     40
+    ],
+    [
+     [
+      50
+     ],
+     40
+    ]
+   ],
+   "s": "function comboPoints(combo) {\n  const mult = Math.min(1 + Math.floor(combo / 5), 4);\n  return 10 * mult;\n}\n",
+   "st": "function comboPoints(combo) {\n  // 10 points times the multiplier (max 4)\n}\n\nconsole.log(comboPoints(12)); // 30\n"
+  },
+  {
+   "uid": "g36",
+   "t": "Cooldowns",
+   "k": "fn",
+   "fn": "canUse",
+   "a": "now, lastUsed, cooldown",
+   "l": "<p>If holding Space fired 60 bullets a second, shooters would be no challenge at all. A <b>cooldown</b> is a wait between uses. It's also a great balancing tool: strong moves get long cooldowns.</p>",
+   "p": "<p>Write <code>canUse(now, lastUsed, cooldown)</code> that returns <code>true</code> if at least <code>cooldown</code> frames have passed since <code>lastUsed</code>. Something never used yet has <code>lastUsed</code> set to a big negative number like <code>-9999</code>, so it's always ready.</p>",
+   "h": "<p>The time passed is <code>now - lastUsed</code>. Compare it with the cooldown using <code>&gt;=</code>.</p>",
+   "c": [
+    [
+     [
+      100,
+      90,
+      12
+     ],
+     false
+    ],
+    [
+     [
+      100,
+      88,
+      12
+     ],
+     true
+    ],
+    [
+     [
+      100,
+      50,
+      12
+     ],
+     true
+    ],
+    [
+     [
+      0,
+      -9999,
+      30
+     ],
+     true
+    ],
+    [
+     [
+      30,
+      10,
+      30
+     ],
+     false
+    ]
+   ],
+   "s": "function canUse(now, lastUsed, cooldown) {\n  return now - lastUsed >= cooldown;\n}\n",
+   "st": "function canUse(now, lastUsed, cooldown) {\n  // has enough time passed?\n}\n\nconsole.log(canUse(100, 88, 12)); // true\n"
+  },
+  {
+   "uid": "g37",
+   "t": "Design review",
+   "k": "pick",
+   "step": "prove",
+   "p": "<p>A student playtests their platformer. Their notes say: <i>\"Jumping feels floaty and slow. Enemies hit me from far away. Level 2 is way harder than level 1. Nothing happens when I grab a coin.\"</i></p>",
+   "q": "Which fix matches each problem?",
+   "opts": [
+    "Add a story, a menu and more levels",
+    "Stronger gravity and jump, smaller enemy hitboxes, a gentler step to level 2, and a sparkle and sound on coins",
+    "Make the game slower so there's more time to react",
+    "Give the player 99 lives"
+   ],
+   "ans": 1,
+   "miss": [
+    "None of those touch the four problems the testers found.",
+    "",
+    "Slower makes floaty jumps feel even worse.",
+    "Lots of lives hides the problems instead of fixing them."
+   ],
+   "why": "<p>Each note maps to one thing you learned: game feel (gravity and jump strength), fair hitboxes, the difficulty curve, and juice. That's how real designers work: playtest, write down what feels wrong, tweak, and test again.</p>",
+   "h": "<p>Look for the answer that fixes all four notes, one by one.</p>"
+  },
+  {
+   "uid": "g38",
+   "t": "Boss: one frame of a platformer",
+   "k": "fn",
+   "fn": "tick",
+   "a": "g",
+   "step": "boss",
+   "l": "<p>Every game is one function run 60 times a second. Time to write it. Everything you need is in this module: movement, gravity, the floor, collecting, hurtboxes and i-frames. When you're done, open the <button class=\"linkish\" type=\"button\" data-go=\"games\">Game Studio</button> and build a real, playable game around these same ideas.</p>",
+   "p": "<p>Write <code>tick(g)</code> for one frame. <code>g</code> has <code>p</code> (the player: <code>x, y, w, h, vy, iframes</code>), <code>keys</code>, <code>coins</code>, <code>enemies</code>, <code>score</code> and <code>lives</code>.</p><ol><li>If <code>g.keys.left</code>, take 3 from <code>p.x</code>. If <code>g.keys.right</code>, add 3.</li><li>Gravity: add <code>0.5</code> to <code>p.vy</code>, then add <code>p.vy</code> to <code>p.y</code>.</li><li>Floor: if <code>p.y + p.h</code> is more than <code>300</code>, set <code>p.y</code> to <code>300 - p.h</code> and <code>p.vy</code> to <code>0</code>.</li><li>If <code>p.iframes</code> is more than 0, take 1 from it.</li><li>Remove every coin that overlaps the player, adding 1 to <code>g.score</code> for each.</li><li>If any enemy overlaps the player and <code>p.iframes</code> is 0, take 1 from <code>g.lives</code> and set <code>p.iframes</code> to <code>60</code>.</li></ol><p>Return <code>g</code>. <code>overlaps</code> is in the starter.</p>",
+   "h": "<p>Do the steps in order. For coins, <code>g.coins = g.coins.filter(c =&gt; ...)</code> where the filter adds to the score and returns <code>false</code> for touched coins. For enemies, <code>g.enemies.some(e =&gt; overlaps(p, e))</code> tells you if any touch.</p>",
+   "c": [
+    [
+     [
+      {
+       "p": {
+        "x": 10,
+        "y": 270,
+        "w": 20,
+        "h": 20,
+        "vy": 0,
+        "iframes": 0
+       },
+       "keys": {
+        "right": true
+       },
+       "coins": [
+        {
+         "x": 20,
+         "y": 270,
+         "w": 10,
+         "h": 10
+        },
+        {
+         "x": 200,
+         "y": 270,
+         "w": 10,
+         "h": 10
+        }
+       ],
+       "enemies": [],
+       "score": 0,
+       "lives": 3
+      }
+     ],
+     {
+      "p": {
+       "x": 13,
+       "y": 270.5,
+       "w": 20,
+       "h": 20,
+       "vy": 0.5,
+       "iframes": 0
+      },
+      "keys": {
+       "right": true
+      },
+      "coins": [
+       {
+        "x": 200,
+        "y": 270,
+        "w": 10,
+        "h": 10
+       }
+      ],
+      "enemies": [],
+      "score": 1,
+      "lives": 3
+     }
+    ],
+    [
+     [
+      {
+       "p": {
+        "x": 50,
+        "y": 278,
+        "w": 20,
+        "h": 20,
+        "vy": 4,
+        "iframes": 0
+       },
+       "keys": {
+        "left": true
+       },
+       "coins": [],
+       "enemies": [
+        {
+         "x": 40,
+         "y": 280,
+         "w": 20,
+         "h": 20
+        }
+       ],
+       "score": 5,
+       "lives": 3
+      }
+     ],
+     {
+      "p": {
+       "x": 47,
+       "y": 280,
+       "w": 20,
+       "h": 20,
+       "vy": 0,
+       "iframes": 60
+      },
+      "keys": {
+       "left": true
+      },
+      "coins": [],
+      "enemies": [
+       {
+        "x": 40,
+        "y": 280,
+        "w": 20,
+        "h": 20
+       }
+      ],
+      "score": 5,
+      "lives": 2
+     }
+    ],
+    [
+     [
+      {
+       "p": {
+        "x": 50,
+        "y": 280,
+        "w": 20,
+        "h": 20,
+        "vy": 0,
+        "iframes": 30
+       },
+       "keys": {},
+       "coins": [],
+       "enemies": [
+        {
+         "x": 40,
+         "y": 280,
+         "w": 20,
+         "h": 20
+        }
+       ],
+       "score": 0,
+       "lives": 2
+      }
+     ],
+     {
+      "p": {
+       "x": 50,
+       "y": 280,
+       "w": 20,
+       "h": 20,
+       "vy": 0,
+       "iframes": 29
+      },
+      "keys": {},
+      "coins": [],
+      "enemies": [
+       {
+        "x": 40,
+        "y": 280,
+        "w": 20,
+        "h": 20
+       }
+      ],
+      "score": 0,
+      "lives": 2
+     }
+    ]
+   ],
+   "s": "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n\nfunction tick(g) {\n  const p = g.p;\n  if (g.keys.left) p.x -= 3;\n  if (g.keys.right) p.x += 3;\n  p.vy += 0.5;\n  p.y += p.vy;\n  if (p.y + p.h > 300) {\n    p.y = 300 - p.h;\n    p.vy = 0;\n  }\n  if (p.iframes > 0) p.iframes--;\n  g.coins = g.coins.filter(c => {\n    if (overlaps(p, c)) {\n      g.score++;\n      return false;\n    }\n    return true;\n  });\n  if (p.iframes === 0 && g.enemies.some(e => overlaps(p, e))) {\n    g.lives--;\n    p.iframes = 60;\n  }\n  return g;\n}\n",
+   "st": "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n\nfunction tick(g) {\n  const p = g.p;\n  // 1. move  2. gravity  3. floor  4. iframes  5. coins  6. enemies\n  return g;\n}\n"
+  }
+ ]
+}
