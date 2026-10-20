@@ -417,7 +417,7 @@ html:root[data-skin="contrast"]{
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{background:var(--bg)}
-body{color:var(--ink);font-family:var(--f-body);font-size:calc(16px * var(--scale));line-height:1.55;margin:0;-webkit-tap-highlight-color:transparent}
+body{color:var(--ink);font-family:var(--f-body);font-size:calc(16px * var(--scale));line-height:var(--lh,1.55);letter-spacing:var(--ls,normal);margin:0;-webkit-tap-highlight-color:transparent}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
@@ -519,8 +519,8 @@ h2.sub{font-family:var(--f-display);font-weight:400;font-size:calc(14px * var(--
 .tag{display:inline-block;font-family:var(--f-display);font-size:10px;letter-spacing:.06em;padding:2px 6px;border:2px solid currentColor;line-height:1.3}
 
 /* prose / lesson */
-.prose p{margin:0 0 12px;max-width:66ch}
-.prose ul,.prose ol{margin:0 0 12px;padding-left:22px;max-width:64ch}
+.prose p{margin:0 0 12px;max-width:var(--measure,66ch)}
+.prose ul,.prose ol{margin:0 0 12px;padding-left:22px;max-width:calc(var(--measure,66ch) - 2ch)}
 .prose li{margin:2px 0}
 .prose h3{font-size:calc(17px * var(--scale));margin:18px 0 8px}
 .prose a{font-weight:700}
@@ -639,7 +639,7 @@ pre.cb[data-k="txt"]{--kc:var(--k-pat);background:var(--panel2);color:var(--ink)
 .cbar .file{font-family:var(--f-code);font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center}
 .cbar .file i{width:9px;height:9px;background:var(--gold);display:inline-block}
 .edwrap{background:var(--code-bg);min-height:220px}
-.CodeMirror{height:auto;min-height:240px;max-height:56vh;font-family:var(--f-code);font-size:var(--code-size);line-height:1.55;background:var(--code-bg);color:var(--code-ink)}
+.CodeMirror{height:auto;min-height:var(--ed-min,240px);max-height:var(--ed-max,56vh);font-family:var(--f-code);font-size:var(--code-size);line-height:1.55;background:var(--code-bg);color:var(--code-ink)}
 .CodeMirror-scroll{min-height:240px;max-height:56vh}
 .sandbox .CodeMirror,.sandbox .CodeMirror-scroll{min-height:360px;max-height:64vh}
 .CodeMirror-gutters{background:var(--code-bg);border-right:1px solid var(--code-line)}
@@ -763,6 +763,20 @@ select.sel{border:2px solid var(--ink);background:var(--panel);padding:6px 8px;f
 
 /* settings & profile */
 .setgrid{columns:320px 3;column-gap:16px}
+.setjump{display:flex;flex-wrap:wrap;gap:6px}
+.setjump button{background:var(--panel);border:2px solid var(--line);color:var(--ink);padding:5px 10px;font-family:var(--f-display);font-size:10px;letter-spacing:.06em}
+.setjump button:hover{border-color:var(--ink)}
+.setgrid>.card{scroll-margin-top:calc(var(--bar-off,78px) + 12px)}
+.field input[type=range]:disabled{opacity:.4}
+.card>.hint2{display:block;font-size:13px;color:var(--muted);margin:6px 0 4px}
+.readbtn{display:inline-flex;align-items:center;gap:6px;margin:0 0 12px}
+.readbtn[aria-pressed="true"]{border-color:var(--ink);background:var(--panel2)}
+/* reading and accessibility settings */
+.CodeMirror,pre.cb,code,textarea.fallback{letter-spacing:normal}
+html[data-focus="strong"] :focus-visible{outline:4px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 7px var(--gold)}
+html[data-cb="1"]{--pass:#1D5FC4;--fail:#B35C00}
+html[data-cb="1"][data-skin="night"],html[data-cb="1"][data-skin="blueprint"],html[data-cb="1"][data-skin="contrast"]{--pass:#8DB8FF;--fail:#FFAA4D}
+@media (prefers-color-scheme: dark){html[data-cb="1"]:not([data-skin]){--pass:#8DB8FF;--fail:#FFAA4D}}
 .setgrid>.card{break-inside:avoid;margin-bottom:16px;display:block}
 .field{display:grid;gap:6px;margin-bottom:14px}
 .field>label,.field>.lab{font-weight:700}
@@ -19846,7 +19860,9 @@ var DEFAULTS = {
   skin: "auto", body: "Atkinson Hyperlegible", code: "JetBrains Mono", display: "Silkscreen", scale: 1, codeSize: 15,
   lineNumbers: true, autoClose: true, keys: true, activeLine: true,
   hints: "button", solutions: true, details: true, lint: true,
-  sound: true, volume: 0.5, celebrate: true, motion: "on", runKey: true, barPos: "top", barHidden: false
+  sound: true, volume: 0.5, celebrate: true, motion: "on", runKey: true, barPos: "top", barHidden: false,
+  lineHeight: "normal", letterSpacing: "normal", measure: "normal", toastTime: "normal", focusStrong: false, cbColors: false,
+  wrap: false, indent: 2, brackets: true, edHeight: "medium", readAloud: true, readRate: 1, quizShuffle: true, quizAuto: false, clickSound: true
 };
 var S = {
   profile: load("profile", null),
@@ -19992,9 +20008,16 @@ function applySettings() {
   else r.style.setProperty("--f-display", "'" + st.display + "','Silkscreen',monospace");
   r.setAttribute("data-motion", st.motion);
   r.setAttribute("data-bar", st.barPos);
+  r.style.setProperty("--lh", { normal: 1.55, relaxed: 1.75, loose: 1.95 }[st.lineHeight] || 1.55);
+  r.style.setProperty("--ls", { normal: "normal", wide: ".035em", wider: ".07em" }[st.letterSpacing] || "normal");
+  r.style.setProperty("--measure", { narrow: "56ch", normal: "66ch", wide: "90ch" }[st.measure] || "66ch");
+  var eh = { short: ["160px", "40vh"], medium: ["240px", "56vh"], tall: ["360px", "80vh"] }[st.edHeight] || ["240px", "56vh"];
+  r.style.setProperty("--ed-min", eh[0]); r.style.setProperty("--ed-max", eh[1]);
+  if (st.focusStrong) r.setAttribute("data-focus", "strong"); else r.removeAttribute("data-focus");
+  if (st.cbColors) r.setAttribute("data-cb", "1"); else r.removeAttribute("data-cb");
   if (st.barHidden) r.setAttribute("data-bar-hidden", "1"); else r.removeAttribute("data-bar-hidden");
   var bt = $("barTab"); if (bt) bt.innerHTML = glyph({ top: "down", bottom: "up", left: "right", right: "left" }[st.barPos] || "down") + "Menu";
-  if (editor && editor.cm) { editor.cm.setOption("lineNumbers", st.lineNumbers); editor.cm.setOption("autoCloseBrackets", st.autoClose); editor.cm.setOption("styleActiveLine", st.activeLine); editor.cm.refresh(); }
+  if (editor && editor.cm) { editor.cm.setOption("lineNumbers", st.lineNumbers); editor.cm.setOption("autoCloseBrackets", st.autoClose); editor.cm.setOption("styleActiveLine", st.activeLine); editor.cm.setOption("lineWrapping", st.wrap); editor.cm.setOption("matchBrackets", st.brackets); editor.cm.setOption("indentUnit", Number(st.indent)); editor.cm.setOption("tabSize", Number(st.indent)); editor.cm.refresh(); }
 }
 
 // ---------------- sound & fx ----------------
@@ -20017,7 +20040,7 @@ var SFX = {
   run: function () { beep([[660, 0, .05]]); },
   pass: function () { beep([[523, 0, .08], [659, .07, .08], [784, .14, .08], [1046, .21, .16]]); },
   fail: function () { beep([[196, 0, .12, "sawtooth"], [147, .1, .16, "sawtooth"]]); },
-  click: function () { beep([[880, 0, .03]]); },
+  click: function () { if (S.set.clickSound) beep([[880, 0, .03]]); },
   level: function () { beep([[392, 0, .1], [523, .1, .1], [659, .2, .1], [784, .3, .1], [1046, .4, .25]]); },
   right: function () { beep([[784, 0, .06], [1046, .06, .1]]); },
   wrong: function () { beep([[220, 0, .14, "triangle"]]); }
@@ -20035,7 +20058,7 @@ function confetti() {
   })();
 }
 var toastT;
-function toast(msg) { var t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { t.hidden = true; }, 2600); }
+function toast(msg) { var t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { t.hidden = true; }, { short: 1800, normal: 2600, long: 6000 }[S.set.toastTime] || 2600); }
 
 // ---------------- pixel icons ----------------
 var PIX = {
@@ -20114,6 +20137,7 @@ document.addEventListener("click", function (e) {
 
 var cleanupView = null;
 function go(v, arg, opts) {
+  stopSpeaking();
   if (cleanupView) { try { cleanupView(); } catch (e) {} cleanupView = null; }
   route = { v: v, arg: arg };
   if (v !== "stage" || !opts || !opts.keepScroll) window.scrollTo(0, 0);
@@ -20207,17 +20231,40 @@ function viewSection(V, id) {
 // ---------------- EDITOR ----------------
 var editor = null;
 var KEYS = ["{", "}", "(", ")", "[", "]", ";", "=", "\"", "'", "`", "${}", "=>", "+", "-", "*", "/", "<", ">", "!", "&&", "||", ".", ",", ":", "?", "%", "Tab"];
+// ---------------- read aloud ----------------
+function canSpeak() { return !!(window.speechSynthesis && window.SpeechSynthesisUtterance); }
+function stopSpeaking() { if (canSpeak()) try { speechSynthesis.cancel(); } catch (e) {} }
+function readBtnHtml() { return S.set.readAloud && canSpeak() ? '<button class="ghost readbtn" type="button" id="readBtn" aria-pressed="false">' + glyph("sound") + "Read aloud</button>" : ""; }
+function wireReadAloud(root) {
+  var b = $("readBtn"); if (!b) return;
+  b.onclick = function () {
+    if (b.getAttribute("aria-pressed") === "true") { stopSpeaking(); return; }
+    var parts = [];
+    root.querySelectorAll(".lesson h1, .lesson .prose, .lesson .mission").forEach(function (el) {
+      var c = el.cloneNode(true); c.querySelectorAll("pre, .cb, button").forEach(function (x) { x.remove(); });
+      var t = c.textContent.replace(/\s+/g, " ").trim(); if (t) parts.push(t);
+    });
+    stopSpeaking();
+    var u = new SpeechSynthesisUtterance(parts.join(". "));
+    u.rate = Number(S.set.readRate) || 1;
+    var done = function () { b.setAttribute("aria-pressed", "false"); b.lastChild.textContent = "Read aloud"; };
+    u.onend = done; u.onerror = done;
+    b.setAttribute("aria-pressed", "true"); b.lastChild.textContent = "Stop reading";
+    speechSynthesis.speak(u);
+  };
+}
+function indentStr() { return Number(S.set.indent) === 4 ? "    " : "  "; }
 function makeEditor(host, code, onChange, onRun) {
   var ed = { cm: null, ta: null };
   if (typeof CodeMirror !== "undefined") {
     try {
       ed.cm = CodeMirror(host, {
-        value: code, mode: "javascript", theme: "sq", lineNumbers: S.set.lineNumbers, indentUnit: 2, tabSize: 2, smartIndent: true,
-        matchBrackets: true, autoCloseBrackets: S.set.autoClose, styleActiveLine: S.set.activeLine, lineWrapping: false, viewportMargin: Infinity,
+        value: code, mode: "javascript", theme: "sq", lineNumbers: S.set.lineNumbers, indentUnit: Number(S.set.indent), tabSize: Number(S.set.indent), smartIndent: true,
+        matchBrackets: S.set.brackets, autoCloseBrackets: S.set.autoClose, styleActiveLine: S.set.activeLine, lineWrapping: S.set.wrap, viewportMargin: Infinity,
         inputStyle: "contenteditable", spellcheck: false, autocorrect: false, autocapitalize: false,
         extraKeys: {
           "Ctrl-Enter": function () { if (S.set.runKey) onRun(); }, "Cmd-Enter": function () { if (S.set.runKey) onRun(); },
-          Tab: function (cm) { if (cm.somethingSelected()) cm.indentSelection("add"); else cm.replaceSelection("  ", "end"); }, "Shift-Tab": "indentLess"
+          Tab: function (cm) { if (cm.somethingSelected()) cm.indentSelection("add"); else cm.replaceSelection(indentStr(), "end"); }, "Shift-Tab": "indentLess"
         }
       });
       ed.cm.on("change", function () { ed.clearErr(); onChange(ed.get()); });
@@ -20226,7 +20273,7 @@ function makeEditor(host, code, onChange, onRun) {
   if (!ed.cm) {
     var ta = document.createElement("textarea"); ta.className = "fallback"; ta.value = code; ta.spellcheck = false; ta.setAttribute("aria-label", "Code editor");
     ta.addEventListener("input", function () { onChange(ta.value); });
-    ta.addEventListener("keydown", function (e) { if (e.key === "Tab") { e.preventDefault(); ed.insert("  "); } if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); onRun(); } });
+    ta.addEventListener("keydown", function (e) { if (e.key === "Tab") { e.preventDefault(); ed.insert(indentStr()); } if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); onRun(); } });
     host.appendChild(ta); ed.ta = ta;
   }
   var errLine = null;
@@ -20352,7 +20399,7 @@ function viewStage(V, id) {
     '<div class="row"><div class="dots" aria-hidden="true">' + s.stages.map(function (x) { return "<i class=\"" + (x.id === st.id ? "c" : S.done[x.id] ? "d" : "") + '"></i>'; }).join("") + "</div>" +
     (prev ? '<button class="btn small" data-go="stage" data-arg="' + prev.id + '" aria-label="Previous stage">‹ Prev</button>' : "") +
     (next ? '<button class="btn small" data-go="stage" data-arg="' + next.id + '" aria-label="Next stage">Next ›</button>' : "") + "</div></div>" +
-    '<div class="board"><article class="card lesson"><p class="eyebrow">' + h(s.title.toUpperCase()) + " · STAGE " + st.n + (S.done[st.id] ? ' · <span style="color:var(--pass)">CLEARED</span>' : "") + "</p><h1>" + h(st.t) + "</h1>" +
+    '<div class="board"><article class="card lesson"><p class="eyebrow">' + h(s.title.toUpperCase()) + " · STAGE " + st.n + (S.done[st.id] ? ' · <span style="color:var(--pass)">CLEARED</span>' : "") + "</p><h1>" + h(st.t) + "</h1>" + readBtnHtml() +
     lessonExtras(st) + (st.l ? '<div class="prose">' + personal(st.l) + "</div>" : recapHtml(st)) +
     '<div class="mission"><b>YOUR MISSION</b><div class="prose">' + personal(st.p) + "</div></div>" +
     (st.k !== "free" ? '<div class="row" style="margin-top:12px">' + (showHint && S.set.hints === "button" ? '<button class="ghost" type="button" id="hintBtn">Show hint</button>' : "") + (S.set.solutions && st.s ? '<button class="ghost" type="button" id="solBtn">Show solution</button>' : "") + (isGame ? '<button class="btn gold small" type="button" id="playBtn">' + icon("play") + "Play " + h(SQ_ENGINES[st.game.engine].title) + "</button>" : "") + "</div>" : "") +
@@ -20376,6 +20423,7 @@ function viewStage(V, id) {
     hintLevel = 2; $("hintBox").innerHTML = nb + '<div class="h prose">' + personal(st.h) + "</div>"; highlightAll($("hintBox")); if ($("hintBtn")) $("hintBtn").remove();
   }
   if ($("hintBtn")) $("hintBtn").onclick = showHintNow;
+  wireReadAloud(V);
   if ($("solBtn")) $("solBtn").onclick = function () {
     if (!$("solBtn").dataset.armed) { $("solBtn").dataset.armed = "1"; $("solBtn").textContent = "Sure? Clearing after this gives half XP"; return; }
     revealed[st.id] = true;
@@ -20548,7 +20596,7 @@ function viewQuiz(V, id) {
   var idx = 0, score = 0, marks = [];
   var qs = q.qs.map(function (x, k) {
     var y = Object.assign({}, x); y.src = x.src || { q: q.id, i: k };
-    if (y.opts && y.type !== "tf") { var order = shuffle(y.opts.map(function (_, i) { return i; })); y.opts = order.map(function (i) { return x.opts[i]; }); y.ans = order.indexOf(x.ans); }
+    if (y.opts && y.type !== "tf" && S.set.quizShuffle) { var order = shuffle(y.opts.map(function (_, i) { return i; })); y.opts = order.map(function (i) { return x.opts[i]; }); y.ans = order.indexOf(x.ans); }
     if (y.type === "order") y.pool = shuffle(y.lines.map(function (_, i) { return i; }));
     return y;
   });
@@ -20597,6 +20645,7 @@ function viewQuiz(V, id) {
     var qp = V.querySelectorAll(".qprog i"); if (qp[idx]) qp[idx].className = ok ? "ok" : "no";
     $("qn").onclick = function () { idx++; render(); };
     $("qn").focus();
+    if (ok && S.set.quizAuto) { var at = idx; setTimeout(function () { if (idx === at && $("qn")) $("qn").click(); }, 1400); }
   }
   function finish() {
     if (q.onFinish) return q.onFinish(V, score, qs.length);
@@ -20743,22 +20792,35 @@ function viewSettings(V) {
   var st = S.set;
   var sel = function (id, opts, val) { return '<select class="sel" id="' + id + '">' + opts.map(function (o) { var v = Array.isArray(o) ? o[0] : o, l = Array.isArray(o) ? o[1] : o; return '<option value="' + h(v) + '"' + (String(v) === String(val) ? " selected" : "") + ">" + h(l) + "</option>"; }).join("") + "</select>"; };
   var tog = function (id, label, on) { return '<label class="toggle"><span>' + label + '</span><input type="checkbox" class="switch" id="' + id + '"' + (on ? " checked" : "") + "></label>"; };
-  V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">OPTIONS</p><h1>Settings</h1><p class="muted" style="margin:6px 0 0">Changes save as you make them.</p></div></section><div class="setgrid">' +
-    '<section class="card"><h2 class="sub">PLAYER</h2><div class="field"><label for="setName">Your name</label><input type="text" id="setName" maxlength="24" value="' + h(nameOf()) + '"><span class="hint2">Lessons, greetings, and some starter code use this name.</span></div></section>' +
-    '<section class="card"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { return '<button type="button" class="swatch" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + '</b><span class="muted">' + s[2] + "</span></button>"; }).join("") + "</div></section>" +
-    '<section class="card"><h2 class="sub">MENU BAR</h2><div class="field"><label for="setBarPos">Position</label>' + sel("setBarPos", [["top", "Top"], ["left", "Left side"], ["right", "Right side"], ["bottom", "Bottom"]], st.barPos) + '<span class="hint2">On phones, Left and Right stay at the top.</span></div>' +
+  V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">OPTIONS</p><h1>Settings</h1><p class="muted" style="margin:6px 0 0">Changes save as you make them.</p></div><button class="ghost" id="resetSet">Reset settings to defaults</button></section>' +
+    '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Theme"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" +
+    '<div class="setgrid">' +
+    '<section class="card" id="setPlayer"><h2 class="sub">PLAYER</h2><div class="field"><label for="setName">Your name</label><input type="text" id="setName" maxlength="24" value="' + h(nameOf()) + '"><span class="hint2">Lessons, greetings, and some starter code use this name.</span></div></section>' +
+    '<section class="card" id="setTheme"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { return '<button type="button" class="swatch" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + '</b><span class="muted">' + s[2] + "</span></button>"; }).join("") + "</div></section>" +
+    '<section class="card" id="setMenu"><h2 class="sub">MENU BAR</h2><div class="field"><label for="setBarPos">Position</label>' + sel("setBarPos", [["top", "Top"], ["left", "Left side"], ["right", "Right side"], ["bottom", "Bottom"]], st.barPos) + '<span class="hint2">On phones, Left and Right stay at the top.</span></div>' +
     tog("setBarHide", "Hide the menu bar", st.barHidden) + '<span class="hint2">A small Menu button stays in the corner to bring it back.</span></section>' +
-    '<section class="card"><h2 class="sub">TEXT & FONTS</h2>' +
+    '<section class="card" id="setText"><h2 class="sub">TEXT & READING</h2>' +
     '<div class="field"><label for="setScale">Text size</label>' + sel("setScale", [[0.9, "Small"], [1, "Medium"], [1.12, "Large"], [1.25, "Extra large"]], st.scale) + "</div>" +
     '<div class="field"><label for="setBody">Reading font</label>' + sel("setBody", [["Atkinson Hyperlegible", "Atkinson Hyperlegible (made for readability)"], ["Lexend", "Lexend (wide letters)"], ["Nunito", "Nunito (rounded)"], ["System", "My device's font"]], st.body) + "</div>" +
     '<div class="field"><label for="setCode">Code font</label>' + sel("setCode", ["JetBrains Mono", "Fira Code", "IBM Plex Mono"], st.code) + "</div>" +
     '<div class="field"><label for="setDisplay">Title font</label>' + sel("setDisplay", [["Silkscreen", "Silkscreen (pixel)"], ["Pixelify Sans", "Pixelify Sans (soft pixel)"], ["Press Start 2P", "Press Start 2P (arcade)"], ["Plain", "Plain (same as reading font)"]], st.display) + "</div>" +
-    '<div class="field"><label for="setCodeSize">Code size: <span id="csv">' + st.codeSize + 'px</span></label><input type="range" id="setCodeSize" min="12" max="22" step="1" value="' + st.codeSize + '"></div></section>' +
-    '<section class="card"><h2 class="sub">EDITOR</h2>' + tog("setLines", "Line numbers", st.lineNumbers) + tog("setClose", "Auto-close brackets and quotes", st.autoClose) + tog("setKeys", "Symbol keys under the editor", st.keys) + tog("setActive", "Highlight the current line", st.activeLine) + tog("setRunKey", "Ctrl+Enter runs code", st.runKey) + "</section>" +
-    '<section class="card"><h2 class="sub">LEARNING</h2><div class="field"><label for="setHints">Hints</label>' + sel("setHints", [["button", "Show a hint button"], ["auto", "Show hints automatically after 2 misses"], ["off", "No hints (hard mode)"]], st.hints) + "</div>" +
+    '<div class="field"><label for="setCodeSize">Code size: <span id="csv">' + st.codeSize + 'px</span></label><input type="range" id="setCodeSize" min="12" max="22" step="1" value="' + st.codeSize + '"></div>' +
+    '<div class="field"><label for="setLH">Line spacing</label>' + sel("setLH", [["normal", "Normal"], ["relaxed", "Relaxed"], ["loose", "Extra relaxed"]], st.lineHeight) + "</div>" +
+    '<div class="field"><label for="setLS">Letter spacing</label>' + sel("setLS", [["normal", "Normal"], ["wide", "Wide"], ["wider", "Extra wide"]], st.letterSpacing) + '<span class="hint2">Extra space between letters can make reading easier, especially with dyslexia.</span></div>' +
+    '<div class="field"><label for="setMeasure">Lesson text width</label>' + sel("setMeasure", [["narrow", "Narrow (shorter lines)"], ["normal", "Comfortable"], ["wide", "Wide"]], st.measure) + "</div>" +
+    '<div class="field"><label for="setRead">Read lessons aloud</label>' + sel("setRead", [["on", "Show a Read aloud button"], ["off", "Off"]], st.readAloud ? "on" : "off") + '<span class="hint2">' + (canSpeak() ? "Uses your device's voice." : "This browser has no voice support, so the button won't appear.") + "</span></div>" +
+    '<div class="field"><label for="setRate">Reading speed</label>' + sel("setRate", [[0.8, "Slow"], [1, "Normal"], [1.2, "Fast"]], st.readRate) + "</div></section>" +
+    '<section class="card" id="setA11y"><h2 class="sub">ACCESSIBILITY</h2>' + tog("setCB", "Color-blind friendly right/wrong colors", st.cbColors) + '<span class="hint2">Uses blue for right and orange for wrong instead of green and red.</span>' +
+    tog("setFocus", "Extra-visible keyboard focus", st.focusStrong) +
+    '<div class="field" style="margin-top:12px"><label for="setToast">How long messages stay on screen</label>' + sel("setToast", [["short", "Short"], ["normal", "Normal"], ["long", "Long"]], st.toastTime) + "</div></section>" +
+    '<section class="card" id="setEditor"><h2 class="sub">EDITOR</h2>' + tog("setLines", "Line numbers", st.lineNumbers) + tog("setClose", "Auto-close brackets and quotes", st.autoClose) + tog("setKeys", "Symbol keys under the editor", st.keys) + tog("setActive", "Highlight the current line", st.activeLine) + tog("setRunKey", "Ctrl+Enter runs code", st.runKey) +  tog("setWrap", "Wrap long lines", st.wrap) + tog("setBrackets", "Highlight matching brackets", st.brackets) +
+    '<div class="field" style="margin-top:12px"><label for="setIndent">Indent size</label>' + sel("setIndent", [[2, "2 spaces"], [4, "4 spaces"]], st.indent) + "</div>" +
+    '<div class="field"><label for="setEdH">Editor height</label>' + sel("setEdH", [["short", "Short"], ["medium", "Medium"], ["tall", "Tall"]], st.edHeight) + "</div>" + "</section>" +
+    '<section class="card" id="setLearn"><h2 class="sub">LEARNING</h2><div class="field"><label for="setHints">Hints</label>' + sel("setHints", [["button", "Show a hint button"], ["auto", "Show hints automatically after 2 misses"], ["off", "No hints (hard mode)"]], st.hints) + "</div>" +
     tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + "</section>" +
-    '<section class="card"><h2 class="sub">FEEL</h2>' + tog("setSound", "Sound effects", st.sound) + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
-    '<section class="card"><h2 class="sub">SAVE DATA</h2><p class="muted" style="margin-top:0;font-size:14px">Progress saves in this browser automatically. To move it to another device or keep a backup, copy your save code and paste it in on the other device.</p>' +
+    '<section class="card" id="setQuiz"><h2 class="sub">QUIZZES</h2>' + tog("setShuffle", "Shuffle answer choices", st.quizShuffle) + tog("setQAuto", "Go to the next question after a right answer", st.quizAuto) + "</section>" +
+    '<section class="card" id="setFeel"><h2 class="sub">SOUND & FEEL</h2>' + tog("setSound", "Sound effects", st.sound) + tog("setClick", "Click sounds on buttons", st.clickSound) + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
+    '<section class="card" id="setSave"><h2 class="sub">SAVE DATA</h2><p class="muted" style="margin-top:0;font-size:14px">Progress saves in this browser automatically. To move it to another device or keep a backup, copy your save code and paste it in on the other device.</p>' +
     '<div class="row"><button class="btn" id="expBtn">Copy save code</button><button class="btn" id="impBtn">Load save code</button></div><div id="saveArea"></div>' +
     '<div style="margin-top:16px;padding-top:12px;border-top:2px solid var(--line)"><button class="ghost" id="resetAll" style="border-color:var(--fail);color:var(--fail)">Erase all progress</button></div></section></div></div>';
   var bind = function (id, key, conv) { $(id).onchange = $(id).oninput = function () { st[key] = conv ? conv(this) : this.value; save("settings", st); applySettings(); }; };
@@ -20774,7 +20836,22 @@ function viewSettings(V) {
   bind("setBarPos", "barPos"); bind("setBarHide", "barHidden", function (e) { return e.checked; });
   $("setBarPos").addEventListener("change", renderTop);
   $("setVol").addEventListener("change", function () { SFX.right(); });
-  $("setSound").addEventListener("change", renderTop);
+  $("setSound").addEventListener("change", function () { renderTop(); $("setVol").disabled = !st.sound; });
+  $("setVol").disabled = !st.sound;
+  bind("setLH", "lineHeight"); bind("setLS", "letterSpacing"); bind("setMeasure", "measure");
+  bind("setRead", "readAloud", function (e) { return e.value === "on"; }); bind("setRate", "readRate", function (e) { return Number(e.value); });
+  bind("setCB", "cbColors", function (e) { return e.checked; }); bind("setFocus", "focusStrong", function (e) { return e.checked; }); bind("setToast", "toastTime");
+  bind("setWrap", "wrap", function (e) { return e.checked; }); bind("setBrackets", "brackets", function (e) { return e.checked; });
+  bind("setIndent", "indent", function (e) { return Number(e.value); }); bind("setEdH", "edHeight");
+  bind("setShuffle", "quizShuffle", function (e) { return e.checked; }); bind("setQAuto", "quizAuto", function (e) { return e.checked; });
+  bind("setClick", "clickSound", function (e) { return e.checked; });
+  $("setToast").addEventListener("change", function () { toast("This is how long messages stay up."); });
+  V.querySelectorAll("[data-jump]").forEach(function (b) { b.onclick = function () { var c = $(b.getAttribute("data-jump")); if (c) { c.scrollIntoView({ behavior: S.set.motion === "on" ? "smooth" : "auto", block: "start" }); var hd = c.querySelector("h2"); if (hd) { hd.tabIndex = -1; hd.focus({ preventScroll: true }); } } }; });
+  $("resetSet").onclick = function () {
+    var b = this;
+    if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to reset settings"; setTimeout(function () { if (b.isConnected) { delete b.dataset.armed; b.textContent = "Reset settings to defaults"; } }, 4000); return; }
+    S.set = Object.assign({}, DEFAULTS); save("settings", S.set); applySettings(); toast("Settings reset. Your progress is safe."); go("settings");
+  };
   $("expBtn").onclick = function () {
     var dump = {}; allKeys().forEach(function (k) { dump[k] = load(k, null); });
     var codeStr = "SQ1:" + btoa(unescape(encodeURIComponent(JSON.stringify(dump))));
