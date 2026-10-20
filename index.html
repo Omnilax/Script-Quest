@@ -586,9 +586,9 @@ h2.sub{font-family:var(--f-display);font-weight:400;font-size:calc(14px * var(--
 .prose h3{font-size:calc(17px * var(--scale));margin:18px 0 8px}
 .prose a{font-weight:700}
 .callout{border:2px solid var(--accent);background:var(--panel2);padding:10px 12px;margin:0 0 14px;max-width:66ch}
-.callout b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--accent);display:block}
+.callout>b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--accent);display:block}
 .callout p{margin:2px 0 0}
-.callout.warn{border-color:var(--warn)}.callout.warn b{color:var(--warn)}
+.callout.warn{border-color:var(--warn)}.callout.warn>b{color:var(--warn)}
 .tbl{overflow-x:auto;margin:0 0 14px;max-width:100%}
 .tbl table{border-collapse:collapse;font-size:15px;min-width:280px}
 .tbl th,.tbl td{border:2px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
@@ -965,6 +965,49 @@ html[data-cb="1"][data-skin="night"],html[data-cb="1"][data-skin="blueprint"],ht
   h1.title{font-size:calc(24px * var(--scale))}
   .toast{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 }
+/* background effects, flair and comfort extras */
+.app{position:relative;z-index:1}
+.bgfx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:var(--bgfx-op,.65);transition:opacity .5s}
+html[data-bgcalm="1"] .bgfx{opacity:calc(var(--bgfx-op,.65) * .4)}
+.trailfx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:69}
+.bgglow{display:none;position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;transition:opacity .5s}
+html[data-glow="on"] .bgglow{display:block}
+html[data-glow="on"][data-bgcalm="1"] .bgglow{opacity:.5}
+.bgglow i{position:absolute;width:70vmax;height:70vmax;border-radius:50%;opacity:.24;animation:glowA 26s ease-in-out infinite alternate}
+.bgglow i:nth-child(1){left:-22vmax;top:-28vmax;background:radial-gradient(circle,var(--s1),transparent 62%)}
+.bgglow i:nth-child(2){right:-28vmax;top:8vh;background:radial-gradient(circle,var(--s3),transparent 62%);animation-name:glowB;animation-duration:32s}
+.bgglow i:nth-child(3){left:18vw;bottom:-40vmax;background:radial-gradient(circle,var(--gold),transparent 62%);animation-duration:38s;animation-direction:alternate-reverse}
+@keyframes glowA{0%{transform:translate(0,0) scale(1)}50%{transform:translate(18vw,12vh) scale(1.15)}100%{transform:translate(6vw,30vh) scale(.9)}}
+@keyframes glowB{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-20vw,18vh) scale(.85)}100%{transform:translate(-8vw,-10vh) scale(1.1)}}
+html[data-scan="on"] body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:45;background:repeating-linear-gradient(0deg,rgba(0,0,0,.08) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.22))}
+html[data-bgmove="on"]:is([data-skin="eighties"],[data-skin="girlypop"],[data-skin="toon"]) body{animation:bgPan 40s linear infinite}
+html[data-bgmove="on"][data-skin="terminal"] body{animation:bgRoll 14s linear infinite}
+@keyframes bgPan{to{background-position:480px 480px}}
+@keyframes bgRoll{to{background-position:0 480px}}
+html[data-pageanim="fade"] .view.enter{animation:pgFade .3s ease-out}
+html[data-pageanim="rise"] .view.enter{animation:pgRise .34s cubic-bezier(.2,.8,.2,1)}
+html[data-pageanim="slide"] .view.enter{animation:pgSlide .34s cubic-bezier(.2,.8,.2,1)}
+@keyframes pgFade{from{opacity:0}}
+@keyframes pgRise{from{opacity:0;transform:translateY(16px)}}
+@keyframes pgSlide{from{opacity:0;transform:translateX(-22px)}}
+html[data-hover] :is(.qcard,.tile,.cart,.swatch,.fxbtn){transition:transform .15s,box-shadow .15s}
+html[data-hover="lift"] :is(.qcard,.tile,.cart,.swatch,.fxbtn):hover{transform:translate(-2px,-3px)}
+html[data-hover="glow"] :is(.qcard,.tile,.cart,.swatch,.fxbtn):hover{box-shadow:0 0 0 2px var(--accent),0 0 22px 2px color-mix(in srgb,var(--accent) 50%,transparent)}
+.fxpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:0 0 14px}
+.fxbtn{border:2px solid var(--line);background:var(--panel);padding:8px 10px;text-align:left;display:grid;gap:2px;align-content:start;color:var(--ink)}
+.fxbtn b{font-size:14px}
+.fxbtn .muted{font-size:12px;line-height:1.35}
+.fxbtn[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.setsub{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--muted);margin:16px 0 8px;padding-top:12px;border-top:2px solid var(--line)}
+.totop{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40;display:inline-flex;align-items:center;gap:8px;background:var(--panel);color:var(--ink);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--shadow);padding:8px 12px;font-family:var(--f-display);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+html[data-bar="bottom"]:not([data-bar-hidden="1"]) .totop{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+html[data-bar="right"]:not([data-bar-hidden="1"]) .totop{right:auto;left:max(16px,env(safe-area-inset-left,0px))}
+.toast{cursor:pointer}
+html[data-toastpos="top"] .toast{bottom:auto;top:calc(84px + env(safe-area-inset-top,0px))}
+html[data-toastpos="corner"] .toast{left:auto;right:max(20px,env(safe-area-inset-right,0px));transform:none;bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+.qhide{margin-left:auto}
+.qempty{grid-column:1/-1;margin:8px 0}
+@media (max-width:760px){.totop{bottom:calc(76px + env(safe-area-inset-bottom,0px))}html[data-toastpos="corner"] .toast{bottom:calc(124px + env(safe-area-inset-bottom,0px))}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 html[data-motion="off"] *{animation:none!important;transition:none!important}
 
@@ -977,7 +1020,9 @@ html[data-motion="off"] *{animation:none!important;transition:none!important}
 </div>
 <div id="overlay" class="overlay" hidden></div>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-<canvas id="fx" class="fx" aria-hidden="true"></canvas>
+<canvas id="bgfx" class="bgfx" aria-hidden="true" hidden></canvas><div class="bgglow" aria-hidden="true"><i></i><i></i><i></i></div>
+<canvas id="fx" class="fx" aria-hidden="true"></canvas><canvas id="trailfx" class="trailfx" aria-hidden="true"></canvas>
+<button type="button" class="totop" id="toTop" hidden>Top</button>
 <script>
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/5/LICENSE
@@ -19934,7 +19979,9 @@ var DEFAULTS = {
   icons: true, navLabels: true, navIcons: true, btnSize: "normal", borders: "bold", shadows: "hard", corners: "square", density: "normal", pageWidth: "normal",
   showCont: true, showMe: true, dots: true, learnLinks: true, guides: false, keySize: "normal", shortcuts: true,
   lineHeight: "normal", letterSpacing: "normal", measure: "normal", toastTime: "normal", focusStrong: false, cbColors: false,
-  wrap: false, indent: 2, brackets: true, edHeight: "medium", readAloud: true, readRate: 1, quizShuffle: true, quizAuto: false, clickSound: true
+  wrap: false, indent: 2, brackets: true, edHeight: "medium", readAloud: true, readRate: 1, quizShuffle: true, quizAuto: false, clickSound: true,
+  bgFx: "off", bgColor: "theme", bgDensity: "normal", bgSpeed: "normal", bgStrength: "normal", bgMouse: true, bgCalm: true, bgFps: "smooth",
+  bgGlow: false, bgMove: false, bgScan: false, pageAnim: "off", hoverFx: "off", trail: "off", clickFx: false, backTop: true, toastPos: "bottom"
 };
 var S = {
   profile: load("profile", null),
@@ -20157,6 +20204,11 @@ function applySettings() {
   r.style.setProperty("--page-w", { normal: "1280px", wide: "1600px", full: "100%" }[st.pageWidth] || "1280px");
   if (st.barHidden) r.setAttribute("data-bar-hidden", "1"); else r.removeAttribute("data-bar-hidden");
   var bt = $("barTab"); if (bt) bt.innerHTML = glyph({ top: "down", bottom: "up", left: "right", right: "left" }[st.barPos] || "down") + "Menu";
+  var setA = function (n, v) { if (v) r.setAttribute(n, v); else r.removeAttribute(n); };
+  r.style.setProperty("--bgfx-op", { faint: .35, normal: .65, bold: 1 }[st.bgStrength] || .65);
+  setA("data-glow", st.bgGlow ? "on" : ""); setA("data-bgmove", st.bgMove ? "on" : ""); setA("data-scan", st.bgScan ? "on" : "");
+  setA("data-pageanim", st.pageAnim !== "off" ? st.pageAnim : ""); setA("data-hover", st.hoverFx !== "off" ? st.hoverFx : ""); setA("data-toastpos", st.toastPos !== "bottom" ? st.toastPos : "");
+  bgCalmAttr(); bgStart(); toTopCheck();
   if (editor && editor.cm) { editor.cm.setOption("lineNumbers", st.lineNumbers); editor.cm.setOption("autoCloseBrackets", st.autoClose); editor.cm.setOption("styleActiveLine", st.activeLine); editor.cm.setOption("lineWrapping", st.wrap); editor.cm.setOption("matchBrackets", st.brackets); editor.cm.setOption("indentUnit", Number(st.indent)); editor.cm.setOption("tabSize", Number(st.indent)); setGuides(editor.cm); editor.cm.refresh(); }
 }
 
@@ -20198,7 +20250,367 @@ function confetti() {
   })();
 }
 var toastT;
-function toast(msg) { var t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { t.hidden = true; }, { short: 1800, normal: 2600, long: 6000 }[S.set.toastTime] || 2600); }
+function toast(msg) { var t = $("toast"); t.textContent = msg; t.hidden = false; t.title = "Click to close"; t.onclick = function () { clearTimeout(toastT); t.hidden = true; }; clearTimeout(toastT); toastT = setTimeout(function () { t.hidden = true; }, { short: 1800, normal: 2600, long: 6000 }[S.set.toastTime] || 2600); }
+
+// ---------------- background effects ----------------
+var BGFX = [
+  ["off", "Off", "Just the theme"], ["theme", "Match my theme", "A different effect for each theme"],
+  ["stars", "Starfield", "Twinkling stars drifting by"], ["warp", "Hyperspace", "Stars rushing toward you"],
+  ["comets", "Shooting stars", "A calm night sky with streaks"], ["constellation", "Constellations", "Dots that link up as they pass"],
+  ["rain", "Code rain", "Falling code, hacker-movie style"], ["grid", "Synthwave grid", "A neon grid rolling to a sunset"],
+  ["waves", "Waves", "Layers of rolling waves"], ["aurora", "Aurora", "Soft northern-light ribbons"],
+  ["bubbles", "Bubbles", "Glossy bubbles floating up"], ["fireflies", "Fireflies", "Glowing dots wandering around"],
+  ["snow", "Snowfall", "Gentle flakes drifting down"], ["confetti", "Confetti", "A slow party in the background"],
+  ["pixels", "Pixel float", "Little squares rising up"], ["blocks", "Falling blocks", "Puzzle pieces tumbling down"],
+  ["shapes", "Floating shapes", "Circles, squares and triangles"], ["hearts", "Hearts", "Little hearts floating up"],
+  ["petals", "Petals", "Cherry blossoms on the wind"], ["leaves", "Autumn leaves", "Leaves twirling down"],
+  ["lava", "Lava lamp", "Big, slow, glowing blobs"]
+];
+// "Match my theme" picks one of these
+var BG_THEME = { auto: "pixels", cartridge: "pixels", night: "stars", pocket: "pixels", blueprint: "constellation", contrast: "off", miami: "grid", eighties: "grid", retro: "blocks", sixtyfour: "shapes", cube: "shapes", modern: "constellation", girlypop: "hearts", candy: "confetti", terminal: "rain", aero: "bubbles", toon: "shapes", mocha: "leaves", arctic: "snow", forest: "fireflies", lava: "lava" };
+var BG = { cv: null, c: null, w: 0, h: 0, ps: [], ex: [], fx: "off", key: "", t: 0, raf: 0, last: 0, mx: -9999, my: -9999, cols: ["#2C52C4"], ink: "#222", dark: false, pal: null, rt: 0 };
+var WHITES = ["#FFFFFF", "#DCE6FF", "#FFF2D6"];
+function stillMotion() { return S.set.motion === "off" || !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches); }
+function bgEffect() { var f = S.set.bgFx; return f === "theme" ? (BG_THEME[S.set.skin] || BG_THEME.auto) : f; }
+function bgR(a, b) { return a + Math.random() * (b - a); }
+function bgRgba(c, a) {
+  var m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(c); if (!m) return c;
+  var x = m[1].length === 3 ? m[1].replace(/./g, "$&$&") : m[1], n = parseInt(x, 16);
+  return "rgba(" + (n >> 16) + "," + (n >> 8 & 255) + "," + (n & 255) + "," + Math.max(0, Math.min(1, a)).toFixed(3) + ")";
+}
+function bgReadColors() {
+  var cs = getComputedStyle(document.documentElement), g = function (v) { return cs.getPropertyValue(v).trim(); };
+  BG.cols = ["--s1", "--s2", "--s3", "--s4", "--s5", "--gold", "--accent"].map(g).filter(Boolean); if (!BG.cols.length) BG.cols = ["#2C52C4"];
+  BG.ink = g("--ink") || "#222";
+  var m = /^#([0-9a-f]{6})$/i.exec(g("--bg")), n = m ? parseInt(m[1], 16) : 0xffffff;
+  BG.dark = 0.299 * (n >> 16) + 0.587 * (n >> 8 & 255) + 0.114 * (n & 255) < 128;
+}
+// a particle's color: theme palette (or the effect's own), rainbow, or the text color
+function bgCol(p, a) {
+  var mode = S.set.bgColor;
+  if (mode === "rainbow") return "hsla(" + ((p.hue + BG.t * 25) % 360 | 0) + ",90%," + (BG.dark ? 65 : 48) + "%," + Math.max(0, Math.min(1, a)).toFixed(3) + ")";
+  if (mode === "mono") return bgRgba(BG.ink, a);
+  var pal = BG.pal || BG.cols; return bgRgba(pal[p.ci % pal.length], a);
+}
+function bgWrap(p, m) { if (p.x < -m) p.x += BG.w + 2 * m; else if (p.x > BG.w + m) p.x -= BG.w + 2 * m; if (p.y < -m) p.y += BG.h + 2 * m; else if (p.y > BG.h + m) p.y -= BG.h + 2 * m; }
+function bgMouseOn() { return S.set.bgMouse && BG.mx > -1; }
+var TETRO = [[[0, 0], [1, 0], [2, 0], [3, 0]], [[0, 0], [1, 0], [0, 1], [1, 1]], [[1, 0], [0, 1], [1, 1], [2, 1]], [[0, 0], [0, 1], [1, 1], [2, 1]], [[2, 0], [0, 1], [1, 1], [2, 1]], [[1, 0], [2, 0], [0, 1], [1, 1]], [[0, 0], [1, 0], [1, 1], [2, 1]]];
+var RAIN_CH = "01{}()[]<>=+-*/;:$#&|!?abcdefxyzconstletifforJS";
+function rising(p, first, r) { p.x = bgR(0, BG.w); p.y = first ? bgR(0, BG.h) : BG.h + r + bgR(0, 40); }
+function falling(p, first, r) { p.x = bgR(0, BG.w); p.y = first ? bgR(0, BG.h) : -r - bgR(0, 40); }
+function heartPath(c, s) { c.beginPath(); c.moveTo(0, s * .35); c.bezierCurveTo(-s, -s * .3, -s * .45, -s * 1.05, 0, -s * .45); c.bezierCurveTo(s * .45, -s * 1.05, s, -s * .3, 0, s * .35); c.closePath(); }
+var BGE = {
+  off: null,
+  stars: { n: 140, pale: true,
+    make: function (p) { p.x = bgR(0, BG.w); p.y = bgR(0, BG.h); p.z = bgR(.15, 1); p.s = .6 + p.z * 1.7; },
+    step: function (p, dt) { p.x -= 10 * p.z * dt; if (p.x < -6) { p.x = BG.w + 6; p.y = bgR(0, BG.h); } },
+    draw: function (c, p) {
+      var tw = .45 + .55 * Math.abs(Math.sin(BG.t * 1.4 + p.ph)), ox = 0, oy = 0;
+      if (bgMouseOn()) { ox = (BG.w / 2 - BG.mx) * p.z * .03; oy = (BG.h / 2 - BG.my) * p.z * .03; }
+      c.fillStyle = bgCol(p, tw * (.35 + .65 * p.z)); var x = p.x + ox, y = p.y + oy;
+      c.fillRect(x, y, p.s, p.s);
+      if (p.s > 2) { c.fillRect(x - p.s, y + p.s * .35, p.s * 3, p.s * .3); c.fillRect(x + p.s * .35, y - p.s, p.s * .3, p.s * 3); }
+    } },
+  warp: { n: 260, pale: true,
+    make: function (p, first) { p.x = bgR(-1, 1); p.y = bgR(-1, 1); p.z = first ? bgR(.05, 1) : 1; p.pz = p.z; },
+    step: function (p, dt) { p.pz = p.z; p.z -= .32 * dt; if (p.z <= .03 || Math.abs(p.x / p.z) > 3 || Math.abs(p.y / p.z) > 3) { BGE.warp.make(p, false); } },
+    draw: function (c, p) {
+      var f = .32 * Math.max(BG.w, BG.h), cx = BG.w / 2, cy = BG.h / 2;
+      if (bgMouseOn()) { cx += (BG.mx - BG.w / 2) * .2; cy += (BG.my - BG.h / 2) * .2; }
+      c.strokeStyle = bgCol(p, Math.min(1, .3 + (1 - p.z) * 1.6)); c.lineWidth = (1 - p.z) * 3 + 1;
+      c.beginPath(); c.moveTo(cx + p.x / p.pz * f, cy + p.y / p.pz * f); c.lineTo(cx + p.x / p.z * f + .5, cy + p.y / p.z * f + .5); c.stroke();
+    } },
+  comets: { n: 90, pale: true,
+    make: function (p) { p.x = bgR(0, BG.w); p.y = bgR(0, BG.h); p.s = bgR(1.2, 2.6); },
+    step: function () {},
+    draw: function (c, p) { c.fillStyle = bgCol(p, .45 + .55 * Math.abs(Math.sin(BG.t * .9 + p.ph))); c.fillRect(p.x, p.y, p.s, p.s); },
+    frame: function (c, dt) {
+      if (dt && Math.random() < dt * .9 && BG.ex.length < 5) { var sp = bgR(450, 750); BG.ex.push({ x: bgR(BG.w * .25, BG.w * 1.1), y: bgR(-BG.h * .1, BG.h * .45), vx: -sp, vy: sp * bgR(.3, .5), life: 0, max: bgR(.8, 1.5), ci: Math.floor(bgR(0, 7)), hue: bgR(0, 360) }); }
+      BG.ex = BG.ex.filter(function (m) {
+        m.life += dt; m.x += m.vx * dt; m.y += m.vy * dt; var k = 1 - m.life / m.max; if (k <= 0) return false;
+        var tx = m.x - m.vx * .14, ty = m.y - m.vy * .14, g = c.createLinearGradient(m.x, m.y, tx, ty);
+        g.addColorStop(0, bgCol(m, k)); g.addColorStop(1, bgCol(m, 0)); c.strokeStyle = g; c.lineWidth = 2.2;
+        c.beginPath(); c.moveTo(m.x, m.y); c.lineTo(tx, ty); c.stroke(); return true;
+      });
+    } },
+  constellation: { n: 62,
+    make: function (p) { p.x = bgR(0, BG.w); p.y = bgR(0, BG.h); p.vx = bgR(-16, 16); p.vy = bgR(-16, 16); p.s = bgR(1.6, 3.2); },
+    step: function (p, dt) { p.x += p.vx * dt; p.y += p.vy * dt; bgWrap(p, 20); },
+    under: function (c) {
+      var ps = BG.ps, D = 135, D2 = D * D, mouse = bgMouseOn(); c.lineWidth = 1;
+      for (var i = 0; i < ps.length; i++) {
+        var a = ps[i];
+        for (var j = i + 1; j < ps.length; j++) {
+          var b = ps[j], dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+          if (d2 < D2) { c.strokeStyle = bgCol(a, (1 - Math.sqrt(d2) / D) * .5); c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke(); }
+        }
+        if (mouse) { var mx = a.x - BG.mx, my = a.y - BG.my, m2 = mx * mx + my * my; if (m2 < 32400) { c.strokeStyle = bgCol(a, (1 - Math.sqrt(m2) / 180) * .7); c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(BG.mx, BG.my); c.stroke(); } }
+      }
+    },
+    draw: function (c, p) { c.fillStyle = bgCol(p, .8); c.beginPath(); c.arc(p.x, p.y, p.s, 0, 6.283); c.fill(); } },
+  rain: { n: 0, pal: function () { return BG.dark ? ["#4DFF88", "#B6FFCB"] : null; },
+    init: function (dm) {
+      var gap = Math.max(12, 22 / Math.sqrt(dm)), n = Math.ceil(BG.w / gap); BG.ex = [];
+      for (var i = 0; i < n; i++) { var len = Math.floor(bgR(8, 24)), ch = []; for (var k = 0; k < len; k++) ch.push(RAIN_CH[Math.floor(Math.random() * RAIN_CH.length)]); BG.ex.push({ x: i * gap + 2, y: bgR(-BG.h, BG.h), v: bgR(70, 200), ch: ch, ci: 0, hue: i * 12 }); }
+      BG.font = "15px " + (getComputedStyle(document.documentElement).getPropertyValue("--f-code").trim() || "monospace");
+    },
+    frame: function (c, dt) {
+      c.font = BG.font; c.textBaseline = "top";
+      BG.ex.forEach(function (col) {
+        col.y += col.v * dt; var len = col.ch.length;
+        if (col.y - len * 18 > BG.h) { col.y = bgR(-200, 0); col.v = bgR(70, 200); }
+        if (dt && Math.random() < .08) col.ch[Math.floor(Math.random() * len)] = RAIN_CH[Math.floor(Math.random() * RAIN_CH.length)];
+        for (var k = 0; k < len; k++) {
+          var y = col.y - k * 18; if (y < -18 || y > BG.h) continue;
+          col.ci = k === 0 ? 1 : 0; c.fillStyle = bgCol(col, k === 0 ? .95 : (1 - k / len) * .65); c.fillText(col.ch[k], col.x, y);
+        }
+      });
+    } },
+  grid: { n: 0,
+    frame: function (c) {
+      var W = BG.w, H = BG.h, hz = H * .58, cx = W / 2 + (bgMouseOn() ? (BG.mx - W / 2) * .08 : 0), r = Math.min(W, H) * .2;
+      var gold = { ci: 5, hue: 40 }, acc = { ci: 6, hue: 320 }, i;
+      // sunset sun with stripes cut out
+      c.save(); c.beginPath(); c.rect(0, 0, W, hz); c.clip();
+      var sg = c.createLinearGradient(0, hz - r * 1.4, 0, hz); sg.addColorStop(0, bgCol(gold, .85)); sg.addColorStop(1, bgCol(acc, .85));
+      c.fillStyle = sg; c.beginPath(); c.arc(W / 2, hz - r * .25, r, 0, 6.283); c.fill();
+      c.globalCompositeOperation = "destination-out";
+      for (i = 0; i < 6; i++) { var sy = hz - r * .55 + i * r * .16 + (BG.t * 6 % (r * .16)); c.fillRect(0, sy, W, 2 + i * 1.6); }
+      c.restore();
+      c.strokeStyle = bgCol(acc, .55); c.lineWidth = 1.5;
+      var off = BG.t * .45 % 1;
+      for (i = 0; i < 18; i++) { var z = (i + off) / 18, y = hz + (H - hz) * Math.pow(z, 2.2); c.globalAlpha = Math.min(1, z * 1.6); c.beginPath(); c.moveTo(0, y); c.lineTo(W, y); c.stroke(); }
+      c.globalAlpha = 1;
+      for (i = -16; i <= 16; i++) { c.beginPath(); c.moveTo(cx + i * W * .012, hz); c.lineTo(W / 2 + i * W * .14, H); c.stroke(); }
+      c.strokeStyle = bgCol(gold, .7); c.lineWidth = 2; c.beginPath(); c.moveTo(0, hz); c.lineTo(W, hz); c.stroke();
+    } },
+  waves: { n: 0,
+    frame: function (c) {
+      var W = BG.w, H = BG.h;
+      for (var k = 0; k < 4; k++) {
+        var base = H * (.6 + k * .1), A = 16 + k * 9, f = .006 - k * .0008, sp = .5 + k * .3;
+        c.fillStyle = bgCol({ ci: k + 1, hue: 180 + k * 40 }, .14 + k * .05); c.beginPath(); c.moveTo(0, H);
+        for (var x = 0; x <= W + 16; x += 16) c.lineTo(x, base + Math.sin(x * f + BG.t * sp + k * 1.7) * A + Math.sin(x * f * 2.3 - BG.t * sp * .7) * A * .35);
+        c.lineTo(W, H); c.closePath(); c.fill();
+      }
+    } },
+  aurora: { n: 0, pal: function () { return BG.dark ? ["#3DFFB0", "#38C8FF", "#A66BFF"] : null; },
+    frame: function (c) {
+      var W = BG.w, H = BG.h; if (BG.dark) c.globalCompositeOperation = "lighter";
+      for (var k = 0; k < 3; k++) {
+        var p = { ci: k, hue: 140 + k * 60 }, g = c.createLinearGradient(0, H * .02, 0, H * .7);
+        g.addColorStop(0, bgCol(p, 0)); g.addColorStop(.45, bgCol(p, .32)); g.addColorStop(1, bgCol(p, 0)); c.fillStyle = g;
+        c.beginPath(); var top = [], x;
+        for (x = 0; x <= W + 24; x += 24) { var yc = H * (.24 + k * .09) + Math.sin(x * .0035 + BG.t * .25 + k * 2) * H * .08 + Math.sin(x * .009 - BG.t * .4 + k) * 22, th = 70 + 45 * Math.sin(x * .006 + BG.t * .3 + k); top.push([x, yc - th]); c.lineTo(x, yc + th * .35); }
+        for (var i = top.length - 1; i >= 0; i--) c.lineTo(top[i][0], top[i][1]);
+        c.closePath(); c.fill();
+      }
+      c.globalCompositeOperation = "source-over";
+    } },
+  bubbles: { n: 28, pale: true, push: true,
+    make: function (p, first) { p.r = bgR(6, 26); rising(p, first, p.r); p.vy = bgR(18, 45); },
+    step: function (p, dt) { p.y -= p.vy * dt; p.x += Math.sin(BG.t * 1.2 + p.ph) * 14 * dt; if (p.y < -p.r - 10) BGE.bubbles.make(p, false); },
+    draw: function (c, p) {
+      c.lineWidth = 1.6; c.strokeStyle = bgCol(p, .55); c.fillStyle = bgCol(p, .08);
+      c.beginPath(); c.arc(p.x, p.y, p.r, 0, 6.283); c.fill(); c.stroke();
+      c.fillStyle = "rgba(255,255,255,.7)"; c.beginPath(); c.arc(p.x - p.r * .35, p.y - p.r * .35, p.r * .18, 0, 6.283); c.fill();
+    } },
+  fireflies: { n: 38, push: true, pal: function () { return BG.dark ? ["#FFE680", "#D4FF6B", "#FFF3B0"] : null; },
+    make: function (p) { p.x = bgR(0, BG.w); p.y = bgR(0, BG.h); p.vx = bgR(-20, 20); p.vy = bgR(-20, 20); p.s = bgR(1.6, 3); },
+    step: function (p, dt) {
+      p.vx += bgR(-40, 40) * dt; p.vy += bgR(-40, 40) * dt; var v = Math.sqrt(p.vx * p.vx + p.vy * p.vy); if (v > 32) { p.vx *= 32 / v; p.vy *= 32 / v; }
+      p.x += p.vx * dt; p.y += p.vy * dt; bgWrap(p, 20);
+    },
+    draw: function (c, p) {
+      var g = .35 + .65 * Math.abs(Math.sin(BG.t * 1.6 + p.ph));
+      c.fillStyle = bgCol(p, .14 * g); c.beginPath(); c.arc(p.x, p.y, p.s * 5, 0, 6.283); c.fill();
+      c.fillStyle = bgCol(p, .95 * g); c.beginPath(); c.arc(p.x, p.y, p.s, 0, 6.283); c.fill();
+    } },
+  snow: { n: 130, pale: true, push: true,
+    make: function (p, first) { p.z = bgR(.3, 1); p.r = 1 + p.z * 2.6; falling(p, first, p.r); p.vy = 18 + p.z * 46; },
+    step: function (p, dt) { p.y += p.vy * dt; p.x += (Math.sin(BG.t * .8 + p.ph) * 16 + 6) * p.z * dt; if (p.y > BG.h + 8) BGE.snow.make(p, false); if (p.x > BG.w + 8) p.x = -8; },
+    draw: function (c, p) { c.fillStyle = bgCol(p, .35 + .55 * p.z); c.beginPath(); c.arc(p.x, p.y, p.r, 0, 6.283); c.fill(); } },
+  confetti: { n: 45, push: true,
+    make: function (p, first) { falling(p, first, 10); p.w = bgR(5, 10); p.a = bgR(0, 6.283); p.va = bgR(-3, 3); p.vy = bgR(25, 60); p.vx = bgR(-15, 15); },
+    step: function (p, dt) { p.y += p.vy * dt; p.x += (p.vx + Math.sin(BG.t + p.ph) * 12) * dt; p.a += p.va * dt; if (p.y > BG.h + 12) BGE.confetti.make(p, false); },
+    draw: function (c, p) { c.save(); c.translate(p.x, p.y); c.rotate(p.a); c.scale(1, Math.cos(BG.t * 3 + p.ph)); c.fillStyle = bgCol(p, .75); c.fillRect(-p.w / 2, -p.w / 4, p.w, p.w / 2); c.restore(); } },
+  pixels: { n: 42, push: true,
+    make: function (p, first) { p.s = [4, 6, 8, 10, 12][Math.floor(Math.random() * 5)]; rising(p, first, p.s); p.vy = bgR(15, 42); },
+    step: function (p, dt) { p.y -= p.vy * dt; if (p.y < -p.s - 4) BGE.pixels.make(p, false); },
+    draw: function (c, p) { c.fillStyle = bgCol(p, .6 * Math.min(1, p.y / BG.h * 1.6)); c.fillRect(Math.round(p.x), Math.round(p.y), p.s, p.s); } },
+  blocks: { n: 12,
+    make: function (p, first) { p.cell = Math.floor(bgR(12, 19)); falling(p, first, 70); p.sh = TETRO[Math.floor(Math.random() * 7)]; p.ci = TETRO.indexOf(p.sh); p.rot = Math.floor(bgR(0, 4)); p.vy = bgR(22, 50); p.rt = bgR(1, 3); },
+    step: function (p, dt) { p.y += p.vy * dt; p.rt -= dt; if (p.rt < 0) { p.rot = (p.rot + 1) % 4; p.rt = bgR(1, 3); } if (p.y > BG.h + 80) BGE.blocks.make(p, false); },
+    draw: function (c, p) {
+      var s = p.cell; p.sh.forEach(function (q) {
+        var x = q[0] - 1, y = q[1], r = [[x, y], [-y, x], [-x, -y], [y, -x]][p.rot];
+        var px = Math.round(p.x + r[0] * s), py = Math.round(p.y + r[1] * s);
+        c.fillStyle = bgCol(p, .45); c.fillRect(px, py, s - 1, s - 1); c.fillStyle = bgCol(p, .7); c.fillRect(px, py, s - 1, 3); c.fillRect(px, py, 3, s - 1);
+      });
+    } },
+  shapes: { n: 24, push: true,
+    make: function (p) { p.x = bgR(0, BG.w); p.y = bgR(0, BG.h); p.vx = bgR(-20, 20); p.vy = bgR(-20, 20); p.a = bgR(0, 6.283); p.va = bgR(-.6, .6); p.s = bgR(10, 24); p.k = Math.floor(bgR(0, 4)); },
+    step: function (p, dt) { p.x += p.vx * dt; p.y += p.vy * dt; p.a += p.va * dt; bgWrap(p, 30); },
+    draw: function (c, p) {
+      var s = p.s; c.save(); c.translate(p.x, p.y); c.rotate(p.a); c.strokeStyle = bgCol(p, .55); c.lineWidth = 2.6; c.beginPath();
+      if (p.k === 0) c.arc(0, 0, s, 0, 6.283);
+      else if (p.k === 1) c.rect(-s * .85, -s * .85, s * 1.7, s * 1.7);
+      else if (p.k === 2) { c.moveTo(0, -s); c.lineTo(s * .9, s * .6); c.lineTo(-s * .9, s * .6); c.closePath(); }
+      else { c.moveTo(-s * .8, -s * .8); c.lineTo(s * .8, s * .8); c.moveTo(s * .8, -s * .8); c.lineTo(-s * .8, s * .8); }
+      c.stroke(); c.restore();
+    } },
+  hearts: { n: 26, push: true, pal: function () { return BG.dark ? ["#FF6FA8", "#FF9CC2", "#FF4F7B"] : ["#E0457B", "#F06C9B", "#C2185B"]; },
+    make: function (p, first) { p.s = bgR(8, 18); rising(p, first, p.s); p.vy = bgR(16, 38); },
+    step: function (p, dt) { p.y -= p.vy * dt; p.x += Math.sin(BG.t * 1.1 + p.ph) * 16 * dt; if (p.y < -p.s - 10) BGE.hearts.make(p, false); },
+    draw: function (c, p) { c.save(); c.translate(p.x, p.y); c.rotate(Math.sin(BG.t * 1.3 + p.ph) * .3); c.fillStyle = bgCol(p, .55 * Math.min(1, p.y / BG.h * 1.8)); heartPath(c, p.s); c.fill(); c.restore(); } },
+  petals: { n: 36, push: true, pal: function () { return ["#F7B6CC", "#F9C9D8", "#F48FB1", "#FFD1DC"]; },
+    make: function (p, first) { p.s = bgR(5, 9); p.x = bgR(-BG.w * .3, BG.w); p.y = first ? bgR(0, BG.h) : -12; p.vx = bgR(20, 50); p.vy = bgR(25, 50); p.a = bgR(0, 6.283); p.va = bgR(-2, 2); },
+    step: function (p, dt) { p.x += (p.vx + Math.sin(BG.t + p.ph) * 18) * dt; p.y += p.vy * dt; p.a += p.va * dt; if (p.y > BG.h + 12 || p.x > BG.w + 20) BGE.petals.make(p, false); },
+    draw: function (c, p) { c.save(); c.translate(p.x, p.y); c.rotate(p.a); c.scale(Math.cos(BG.t * 2 + p.ph), 1); c.fillStyle = bgCol(p, .8); c.beginPath(); c.ellipse(0, 0, p.s, p.s * .55, 0, 0, 6.283); c.fill(); c.restore(); } },
+  leaves: { n: 24, push: true, pal: function () { return ["#D9622B", "#E8A33D", "#B5452A", "#C98B2F", "#8F9E3A"]; },
+    make: function (p, first) { p.s = bgR(9, 15); falling(p, first, 20); p.vy = bgR(28, 58); p.a = bgR(0, 6.283); p.va = bgR(-1.5, 1.5); },
+    step: function (p, dt) { p.y += p.vy * dt; p.x += Math.sin(BG.t * .9 + p.ph) * 38 * dt; p.a += p.va * dt; if (p.y > BG.h + 20) BGE.leaves.make(p, false); },
+    draw: function (c, p) {
+      var s = p.s; c.save(); c.translate(p.x, p.y); c.rotate(p.a); c.scale(1, .7 + .3 * Math.cos(BG.t * 2 + p.ph));
+      c.fillStyle = bgCol(p, .75); c.beginPath(); c.moveTo(0, -s); c.quadraticCurveTo(s * .85, 0, 0, s); c.quadraticCurveTo(-s * .85, 0, 0, -s); c.fill();
+      c.strokeStyle = "rgba(0,0,0,.2)"; c.lineWidth = 1; c.beginPath(); c.moveTo(0, -s * .8); c.lineTo(0, s * 1.2); c.stroke(); c.restore();
+    } },
+  lava: { n: 7, fixed: true,
+    make: function (p) { p.r = bgR(.14, .26) * Math.min(BG.w, BG.h) + 40; p.x = bgR(0, BG.w); p.y = bgR(0, BG.h); p.vx = bgR(-26, 26); p.vy = bgR(-26, 26); },
+    step: function (p, dt) {
+      p.x += p.vx * dt; p.y += p.vy * dt;
+      if (p.x < -p.r * .3 || p.x > BG.w + p.r * .3) p.vx = -p.vx; if (p.y < -p.r * .3 || p.y > BG.h + p.r * .3) p.vy = -p.vy;
+    },
+    under: function (c) { if (BG.dark) c.globalCompositeOperation = "lighter"; },
+    draw: function (c, p) {
+      var r = p.r * (1 + .08 * Math.sin(BG.t * .7 + p.ph)), g = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
+      g.addColorStop(0, bgCol(p, .42)); g.addColorStop(.6, bgCol(p, .18)); g.addColorStop(1, bgCol(p, 0));
+      c.fillStyle = g; c.beginPath(); c.arc(p.x, p.y, r, 0, 6.283); c.fill();
+    } }
+};
+function bgSize() {
+  var dpr = Math.min(window.devicePixelRatio || 1, 1.5); BG.w = innerWidth; BG.h = innerHeight;
+  BG.cv.width = Math.round(BG.w * dpr); BG.cv.height = Math.round(BG.h * dpr); BG.c.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+function bgInit() {
+  var e = BGE[BG.fx], dm = { few: .5, normal: 1, lots: 1.8 }[S.set.bgDensity] || 1;
+  BG.ps = []; BG.ex = []; BG.t = 0;
+  var n = Math.min(600, Math.round(e.fixed ? e.n * dm : e.n * dm * BG.w * BG.h / 1e6));
+  for (var i = 0; i < n; i++) { var p = { ci: Math.floor(Math.random() * 7), hue: Math.random() * 360, ph: Math.random() * 6.283 }; e.make(p, true); BG.ps.push(p); }
+  if (e.init) e.init(dm);
+}
+function bgDraw(raw) {
+  var e = BGE[BG.fx], c = BG.c, dt = raw * ({ slow: .5, normal: 1, fast: 1.8 }[S.set.bgSpeed] || 1), push = e.push && bgMouseOn();
+  BG.t += dt; c.globalCompositeOperation = "source-over"; c.globalAlpha = 1; c.clearRect(0, 0, BG.w, BG.h);
+  if (e.under) e.under(c, dt);
+  for (var i = 0; i < BG.ps.length; i++) {
+    var p = BG.ps[i];
+    if (dt) {
+      e.step(p, dt);
+      if (push) { var dx = p.x - BG.mx, dy = p.y - BG.my, d2 = dx * dx + dy * dy; if (d2 < 14400 && d2 > 1) { var d = Math.sqrt(d2), f = (120 - d) / 120 * raw * 260; p.x += dx / d * f; p.y += dy / d * f; } }
+    }
+    if (e.draw) e.draw(c, p);
+  }
+  if (e.frame) e.frame(c, dt);
+}
+function bgLoop(now) {
+  BG.raf = requestAnimationFrame(bgLoop);
+  if (BG.last && now - BG.last < (S.set.bgFps === "saver" ? 30 : 14)) return;
+  var raw = BG.last ? Math.min(.05, (now - BG.last) / 1000) : .016; BG.last = now;
+  bgDraw(raw);
+}
+// called by applySettings and on resize; only rebuilds particles when the effect, amount or window size changed
+function bgStart() {
+  if (!BG.cv) { BG.cv = $("bgfx"); if (!BG.cv) return; BG.c = BG.cv.getContext("2d"); }
+  bgReadColors();
+  var fx = bgEffect(); if (!BGE[fx]) fx = "off";
+  cancelAnimationFrame(BG.raf); BG.raf = 0; BG.last = 0;
+  if (fx === "off") { BG.fx = "off"; BG.key = ""; BG.cv.hidden = true; return; }
+  BG.cv.hidden = false;
+  var key = fx + "|" + S.set.bgDensity + "|" + innerWidth + "x" + innerHeight;
+  BG.fx = fx; BG.pal = BGE[fx].pal ? BGE[fx].pal() : BGE[fx].pale && BG.dark ? WHITES : null;
+  if (key !== BG.key) { BG.key = key; bgSize(); bgInit(); }
+  if (stillMotion()) { bgDraw(0); return; }
+  if (!document.hidden) BG.raf = requestAnimationFrame(bgLoop);
+}
+function bgCalmAttr() { document.documentElement.setAttribute("data-bgcalm", S.set.bgCalm && /^(stage|quiz|sandbox|review)$/.test(route.v) ? "1" : "0"); }
+window.addEventListener("resize", function () { clearTimeout(BG.rt); BG.rt = setTimeout(function () { if (BG.fx !== "off") bgStart(); }, 200); });
+document.addEventListener("visibilitychange", function () { if (document.hidden) { cancelAnimationFrame(BG.raf); BG.raf = 0; } else if (BG.fx !== "off") bgStart(); });
+if (window.matchMedia) { try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () { if (S.set.skin === "auto") bgStart(); }); } catch (e) {} }
+
+// ---------------- cursor trail and click sparkles ----------------
+var TR = { cv: null, c: null, ps: [], raf: 0, last: 0, lx: -99, ly: -99 };
+function trCanvas() {
+  if (!TR.cv) { TR.cv = $("trailfx"); TR.c = TR.cv.getContext("2d"); }
+  var dpr = Math.min(window.devicePixelRatio || 1, 1.5), w = Math.round(innerWidth * dpr), hh = Math.round(innerHeight * dpr);
+  if (TR.cv.width !== w || TR.cv.height !== hh) { TR.cv.width = w; TR.cv.height = hh; TR.c.setTransform(dpr, 0, 0, dpr, 0, 0); }
+}
+function trAdd(x, y, kind, i) {
+  if (TR.ps.length > 260) return;
+  var p = { x: x, y: y, kind: kind, life: 0, a: bgR(0, 6.283), hue: (performance.now() / 6 + (i || 0) * 25) % 360 }, cols = BG.cols;
+  p.col = kind === "rainbow" ? "hsl(" + (p.hue | 0) + ",95%,60%)" : cols[Math.floor(Math.random() * cols.length)];
+  if (kind === "burst") { var ang = (i || 0) / 14 * 6.283 + bgR(-.2, .2), sp = bgR(90, 230); p.vx = Math.cos(ang) * sp; p.vy = Math.sin(ang) * sp; p.g = 380; p.s = bgR(3, 6); p.max = bgR(.45, .7); }
+  else if (kind === "bubbles") { p.vx = bgR(-15, 15); p.vy = bgR(-50, -25); p.g = 0; p.s = bgR(3, 7); p.max = bgR(.6, 1); }
+  else { p.vx = bgR(-25, 25); p.vy = bgR(-25, 15); p.g = kind === "pixels" ? 160 : 60; p.s = kind === "pixels" ? bgR(3, 6) : bgR(4, 8); p.max = bgR(.45, .8); }
+  TR.ps.push(p);
+}
+function trLoop(now) {
+  var c = TR.c, dt = Math.min(.05, (now - (TR.last || now)) / 1000); TR.last = now;
+  c.clearRect(0, 0, innerWidth, innerHeight);
+  TR.ps = TR.ps.filter(function (p) { p.life += dt; return p.life < p.max; });
+  TR.ps.forEach(function (p) {
+    var k = 1 - p.life / p.max, s; p.vy += p.g * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+    c.globalAlpha = k; c.fillStyle = c.strokeStyle = p.col;
+    if (p.kind === "pixels" || p.kind === "burst") { s = p.s * (p.kind === "burst" ? 1 : .5 + .5 * k); c.fillRect(p.x - s / 2, p.y - s / 2, s, s); }
+    else if (p.kind === "rainbow") { c.beginPath(); c.arc(p.x, p.y, p.s * k, 0, 6.283); c.fill(); }
+    else if (p.kind === "bubbles") { c.lineWidth = 1.5; c.beginPath(); c.arc(p.x, p.y, p.s * (1.4 - k * .4), 0, 6.283); c.stroke(); }
+    else { s = p.s * (.4 + .6 * k); c.beginPath(); c.moveTo(p.x, p.y - s); c.quadraticCurveTo(p.x, p.y, p.x + s, p.y); c.quadraticCurveTo(p.x, p.y, p.x, p.y + s); c.quadraticCurveTo(p.x, p.y, p.x - s, p.y); c.quadraticCurveTo(p.x, p.y, p.x, p.y - s); c.fill(); }
+  });
+  c.globalAlpha = 1;
+  if (TR.ps.length) TR.raf = requestAnimationFrame(trLoop); else { TR.raf = 0; TR.last = 0; }
+}
+function trKick() { if (!TR.raf) TR.raf = requestAnimationFrame(trLoop); }
+document.addEventListener("pointermove", function (e) {
+  if (e.pointerType === "mouse") { BG.mx = e.clientX; BG.my = e.clientY; }
+  var k = S.set.trail; if (!k || k === "off" || e.pointerType !== "mouse" || stillMotion()) return;
+  var dx = e.clientX - TR.lx, dy = e.clientY - TR.ly; if (dx * dx + dy * dy < 49) return; TR.lx = e.clientX; TR.ly = e.clientY;
+  trCanvas(); trAdd(e.clientX, e.clientY, k); trKick();
+}, { passive: true });
+document.addEventListener("mouseout", function (e) { if (!e.relatedTarget) { BG.mx = BG.my = -9999; } });
+document.addEventListener("pointerdown", function (e) {
+  if (!S.set.clickFx || stillMotion() || !e.target.closest || !e.target.closest("button,a,[data-go],summary")) return;
+  trCanvas(); for (var i = 0; i < 14; i++) trAdd(e.clientX, e.clientY, "burst", i); trKick();
+}, { passive: true });
+
+// ---------------- page history, titles and back to top ----------------
+var histReady = false, ttRaf = 0;
+function routeHash(v, arg) { return "#" + v + (arg ? "/" + encodeURIComponent(arg) : ""); }
+function parseRoute(hash) {
+  var m = /^#([a-z]+)(?:\/(.+))?$/.exec(hash || ""); if (!m) return null;
+  var v = m[1], arg = null; try { arg = m[2] ? decodeURIComponent(m[2]) : null; } catch (e) { return null; }
+  if (!/^(map|section|stage|quizzes|quiz|review|sandbox|ref|settings|me)$/.test(v)) return null;
+  if ((v === "section" && !SEC[arg]) || (v === "stage" && !STAGE[arg]) || (v === "quiz" && !D.quizzes.some(function (q) { return q.id === arg; }) && !XQUIZ[arg])) return null;
+  return { v: v, arg: arg };
+}
+// each page gets a history entry, so the browser's Back and Forward buttons work and remember where you were scrolled
+function histPush(prev, v, arg, replace) {
+  try {
+    if (!replace && prev) history.replaceState({ sq: 1, v: prev.v, arg: prev.arg || null, y: window.scrollY }, "", routeHash(prev.v, prev.arg));
+    history[replace ? "replaceState" : "pushState"]({ sq: 1, v: v, arg: arg || null, y: 0 }, "", routeHash(v, arg));
+  } catch (e) {}
+}
+function pageTitle(v, arg) {
+  var st = v === "stage" && STAGE[arg], sec = v === "section" && SEC[arg], q = v === "quiz" && (D.quizzes.filter(function (x) { return x.id === arg; })[0] || XQUIZ[arg]);
+  var t = st ? st.sec.title + " " + st.n + ": " + st.t : sec ? sec.title : q ? q.title : { map: "Map", quizzes: "Quiz Hall", sandbox: "Sandbox", ref: "Reference", settings: "Settings", me: "Player card", review: "Review" }[v];
+  return (t ? t + " · " : "") + "Script Quest";
+}
+function toTopCheck() { var b = $("toTop"); if (!b) return; var show = !!S.set.backTop && window.scrollY > 500; if (b.hidden === show) b.hidden = !show; }
+window.addEventListener("scroll", function () { if (!ttRaf) ttRaf = requestAnimationFrame(function () { ttRaf = 0; toTopCheck(); }); }, { passive: true });
+function cycleSetting(key, list, label) {
+  var ids = list.map(function (x) { return x[0]; }), i = (ids.indexOf(S.set[key]) + 1) % ids.length;
+  S.set[key] = ids[i]; save("settings", S.set); applySettings(); toast(label + ": " + list[i][1]);
+  document.querySelectorAll(key === "skin" ? "button[data-skin]" : "button[data-bgfx]").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute(key === "skin" ? "data-skin" : "data-bgfx") === ids[i]); });
+}
 
 // ---------------- pixel icons ----------------
 var PIX = {
@@ -20277,14 +20689,19 @@ document.addEventListener("click", function (e) {
 
 var cleanupView = null;
 function go(v, arg, opts) {
+  opts = opts || {};
   stopSpeaking();
   if (cleanupView) { try { cleanupView(); } catch (e) {} cleanupView = null; }
+  var same = route.v === v && (route.arg || null) === (arg || null);
+  if (!opts.fromHistory) histPush(route, v, arg, same || !histReady);
   route = { v: v, arg: arg };
-  if (v !== "stage" || !opts || !opts.keepScroll) window.scrollTo(0, 0);
+  if (v !== "stage" || !opts.keepScroll) window.scrollTo(0, 0);
   renderTop();
   var V = $("view");
   ({ map: viewMap, section: viewSection, stage: viewStage, quizzes: viewQuizzes, quiz: viewQuiz, review: viewReview, sandbox: viewSandbox, ref: viewRef, settings: viewSettings, me: viewMe }[v] || viewMap)(V, arg);
   highlightAll(V);
+  document.title = pageTitle(v, arg); bgCalmAttr(); toTopCheck();
+  if (!same && S.set.pageAnim !== "off") { V.classList.remove("enter"); void V.offsetWidth; V.classList.add("enter"); }
   if (v === "section" || v === "stage" || v === "sandbox") { S.last = { v: v, arg: arg }; save("last", S.last); }
   if (v === "stage" && arg && arg !== S.lastStage) { S.lastStage = arg; save("lastStage", arg); renderTop(); }
 }
@@ -20761,17 +21178,19 @@ function openCabinet(engineId, code, st) {
 }
 
 // ---------------- QUIZZES ----------------
-var quizFilter = "all";
+var quizFilter = "all", quizHide = false;
 function viewQuizzes(V) {
   var topics = []; D.quizzes.forEach(function (q) { if (topics.indexOf(q.topic) < 0) topics.push(q.topic); });
   var passed = D.quizzes.filter(function (q) { var r = S.quiz[q.id]; return r && r.best / r.total >= .7; }).length;
-  var list = D.quizzes.filter(function (q) { return quizFilter === "all" || q.topic === quizFilter; });
+  var isPassed = function (q) { var r = S.quiz[q.id]; return r && r.best / r.total >= .7; };
+  var list = D.quizzes.filter(function (q) { return (quizFilter === "all" || q.topic === quizFilter) && !(quizHide && isPassed(q)); });
   V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">' + D.quizzes.length + " QUIZZES · " + D.quizzes.reduce(function (a, q) { return a + q.qs.length; }, 0) + ' QUESTIONS</p><h1>Quiz Hall</h1><p class="muted" style="margin:6px 0 0;max-width:60ch">Multiple choice, fill in the blank, predict the output, spot the bug, and put-the-lines-in-order puzzles. Score 70% to pass. Each right answer is worth 5 XP the first time.</p></div><div class="stat"><b>' + passed + " / " + D.quizzes.length + '</b><span>passed</span></div></section>' +
-    warmupHtml() + '<div class="filters" role="group" aria-label="Filter by topic"><button class="ghost' + (quizFilter === "all" ? " on" : "") + '" data-qf="all">All</button>' + topics.map(function (t) { return '<button class="ghost' + (quizFilter === t ? " on" : "") + '" data-qf="' + h(t) + '">' + h(t) + "</button>"; }).join("") + "</div>" +
+    warmupHtml() + '<div class="filters" role="group" aria-label="Filter by topic"><button class="ghost' + (quizFilter === "all" ? " on" : "") + '" data-qf="all">All</button>' + topics.map(function (t) { return '<button class="ghost' + (quizFilter === t ? " on" : "") + '" data-qf="' + h(t) + '">' + h(t) + "</button>"; }).join("") + '<button class="ghost qhide' + (quizHide ? " on" : "") + '" data-qhide aria-pressed="' + quizHide + '">Hide passed</button></div>' +
     '<section class="qgrid">' + list.map(function (q, i) {
       var r = S.quiz[q.id], ace = r && r.best === r.total;
       return '<button class="qcard' + (ace ? " ace" : "") + '" data-go="quiz" data-arg="' + q.id + '"><span class="qn"><span>QUIZ ' + (D.quizzes.indexOf(q) + 1) + " · " + h(q.level || "") + "</span><b>" + (r ? (ace ? "★ " : "") + r.best + "/" + r.total : q.qs.length + " Q") + "</b></span><h3>" + h(q.title) + '</h3><span class="best">' + h(q.topic) + (r ? " · best " + Math.round(r.best / r.total * 100) + "%" : "") + "</span></button>";
-    }).join("") + "</section></div>";
+    }).join("") + (list.length ? "" : '<p class="muted qempty">You passed every quiz here. Turn off "Hide passed" to see them again.</p>') + "</section></div>";
+  V.querySelector("[data-qhide]").onclick = function () { quizHide = !quizHide; viewQuizzes(V); };
   V.querySelectorAll("[data-qf]").forEach(function (b) { b.onclick = function () { quizFilter = b.getAttribute("data-qf"); viewQuizzes(V); }; });
 }
 function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
@@ -21100,10 +21519,24 @@ function viewSettings(V) {
   var sel = function (id, opts, val) { return '<select class="sel" id="' + id + '">' + opts.map(function (o) { var v = Array.isArray(o) ? o[0] : o, l = Array.isArray(o) ? o[1] : o; return '<option value="' + h(v) + '"' + (String(v) === String(val) ? " selected" : "") + ">" + h(l) + "</option>"; }).join("") + "</select>"; };
   var tog = function (id, label, on) { return '<label class="toggle"><span>' + label + '</span><input type="checkbox" class="switch" id="' + id + '"' + (on ? " checked" : "") + "></label>"; };
   V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">OPTIONS</p><h1>Settings</h1><p class="muted" style="margin:6px 0 0">Changes save as you make them.</p></div><button class="ghost" id="resetSet">Reset settings to defaults</button></section>' +
-    '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Theme"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setLayout", "Layout & look"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setKeys2", "Shortcuts"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" +
+    '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Theme"], ["setBg", "Background & effects"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setLayout", "Layout & look"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setKeys2", "Shortcuts"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" +
     '<div class="setgrid">' +
     '<section class="card" id="setPlayer"><h2 class="sub">PLAYER</h2><div class="field"><label for="setName">Your name</label><input type="text" id="setName" maxlength="24" value="' + h(nameOf()) + '"><span class="hint2">Lessons, greetings, and some starter code use this name.</span></div></section>' +
     '<section class="card" id="setTheme"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { return '<button type="button" class="swatch" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + '</b><span class="muted">' + s[2] + "</span></button>"; }).join("") + "</div></section>" +
+    '<section class="card" id="setBg"><h2 class="sub">BACKGROUND & EFFECTS</h2><p class="muted" style="margin-top:0;font-size:14px">A moving background behind everything. Tap one to try it. Press X anywhere to flip through them.</p><div class="fxpick" role="group" aria-label="Background effect">' +
+    BGFX.map(function (f) { return '<button type="button" class="fxbtn" data-bgfx="' + f[0] + '" aria-pressed="' + (st.bgFx === f[0]) + '"><b>' + h(f[1]) + '</b><span class="muted">' + h(f[2]) + "</span></button>"; }).join("") + "</div>" +
+    '<div class="field"><label for="setBgColor">Effect colors</label>' + sel("setBgColor", [["theme", "Theme colors"], ["rainbow", "Rainbow"], ["mono", "One color (matches the text)"]], st.bgColor) + "</div>" +
+    '<div class="field"><label for="setBgAmount">How much</label>' + sel("setBgAmount", [["few", "A little"], ["normal", "Some"], ["lots", "Lots"]], st.bgDensity) + "</div>" +
+    '<div class="field"><label for="setBgSpeed">Speed</label>' + sel("setBgSpeed", [["slow", "Slow"], ["normal", "Normal"], ["fast", "Fast"]], st.bgSpeed) + "</div>" +
+    '<div class="field"><label for="setBgStrength">Brightness</label>' + sel("setBgStrength", [["faint", "Faint"], ["normal", "Medium"], ["bold", "Bold"]], st.bgStrength) + "</div>" +
+    tog("setBgMouse", "Effects react to your mouse", st.bgMouse) + tog("setBgCalm", "Calmer during lessons, quizzes and the sandbox", st.bgCalm) + '<span class="hint2">Fades the effect so it does not pull your eyes away from code.</span>' +
+    tog("setBgFps", "Battery saver (for older computers)", st.bgFps === "saver") +
+    '<h3 class="setsub">LAYERS</h3>' + tog("setBgGlow", "Ambient glow (soft moving color clouds)", st.bgGlow) + tog("setBgMove", "Move the theme's pattern", st.bgMove) + '<span class="hint2">For patterned themes: Neon \'80s, Girlypop, Toon Checker and Terminal.</span>' + tog("setBgScan", "Retro screen lines (old TV look)", st.bgScan) +
+    '<h3 class="setsub">FLAIR</h3><div class="field"><label for="setPageAnim">Page change animation</label>' + sel("setPageAnim", [["off", "Off"], ["fade", "Fade"], ["rise", "Rise up"], ["slide", "Slide in"]], st.pageAnim) + "</div>" +
+    '<div class="field"><label for="setHover">When you point at a card</label>' + sel("setHover", [["off", "Nothing"], ["lift", "It lifts up"], ["glow", "It glows"]], st.hoverFx) + "</div>" +
+    '<div class="field"><label for="setTrail">Mouse trail</label>' + sel("setTrail", [["off", "Off"], ["sparkle", "Sparkles"], ["pixels", "Pixels"], ["rainbow", "Rainbow"], ["bubbles", "Bubbles"]], st.trail) + "</div>" +
+    tog("setClickFx", "Sparkle burst when you click a button", st.clickFx) +
+    '<span class="hint2">With Animations turned off (Sound & feel), backgrounds show a still picture and the flair stays off.</span></section>' +
     '<section class="card" id="setLayout"><h2 class="sub">LAYOUT & LOOK</h2>' +
     '<div class="field"><label for="setBtnSize">Button size</label>' + sel("setBtnSize", [["small", "Small"], ["normal", "Normal"], ["large", "Large"]], st.btnSize) + "</div>" +
     '<div class="field"><label for="setDensity">Spacing</label>' + sel("setDensity", [["compact", "Compact"], ["normal", "Comfortable"], ["spacious", "Roomy"]], st.density) + "</div>" +
@@ -21111,7 +21544,7 @@ function viewSettings(V) {
     '<div class="field"><label for="setBorders">Box outlines</label>' + sel("setBorders", [["bold", "Bold"], ["soft", "Soft"], ["off", "Off"]], st.borders) + "</div>" +
     '<div class="field"><label for="setShadows">Shadows</label>' + sel("setShadows", [["hard", "Blocky (retro)"], ["soft", "Soft"], ["off", "Off"]], st.shadows) + "</div>" +
     '<div class="field"><label for="setCorners">Corners</label>' + sel("setCorners", [["square", "Square"], ["round", "Rounded"]], st.corners) + "</div>" +
-    tog("setIcons", "Show icons", st.icons) + tog("setDots", "Show the stage progress dots", st.dots) + tog("setLinks", "Show \"Learn more\" links in lessons", st.learnLinks) + "</section>" +
+    tog("setIcons", "Show icons", st.icons) + tog("setTop", "Back to top button on long pages", st.backTop) + tog("setDots", "Show the stage progress dots", st.dots) + tog("setLinks", "Show \"Learn more\" links in lessons", st.learnLinks) + "</section>" +
     '<section class="card" id="setMenu"><h2 class="sub">MENU BAR</h2><div class="field"><label for="setBarPos">Position</label>' + sel("setBarPos", [["top", "Top"], ["left", "Left side"], ["right", "Right side"], ["bottom", "Bottom"]], st.barPos) + '<span class="hint2">On phones, Left and Right stay at the top.</span></div>' +
     tog("setBarHide", "Hide the menu bar", st.barHidden) + '<span class="hint2">A small Menu button stays in the corner to bring it back.</span>' +
     tog("setNavLabels", "Words on menu buttons", st.navLabels) + tog("setNavIcons", "Icons on menu buttons", st.navIcons) + tog("setShowCont", "Continue button", st.showCont) + tog("setShowMe", "Player card (level and XP)", st.showMe) + "</section>" +
@@ -21128,7 +21561,8 @@ function viewSettings(V) {
     '<div class="field"><label for="setRate">Reading speed</label>' + sel("setRate", [[0.8, "Slow"], [1, "Normal"], [1.2, "Fast"]], st.readRate) + "</div></section>" +
     '<section class="card" id="setA11y"><h2 class="sub">ACCESSIBILITY</h2>' + tog("setCB", "Color-blind friendly right/wrong colors", st.cbColors) + '<span class="hint2">Uses blue for right and orange for wrong instead of green and red.</span>' +
     tog("setFocus", "Extra-visible keyboard focus", st.focusStrong) +
-    '<div class="field" style="margin-top:12px"><label for="setToast">How long messages stay on screen</label>' + sel("setToast", [["short", "Short"], ["normal", "Normal"], ["long", "Long"]], st.toastTime) + "</div></section>" +
+    '<div class="field" style="margin-top:12px"><label for="setToast">How long messages stay on screen</label>' + sel("setToast", [["short", "Short"], ["normal", "Normal"], ["long", "Long"]], st.toastTime) + "</div>" +
+    '<div class="field"><label for="setToastPos">Where messages pop up</label>' + sel("setToastPos", [["bottom", "Bottom middle"], ["top", "Top middle"], ["corner", "Bottom right corner"]], st.toastPos) + '<span class="hint2">Click a message to close it early.</span></div></section>' +
     '<section class="card" id="setEditor"><h2 class="sub">EDITOR</h2>' + tog("setLines", "Line numbers", st.lineNumbers) + tog("setClose", "Auto-close brackets and quotes", st.autoClose) + tog("setKeys", "Symbol keys under the editor (keyboard helper)", st.keys) + tog("setActive", "Highlight the current line", st.activeLine) + tog("setRunKey", "Ctrl+Enter runs code", st.runKey) +  tog("setWrap", "Wrap long lines", st.wrap) + tog("setBrackets", "Highlight matching brackets", st.brackets) +
     '<div class="field" style="margin-top:12px"><label for="setIndent">Indent size</label>' + sel("setIndent", [[2, "2 spaces"], [4, "4 spaces"]], st.indent) + "</div>" +
     '<div class="field"><label for="setEdH">Editor height</label>' + sel("setEdH", [["short", "Short"], ["medium", "Medium"], ["tall", "Tall"]], st.edHeight) + "</div>" +  tog("setGuides", "Indent guide lines", st.guides) +
@@ -21169,6 +21603,13 @@ function viewSettings(V) {
   bind("setNavLabels", "navLabels", chk); bind("setNavIcons", "navIcons", chk); bind("setShowCont", "showCont", chk); bind("setShowMe", "showMe", chk);
   ["setShowCont", "setShowMe"].forEach(function (id) { $(id).addEventListener("change", renderTop); });
   bind("setGuides", "guides", chk); bind("setKeySize", "keySize"); bind("setShortcuts", "shortcuts", chk);
+  V.querySelectorAll("button[data-bgfx]").forEach(function (b) { b.onclick = function () { st.bgFx = b.getAttribute("data-bgfx"); save("settings", st); applySettings(); V.querySelectorAll("button[data-bgfx]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); }; });
+  bind("setBgColor", "bgColor"); bind("setBgAmount", "bgDensity"); bind("setBgSpeed", "bgSpeed"); bind("setBgStrength", "bgStrength");
+  bind("setBgMouse", "bgMouse", chk); bind("setBgCalm", "bgCalm", chk); bind("setBgFps", "bgFps", function (e) { return e.checked ? "saver" : "smooth"; });
+  bind("setBgGlow", "bgGlow", chk); bind("setBgMove", "bgMove", chk); bind("setBgScan", "bgScan", chk);
+  bind("setPageAnim", "pageAnim"); bind("setHover", "hoverFx"); bind("setTrail", "trail"); bind("setClickFx", "clickFx", chk);
+  bind("setTop", "backTop", chk); bind("setToastPos", "toastPos");
+  $("setToastPos").addEventListener("change", function () { toast("Messages will pop up here."); });
   $("kbList").onclick = showShortcuts;
   $("setToast").addEventListener("change", function () { toast("This is how long messages stay up."); });
   V.querySelectorAll("[data-jump]").forEach(function (b) { b.onclick = function () { var c = $(b.getAttribute("data-jump")); if (c) { c.scrollIntoView({ behavior: S.set.motion === "on" ? "smooth" : "auto", block: "start" }); var hd = c.querySelector("h2"); if (hd) { hd.tabIndex = -1; hd.focus({ preventScroll: true }); } } }; });
@@ -21229,14 +21670,24 @@ if (/^#sbx=/.test(location.hash || "")) {
   var sharedMsg = !shared ? "That share link is broken. Ask for the code instead." : sbxAdd(shared.n, shared.c, shared.m) ? "Opened shared code: " + shared.n : "Your sandbox is full (8 slots). Delete one, then open the link again.";
   setTimeout(function () { toast(sharedMsg); }, 400);
 }
-var startHash = shared && S.profile ? "sandbox" : (location.hash || "").replace(/^#/, "");
-if (S.profile && startHash && /^(map|quizzes|sandbox|ref|settings|me)$/.test(startHash)) go(startHash);
-else go("map");
+try { history.scrollRestoration = "manual"; } catch (e) {}
+var bootRoute = shared && S.profile ? { v: "sandbox" } : parseRoute(location.hash);
+if (S.profile && bootRoute) go(bootRoute.v, bootRoute.arg); else go("map");
+histReady = true;
+$("toTop").innerHTML = glyph("up") + "Top";
+$("toTop").onclick = function () { window.scrollTo({ top: 0, behavior: stillMotion() ? "auto" : "smooth" }); $("view").focus({ preventScroll: true }); };
+window.addEventListener("popstate", function (e) {
+  if (!S.profile) return;
+  var s = e.state && e.state.sq ? e.state : parseRoute(location.hash); if (!s) return;
+  if (!$("overlay").hidden) { var x = $("cabX"); if (x) x.click(); }
+  go(s.v, s.arg, { fromHistory: true });
+  if (s.y) window.scrollTo(0, s.y);
+});
 if (!S.profile) onboard();
 // ---------------- keyboard shortcuts ----------------
 var SHORTCUTS = [
   ["Getting around", [["M", "Map"], ["Q", "Quizzes"], ["S", "Sandbox"], ["R", "Reference"], ["O", "Settings"], ["P", "Your player card"], ["C", "Continue where you left off"]]],
-  ["Anywhere", [["V", "Sound on or off"], ["B", "Hide or show the menu bar"], ["?", "This list"], ["Esc", "Close a pop-up"]]],
+  ["Anywhere", [["V", "Sound on or off"], ["B", "Hide or show the menu bar"], ["T", "Next theme"], ["X", "Next background effect"], ["Alt+←", "Back to the last page"], ["?", "This list"], ["Esc", "Close a pop-up"]]],
   ["In a lesson", [["[", "Previous stage"], ["]", "Next stage"], ["H", "Show a hint"], ["E", "Jump into the code editor"], ["Ctrl+Enter", "Run your code (while typing)"]]],
   ["In Reference", [["/", "Search"]]]
 ];
@@ -21257,6 +21708,8 @@ document.addEventListener("keydown", function (e) {
   else if (low === "c") done = click(".dk.cont") || click('.hello [data-go="stage"]');
   else if (low === "v") toggleMute();
   else if (low === "b") setBarHidden(!S.set.barHidden);
+  else if (low === "t") cycleSetting("skin", SKINS, "Theme");
+  else if (low === "x") cycleSetting("bgFx", BGFX, "Background");
   else if (k === "?") showShortcuts();
   else if (k === "[" && route.v === "stage") done = click('[aria-label="Previous stage"]');
   else if (k === "]" && route.v === "stage") done = click('[aria-label="Next stage"]');
