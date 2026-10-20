@@ -426,10 +426,36 @@ a{color:var(--accent);text-underline-offset:2px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 code{font-family:var(--f-code);font-size:.88em;background:var(--chip);padding:1px 5px;border-radius:2px}
 
-.app{min-height:100%;display:flex;flex-direction:column}
+/* layout & look settings (Settings > Layout & look) */
+html[data-icons="off"] .icon{display:none}
+html[data-navlabels="off"] .nav .tl{display:none}
+html[data-navlabels="off"] .nav button{padding:8px}
+html[data-navicons="off"] .nav .icon{display:none}
+html[data-navicons="off"] .nav .tl{display:inline!important}
+html[data-btn="small"] .btn{padding:5px 10px;font-size:calc(10px * var(--scale))}
+html[data-btn="small"] .btn.small{padding:3px 8px;font-size:10px}
+html[data-btn="small"] .ghost{padding:4px 9px;font-size:13px}
+html[data-btn="large"] .btn{padding:11px 18px;font-size:calc(14px * var(--scale))}
+html[data-btn="large"] .btn.small{padding:7px 12px;font-size:12px}
+html[data-btn="large"] .ghost{padding:9px 15px;font-size:16px}
+html[data-borders="soft"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,pre.cb,.hintbox,.mission,.verdict,.why,.keys button){border-color:var(--line)}
+html[data-borders="off"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,pre.cb,.hintbox,.mission,.verdict,.why,.keys button){border-color:transparent}
+html[data-shadows="soft"] :is(.card,.cart,.qcard,.dock,.btn,.btn.small,.swatch[aria-pressed="true"],.tile.next,.search input,.bar-tab,.node .disc){box-shadow:0 6px 18px rgba(0,0,0,.18)}
+html[data-shadows="off"] :is(.card,.cart,.qcard,.dock,.btn,.btn.small,.swatch[aria-pressed="true"],.tile.next,.search input,.bar-tab,.node .disc){box-shadow:none}
+html[data-corners="round"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,pre.cb,.hintbox,.mission,.verdict,.why,.keys button){border-radius:12px}
+html[data-corners="round"] .dock{overflow:hidden}
+html[data-dots="off"] .dots{display:none}
+html[data-links="off"] .reslinks{display:none}
+html[data-keysize="small"] .keys button{min-width:32px;height:30px;font-size:13px}
+html[data-keysize="large"] .keys button{min-width:50px;height:48px;font-size:18px}
+.cm-guide{box-shadow:inset 1px 0 0 var(--code-dim)}
+.kbd-list{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:8px 0 14px;align-items:center}
+.kbd-list kbd,.kbd{font-family:var(--f-code);font-size:13px;background:var(--chip);border:2px solid var(--line);border-bottom-width:3px;padding:1px 7px;min-width:28px;text-align:center;display:inline-block}
+.kbd-list h3{grid-column:1/-1;margin:10px 0 0;font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--muted)}
+*{box-sizing:border-box}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:3px solid var(--ink);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px}
-.top-in{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:12px 20px;flex-wrap:wrap}
+.top-in{max-width:var(--page-w,1280px);margin:0 auto;display:flex;align-items:center;gap:12px 20px;flex-wrap:wrap}
 .logo{font-family:var(--f-display);font-size:calc(22px * var(--scale));letter-spacing:.02em;line-height:1;background:none;border:0;padding:0;color:var(--ink);display:flex;align-items:center;gap:8px}
 .logo .cart{width:22px;height:22px;display:block}
 .nav{display:flex;gap:4px;flex-wrap:wrap}
@@ -494,11 +520,11 @@ html[data-bar="bottom"] .tabbar{order:3}
 .icon{width:16px;height:16px;flex:0 0 auto;display:block}
 
 .view{flex:1;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;outline:none}
-.wrap{max-width:1280px;margin:0 auto;display:grid;gap:20px;min-width:0}
+.wrap{max-width:var(--page-w,1280px);margin:0 auto;display:grid;gap:var(--gap,20px);min-width:0}
 .tabbar{display:none}
 
 /* panels & buttons */
-.card{background:var(--panel);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--shadow);padding:20px;min-width:0}
+.card{background:var(--panel);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--shadow);padding:var(--card-pad,20px);min-width:0}
 .btn{background:var(--panel);color:var(--ink);border:2px solid var(--ink);padding:8px 14px;font-family:var(--f-display);font-size:calc(12px * var(--scale));letter-spacing:.05em;box-shadow:3px 3px 0 var(--shadow);display:inline-flex;align-items:center;gap:8px;transition:transform .06s,box-shadow .06s;text-decoration:none;line-height:1.2}
 .btn:hover{background:var(--panel2)}
 .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--shadow)}
@@ -614,7 +640,7 @@ pre.cb[data-k="txt"]{--kc:var(--k-pat);background:var(--panel2);color:var(--ink)
 .dots i{width:7px;height:7px;background:var(--line);display:block}
 .dots i.d{background:var(--sc,var(--gold))}
 .dots i.c{background:var(--ink);outline:2px solid var(--ink);outline-offset:1px}
-.board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:20px;align-items:start}
+.board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:var(--gap,20px);align-items:start}
 .lesson h1{font-size:calc(26px * var(--scale));line-height:1.15;margin:4px 0 12px;text-wrap:balance}
 .mission{border:2px dashed var(--accent);padding:12px 14px;margin-top:6px}
 .mission>b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--accent);display:block;margin-bottom:4px}
@@ -19861,6 +19887,8 @@ var DEFAULTS = {
   lineNumbers: true, autoClose: true, keys: true, activeLine: true,
   hints: "button", solutions: true, details: true, lint: true,
   sound: true, volume: 0.5, celebrate: true, motion: "on", runKey: true, barPos: "top", barHidden: false,
+  icons: true, navLabels: true, navIcons: true, btnSize: "normal", borders: "bold", shadows: "hard", corners: "square", density: "normal", pageWidth: "normal",
+  showCont: true, showMe: true, dots: true, learnLinks: true, guides: false, keySize: "normal", shortcuts: true,
   lineHeight: "normal", letterSpacing: "normal", measure: "normal", toastTime: "normal", focusStrong: false, cbColors: false,
   wrap: false, indent: 2, brackets: true, edHeight: "medium", readAloud: true, readRate: 1, quizShuffle: true, quizAuto: false, clickSound: true
 };
@@ -20015,9 +20043,16 @@ function applySettings() {
   r.style.setProperty("--ed-min", eh[0]); r.style.setProperty("--ed-max", eh[1]);
   if (st.focusStrong) r.setAttribute("data-focus", "strong"); else r.removeAttribute("data-focus");
   if (st.cbColors) r.setAttribute("data-cb", "1"); else r.removeAttribute("data-cb");
+  var flag = function (name, on) { if (on) r.setAttribute(name, "off"); else r.removeAttribute(name); };
+  flag("data-icons", !st.icons); var navIcons = st.icons && st.navIcons; flag("data-navicons", !navIcons); flag("data-navlabels", !st.navLabels && navIcons);
+  flag("data-dots", !st.dots); flag("data-links", !st.learnLinks);
+  [["data-btn", st.btnSize, "normal"], ["data-borders", st.borders, "bold"], ["data-shadows", st.shadows, "hard"], ["data-corners", st.corners, "square"], ["data-keysize", st.keySize, "normal"]].forEach(function (a) { if (a[1] && a[1] !== a[2]) r.setAttribute(a[0], a[1]); else r.removeAttribute(a[0]); });
+  var dn = { compact: ["12px", "14px"], normal: ["20px", "20px"], spacious: ["30px", "28px"] }[st.density] || ["20px", "20px"];
+  r.style.setProperty("--gap", dn[0]); r.style.setProperty("--card-pad", dn[1]);
+  r.style.setProperty("--page-w", { normal: "1280px", wide: "1600px", full: "100%" }[st.pageWidth] || "1280px");
   if (st.barHidden) r.setAttribute("data-bar-hidden", "1"); else r.removeAttribute("data-bar-hidden");
   var bt = $("barTab"); if (bt) bt.innerHTML = glyph({ top: "down", bottom: "up", left: "right", right: "left" }[st.barPos] || "down") + "Menu";
-  if (editor && editor.cm) { editor.cm.setOption("lineNumbers", st.lineNumbers); editor.cm.setOption("autoCloseBrackets", st.autoClose); editor.cm.setOption("styleActiveLine", st.activeLine); editor.cm.setOption("lineWrapping", st.wrap); editor.cm.setOption("matchBrackets", st.brackets); editor.cm.setOption("indentUnit", Number(st.indent)); editor.cm.setOption("tabSize", Number(st.indent)); editor.cm.refresh(); }
+  if (editor && editor.cm) { editor.cm.setOption("lineNumbers", st.lineNumbers); editor.cm.setOption("autoCloseBrackets", st.autoClose); editor.cm.setOption("styleActiveLine", st.activeLine); editor.cm.setOption("lineWrapping", st.wrap); editor.cm.setOption("matchBrackets", st.brackets); editor.cm.setOption("indentUnit", Number(st.indent)); editor.cm.setOption("tabSize", Number(st.indent)); setGuides(editor.cm); editor.cm.refresh(); }
 }
 
 // ---------------- sound & fx ----------------
@@ -20100,9 +20135,9 @@ function glyph(name) {
 function dockHtml(lv, xp, pct) {
   var c = S.profile ? lastStageObj() : null, off = !S.set.sound;
   var out = '<div class="dock" role="toolbar" aria-label="Quick actions">';
-  if (c && !(route.v === "stage" && route.arg === c.id)) out += '<button class="dk cont" data-go="stage" data-arg="' + c.id + '" title="Continue: ' + h(c.sec.title) + " " + c.n + '" aria-label="Continue where you left off: ' + h(c.sec.title) + " stage " + c.n + '">' + glyph("play") + '<span class="ct">Continue<small>' + h(c.sec.title) + " · " + c.n + "</small></span></button>";
+  if (S.set.showCont && c && !(route.v === "stage" && route.arg === c.id)) out += '<button class="dk cont" data-go="stage" data-arg="' + c.id + '" title="Continue: ' + h(c.sec.title) + " " + c.n + '" aria-label="Continue where you left off: ' + h(c.sec.title) + " stage " + c.n + '">' + glyph("play") + '<span class="ct">Continue<small>' + h(c.sec.title) + " · " + c.n + "</small></span></button>";
   out += '<button class="dk mute" data-mute aria-pressed="' + off + '" aria-label="Mute all sounds" title="' + (off ? "Sound is off. Click to turn it on" : "Mute all sounds") + '">' + glyph(off ? "mute" : "sound") + '<span class="fl">' + (off ? "Muted" : "Sound on") + "</span></button>";
-  out += '<button class="dk me" data-go="me" aria-label="Your profile, level ' + lv + '"><span class="lv">LV ' + lv + '</span><span class="nm">' + h(nameOf()) + '</span><span class="xpmini" title="' + xp + ' XP"><i style="width:' + pct + '%"></i></span></button>';
+  if (S.set.showMe) out += '<button class="dk me" data-go="me" aria-label="Your profile, level ' + lv + '"><span class="lv">LV ' + lv + '</span><span class="nm">' + h(nameOf()) + '</span><span class="xpmini" title="' + xp + ' XP"><i style="width:' + pct + '%"></i></span></button>';
   out += '<button class="dk fold" data-hidebar aria-label="Hide the menu bar" title="Hide the menu bar">' + glyph({ top: "up", bottom: "down", left: "left", right: "right" }[S.set.barPos] || "up") + '<span class="fl">Hide</span></button>';
   return out + "</div>";
 }
@@ -20253,6 +20288,13 @@ function wireReadAloud(root) {
     speechSynthesis.speak(u);
   };
 }
+// faint vertical lines at each indent level (Settings > Editor > Indent guide lines)
+var guideOverlay = { token: function (stream) {
+  var lead = stream.string.match(/^[ ]*/)[0].length, col = stream.pos, n = Number(S.set.indent) || 2;
+  if (col < lead && lead < stream.string.length) { var take = Math.min(n - (col % n), lead - col); for (var i = 0; i < take; i++) stream.next(); return col % n === 0 ? "guide" : null; }
+  stream.skipToEnd(); return null;
+} };
+function setGuides(cm) { cm.removeOverlay(guideOverlay); if (S.set.guides) cm.addOverlay(guideOverlay); }
 function indentStr() { return Number(S.set.indent) === 4 ? "    " : "  "; }
 function makeEditor(host, code, onChange, onRun) {
   var ed = { cm: null, ta: null };
@@ -20268,6 +20310,7 @@ function makeEditor(host, code, onChange, onRun) {
         }
       });
       ed.cm.on("change", function () { ed.clearErr(); onChange(ed.get()); });
+      setGuides(ed.cm);
     } catch (e) { ed.cm = null; host.innerHTML = ""; }
   }
   if (!ed.cm) {
@@ -20827,12 +20870,21 @@ function viewSettings(V) {
   var sel = function (id, opts, val) { return '<select class="sel" id="' + id + '">' + opts.map(function (o) { var v = Array.isArray(o) ? o[0] : o, l = Array.isArray(o) ? o[1] : o; return '<option value="' + h(v) + '"' + (String(v) === String(val) ? " selected" : "") + ">" + h(l) + "</option>"; }).join("") + "</select>"; };
   var tog = function (id, label, on) { return '<label class="toggle"><span>' + label + '</span><input type="checkbox" class="switch" id="' + id + '"' + (on ? " checked" : "") + "></label>"; };
   V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">OPTIONS</p><h1>Settings</h1><p class="muted" style="margin:6px 0 0">Changes save as you make them.</p></div><button class="ghost" id="resetSet">Reset settings to defaults</button></section>' +
-    '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Theme"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" +
+    '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Theme"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setLayout", "Layout & look"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setKeys2", "Shortcuts"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" +
     '<div class="setgrid">' +
     '<section class="card" id="setPlayer"><h2 class="sub">PLAYER</h2><div class="field"><label for="setName">Your name</label><input type="text" id="setName" maxlength="24" value="' + h(nameOf()) + '"><span class="hint2">Lessons, greetings, and some starter code use this name.</span></div></section>' +
     '<section class="card" id="setTheme"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { return '<button type="button" class="swatch" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + '</b><span class="muted">' + s[2] + "</span></button>"; }).join("") + "</div></section>" +
+    '<section class="card" id="setLayout"><h2 class="sub">LAYOUT & LOOK</h2>' +
+    '<div class="field"><label for="setBtnSize">Button size</label>' + sel("setBtnSize", [["small", "Small"], ["normal", "Normal"], ["large", "Large"]], st.btnSize) + "</div>" +
+    '<div class="field"><label for="setDensity">Spacing</label>' + sel("setDensity", [["compact", "Compact"], ["normal", "Comfortable"], ["spacious", "Roomy"]], st.density) + "</div>" +
+    '<div class="field"><label for="setPageW">Page width</label>' + sel("setPageW", [["normal", "Normal"], ["wide", "Wide"], ["full", "Full screen"]], st.pageWidth) + "</div>" +
+    '<div class="field"><label for="setBorders">Box outlines</label>' + sel("setBorders", [["bold", "Bold"], ["soft", "Soft"], ["off", "Off"]], st.borders) + "</div>" +
+    '<div class="field"><label for="setShadows">Shadows</label>' + sel("setShadows", [["hard", "Blocky (retro)"], ["soft", "Soft"], ["off", "Off"]], st.shadows) + "</div>" +
+    '<div class="field"><label for="setCorners">Corners</label>' + sel("setCorners", [["square", "Square"], ["round", "Rounded"]], st.corners) + "</div>" +
+    tog("setIcons", "Show icons", st.icons) + tog("setDots", "Show the stage progress dots", st.dots) + tog("setLinks", "Show \"Learn more\" links in lessons", st.learnLinks) + "</section>" +
     '<section class="card" id="setMenu"><h2 class="sub">MENU BAR</h2><div class="field"><label for="setBarPos">Position</label>' + sel("setBarPos", [["top", "Top"], ["left", "Left side"], ["right", "Right side"], ["bottom", "Bottom"]], st.barPos) + '<span class="hint2">On phones, Left and Right stay at the top.</span></div>' +
-    tog("setBarHide", "Hide the menu bar", st.barHidden) + '<span class="hint2">A small Menu button stays in the corner to bring it back.</span></section>' +
+    tog("setBarHide", "Hide the menu bar", st.barHidden) + '<span class="hint2">A small Menu button stays in the corner to bring it back.</span>' +
+    tog("setNavLabels", "Words on menu buttons", st.navLabels) + tog("setNavIcons", "Icons on menu buttons", st.navIcons) + tog("setShowCont", "Continue button", st.showCont) + tog("setShowMe", "Player card (level and XP)", st.showMe) + "</section>" +
     '<section class="card" id="setText"><h2 class="sub">TEXT & READING</h2>' +
     '<div class="field"><label for="setScale">Text size</label>' + sel("setScale", [[0.9, "Small"], [1, "Medium"], [1.12, "Large"], [1.25, "Extra large"]], st.scale) + "</div>" +
     '<div class="field"><label for="setBody">Reading font</label>' + sel("setBody", [["Atkinson Hyperlegible", "Atkinson Hyperlegible (made for readability)"], ["Lexend", "Lexend (wide letters)"], ["Nunito", "Nunito (rounded)"], ["System", "My device's font"]], st.body) + "</div>" +
@@ -20847,13 +20899,15 @@ function viewSettings(V) {
     '<section class="card" id="setA11y"><h2 class="sub">ACCESSIBILITY</h2>' + tog("setCB", "Color-blind friendly right/wrong colors", st.cbColors) + '<span class="hint2">Uses blue for right and orange for wrong instead of green and red.</span>' +
     tog("setFocus", "Extra-visible keyboard focus", st.focusStrong) +
     '<div class="field" style="margin-top:12px"><label for="setToast">How long messages stay on screen</label>' + sel("setToast", [["short", "Short"], ["normal", "Normal"], ["long", "Long"]], st.toastTime) + "</div></section>" +
-    '<section class="card" id="setEditor"><h2 class="sub">EDITOR</h2>' + tog("setLines", "Line numbers", st.lineNumbers) + tog("setClose", "Auto-close brackets and quotes", st.autoClose) + tog("setKeys", "Symbol keys under the editor", st.keys) + tog("setActive", "Highlight the current line", st.activeLine) + tog("setRunKey", "Ctrl+Enter runs code", st.runKey) +  tog("setWrap", "Wrap long lines", st.wrap) + tog("setBrackets", "Highlight matching brackets", st.brackets) +
+    '<section class="card" id="setEditor"><h2 class="sub">EDITOR</h2>' + tog("setLines", "Line numbers", st.lineNumbers) + tog("setClose", "Auto-close brackets and quotes", st.autoClose) + tog("setKeys", "Symbol keys under the editor (keyboard helper)", st.keys) + tog("setActive", "Highlight the current line", st.activeLine) + tog("setRunKey", "Ctrl+Enter runs code", st.runKey) +  tog("setWrap", "Wrap long lines", st.wrap) + tog("setBrackets", "Highlight matching brackets", st.brackets) +
     '<div class="field" style="margin-top:12px"><label for="setIndent">Indent size</label>' + sel("setIndent", [[2, "2 spaces"], [4, "4 spaces"]], st.indent) + "</div>" +
-    '<div class="field"><label for="setEdH">Editor height</label>' + sel("setEdH", [["short", "Short"], ["medium", "Medium"], ["tall", "Tall"]], st.edHeight) + "</div>" + "</section>" +
+    '<div class="field"><label for="setEdH">Editor height</label>' + sel("setEdH", [["short", "Short"], ["medium", "Medium"], ["tall", "Tall"]], st.edHeight) + "</div>" +  tog("setGuides", "Indent guide lines", st.guides) +
+    '<div class="field" style="margin-top:12px"><label for="setKeySize">Symbol key size</label>' + sel("setKeySize", [["small", "Small"], ["normal", "Normal"], ["large", "Large"]], st.keySize) + "</div>" + "</section>" +
     '<section class="card" id="setLearn"><h2 class="sub">LEARNING</h2><div class="field"><label for="setHints">Hints</label>' + sel("setHints", [["button", "Show a hint button"], ["auto", "Show hints automatically after 2 misses"], ["off", "No hints (hard mode)"]], st.hints) + "</div>" +
     tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + "</section>" +
     '<section class="card" id="setQuiz"><h2 class="sub">QUIZZES</h2>' + tog("setShuffle", "Shuffle answer choices", st.quizShuffle) + tog("setQAuto", "Go to the next question after a right answer", st.quizAuto) + "</section>" +
     '<section class="card" id="setFeel"><h2 class="sub">SOUND & FEEL</h2>' + tog("setSound", "Sound effects", st.sound) + tog("setClick", "Click sounds on buttons", st.clickSound) + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
+    '<section class="card" id="setKeys2"><h2 class="sub">SHORTCUTS</h2>' + tog("setShortcuts", "Keyboard shortcuts", st.shortcuts) + '<span class="hint2">Single keys like M for Map and V for sound. Press ? anywhere to see them all.</span><div class="row" style="margin-top:10px"><button class="ghost" type="button" id="kbList">Show all shortcuts</button></div></section>' +
     '<section class="card" id="setSave"><h2 class="sub">SAVE DATA</h2><p class="muted" style="margin-top:0;font-size:14px">Progress saves in this browser automatically. To move it to another device or keep a backup, copy your save code and paste it in on the other device.</p>' +
     '<div class="row"><button class="btn" id="expBtn">Copy save code</button><button class="btn" id="impBtn">Load save code</button></div><div id="saveArea"></div>' +
     '<div style="margin-top:16px;padding-top:12px;border-top:2px solid var(--line)"><button class="ghost" id="resetAll" style="border-color:var(--fail);color:var(--fail)">Erase all progress</button></div></section></div></div>';
@@ -20879,6 +20933,13 @@ function viewSettings(V) {
   bind("setIndent", "indent", function (e) { return Number(e.value); }); bind("setEdH", "edHeight");
   bind("setShuffle", "quizShuffle", function (e) { return e.checked; }); bind("setQAuto", "quizAuto", function (e) { return e.checked; });
   bind("setClick", "clickSound", function (e) { return e.checked; });
+  var chk = function (e) { return e.checked; };
+  bind("setBtnSize", "btnSize"); bind("setDensity", "density"); bind("setPageW", "pageWidth"); bind("setBorders", "borders"); bind("setShadows", "shadows"); bind("setCorners", "corners");
+  bind("setIcons", "icons", chk); bind("setDots", "dots", chk); bind("setLinks", "learnLinks", chk);
+  bind("setNavLabels", "navLabels", chk); bind("setNavIcons", "navIcons", chk); bind("setShowCont", "showCont", chk); bind("setShowMe", "showMe", chk);
+  ["setShowCont", "setShowMe"].forEach(function (id) { $(id).addEventListener("change", renderTop); });
+  bind("setGuides", "guides", chk); bind("setKeySize", "keySize"); bind("setShortcuts", "shortcuts", chk);
+  $("kbList").onclick = showShortcuts;
   $("setToast").addEventListener("change", function () { toast("This is how long messages stay up."); });
   V.querySelectorAll("[data-jump]").forEach(function (b) { b.onclick = function () { var c = $(b.getAttribute("data-jump")); if (c) { c.scrollIntoView({ behavior: S.set.motion === "on" ? "smooth" : "auto", block: "start" }); var hd = c.querySelector("h2"); if (hd) { hd.tabIndex = -1; hd.focus({ preventScroll: true }); } } }; });
   $("resetSet").onclick = function () {
@@ -20935,6 +20996,39 @@ var startHash = (location.hash || "").replace(/^#/, "");
 if (S.profile && startHash && /^(map|quizzes|sandbox|ref|settings|me)$/.test(startHash)) go(startHash);
 else go("map");
 if (!S.profile) onboard();
+// ---------------- keyboard shortcuts ----------------
+var SHORTCUTS = [
+  ["Getting around", [["M", "Map"], ["Q", "Quizzes"], ["S", "Sandbox"], ["R", "Reference"], ["O", "Settings"], ["P", "Your player card"], ["C", "Continue where you left off"]]],
+  ["Anywhere", [["V", "Sound on or off"], ["B", "Hide or show the menu bar"], ["?", "This list"], ["Esc", "Close a pop-up"]]],
+  ["In a lesson", [["[", "Previous stage"], ["]", "Next stage"], ["H", "Show a hint"], ["E", "Jump into the code editor"], ["Ctrl+Enter", "Run your code (while typing)"]]],
+  ["In Reference", [["/", "Search"]]]
+];
+function showShortcuts() {
+  var ov = $("overlay");
+  ov.innerHTML = '<div class="modal" role="dialog" aria-labelledby="kbT"><p class="eyebrow">SHORTCUTS</p><h2 id="kbT">Keyboard shortcuts</h2><p class="muted" style="margin-top:0">They work when you are not typing in a box. Turn them off in Settings.</p><div class="kbd-list">' +
+    SHORTCUTS.map(function (g) { return "<h3>" + h(g[0].toUpperCase()) + "</h3>" + g[1].map(function (k) { return '<kbd>' + h(k[0]) + "</kbd><span>" + h(k[1]) + "</span>"; }).join(""); }).join("") +
+    '</div><div class="row"><button class="btn primary" id="cabX" type="button">Got it</button></div></div>';
+  ov.hidden = false; $("cabX").onclick = function () { ov.hidden = true; ov.innerHTML = ""; }; $("cabX").focus();
+}
+document.addEventListener("keydown", function (e) {
+  if (!S.set.shortcuts || !S.profile || e.ctrlKey || e.metaKey || e.altKey || e.defaultPrevented) return;
+  if (!$("overlay").hidden) return;
+  var t = e.target; if (t && (t.closest("input,textarea,select,[contenteditable='true'],.CodeMirror"))) return;
+  var k = e.key, low = k.length === 1 ? k.toLowerCase() : k, click = function (sel) { var b = document.querySelector(sel); if (b) { b.click(); return true; } return false; };
+  var nav = { m: "map", q: "quizzes", s: "sandbox", r: "ref", o: "settings", p: "me" }, done = true;
+  if (nav[low] && !e.shiftKey) { SFX.click(); go(nav[low]); }
+  else if (low === "c") done = click(".dk.cont") || click('.hello [data-go="stage"]');
+  else if (low === "v") toggleMute();
+  else if (low === "b") setBarHidden(!S.set.barHidden);
+  else if (k === "?") showShortcuts();
+  else if (k === "[" && route.v === "stage") done = click('[aria-label="Previous stage"]');
+  else if (k === "]" && route.v === "stage") done = click('[aria-label="Next stage"]');
+  else if (low === "h" && route.v === "stage") done = click("#hintBtn");
+  else if (low === "e" && editor) { if (editor.cm) editor.cm.focus(); else if (editor.ta) editor.ta.focus(); }
+  else if (k === "/" && route.v === "ref" && $("refQ")) $("refQ").focus();
+  else done = false;
+  if (done) e.preventDefault();
+});
 document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("overlay").hidden && S.profile) { var x = $("cabX"); if (x) x.click(); } });
 })();
 
