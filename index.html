@@ -845,6 +845,7 @@ textarea.fallback{display:block;width:100%;min-height:280px;border:0;background:
 
 /* sandbox */
 .sbx{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+.wgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start;margin-bottom:20px}.studio .CodeMirror,.studio .CodeMirror-scroll{min-height:300px;max-height:56vh}.wprev{display:grid;gap:8px}.wprev .lbl{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--f-display);font-size:11px;letter-spacing:.06em}.webframe{height:clamp(340px,64vh,660px);width:100%;margin:0 auto;border:2px solid var(--ink);background:#fff;overflow:hidden;transform:translateZ(0)}.webframe.phone{width:min(100%,375px)}.wtip{margin:0 0 8px;font-size:13px}.wauto{display:inline-flex;align-items:center;gap:4px;font-size:13px;cursor:pointer}
 .drawer{padding:0;display:flex;flex-direction:column;max-height:calc(100vh - 140px);position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--bar-off,78px))}
 .drawer .dh{padding:12px;border-bottom:2px solid var(--ink);display:grid;gap:8px}
 .drawer .dh input{font-size:15px;padding:8px 10px;border:2px solid var(--ink);background:var(--panel);color:var(--ink);width:100%}
@@ -978,6 +979,7 @@ html[data-cb="1"][data-skin="sunset"],html[data-cb="1"][data-skin="hologram"],ht
   .board{grid-template-columns:minmax(0,1fr)}
   .console{position:static}
   .sbx{grid-template-columns:minmax(0,1fr)}
+  .wgrid{grid-template-columns:minmax(0,1fr)}
   .drawer{position:static;max-height:none}
   .drawer .dl{max-height:520px}
   .path{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:22px}
@@ -20071,6 +20073,7 @@ var S = {
   set: Object.assign({}, DEFAULTS, load("settings", {})),
   last: load("last", null),
   sbx: load("sandbox", null),
+  web: load("web", null),
   medalsSeen: load("medals", {}),
   streak: load("streak", { last: "", cur: 0, best: 0 }),
   arc: load("arcade", {})
@@ -20914,7 +20917,7 @@ function bgStart() {
   if (stillMotion()) { bgDraw(0); return; }
   if (!document.hidden) BG.raf = requestAnimationFrame(bgLoop);
 }
-function bgCalmAttr() { document.documentElement.setAttribute("data-bgcalm", S.set.bgCalm && /^(stage|quiz|sandbox|review)$/.test(route.v) ? "1" : "0"); }
+function bgCalmAttr() { document.documentElement.setAttribute("data-bgcalm", S.set.bgCalm && /^(stage|quiz|sandbox|studio|review)$/.test(route.v) ? "1" : "0"); }
 window.addEventListener("resize", function () { clearTimeout(BG.rt); BG.rt = setTimeout(function () { if (BG.fx !== "off") bgStart(); }, 200); });
 document.addEventListener("visibilitychange", function () { if (document.hidden) { cancelAnimationFrame(BG.raf); BG.raf = 0; } else if (BG.fx !== "off") bgStart(); });
 if (window.matchMedia) { try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () { if (S.set.skin === "auto") bgStart(); }); } catch (e) {} }
@@ -21041,7 +21044,7 @@ function routeHash(v, arg) { return "#" + v + (arg ? "/" + encodeURIComponent(ar
 function parseRoute(hash) {
   var m = /^#([a-z]+)(?:\/(.+))?$/.exec(hash || ""); if (!m) return null;
   var v = m[1], arg = null; try { arg = m[2] ? decodeURIComponent(m[2]) : null; } catch (e) { return null; }
-  if (!/^(map|section|stage|quizzes|quiz|review|sandbox|ref|settings|me)$/.test(v)) return null;
+  if (!/^(map|section|stage|quizzes|quiz|review|sandbox|studio|ref|settings|me)$/.test(v)) return null;
   if ((v === "section" && !SEC[arg]) || (v === "stage" && !STAGE[arg]) || (v === "quiz" && !D.quizzes.some(function (q) { return q.id === arg; }) && !XQUIZ[arg])) return null;
   return { v: v, arg: arg };
 }
@@ -21054,7 +21057,7 @@ function histPush(prev, v, arg, replace) {
 }
 function pageTitle(v, arg) {
   var st = v === "stage" && STAGE[arg], sec = v === "section" && SEC[arg], q = v === "quiz" && (D.quizzes.filter(function (x) { return x.id === arg; })[0] || XQUIZ[arg]);
-  var t = st ? st.sec.title + " " + st.n + ": " + st.t : sec ? sec.title : q ? q.title : { map: "Map", quizzes: "Quiz Hall", sandbox: "Sandbox", ref: "Reference", settings: "Settings", me: "Player card", review: "Review" }[v];
+  var t = st ? st.sec.title + " " + st.n + ": " + st.t : sec ? sec.title : q ? q.title : { map: "Map", quizzes: "Quiz Hall", sandbox: "Sandbox", studio: "Web Studio", ref: "Reference", settings: "Settings", me: "Player card", review: "Review" }[v];
   return (t ? t + " · " : "") + "Script Quest";
 }
 function toTopCheck() { var b = $("toTop"); if (!b) return; var show = !!S.set.backTop && window.scrollY > 500; if (b.hidden === show) b.hidden = !show; }
@@ -21126,7 +21129,7 @@ function toggleMute() {
 }
 function renderTop() {
   var xp = totalXp(), lv = levelOf(xp), pct = Math.min(100, (xp - xpFor(lv)) / (xpFor(lv + 1) - xpFor(lv)) * 100);
-  var cur = route.v === "section" || route.v === "stage" ? "map" : route.v === "quiz" ? "quizzes" : route.v;
+  var cur = route.v === "section" || route.v === "stage" ? "map" : route.v === "quiz" ? "quizzes" : route.v === "studio" ? "sandbox" : route.v;
   $("top").innerHTML = '<div class="top-in"><button class="logo" data-go="map" aria-label="Script Quest home">' + icon("cart", "cart") + 'Script Quest</button>' +
     '<nav class="nav" aria-label="Main">' + TABS.map(function (t) { return '<button data-go="' + t[0] + '" title="' + t[1] + '"' + (cur === t[0] ? ' aria-current="page"' : "") + ">" + icon(t[2]) + '<span class="tl">' + t[1] + "</span></button>"; }).join("") + "</nav>" +
     '<span class="spacer"></span>' + dockHtml(lv, xp, pct) + "</div>";
@@ -21152,7 +21155,7 @@ function go(v, arg, opts) {
   if (v !== "stage" || !opts.keepScroll) window.scrollTo(0, 0);
   renderTop();
   var V = $("view");
-  ({ map: viewMap, section: viewSection, stage: viewStage, quizzes: viewQuizzes, quiz: viewQuiz, review: viewReview, sandbox: viewSandbox, ref: viewRef, settings: viewSettings, me: viewMe }[v] || viewMap)(V, arg);
+  ({ studio: viewStudio, map: viewMap, section: viewSection, stage: viewStage, quizzes: viewQuizzes, quiz: viewQuiz, review: viewReview, sandbox: viewSandbox, ref: viewRef, settings: viewSettings, me: viewMe }[v] || viewMap)(V, arg);
   highlightAll(V);
   document.title = pageTitle(v, arg); bgCalmAttr(); toTopCheck();
   if (!same && S.set.pageAnim !== "off") { V.classList.remove("enter"); void V.offsetWidth; V.classList.add("enter"); }
@@ -21895,7 +21898,7 @@ function sbxDecode(t) {
 function viewSandbox(V) {
   var sb = sbxState(), slot = sb.slots[sb.cur];
   var snipQ = "";
-  V.innerHTML = '<div class="wrap sandbox"><div class="stage-top"><div><p class="eyebrow">FREE PLAY</p><h1 class="title">Sandbox</h1></div><div class="row"><span class="seg" role="group" aria-label="Run mode"><button type="button" data-mode="console" aria-pressed="' + (sb.mode === "console") + '">CONSOLE</button><button type="button" data-mode="page" aria-pressed="' + (sb.mode === "page") + '">PAGE</button></span>' +
+  V.innerHTML = '<div class="wrap sandbox"><div class="stage-top"><div><p class="eyebrow">FREE PLAY</p><h1 class="title">Sandbox</h1></div><div class="row"><span class="seg" role="group" aria-label="Run mode"><button type="button" data-mode="console" aria-pressed="' + (sb.mode === "console") + '">CONSOLE</button><button type="button" data-mode="page" aria-pressed="' + (sb.mode === "page") + '">PAGE</button><button type="button" id="toWeb" aria-pressed="false" title="Build your own website">WEB</button></span>' +
     '<select class="sel" id="slotSel" aria-label="Save slot">' + sb.slots.map(function (s, i) { return '<option value="' + i + '"' + (i === sb.cur ? " selected" : "") + ">" + h(s.name) + "</option>"; }).join("") + '</select><button class="ghost" id="renSlot">Rename</button><button class="ghost" id="newSlot" title="New empty slot">+ New</button><button class="ghost" id="delSlot"' + (sb.slots.length > 1 ? "" : " disabled") + '>Delete</button><button class="ghost" id="tplBtn">Templates</button><button class="ghost" id="openShare">Open shared</button></div></div><div id="sbPanel"></div>' +
     '<div class="sbx"><section class="card console" aria-label="Sandbox console"><div class="cbar"><span class="file"><i></i><span id="slotName">' + h(slot.name) + '.js</span></span><div class="row"><button class="ghost" id="sbCopy">Copy</button><button class="ghost" id="sbSave" title="Download this slot as a .js file">Download</button><button class="ghost" id="sbShare">Share</button><button class="ghost" id="sbClear">Clear</button><button class="ghost" id="sbStop"' + (sb.mode === "page" ? "" : " hidden") + '>Stop</button><button class="btn primary" id="sbRun">▶ RUN</button></div></div>' +
     '<div class="preview" id="sbPrev"' + (sb.mode === "page" ? "" : " hidden") + '><div class="lbl"><span>PAGE · root</span><span>canvas 320×200</span></div><div class="stagebox" id="sbRoot"></div><canvas id="sbCv" width="320" height="200"></canvas></div>' +
@@ -21961,6 +21964,7 @@ function viewSandbox(V) {
       viewSandbox(V); highlightAll(V); toast("Opened " + o.n);
     };
   };
+  $("toWeb").onclick = function () { go("studio"); };
   $("newSlot").onclick = function () {
     if (sb.slots.length >= 8) { toast("8 slots is the limit. Delete one first."); return; }
     var n = sb.slots.length + 1; while (sb.slots.some(function (x) { return x.name === "Slot " + n; })) n++;
@@ -21997,6 +22001,217 @@ function viewSandbox(V) {
     if (r.err) { var x = explainHtml(r.err, code); res.innerHTML = x.html + lintHtml(code); if (x.line) editor.markErr(x.line); SFX.fail(); }
     else { res.innerHTML = lintHtml(code); sb.runs = (sb.runs || 0) + 1; save("sandbox", sb); markActive(600); checkMedals(600); }
   }
+}
+
+// ---------------- WEB STUDIO ----------------
+// build-your-own-website mode: HTML, CSS and JS tabs, a live preview, and one-click features
+var WEB_BASE = { html: "<!-- Your website! Add sections with ADD A FEATURE below, or type your own tags. -->\n", css: "/* Color theme: change these and the whole site follows */\n:root {\n  --main: #2457d6;\n  --accent: #f0b33a;\n  --bg: #ffffff;\n  --text: #1d2330;\n  --soft: #eef2fb;\n}\n* { box-sizing: border-box; }\nbody {\n  font-family: system-ui, sans-serif;\n  line-height: 1.5;\n  background: var(--bg);\n  color: var(--text);\n  margin: 0;\n  transition: background 0.3s, color 0.3s;\n}\nsection { padding: 24px 20px; }\nh1, h2, h3 { margin-top: 0; }\nimg { max-width: 100%; }\n", js: "// JavaScript makes your site do things. Features you add put their code here.\n" };
+var WEB_FEATS = [{"id": "nav", "name": "Navigation bar", "desc": "A menu bar with your name and links to each section.", "place": "top", "html": "<nav class=\"nav\">\n  <b class=\"logo\">@@name<\/b>\n  <a href=\"#home\">Home<\/a>\n  <a href=\"#about\">About<\/a>\n  <a href=\"#contact\">Contact<\/a>\n<\/nav>", "css": ".nav {\n  display: flex;\n  gap: 16px;\n  align-items: center;\n  padding: 12px 20px;\n  background: var(--main);\n}\n.nav a { color: white; text-decoration: none; }\n.nav a:hover { text-decoration: underline; }\n.nav .logo { color: white; margin-right: auto; }", "js": "", "once": 1}, {"id": "hero", "name": "Big title banner", "desc": "A colorful welcome banner with a headline and a button.", "place": "after-top", "html": "<header class=\"hero\" id=\"home\">\n  <h1>Hi, I'm @@name!<\/h1>\n  <p>I'm learning to build websites with HTML, CSS and JavaScript.<\/p>\n  <a class=\"btn\" href=\"#about\">Find out more<\/a>\n<\/header>", "css": ".hero {\n  padding: 48px 20px;\n  text-align: center;\n  color: white;\n  background: linear-gradient(135deg, var(--main), var(--accent));\n}\n.hero h1 { font-size: 2.2em; margin: 0 0 8px; }\n.btn {\n  display: inline-block;\n  padding: 10px 18px;\n  border-radius: 8px;\n  background: white;\n  color: var(--main);\n  font-weight: bold;\n  text-decoration: none;\n}", "js": "", "once": 1}, {"id": "about", "name": "About me", "desc": "A round picture next to a few sentences about you.", "place": "body", "html": "<section id=\"about\" class=\"about\">\n  <div class=\"pic\">🙂<\/div>\n  <div>\n    <h2>About me<\/h2>\n    <p>Write a few sentences about yourself here. What do you like? What are you building?<\/p>\n  <\/div>\n<\/section>", "css": ".about { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }\n.about .pic {\n  width: 110px;\n  height: 110px;\n  border-radius: 50%;\n  background: var(--soft);\n  display: grid;\n  place-items: center;\n  font-size: 48px;\n}\n/* Tip: swap the emoji for a real picture: <img src=\"photo.jpg\" alt=\"Me\"> */", "js": ""}, {"id": "cards", "name": "Card grid", "desc": "Boxes that line up in a grid and lift when you hover.", "place": "body", "html": "<section class=\"cards\">\n  <h2>My favorite things<\/h2>\n  <div class=\"grid\">\n    <div class=\"card\"><h3>🎮 Games<\/h3><p>The games I love to play.<\/p><\/div>\n    <div class=\"card\"><h3>🎨 Art<\/h3><p>Things I like to draw.<\/p><\/div>\n    <div class=\"card\"><h3>💻 Code<\/h3><p>Projects I am building.<\/p><\/div>\n  <\/div>\n<\/section>", "css": ".grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));\n  gap: 14px;\n}\n.card {\n  background: var(--soft);\n  padding: 16px;\n  border-radius: 12px;\n  transition: transform 0.2s, box-shadow 0.2s;\n}\n.card h3 { margin: 0 0 6px; }\n.card:hover { transform: translateY(-4px); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); }", "js": ""}, {"id": "gallery", "name": "Photo gallery", "desc": "A neat grid of tiles, ready for your pictures.", "place": "body", "html": "<section class=\"gallery\">\n  <h2>Gallery<\/h2>\n  <div class=\"tiles\">\n    <div class=\"tile\" style=\"background:#ff7a59\">1<\/div>\n    <div class=\"tile\" style=\"background:#2fa37a\">2<\/div>\n    <div class=\"tile\" style=\"background:#7a5cff\">3<\/div>\n    <div class=\"tile\" style=\"background:#f0b33a\">4<\/div>\n    <div class=\"tile\" style=\"background:#2b9fd9\">5<\/div>\n    <div class=\"tile\" style=\"background:#e85d75\">6<\/div>\n  <\/div>\n<\/section>", "css": ".tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }\n.tile {\n  aspect-ratio: 1;\n  border-radius: 10px;\n  display: grid;\n  place-items: center;\n  color: white;\n  font-size: 1.6em;\n  font-weight: bold;\n}\n/* Tip: put <img src=\"cat.jpg\" alt=\"My cat\"> inside a tile to show a real picture */", "js": ""}, {"id": "clicker", "name": "Click counter", "desc": "A button that counts every click.", "place": "body", "html": "<section class=\"clicker\">\n  <h2>Click counter<\/h2>\n  <button class=\"bigbtn\" id=\"clickBtn\">Click me!<\/button>\n  <p id=\"clickText\">You haven't clicked yet.<\/p>\n<\/section>", "css": ".bigbtn {\n  padding: 12px 22px;\n  border: 0;\n  border-radius: 8px;\n  background: var(--main);\n  color: white;\n  font-size: 1.1em;\n  font-weight: bold;\n  cursor: pointer;\n}\n.bigbtn:active { transform: scale(0.95); }", "js": "// Count the clicks and show a message\nlet clicks = 0;\ndocument.querySelector(\"#clickBtn\").addEventListener(\"click\", () => {\n  clicks++;\n  document.querySelector(\"#clickText\").textContent = \"You clicked \" + clicks + \" times!\";\n});"}, {"id": "dark", "name": "Dark mode switch", "desc": "A button that flips the whole site between light and dark.", "place": "top", "html": "<button class=\"toggle\" id=\"darkBtn\">🌙 Dark mode<\/button>", "css": ".toggle {\n  position: fixed;\n  right: 12px;\n  bottom: 12px;\n  padding: 8px 14px;\n  border-radius: 20px;\n  border: 2px solid var(--main);\n  background: var(--bg);\n  color: var(--text);\n  cursor: pointer;\n  z-index: 5;\n}\n/* the dark colors: used when the page has the \"dark\" class */\nbody.dark {\n  --bg: #14171f;\n  --text: #e8eaf0;\n  --soft: #232838;\n}", "js": "// Add or remove the \"dark\" class on the page\ndocument.querySelector(\"#darkBtn\").addEventListener(\"click\", () => {\n  document.body.classList.toggle(\"dark\");\n  const dark = document.body.classList.contains(\"dark\");\n  document.querySelector(\"#darkBtn\").textContent = dark ? \"☀️ Light mode\" : \"🌙 Dark mode\";\n});"}, {"id": "theme", "name": "Color picker", "desc": "Pick a color and the whole site changes to match.", "place": "body", "html": "<section class=\"picker\">\n  <label>Pick a main color: <input type=\"color\" id=\"colorPick\" value=\"#2457d6\"><\/label>\n<\/section>", "css": ".picker input { width: 48px; height: 32px; border: 0; vertical-align: middle; cursor: pointer; }", "js": "// Change the --main color variable whenever the picker moves\ndocument.querySelector(\"#colorPick\").addEventListener(\"input\", (event) => {\n  document.body.style.setProperty(\"--main\", event.target.value);\n});"}, {"id": "popup", "name": "Pop-up box", "desc": "A button that opens a message box on top of the page.", "place": "body", "html": "<section>\n  <button class=\"popbtn\" id=\"openPop\">Open the surprise<\/button>\n<\/section>\n<div class=\"popup\" id=\"popup\" hidden>\n  <div class=\"box\">\n    <h2>Surprise! 🎉<\/h2>\n    <p>This is a pop-up. Put a special message here.<\/p>\n    <button class=\"popbtn\" id=\"closePop\">Close<\/button>\n  <\/div>\n<\/div>", "css": ".popup {\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.5);\n  display: grid;\n  place-items: center;\n  z-index: 10;\n}\n.popup[hidden] { display: none; }\n.popup .box {\n  background: var(--bg);\n  color: var(--text);\n  padding: 24px;\n  border-radius: 14px;\n  max-width: 300px;\n  text-align: center;\n}\n.popbtn {\n  padding: 10px 18px;\n  border: 0;\n  border-radius: 8px;\n  background: var(--accent);\n  font-weight: bold;\n  cursor: pointer;\n}", "js": "// Show the pop-up, and hide it again\nconst popup = document.querySelector(\"#popup\");\ndocument.querySelector(\"#openPop\").addEventListener(\"click\", () => { popup.hidden = false; });\ndocument.querySelector(\"#closePop\").addEventListener(\"click\", () => { popup.hidden = true; });"}, {"id": "slider", "name": "Slideshow", "desc": "Slides you flip through with arrow buttons.", "place": "body", "html": "<section class=\"slider\">\n  <h2>Slideshow<\/h2>\n  <div class=\"slide\" id=\"slide\"><\/div>\n  <button id=\"prevSlide\">◀<\/button>\n  <button id=\"nextSlide\">▶<\/button>\n<\/section>", "css": ".slide {\n  height: 140px;\n  margin-bottom: 10px;\n  border-radius: 12px;\n  display: grid;\n  place-items: center;\n  color: white;\n  font-size: 1.3em;\n  font-weight: bold;\n  transition: background 0.3s;\n}\n.slider button {\n  padding: 6px 14px;\n  border: 2px solid var(--main);\n  border-radius: 8px;\n  background: var(--bg);\n  color: var(--main);\n  cursor: pointer;\n}", "js": "// An array of slides and a number that says which one is showing\nconst slides = [\n  { text: \"Welcome to my site!\", color: \"#2457d6\" },\n  { text: \"Check out my projects\", color: \"#e85d75\" },\n  { text: \"Thanks for visiting\", color: \"#2fa37a\" }\n];\nlet current = 0;\nfunction showSlide() {\n  const slide = document.querySelector(\"#slide\");\n  slide.textContent = slides[current].text;\n  slide.style.background = slides[current].color;\n}\ndocument.querySelector(\"#nextSlide\").addEventListener(\"click\", () => {\n  current = (current + 1) % slides.length;\n  showSlide();\n});\ndocument.querySelector(\"#prevSlide\").addEventListener(\"click\", () => {\n  current = (current - 1 + slides.length) % slides.length;\n  showSlide();\n});\nshowSlide();"}, {"id": "pages", "name": "Tabs (mini pages)", "desc": "Buttons that switch between pages without leaving the site.", "place": "body", "html": "<section class=\"pages\">\n  <div class=\"tabs\">\n    <button data-page=\"p1\" class=\"on\">Home<\/button>\n    <button data-page=\"p2\">Projects<\/button>\n    <button data-page=\"p3\">Links<\/button>\n  <\/div>\n  <div class=\"pg\" id=\"p1\"><h2>Home<\/h2><p>Each tab shows a different page.<\/p><\/div>\n  <div class=\"pg\" id=\"p2\" hidden><h2>Projects<\/h2><p>List your projects here.<\/p><\/div>\n  <div class=\"pg\" id=\"p3\" hidden><h2>Links<\/h2><p>Add links to your favorite sites.<\/p><\/div>\n<\/section>", "css": ".tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }\n.tabs button {\n  padding: 8px 14px;\n  border: 0;\n  border-radius: 8px;\n  background: var(--soft);\n  color: var(--text);\n  cursor: pointer;\n}\n.tabs button.on { background: var(--main); color: white; }", "js": "// Show one page at a time when a tab is clicked\nconst tabs = document.querySelectorAll(\".tabs button\");\ntabs.forEach((tab) => {\n  tab.addEventListener(\"click\", () => {\n    tabs.forEach((t) => t.classList.remove(\"on\"));\n    tab.classList.add(\"on\");\n    document.querySelectorAll(\".pg\").forEach((pg) => {\n      pg.hidden = pg.id !== tab.dataset.page;\n    });\n  });\n});"}, {"id": "form", "name": "Contact form", "desc": "Boxes to type a name and message, with a thank-you reply.", "place": "body", "html": "<section id=\"contact\" class=\"contact\">\n  <h2>Contact me<\/h2>\n  <form id=\"contactForm\">\n    <input id=\"who\" placeholder=\"Your name\">\n    <textarea id=\"msg\" placeholder=\"Your message\"><\/textarea>\n    <button>Send<\/button>\n  <\/form>\n  <p id=\"thanks\"><\/p>\n<\/section>", "css": ".contact form { display: grid; gap: 8px; max-width: 360px; }\n.contact input, .contact textarea {\n  padding: 10px;\n  border: 2px solid var(--soft);\n  border-radius: 8px;\n  font: inherit;\n  background: var(--bg);\n  color: var(--text);\n}\n.contact button {\n  padding: 10px;\n  border: 0;\n  border-radius: 8px;\n  background: var(--main);\n  color: white;\n  font-weight: bold;\n  cursor: pointer;\n}", "js": "// Stop the page reloading, then say thanks\ndocument.querySelector(\"#contactForm\").addEventListener(\"submit\", (event) => {\n  event.preventDefault();\n  const who = document.querySelector(\"#who\").value || \"friend\";\n  document.querySelector(\"#thanks\").textContent = \"Thanks, \" + who + \"! Your message was sent (pretend).\";\n  event.target.reset();\n});"}, {"id": "footer", "name": "Footer", "desc": "A strip at the bottom with your name and this year.", "place": "end", "html": "<footer class=\"foot\">\n  <p>Made by @@name with HTML, CSS and JavaScript · <span id=\"year\"><\/span><\/p>\n<\/footer>", "css": ".foot {\n  padding: 20px;\n  margin-top: 20px;\n  text-align: center;\n  background: var(--soft);\n  font-size: 0.9em;\n}", "js": "// Fill in this year automatically\ndocument.querySelector(\"#year\").textContent = new Date().getFullYear();", "once": 1}];
+var WEB_STARTERS = [{"name": "Blank site", "desc": "A title banner and nothing else. Add the rest yourself.", "feats": ["hero"]}, {"name": "Portfolio", "desc": "Show who you are and what you make.", "feats": ["nav", "hero", "about", "cards", "form", "footer"]}, {"name": "Fan page", "desc": "All about your favorite game, band or show.", "feats": ["nav", "hero", "gallery", "slider", "pages", "footer"]}, {"name": "Shop", "desc": "A pretend store with products, a sale pop-up and dark mode.", "feats": ["nav", "dark", "hero", "cards", "popup", "form", "footer"]}];
+var WEB_TIPS = {
+  html: "HTML is the content: headings, words, pictures, buttons and sections.",
+  css: "CSS is the look. Change the colors at the top (:root) and the whole site follows.",
+  js: "JavaScript makes the site do things when people click, type and scroll."
+};
+var WEB_MAX = 6;
+function webFeat(id) { return WEB_FEATS.filter(function (f) { return f.id === id; })[0]; }
+function webInsertHtml(html, add, place) {
+  var at;
+  if (place === "top" || place === "after-top") {
+    var nav = html.indexOf("</nav>");
+    at = place === "after-top" && nav >= 0 ? nav + 6 : 0;
+    if (!at) { var m = /^(\s*<!--[\s\S]*?-->)/.exec(html); at = m ? m[1].length : 0; }
+  } else if (place === "body") { at = html.search(/<footer[\s>]/); if (at < 0) at = html.length; }
+  else at = html.length;
+  var before = html.slice(0, at).replace(/\s+$/, ""), after = html.slice(at).replace(/^\s+/, "");
+  return (before ? before + "\n\n" : "") + add + (after ? "\n\n" + after.replace(/\s+$/, "") : "") + "\n";
+}
+// adds a feature's HTML, CSS and JS to a site; false when a scripted or one-per-site feature is already there
+function webAddFeature(site, f) {
+  if (f.js && site.js.indexOf("// " + f.name + "\n") >= 0) return false;
+  if (f.once && site.html.indexOf(f.html.split("\n")[0]) >= 0) return false;
+  site.html = webInsertHtml(site.html, personalCode(f.html), f.place);
+  if (site.css.indexOf("/* " + f.name + " */") < 0) site.css = site.css.replace(/\s+$/, "") + "\n\n/* " + f.name + " */\n" + f.css + "\n";
+  if (f.js) site.js = site.js.replace(/\s+$/, "") + "\n\n// " + f.name + "\n" + personalCode(f.js) + "\n";
+  return true;
+}
+function webStarter(st) {
+  var site = { name: st.name === "Blank site" ? "My site" : st.name, html: WEB_BASE.html, css: WEB_BASE.css, js: WEB_BASE.js };
+  st.feats.forEach(function (id) { webAddFeature(site, webFeat(id)); });
+  return site;
+}
+function webState() {
+  if (!S.web) S.web = { sites: [webStarter(WEB_STARTERS[1])], cur: 0, tab: "html", auto: true, width: "full", used: {} };
+  if (!S.web.used) S.web.used = {};
+  return S.web;
+}
+function webAdd(site) {
+  var w = webState(); if (w.sites.length >= WEB_MAX) return false;
+  w.sites.push(site); w.cur = w.sites.length - 1; save("web", w); return true;
+}
+function webEncode(site) { return "SQW1:" + btoa(unescape(encodeURIComponent(JSON.stringify({ n: site.name, h: site.html, c: site.css, j: site.js })))); }
+function webDecode(t) {
+  t = String(t || "").trim(); var i = t.indexOf("#web="); if (i >= 0) t = decodeURIComponent(t.slice(i + 5));
+  if (t.indexOf("SQW1:") !== 0) return null;
+  try {
+    var o = JSON.parse(decodeURIComponent(escape(atob(t.slice(5)))));
+    if (typeof o.h !== "string" || typeof o.c !== "string" || typeof o.j !== "string") return null;
+    return { name: String(o.n || "Shared site").slice(0, 24), html: o.h, css: o.c, js: o.j };
+  } catch (e) { return null; }
+}
+// the preview lives in a shadow root, so `body`, `html` and `:root` rules are pointed at its stand-ins
+function webCss(css) {
+  return css.replace(/(^|[\s,{}>+~(])(html|:root)(?=[\s,{.:#\[>+~)])/g, "$1:host").replace(/(^|[\s,{}>+~(])body(?=[\s,{.:#\[>+~)])/g, "$1.page");
+}
+// a real, standalone web page anyone can open in a browser
+function webDocument(site) {
+  return "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>" + h(site.name) + "</title>\n<style>\n" +
+    site.css.replace(/<\/style/gi, "<\\/style") + "\n</style>\n</head>\n<body>\n" + site.html + "\n<script>\n" + site.js.replace(/<\/script/gi, "<\\/script") + "\n<\/script>\n</body>\n</html>\n";
+}
+if (typeof CodeMirror !== "undefined" && CodeMirror.defineMode) {
+  CodeMirror.defineMode("sqhtml", function () {
+    return { startState: function () { return { tag: false, cmt: false }; }, token: function (s, st) {
+      if (st.cmt) { if (s.skipTo("-->")) { s.match("-->"); st.cmt = false; } else s.skipToEnd(); return "comment"; }
+      if (!st.tag) {
+        if (s.match("<!--")) { st.cmt = true; return "comment"; }
+        if (s.match(/^<\/?[\w-]+/)) { st.tag = true; return "keyword"; }
+        s.next(); s.eatWhile(/[^<]/); return null;
+      }
+      if (s.match(/^\/?>/)) { st.tag = false; return "keyword"; }
+      if (s.match(/^"[^"]*"?/) || s.match(/^'[^']*'?/)) return "string";
+      if (s.match(/^[\w:@-]+/)) return "property";
+      s.next(); return null;
+    } };
+  });
+  CodeMirror.defineMode("sqcss", function () {
+    return { startState: function () { return { depth: 0, cmt: false }; }, token: function (s, st) {
+      if (st.cmt) { if (s.skipTo("*/")) { s.match("*/"); st.cmt = false; } else s.skipToEnd(); return "comment"; }
+      if (s.match("/*")) { st.cmt = true; return "comment"; }
+      if (s.eatSpace()) return null;
+      var c = s.peek();
+      if (c === "{") { s.next(); st.depth++; return null; }
+      if (c === "}") { s.next(); st.depth = Math.max(0, st.depth - 1); return null; }
+      if (s.match(/^"[^"]*"?/) || s.match(/^'[^']*'?/)) return "string";
+      if (s.match(/^@[\w-]+/)) return "def";
+      if (st.depth && s.match(/^-{0,2}[\w-]+(?=\s*:)/)) return "property";
+      if (st.depth) {
+        if (s.match(/^#[0-9a-fA-F]{3,8}\b/) || s.match(/^-?\d*\.?\d+(px|em|rem|%|vh|vw|s|ms|fr|deg)?/)) return "number";
+        if (s.match(/^[\w-]+(?=\()/)) return "builtin";
+        if (s.match(/^[\w-]+/)) return "atom";
+        s.next(); return null;
+      }
+      if (s.match(/^[.#][\w-]+/) || s.match(/^:{1,2}[\w-]+/)) return "variable-2";
+      if (s.match(/^[\w-]+/)) return "keyword";
+      s.next(); return null;
+    } };
+  });
+}
+function viewStudio(V) {
+  var w = webState(), site = w.sites[w.cur] || w.sites[0], tab = w.tab || "html";
+  var tabBtn = function (k, l) { return '<button type="button" data-wt="' + k + '" aria-pressed="' + (tab === k) + '">' + l + "</button>"; };
+  V.innerHTML = '<div class="wrap studio"><div class="stage-top"><div><p class="eyebrow">FREE PLAY · WEB DESIGN</p><h1 class="title">Web Studio</h1></div><div class="row">' +
+    '<span class="seg" role="group" aria-label="Sandbox mode"><button type="button" data-sbx="console" aria-pressed="false">CONSOLE</button><button type="button" data-sbx="page" aria-pressed="false">PAGE</button><button type="button" aria-pressed="true">WEB</button></span>' +
+    '<select class="sel" id="siteSel" aria-label="Your websites">' + w.sites.map(function (s, i) { return '<option value="' + i + '"' + (i === w.cur ? " selected" : "") + ">" + h(s.name) + "</option>"; }).join("") + "</select>" +
+    '<button class="ghost" id="newSite">+ New site</button><button class="ghost" id="renSite">Rename</button><button class="ghost" id="delSite"' + (w.sites.length > 1 ? "" : " disabled") + '>Delete</button><button class="ghost" id="openWeb">Open shared</button></div></div>' +
+    '<div id="webPanel"></div><div class="wgrid">' +
+    '<section class="card console" aria-label="Website code"><div class="cbar"><span class="seg" role="group" aria-label="Code tab">' + tabBtn("html", "HTML") + tabBtn("css", "CSS") + tabBtn("js", "JS") + '</span><div class="row">' +
+    '<label class="wauto"><input type="checkbox" id="webAuto"' + (w.auto !== false ? " checked" : "") + '> Live</label><button class="ghost" id="webCopy">Copy</button><button class="ghost" id="webDl" title="Download a real .html file you can open in any browser">Download</button><button class="ghost" id="webShare">Share</button><button class="btn primary" id="webRun">▶ RUN</button></div></div>' +
+    '<p class="muted wtip" id="webTip">' + WEB_TIPS[tab] + '</p><div class="edwrap" id="webHost"></div>' + keysHtml() + '<div class="outh"><span>CONSOLE</span></div><div class="out" id="webOut"><span class="dim">console.log messages show up here.</span></div><div id="webRes"></div></section>' +
+    '<section class="card wprev" aria-label="Website preview"><div class="lbl"><span>PREVIEW · ' + h(site.name.toUpperCase()) + '</span><span class="seg" role="group" aria-label="Preview size"><button type="button" data-ww="full" aria-pressed="' + (w.width !== "phone") + '">DESKTOP</button><button type="button" data-ww="phone" aria-pressed="' + (w.width === "phone") + '">PHONE</button></span></div><div class="webframe' + (w.width === "phone" ? " phone" : "") + '" id="webFrame"></div></section></div>' +
+    '<section class="card"><h2 class="sub">ADD A FEATURE</h2><p class="muted" style="margin-top:0">One click adds the HTML, CSS and JavaScript for it. Then change the words and colors to make it yours.</p><div class="tpls" id="featList">' +
+    WEB_FEATS.map(function (f) { return '<button type="button" class="tpl" data-feat="' + f.id + '"><b>+ ' + h(f.name) + '</b><span class="muted">' + h(f.desc) + '</span><span class="tag">HTML · CSS' + (f.js ? " · JS" : "") + "</span></button>"; }).join("") + "</div></section></div>";
+  var frame = $("webFrame"), sh = frame.attachShadow({ mode: "open" }), cleanup = null, timer = null, runId = 0;
+  // links in the preview never move the game: # links scroll the preview, web links open in a new tab
+  sh.addEventListener("click", function (e) {
+    var a = e.composedPath().filter(function (n) { return n.tagName === "A"; })[0]; if (!a) return;
+    e.preventDefault(); var href = a.getAttribute("href") || "";
+    if (href.charAt(0) === "#") { var t = href.length > 1 && sh.getElementById(href.slice(1)), sc = sh.querySelector(".scroll"); if (t && sc) sc.scrollTo({ top: t.offsetTop, behavior: "smooth" }); }
+    else if (/^https?:\/\//i.test(href)) window.open(href, "_blank", "noopener");
+  }, true);
+  sh.addEventListener("submit", function (e) { e.preventDefault(); }, true);
+  async function refresh() {
+    var my = ++runId; if (cleanup) { cleanup(); cleanup = null; }
+    sh.innerHTML = "<style>:host{all:initial;display:block;height:100%}.scroll{height:100%;overflow:auto;background:#fff}.page{display:block;min-height:100%;position:relative}" + webCss(site.css) + '</style><div class="scroll"><div class="page">' + site.html + "</div></div>";
+    var out = $("webOut"), res = $("webRes"), live = [];
+    res.innerHTML = ""; editor.clearErr();
+    var r = await sqRunPage(site.js, { root: sh.querySelector(".page"),
+      onLog: function (l) { if (!$("webOut")) return; if (l === null) live = []; else live.push(l); renderOutput($("webOut"), live, null); },
+      onError: function (er) { if (!$("webRes")) return; var x = explainHtml(er, site.js); $("webRes").innerHTML = x.html; if (x.line && tab === "js") editor.markErr(x.line); } });
+    if (my !== runId) { r.cleanup(); return; }
+    cleanup = r.cleanup;
+    if (!$("webOut")) return;
+    renderOutput(out, r.logs || [], r.err);
+    if (r.err) { var x = explainHtml(r.err, site.js); res.innerHTML = '<p class="muted" style="margin:6px 0 0">This is in the <b>JS</b> tab.</p>' + x.html; if (x.line && tab === "js") editor.markErr(x.line); }
+    else if (!(r.logs || []).length) out.innerHTML = '<span class="dim">console.log messages show up here.</span>';
+  }
+  cleanupView = function () { clearTimeout(timer); runId++; if (cleanup) cleanup(); };
+  var editor = makeEditor($("webHost"), site[tab], function (c) {
+    site[tab] = c; save("web", w);
+    if (w.auto !== false) { clearTimeout(timer); timer = setTimeout(refresh, 700); }
+  }, function () { SFX.run(); refresh(); });
+  if (editor.cm) editor.cm.setOption("mode", tab === "js" ? "javascript" : "sq" + tab);
+  wireKeys(V, editor); editor.refresh();
+  var rerender = function () { viewStudio(V); highlightAll(V); };
+  V.querySelectorAll("[data-wt]").forEach(function (b) { b.onclick = function () { w.tab = b.getAttribute("data-wt"); save("web", w); rerender(); }; });
+  V.querySelectorAll("[data-ww]").forEach(function (b) { b.onclick = function () { w.width = b.getAttribute("data-ww"); save("web", w); frame.classList.toggle("phone", w.width === "phone"); V.querySelectorAll("[data-ww]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); }; });
+  V.querySelectorAll("[data-sbx]").forEach(function (b) { b.onclick = function () { var sb = sbxState(); sb.mode = sb.slots[sb.cur].mode = b.getAttribute("data-sbx"); save("sandbox", sb); go("sandbox"); }; });
+  $("webAuto").onchange = function () { w.auto = this.checked; save("web", w); if (w.auto) refresh(); };
+  $("webRun").onclick = function () { SFX.run(); refresh(); };
+  $("siteSel").onchange = function () { w.cur = Number(this.value); save("web", w); rerender(); };
+  $("webCopy").onclick = function () { copyText(site[tab], $("webCopy")); };
+  $("webDl").onclick = function () {
+    var a = document.createElement("a"), url = URL.createObjectURL(new Blob([webDocument(site)], { type: "text/html" }));
+    a.href = url; a.download = (site.name.replace(/[^\w\- ]+/g, "").trim() || "my-site") + ".html";
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    toast("Downloaded! Open the file in any browser to see your real website.");
+  };
+  function showPanel(k, inner) { var p = $("webPanel"); if (p.dataset.k === k) { p.innerHTML = ""; p.dataset.k = ""; return false; } p.dataset.k = k; p.innerHTML = '<section class="card sbpanel">' + inner + "</section>"; return true; }
+  $("newSite").onclick = function () {
+    if (!showPanel("new", '<h2 class="sub">START A NEW WEBSITE</h2><div class="tpls">' + WEB_STARTERS.map(function (s, i) { return '<button type="button" class="tpl" data-start="' + i + '"><b>' + h(s.name) + '</b><span class="muted">' + h(s.desc) + "</span></button>"; }).join("") + "</div>")) return;
+    $("webPanel").querySelectorAll("[data-start]").forEach(function (b) { b.onclick = function () {
+      if (!webAdd(webStarter(WEB_STARTERS[+b.getAttribute("data-start")]))) { toast(WEB_MAX + " websites is the limit. Delete one first."); return; }
+      w.tab = "html"; save("web", w); rerender(); toast("New website ready. Try ADD A FEATURE!");
+    }; });
+  };
+  $("renSite").onclick = function () {
+    if ($("renWeb")) return;
+    var inp = document.createElement("input"); inp.id = "renWeb"; inp.value = site.name; inp.className = "sel"; inp.maxLength = 24; inp.setAttribute("aria-label", "Website name");
+    $("renSite").parentNode.insertBefore(inp, $("renSite")); inp.focus(); inp.select();
+    var done = function () { var v = inp.value.trim(); if (v) { site.name = v; save("web", w); } rerender(); };
+    inp.onkeydown = function (e) { if (e.key === "Enter") done(); if (e.key === "Escape") rerender(); };
+    inp.onblur = done;
+  };
+  $("delSite").onclick = function () {
+    var b = $("delSite"); if (w.sites.length < 2) return;
+    if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to delete " + site.name; return; }
+    var gone = w.sites.splice(w.cur, 1)[0]; w.cur = Math.max(0, w.cur - 1); save("web", w); rerender(); toast("Deleted " + gone.name);
+  };
+  $("webShare").onclick = function () {
+    var code = webEncode(site), link = location.href.split("#")[0] + "#web=" + encodeURIComponent(code);
+    if (!showPanel("share", '<h2 class="sub">SHARE ' + h(site.name.toUpperCase()) + '</h2><textarea id="wShareTa" readonly aria-label="Share code">' + h(code) + '</textarea><div class="row"><button class="btn primary" id="wShareCode">Copy code</button><button class="btn" id="wShareLink">Copy link</button></div><p class="hint2">Friends paste the code into <b>Open shared</b>. The link opens it straight in their Web Studio when they use the same copy of Script Quest. To put your site on the real internet, use <b>Download</b>.</p>')) return;
+    $("wShareTa").onfocus = function () { this.select(); };
+    $("wShareCode").onclick = function () { copyText(code, $("wShareCode")); };
+    $("wShareLink").onclick = function () { copyText(link, $("wShareLink")); };
+  };
+  $("openWeb").onclick = function () {
+    if (!showPanel("open", '<h2 class="sub">OPEN A SHARED WEBSITE</h2><textarea id="wOpenTa" placeholder="SQW1:… or a share link" aria-label="Shared website code"></textarea><div class="row"><button class="btn primary" id="wOpenGo">Open it</button><span id="wOpenMsg" class="hint2">It opens as a new website, so nothing gets overwritten.</span></div>')) return;
+    $("wOpenTa").focus();
+    $("wOpenGo").onclick = function () {
+      var o = webDecode($("wOpenTa").value);
+      if (!o) { $("wOpenMsg").innerHTML = '<span style="color:var(--fail)">That code didn\'t work. Copy all of it, starting with SQW1:</span>'; return; }
+      if (!webAdd(o)) { toast(WEB_MAX + " websites is the limit. Delete one first."); return; }
+      rerender(); toast("Opened " + o.name);
+    };
+  };
+  $("featList").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-feat]"); if (!b) return;
+    var f = webFeat(b.getAttribute("data-feat"));
+    if (!webAddFeature(site, f)) { toast("Your site already has a " + f.name + ". Find it in the HTML tab."); return; }
+    w.used[f.id] = 1; save("web", w);
+    var ed = editor.get(); if (ed !== site[tab]) editor.set(site[tab]);
+    refresh(); toast("Added " + f.name + "! Look for it in the preview."); checkMedals(600);
+  });
+  refresh();
 }
 
 // ---------------- REFERENCE ----------------
@@ -22047,6 +22262,8 @@ function medalList(real) {
     { id: "clean25", t: "Sharp eye ×25", got: clean >= 25, sub: Math.min(clean, 25) + "/25 without peeking", sc: "s4", m: "◉" }, { id: "ace10", t: "Quiz ace ×10", got: aces >= 10, sub: Math.min(aces, 10) + "/10", sc: "s1", m: "★" },
     { id: "qall", t: "Quiz Hall regular", got: qTaken >= D.quizzes.length, sub: qTaken + "/" + D.quizzes.length + " quizzes", sc: "s1", m: "?" }, { id: "sbx10", t: "Tinkerer", got: runs >= 10, sub: Math.min(runs, 10) + "/10 clean sandbox runs", sc: "s2", m: "{}" },
     { id: "rv10", t: "Second wind", got: S.rvCleared >= 10, sub: Math.min(S.rvCleared, 10) + "/10 cleared from the Review Deck", sc: "s3", m: "↻" });
+  var webUsed = Object.keys((S.web && S.web.used) || {}).length;
+  medals.push({ id: "web5", t: "Web designer", got: webUsed >= 5, sub: Math.min(webUsed, 5) + "/5 Web Studio features", sc: "s4", m: "</>" });
   var stk = S.streak.best || 0;
   [[3, "On a roll"], [7, "Week streak"], [30, "Month streak"]].forEach(function (x) { medals.push({ id: "streak" + x[0], t: x[1], got: stk >= x[0], sub: Math.min(stk, x[0]) + "/" + x[0] + " days in a row", sc: "s5", m: "≋" }); });
   Object.keys(ARC_HI).forEach(function (e) {
@@ -22253,7 +22470,7 @@ function viewSettings(V) {
         var t = $("impTa").value.trim(); if (t.indexOf("SQ1:") !== 0) throw new Error("x");
         var dump = JSON.parse(decodeURIComponent(escape(atob(t.slice(4)))));
         allKeys().forEach(del); Object.keys(dump).forEach(function (k) { save(k, dump[k]); });
-        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.rvCleared = load("reviewCleared", 0); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.medalsSeen = load("medals", {}); seedMedals(); seedUnlocks(); devSync(true);
+        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.rvCleared = load("reviewCleared", 0); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.web = load("web", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.medalsSeen = load("medals", {}); seedMedals(); seedUnlocks(); devSync(true);
         S.lastStage = load("lastStage", S.last && S.last.v === "stage" ? S.last.arg : null);
         applySettings(); toast("Save loaded. Welcome back, " + nameOf() + "!"); go("map");
       } catch (e) { $("impMsg").innerHTML = '<p style="color:var(--fail)">That code didn\'t work. Make sure you copied all of it, starting with SQ1:</p>'; }
@@ -22264,7 +22481,7 @@ function viewSettings(V) {
     if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to erase everything"; return; }
     var keepName = nameOf(), keepSet = S.set;
     allKeys().forEach(del);
-    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.medalsSeen = {}; save("medals", {}); seedUnlocks();
+    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.web = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.medalsSeen = {}; save("medals", {}); seedUnlocks();
     toast("Progress erased."); go("map");
   };
 }
@@ -22294,8 +22511,15 @@ if (/^#sbx=/.test(location.hash || "")) {
   var sharedMsg = !shared ? "That share link is broken. Ask for the code instead." : sbxAdd(shared.n, shared.c, shared.m) ? "Opened shared code: " + shared.n : "Your sandbox is full (8 slots). Delete one, then open the link again.";
   setTimeout(function () { toast(sharedMsg); }, 400);
 }
+// a website share link (#web=SQW1:…) opens the site in Web Studio
+var webShared = /^#web=/.test(location.hash || "") ? webDecode(location.hash) : null;
+if (/^#web=/.test(location.hash || "")) {
+  try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+  var webMsg = !webShared ? "That website link is broken. Ask for the code instead." : webAdd(webShared) ? "Opened shared website: " + webShared.name : "Web Studio is full (" + WEB_MAX + " sites). Delete one, then open the link again.";
+  setTimeout(function () { toast(webMsg); }, 400);
+}
 try { history.scrollRestoration = "manual"; } catch (e) {}
-var bootRoute = shared && S.profile ? { v: "sandbox" } : parseRoute(location.hash);
+var bootRoute = shared && S.profile ? { v: "sandbox" } : webShared && S.profile ? { v: "studio" } : parseRoute(location.hash);
 if (S.profile && bootRoute) go(bootRoute.v, bootRoute.arg); else go("map");
 histReady = true;
 $("toTop").innerHTML = glyph("up") + "Top";
