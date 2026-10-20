@@ -1,0 +1,88 @@
+[
+ {
+  "term": "CRUD",
+  "cat": "Concepts",
+  "alias": "create read update delete",
+  "syn": "tasks.push(t); tasks.find(...); t.done = true; tasks.filter(...);",
+  "links": [],
+  "body": "<p>Create, Read, Update, Delete: the four things almost every app does to its data. In JavaScript they're usually <code>push</code>, <code>find</code> or <code>filter</code>, changing a property, and <code>filter</code> again.</p>",
+  "text": "Create, Read, Update, Delete: the four things almost every app does to its data. In JavaScript they're usually push, find or filter, changing a property, and filter again."
+ },
+ {
+  "term": "render",
+  "cat": "Concepts",
+  "alias": "redraw, view, state",
+  "syn": "function render() { list.innerHTML = \"\"; ... }",
+  "links": [],
+  "body": "<p>A function that draws the screen from the data. Apps follow one loop: something happens, the code changes the data, then <code>render()</code> redraws everything from it.</p>",
+  "text": "A function that draws the screen from the data. Apps follow one loop: something happens, the code changes the data, then render() redraws everything from it."
+ },
+ {
+  "term": "CSV",
+  "cat": "Concepts",
+  "alias": "comma-separated values, spreadsheet",
+  "syn": "date,steps\nMon,8200",
+  "links": [
+   [
+    "MDN: CSV",
+    "https://developer.mozilla.org/en-US/docs/Glossary/CSV"
+   ]
+  ],
+  "body": "<p>Comma-separated values: a plain-text table. The first line names the columns and each next line is a row. Spreadsheets can open and save it, and <code>split</code> reads it.</p>",
+  "text": "Comma-separated values: a plain-text table. The first line names the columns and each next line is a row. Spreadsheets can open and save it, and split reads it."
+ },
+ {
+  "term": "Intl.NumberFormat",
+  "cat": "Numbers",
+  "alias": "currency, money format, locale",
+  "syn": "new Intl.NumberFormat(\"en-US\", { style: \"currency\", currency: \"USD\" }).format(12.5)",
+  "links": [
+   [
+    "MDN: Intl.NumberFormat",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat"
+   ]
+  ],
+  "body": "<p>Formats numbers the way a country writes them, including money: <code>$1,234.50</code> in the US or <code>1.234,50 €</code> in Germany.</p>",
+  "text": "Formats numbers the way a country writes them, including money: $1,234.50 in the US or 1.234,50 € in Germany."
+ },
+ {
+  "term": "AudioContext",
+  "cat": "Browser & DOM",
+  "alias": "Web Audio, sound, oscillator, gain",
+  "syn": "const audio = new AudioContext();\nconst osc = audio.createOscillator();",
+  "links": [
+   [
+    "MDN: Web Audio API",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API"
+   ]
+  ],
+  "body": "<p>The browser's sound studio. Make sources like oscillators, send them through effects like a gain (volume) node, and connect to <code>audio.destination</code>, the speakers.</p>",
+  "text": "The browser's sound studio. Make sources like oscillators, send them through effects like a gain (volume) node, and connect to audio.destination, the speakers."
+ },
+ {
+  "term": "Electron",
+  "cat": "Concepts",
+  "alias": "desktop app",
+  "links": [
+   [
+    "Electron",
+    "https://www.electronjs.org/"
+   ]
+  ],
+  "body": "<p>A tool that turns a web app (HTML, CSS and JavaScript) into a desktop app for Windows, Mac and Linux. VS Code, Discord and Slack are built with it.</p>",
+  "text": "A tool that turns a web app (HTML, CSS and JavaScript) into a desktop app for Windows, Mac and Linux. VS Code, Discord and Slack are built with it."
+ },
+ {
+  "term": "PWA",
+  "cat": "Concepts",
+  "alias": "progressive web app, installable, offline",
+  "links": [
+   [
+    "MDN: Progressive web apps",
+    "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps"
+   ]
+  ],
+  "body": "<p>A progressive web app: a web app that can be installed with its own icon and keep working offline.</p>",
+  "text": "A progressive web app: a web app that can be installed with its own icon and keep working offline."
+ }
+]

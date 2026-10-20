@@ -1,0 +1,1928 @@
+{
+ "id": "apps",
+ "title": "Apps and Software with JavaScript",
+ "group": "build",
+ "xp": 20,
+ "icon": "AP",
+ "color": "s4",
+ "blurb": "Build real tools for work and data: to-do lists, tables, charts, sound and timers, and how desktop and phone apps are designed.",
+ "intro": "<p>Most software isn't games. It's <b>tools</b>: to-do lists, spreadsheets, budget trackers, music players, timers. This module shows how those apps are designed and how to build them with JavaScript.</p><p>You'll learn the kinds of apps, how desktop, phone and web apps differ, and the parts of an app window. Then you'll do the one thing every app does: keep the <b>data</b> in an array and <b>render</b> it to the screen. You'll add, edit, delete, search, sort, total up, import and export data, build Undo, draw bar, line and pie charts, play notes with the Web Audio API and make a stopwatch. The boss stage is a complete pocket money tracker.</p><div class=\"callout\"><b>Keep it simple</b><p>Every app here is the same loop: <i>something happens → change the data → render</i>. Once that clicks, you can build almost any tool. Try your own in the <button class=\"linkish\" type=\"button\" data-go=\"studio\">Web Studio</button>.</p></div>",
+ "links": [
+  [
+   "MDN: Web Audio API basics",
+   "https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API"
+  ],
+  [
+   "MDN: Canvas tutorial",
+   "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial"
+  ],
+  [
+   "MDN: Intl.NumberFormat",
+   "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat"
+  ],
+  [
+   "MDN: Progressive web apps",
+   "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps"
+  ],
+  [
+   "Nielsen Norman Group: 10 usability heuristics",
+   "https://www.nngroup.com/articles/ten-usability-heuristics/"
+  ]
+ ],
+ "stages": [
+  {
+   "uid": "a1",
+   "t": "Apps, sites and software",
+   "k": "pick",
+   "step": "learn",
+   "hook": "<p>Games are for fun. But most of the code in the world runs <b>tools</b>: calendars, calculators, music players, spreadsheets, chat apps. People use them to get something done. In this module you'll design and build tools like these with JavaScript.</p>",
+   "l": "<p>The words get mixed up a lot, so here's how people usually use them:</p><div class=\"tbl\"><table><thead><tr><th>Word</th><th>What it means</th><th>Example</th></tr></thead><tbody><tr><td><b>Software</b></td><td>Any program that runs on a computer or phone</td><td>Everything below, plus things like Windows itself</td></tr><tr><td><b>App</b> (application)</td><td>Software you use to <b>do a task</b>: write, plan, calculate, listen</td><td>Notes, Calculator, Spotify, Google Sheets</td></tr><tr><td><b>Website</b></td><td>Pages you mostly <b>read</b> and click through</td><td>A news site, a school's home page</td></tr><tr><td><b>Web app</b></td><td>An app that runs in a browser tab</td><td>Google Docs, Canva, Figma</td></tr></tbody></table></div><p>The difference between a website and a web app is mostly about what you do there. On a website you <i>read</i>. In an app you <i>make and change things</i>, and the app remembers them.</p>",
+   "p": "<p>Four things a student uses on a school laptop.</p>",
+   "q": "Which one is an <b>app</b> rather than a website?",
+   "opts": [
+    "A page that lists the school's opening hours",
+    "A budget tracker where you add what you spend and it totals it up",
+    "A news article about a football match",
+    "A museum's About page"
+   ],
+   "ans": 1,
+   "miss": [
+    "You only read the opening hours. Nothing you do changes or gets saved.",
+    "",
+    "You read an article, you don't make anything with it.",
+    "An About page is for reading."
+   ],
+   "why": "<p>In the budget tracker you <b>put data in</b>, the app <b>works something out</b> (the total), and it <b>remembers</b> it for next time. Input, processing and saving are what make something an app.</p>",
+   "h": "<p>Where do you make or change something that the program keeps?</p>"
+  },
+  {
+   "uid": "a2",
+   "t": "Kinds of apps",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Apps that aren't games mostly fall into a few families. Each family has its own habits:</p><div class=\"tbl\"><table><thead><tr><th>Family</th><th>Examples</th><th>What it's built around</th></tr></thead><tbody><tr><td><b>Productivity</b></td><td>To-do lists, notes, calendars</td><td>A list of items you add, edit, tick off and delete</td></tr><tr><td><b>Data</b></td><td>Spreadsheets, dashboards, budget trackers, fitness logs</td><td>Tables of numbers, totals and <b>charts</b></td></tr><tr><td><b>Media</b></td><td>Music players, audio editors, photo editors</td><td>Sound or pictures, with controls like play, volume and filters</td></tr><tr><td><b>Communication</b></td><td>Chat, email, video calls</td><td>Messages arriving and being sent</td></tr><tr><td><b>Utilities</b></td><td>Calculator, timer, unit converter, password generator</td><td>One small job, done fast</td></tr></tbody></table></div><div class=\"callout\"><b>Tip</b><p>Before you design an app, write one sentence: <i>This app helps [who] to [do what].</i> If you can't fill it in, you're not ready to draw buttons yet.</p></div>",
+   "p": "<p>A student wants to build an app where runners type in each run's distance and time, then see a chart of how they're improving.</p>",
+   "q": "Which family is it?",
+   "opts": [
+    "Communication",
+    "Media",
+    "Data",
+    "Utility"
+   ],
+   "ans": 2,
+   "miss": [
+    "Nobody is sending messages to anyone.",
+    "There's no sound or pictures to edit.",
+    "",
+    "It does more than one quick job: it keeps a history and charts it."
+   ],
+   "why": "<p>It stores rows of numbers (runs), works things out from them (pace, totals) and shows a chart. That's a data app, like a tiny spreadsheet built for one purpose.</p>",
+   "h": "<p>Look at what the app is built around: lists, numbers, sound, messages, or one quick job?</p>"
+  },
+  {
+   "uid": "a3",
+   "t": "Desktop, mobile and web",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>JavaScript started in the browser, but now it runs nearly everywhere. The same skills build all three kinds of app:</p><div class=\"tbl\"><table><thead><tr><th>Kind</th><th>Runs on</th><th>How JavaScript gets there</th><th>Real examples</th></tr></thead><tbody><tr><td><b>Web app</b></td><td>Any browser</td><td>Plain HTML, CSS and JavaScript</td><td>Google Docs, Canva</td></tr><tr><td><b>Desktop app</b></td><td>Windows, Mac, Linux</td><td><b>Electron</b> wraps a web app in its own window with a built-in browser</td><td>VS Code, Discord, Slack, Figma's desktop app</td></tr><tr><td><b>Mobile app</b></td><td>Phones and tablets</td><td><b>React Native</b> or <b>Capacitor</b> turn JavaScript into a phone app</td><td>Parts of Instagram, Discord's phone app</td></tr><tr><td><b>Installable web app</b> (PWA)</td><td>Browser, but with its own icon and offline mode</td><td>A web app plus a small file describing its name and icon</td><td>Twitter/X Lite, Starbucks ordering</td></tr></tbody></table></div><p>So the to-do list you'll build in this module could, with one of these tools, become a real desktop or phone app.</p>",
+   "p": "<p>A team has a working web app. They want people to download it and open it from their Windows and Mac taskbar, in its own window.</p>",
+   "q": "What would most JavaScript teams use?",
+   "opts": [
+    "Rewrite it in a different language for each system",
+    "Electron",
+    "A longer website",
+    "A PDF"
+   ],
+   "ans": 1,
+   "miss": [
+    "That works, but it's two whole new apps to write and fix.",
+    "",
+    "A website still lives in a browser tab, not its own window.",
+    "A PDF can't run code."
+   ],
+   "why": "<p>Electron bundles the web app with its own browser engine, so the same HTML, CSS and JavaScript become a desktop app. VS Code, the editor many programmers use every day, is built this way.</p>",
+   "h": "<p>Look at the Desktop row of the table.</p>"
+  },
+  {
+   "uid": "a4",
+   "t": "Anatomy of an app window",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Just like web pages, app windows have parts with names. Most desktop apps (and big web apps like Gmail) use the same layout:</p><div class=\"tbl\"><table><thead><tr><th>Part</th><th>What it holds</th></tr></thead><tbody><tr><td><b>Toolbar</b> (or app bar)</td><td>The app's name and the most-used actions: New, Search, Share</td></tr><tr><td><b>Sidebar</b></td><td>Navigation: folders, playlists, channels, pages</td></tr><tr><td><b>Main area</b> (or content pane)</td><td>The thing you're working on right now</td></tr><tr><td><b>Status bar</b></td><td>Small facts about what's happening: how many items, whether it's saved</td></tr><tr><td><b>Dialog</b> (or modal)</td><td>A box that pops up and asks a question before you continue</td></tr><tr><td><b>Toast</b></td><td>A short message that slides in and disappears by itself: <i>Note deleted · Undo</i></td></tr></tbody></table></div><p>This layout is called <b>list and detail</b>: pick something from the list on the left, see it on the right. Email, music players, file managers and chat apps all use it.</p>",
+   "p": "<p>Look at the Notes app.</p>",
+   "q": "Which letter is the <b>status bar</b>?",
+   "html": "<div class=\"app\" style=\"position:relative;min-height:200px\">\n<div class=\"bar\"><span class=\"tag\">A</span><span style=\"margin-left:22px\">📝 Notes</span><span class=\"sp\"></span><button style=\"padding:2px 8px;min-height:0\">+ New</button><button style=\"padding:2px 8px;min-height:0\">Search</button></div>\n<div style=\"display:flex;flex:1;min-height:130px\">\n<div style=\"position:relative;width:34%;background:#f3f5f9;border-right:1px solid #d5dbe6;padding:8px;font-size:13px\"><span class=\"tag\">B</span><div style=\"margin-top:22px\"><b>All notes</b><br>Shopping<br>Homework<br>Ideas</div></div>\n<div style=\"position:relative;flex:1;padding:8px\"><span class=\"tag\">C</span><div style=\"margin-top:22px\"><b>Homework</b><p style=\"margin:4px 0;font-size:13px\">Maths p.42, read chapter 3…</p></div></div>\n</div>\n<div style=\"position:relative;padding:4px 10px;background:#f3f5f9;border-top:1px solid #d5dbe6;font-size:12px;color:#55607a\"><span class=\"tag\">D</span><span style=\"margin-left:26px\">3 notes · Saved ✓</span></div>\n</div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n",
+   "opts": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ],
+   "ans": 3,
+   "miss": [
+    "A is the toolbar, with the app name and main actions.",
+    "B is the sidebar, the list of notes.",
+    "C is the main area, showing the note you picked.",
+    ""
+   ],
+   "why": "<p>D is the status bar. It quietly tells you things like <i>3 notes · Saved ✓</i> so you never wonder whether your work is safe.</p>",
+   "h": "<p>Status bars usually sit along the very bottom and show small facts.</p>"
+  },
+  {
+   "uid": "a5",
+   "t": "Designing for thumbs",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>On a phone, you design for a <b>thumb</b>, not a mouse. A few rules every mobile designer follows:</p><ul><li><b>Big tap targets.</b> Apple says buttons should be at least <b>44 by 44 points</b>, and Google says <b>48 by 48</b>. Smaller than that and people tap the wrong thing.</li><li><b>The thumb zone.</b> Holding a phone in one hand, your thumb easily reaches the bottom middle of the screen. The top corners are a stretch. That's why phone apps put the main navigation in a <b>bottom tab bar</b>.</li><li><b>One column.</b> Sidebars don't fit. The list and the detail become two separate screens.</li></ul><div class=\"callout\"><b>Tip</b><p>Hold your phone in one hand and try to tap the top-left corner with your thumb. Now you know why the Back button is the one everyone hates.</p></div>",
+   "p": "<p>Here's a phone budget app. People say adding a new expense is fiddly.</p>",
+   "q": "Which part is the problem?",
+   "html": "<div style=\"position:relative;width:200px;height:300px;margin:10px auto;border:8px solid #1f2633;border-radius:26px;background:#fff;overflow:hidden;font-size:13px\">\n<div style=\"background:#24324d;color:#fff;padding:8px;font-weight:700\">Budget</div>\n<div style=\"padding:8px\">Spent this week<div style=\"font-size:24px;font-weight:800\">$42.50</div><div class=\"muted\">Food $20 · Bus $12 · Games $10.50</div></div>\n<div style=\"position:absolute;right:30px;top:8px\"><span class=\"tag\">A</span></div><button style=\"position:absolute;right:8px;top:6px;padding:0 4px;min-height:0;font-size:10px;border-radius:3px\">+</button>\n<div style=\"position:absolute;left:0;right:0;bottom:0;display:flex;border-top:1px solid #d5dbe6;background:#f3f5f9\"><span class=\"tag\">B</span><span style=\"flex:1;text-align:center;padding:12px 0\">🏠</span><span style=\"flex:1;text-align:center;padding:12px 0\">📊</span><span style=\"flex:1;text-align:center;padding:12px 0\">⚙️</span></div>\n</div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n",
+   "opts": [
+    "A: the tiny + button in the top corner",
+    "B: the tab bar along the bottom",
+    "The big total in the middle",
+    "The dark header color"
+   ],
+   "ans": 0,
+   "miss": [
+    "",
+    "The bottom tab bar is right where thumbs rest. That's a good choice.",
+    "The total is easy to read. You don't need to tap it.",
+    "The header color is fine and has good contrast."
+   ],
+   "why": "<p>The + is the app's most important action, but it's tiny and in the hardest place to reach. A big round <b>+</b> button near the bottom (Google calls it a <b>floating action button</b>) would fix both problems.</p>",
+   "h": "<p>Think about size (44 to 48 points) and where a thumb can reach easily.</p>"
+  },
+  {
+   "uid": "a6",
+   "t": "Data first, screen second",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Here's the most important idea in app building. An app has two parts:</p><ul><li>The <b>data</b> (also called <b>state</b>): plain JavaScript values, usually an array of objects, that say what's true right now.</li><li>The <b>view</b>: what's drawn on the screen.</li></ul><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// the data: the single source of truth\nlet tasks = [\n  { id: 1, text: &quot;Feed the cat&quot;, done: true },\n  { id: 2, text: &quot;Maths homework&quot;, done: false }\n];</code></pre><p>Every app follows the same loop: <b>something happens</b> (a click, a key), the code <b>changes the data</b>, then a <code>render()</code> function <b>redraws the screen from the data</b>. You never change the screen by itself and hope the data keeps up.</p><p>Big tools like React and Vue are built around exactly this loop. They just do the redrawing for you.</p>",
+   "p": "<p>A student's to-do app has no <code>tasks</code> array. To count unfinished tasks, it reads the words off the screen and checks which ones have a line through them.</p>",
+   "q": "Why is keeping the data in an array better?",
+   "opts": [
+    "Arrays make the app look nicer",
+    "The array is the single source of truth, so saving, counting and searching all work from the same plain values",
+    "Screens can't show text",
+    "It makes the app slower but safer"
+   ],
+   "ans": 1,
+   "miss": [
+    "The data doesn't change how anything looks.",
+    "",
+    "Screens show text fine. The problem is using them as storage.",
+    "It actually makes the app faster and simpler."
+   ],
+   "why": "<p>With an array you can save it, count it, sort it and search it in one line each. Reading things back off the screen breaks as soon as you change the design. Data first, screen second.</p>",
+   "h": "<p>What happens to the counting code if someone changes how finished tasks look?</p>"
+  },
+  {
+   "uid": "a7",
+   "t": "Create, read, update, delete",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>Almost every app does four things to its data. Programmers call them <b>CRUD</b>:</p><div class=\"tbl\"><table><thead><tr><th>Letter</th><th>Action</th><th>In a contacts app</th></tr></thead><tbody><tr><td><b>C</b>reate</td><td>Add a new item</td><td>Add a friend's number</td></tr><tr><td><b>R</b>ead</td><td>Show or find items</td><td>Scroll the list, search for a name</td></tr><tr><td><b>U</b>pdate</td><td>Change an item</td><td>Fix a typo in a name</td></tr><tr><td><b>D</b>elete</td><td>Remove an item</td><td>Remove an old contact</td></tr></tbody></table></div><p>Once you can do CRUD on an array of objects, you can build to-do lists, address books, shopping lists, gradebooks and inventories. They're all the same app wearing different clothes.</p>",
+   "p": "<p>In a music app, you rename a playlist from <i>Chill</i> to <i>Homework Beats</i>.</p>",
+   "q": "Which CRUD action is that?",
+   "opts": [
+    "Create",
+    "Read",
+    "Update",
+    "Delete"
+   ],
+   "ans": 2,
+   "miss": [
+    "No new playlist was made. The same one got a new name.",
+    "You changed something, not just looked at it.",
+    "",
+    "The playlist is still there."
+   ],
+   "why": "<p>Changing something that already exists is an <b>update</b>. In code, that's finding the playlist by its id and changing its <code>name</code>.</p>",
+   "h": "<p>Was something added, looked at, changed or removed?</p>"
+  },
+  {
+   "uid": "a8",
+   "t": "Good app manners",
+   "k": "pick",
+   "step": "learn",
+   "l": "<p>In 1994 Jakob Nielsen wrote 10 rules of thumb for usable software. They're still used today. Four of them matter in every app you'll build:</p><div class=\"tbl\"><table><thead><tr><th>Rule</th><th>What it means</th></tr></thead><tbody><tr><td><b>Show what's happening</b></td><td>Saving… Saved ✓. Loading spinners. A count of items. Never leave people guessing.</td></tr><tr><td><b>Let people undo</b></td><td>Everyone clicks the wrong thing. Give them an easy way back.</td></tr><tr><td><b>Prevent mistakes</b></td><td>Grey out a Save button until the form is filled in. Ask before deleting something big.</td></tr><tr><td><b>Speak human</b></td><td><i>Couldn't save, you're offline</i>, not <i>Error 0x80004005</i>.</td></tr></tbody></table></div><p>One more habit: design the <b>empty state</b>. A brand new to-do list shouldn't be a blank white box. Say <i>Nothing here yet. Add your first task above!</i></p>",
+   "p": "<p>In a notes app, it's easy to delete a note by accident, and people get upset when they lose one.</p>",
+   "q": "Which fix is friendliest?",
+   "opts": [
+    "Remove the delete button",
+    "Show a pop-up on every delete asking \"Are you SURE?\"",
+    "Delete it, then show a toast: \"Note deleted · Undo\" for a few seconds",
+    "Make the delete button tiny so it's hard to hit"
+   ],
+   "ans": 2,
+   "miss": [
+    "Then people can never tidy up.",
+    "People get so used to clicking Yes that they stop reading. It also slows down every delete.",
+    "",
+    "Tiny buttons make mistakes more likely, not less."
+   ],
+   "why": "<p>An undo toast keeps deleting fast for people who meant it, and gives a way back to people who didn't. Gmail, Google Docs and most phone apps do this. Save the \"Are you sure?\" box for things that really can't be undone.</p>",
+   "h": "<p>Which option keeps deleting quick <i>and</i> lets people take it back?</p>"
+  },
+  {
+   "uid": "a9",
+   "t": "A list of records",
+   "k": "fn",
+   "fn": "countLeft",
+   "a": "tasks",
+   "step": "learn",
+   "hook": "<p>Now the code. Every app in this module stores its data the same way: an <b>array of objects</b>, one object per item. Each object is called a <b>record</b>, and each one gets an <code>id</code> so you can find it again later.</p>",
+   "l": "<pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const songs = [\n  { id: 1, title: &quot;Sunrise&quot;, plays: 12, liked: true },\n  { id: 2, title: &quot;Night Bus&quot;, plays: 3, liked: false }\n];\nconst liked = songs.filter(s =&gt; s.liked);\nconsole.log(liked.length + &quot; liked songs&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>1 liked songs</code></pre><p><code>filter</code> keeps the records that pass a test. <code>.length</code> counts them.</p>",
+   "p": "<p>Write <code>countLeft(tasks)</code>. Each task looks like <code>{ id, text, done }</code>. Return how many tasks are <b>not</b> done yet. This is the <i>2 left</i> you see at the bottom of a to-do app.</p>",
+   "h": "<p>Filter for tasks where <code>done</code> is false (<code>!t.done</code>), then return the length.</p>",
+   "c": [
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "Feed the cat",
+        "done": true
+       },
+       {
+        "id": 2,
+        "text": "Maths homework",
+        "done": false
+       },
+       {
+        "id": 3,
+        "text": "Pack PE kit",
+        "done": false
+       }
+      ]
+     ],
+     2
+    ],
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "A",
+        "done": true
+       }
+      ]
+     ],
+     0
+    ],
+    [
+     [
+      []
+     ],
+     0
+    ],
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "A",
+        "done": false
+       },
+       {
+        "id": 2,
+        "text": "B",
+        "done": false
+       }
+      ]
+     ],
+     2
+    ]
+   ],
+   "s": "function countLeft(tasks) {\n  return tasks.filter(t => !t.done).length;\n}\n",
+   "st": "function countLeft(tasks) {\n  // how many tasks have done: false?\n}\n"
+  },
+  {
+   "uid": "a10",
+   "t": "Create: add a record",
+   "k": "fn",
+   "fn": "addTask",
+   "a": "tasks, text, id",
+   "l": "<p>To <b>create</b> a record, build a new object and push it onto the array. Good apps also <b>prevent mistakes</b>: nobody wants a blank task that's only spaces.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>function addSong(songs, title, id) {\n  const clean = title.trim();\n  if (clean === &quot;&quot;) return songs;   // nothing to add\n  songs.push({ id: id, title: clean, plays: 0, liked: false });\n  return songs;\n}</code></pre><p><code>.trim()</code> cuts spaces off both ends, so <code>\"  hi  \"</code> becomes <code>\"hi\"</code> and <code>\"   \"</code> becomes <code>\"\"</code>.</p>",
+   "p": "<p>Write <code>addTask(tasks, text, id)</code>. Trim the text. If it's empty, return <code>tasks</code> unchanged. Otherwise push <code>{ id: id, text: (the trimmed text), done: false }</code> onto the end and return <code>tasks</code>.</p>",
+   "h": "<p>Same shape as <code>addSong</code>, but the new object has <code>id</code>, <code>text</code> and <code>done: false</code>.</p>",
+   "c": [
+    [
+     [
+      [],
+      "Walk the dog",
+      1
+     ],
+     [
+      {
+       "id": 1,
+       "text": "Walk the dog",
+       "done": false
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "A",
+        "done": true
+       }
+      ],
+      "  Read book  ",
+      2
+     ],
+     [
+      {
+       "id": 1,
+       "text": "A",
+       "done": true
+      },
+      {
+       "id": 2,
+       "text": "Read book",
+       "done": false
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "A",
+        "done": true
+       }
+      ],
+      "    ",
+      2
+     ],
+     [
+      {
+       "id": 1,
+       "text": "A",
+       "done": true
+      }
+     ]
+    ],
+    [
+     [
+      [],
+      "",
+      1
+     ],
+     []
+    ]
+   ],
+   "s": "function addTask(tasks, text, id) {\n  const clean = text.trim();\n  if (clean === \"\") return tasks;\n  tasks.push({ id: id, text: clean, done: false });\n  return tasks;\n}\n",
+   "st": "function addTask(tasks, text, id) {\n  // trim, skip empty text, then push a new task\n  return tasks;\n}\n"
+  },
+  {
+   "uid": "a11",
+   "t": "Update: tick a task off",
+   "k": "fn",
+   "fn": "toggle",
+   "a": "tasks, id",
+   "l": "<p>To <b>update</b> a record, find it by its <code>id</code> and change it. <code>find</code> returns the first record that passes a test, or <code>undefined</code> if none do.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>function likeSong(songs, id) {\n  const song = songs.find(s =&gt; s.id === id);\n  if (song) song.liked = true;\n  return songs;\n}</code></pre><p>Why ids and not positions? Positions change when you sort, filter or delete. An id stays with its record forever.</p>",
+   "p": "<p>Write <code>toggle(tasks, id)</code>. Find the task with that <code>id</code> and flip its <code>done</code> (true becomes false, false becomes true). If no task has that id, change nothing. Return <code>tasks</code>.</p>",
+   "h": "<p>Find it like <code>likeSong</code> does. To flip a boolean, set it to <code>!</code> itself: <code>task.done = !task.done</code>.</p>",
+   "c": [
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "Feed the cat",
+        "done": true
+       },
+       {
+        "id": 2,
+        "text": "Maths homework",
+        "done": false
+       },
+       {
+        "id": 3,
+        "text": "Pack PE kit",
+        "done": false
+       }
+      ],
+      2
+     ],
+     [
+      {
+       "id": 1,
+       "text": "Feed the cat",
+       "done": true
+      },
+      {
+       "id": 2,
+       "text": "Maths homework",
+       "done": true
+      },
+      {
+       "id": 3,
+       "text": "Pack PE kit",
+       "done": false
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "Feed the cat",
+        "done": true
+       },
+       {
+        "id": 2,
+        "text": "Maths homework",
+        "done": false
+       },
+       {
+        "id": 3,
+        "text": "Pack PE kit",
+        "done": false
+       }
+      ],
+      1
+     ],
+     [
+      {
+       "id": 1,
+       "text": "Feed the cat",
+       "done": false
+      },
+      {
+       "id": 2,
+       "text": "Maths homework",
+       "done": false
+      },
+      {
+       "id": 3,
+       "text": "Pack PE kit",
+       "done": false
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "Feed the cat",
+        "done": true
+       },
+       {
+        "id": 2,
+        "text": "Maths homework",
+        "done": false
+       },
+       {
+        "id": 3,
+        "text": "Pack PE kit",
+        "done": false
+       }
+      ],
+      9
+     ],
+     [
+      {
+       "id": 1,
+       "text": "Feed the cat",
+       "done": true
+      },
+      {
+       "id": 2,
+       "text": "Maths homework",
+       "done": false
+      },
+      {
+       "id": 3,
+       "text": "Pack PE kit",
+       "done": false
+      }
+     ]
+    ]
+   ],
+   "s": "function toggle(tasks, id) {\n  const task = tasks.find(t => t.id === id);\n  if (task) task.done = !task.done;\n  return tasks;\n}\n",
+   "st": "function toggle(tasks, id) {\n  return tasks;\n}\n"
+  },
+  {
+   "uid": "a12",
+   "t": "What does filter keep?",
+   "k": "predict",
+   "l": "<p>Deleting usually means building a new array <b>without</b> the record. <code>filter</code> is perfect for that: keep everything whose id is <i>not</i> the one you're deleting.</p>",
+   "p": "<p>What does this print?</p>",
+   "code": "let notes = [\n  { id: 4, title: \"Ideas\" },\n  { id: 7, title: \"Shopping\" },\n  { id: 9, title: \"Homework\" }\n];\nnotes = notes.filter(n => n.id !== 7);\nconsole.log(notes.map(n => n.title).join(\", \"));",
+   "opts": [
+    "Ideas, Homework",
+    "Shopping",
+    "Ideas, Shopping, Homework",
+    "Ideas"
+   ],
+   "miss": [
+    "",
+    "That's the one being removed. filter keeps the ones that pass the test, and Shopping fails it.",
+    "The note with id 7 fails the test, so it's left out.",
+    "Homework's id is 9, which isn't 7, so it stays."
+   ],
+   "why": "<p><code>n.id !== 7</code> is true for Ideas and Homework, so they stay. Shopping is the only one that fails the test. Then <code>map</code> pulls out the titles and <code>join</code> puts commas between them.</p>",
+   "h": "<p>Go through each note: is its id not equal to 7? Keep the ones where the answer is yes.</p>"
+  },
+  {
+   "uid": "a13",
+   "t": "Delete: remove by id",
+   "k": "fn",
+   "fn": "removeTask",
+   "a": "tasks, id",
+   "p": "<p>Write <code>removeTask(tasks, id)</code>. Return a new array with every task except the one with that <code>id</code>.</p>",
+   "h": "<p>One line with <code>filter</code>. Keep tasks whose id is not equal to <code>id</code>.</p>",
+   "c": [
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "Feed the cat",
+        "done": true
+       },
+       {
+        "id": 2,
+        "text": "Maths homework",
+        "done": false
+       },
+       {
+        "id": 3,
+        "text": "Pack PE kit",
+        "done": false
+       }
+      ],
+      2
+     ],
+     [
+      {
+       "id": 1,
+       "text": "Feed the cat",
+       "done": true
+      },
+      {
+       "id": 3,
+       "text": "Pack PE kit",
+       "done": false
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "Feed the cat",
+        "done": true
+       },
+       {
+        "id": 2,
+        "text": "Maths homework",
+        "done": false
+       },
+       {
+        "id": 3,
+        "text": "Pack PE kit",
+        "done": false
+       }
+      ],
+      1
+     ],
+     [
+      {
+       "id": 2,
+       "text": "Maths homework",
+       "done": false
+      },
+      {
+       "id": 3,
+       "text": "Pack PE kit",
+       "done": false
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "id": 1,
+        "text": "Feed the cat",
+        "done": true
+       },
+       {
+        "id": 2,
+        "text": "Maths homework",
+        "done": false
+       },
+       {
+        "id": 3,
+        "text": "Pack PE kit",
+        "done": false
+       }
+      ],
+      5
+     ],
+     [
+      {
+       "id": 1,
+       "text": "Feed the cat",
+       "done": true
+      },
+      {
+       "id": 2,
+       "text": "Maths homework",
+       "done": false
+      },
+      {
+       "id": 3,
+       "text": "Pack PE kit",
+       "done": false
+      }
+     ]
+    ],
+    [
+     [
+      [],
+      1
+     ],
+     []
+    ]
+   ],
+   "s": "function removeTask(tasks, id) {\n  return tasks.filter(t => t.id !== id);\n}\n",
+   "st": "function removeTask(tasks, id) {\n}\n"
+  },
+  {
+   "uid": "a14",
+   "t": "Search box logic",
+   "k": "fn",
+   "fn": "search",
+   "a": "people, query",
+   "l": "<p>A search box is a filter that runs every time you type. Good search ignores capital letters and stray spaces, so <i>ava</i>, <i>AVA</i> and <i> Ava </i> all find Ava.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const word = &quot;  NIGHT &quot;.trim().toLowerCase();   // &quot;night&quot;\nconsole.log(&quot;Night Bus&quot;.toLowerCase().includes(word));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>true</code></pre><p>An empty search should show everything. Luckily, every string includes the empty string <code>\"\"</code>, so that happens on its own.</p>",
+   "p": "<p>Write <code>search(people, query)</code>. Each person is <code>{ name, phone }</code>. Return the people whose <b>name</b> contains the query, ignoring capitals and spaces around the query.</p>",
+   "h": "<p>Clean the query once (<code>trim</code> then <code>toLowerCase</code>), then filter people where <code>p.name.toLowerCase().includes(q)</code>.</p>",
+   "c": [
+    [
+     [
+      [
+       {
+        "name": "Ava Patel",
+        "phone": "555-0101"
+       },
+       {
+        "name": "Ben Okafor",
+        "phone": "555-0144"
+       },
+       {
+        "name": "Cara Lee",
+        "phone": "555-0199"
+       },
+       {
+        "name": "Dev Ravi",
+        "phone": "555-0123"
+       }
+      ],
+      "ava"
+     ],
+     [
+      {
+       "name": "Ava Patel",
+       "phone": "555-0101"
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "name": "Ava Patel",
+        "phone": "555-0101"
+       },
+       {
+        "name": "Ben Okafor",
+        "phone": "555-0144"
+       },
+       {
+        "name": "Cara Lee",
+        "phone": "555-0199"
+       },
+       {
+        "name": "Dev Ravi",
+        "phone": "555-0123"
+       }
+      ],
+      "  LEE "
+     ],
+     [
+      {
+       "name": "Cara Lee",
+       "phone": "555-0199"
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "name": "Ava Patel",
+        "phone": "555-0101"
+       },
+       {
+        "name": "Ben Okafor",
+        "phone": "555-0144"
+       },
+       {
+        "name": "Cara Lee",
+        "phone": "555-0199"
+       },
+       {
+        "name": "Dev Ravi",
+        "phone": "555-0123"
+       }
+      ],
+      "a"
+     ],
+     [
+      {
+       "name": "Ava Patel",
+       "phone": "555-0101"
+      },
+      {
+       "name": "Ben Okafor",
+       "phone": "555-0144"
+      },
+      {
+       "name": "Cara Lee",
+       "phone": "555-0199"
+      },
+      {
+       "name": "Dev Ravi",
+       "phone": "555-0123"
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "name": "Ava Patel",
+        "phone": "555-0101"
+       },
+       {
+        "name": "Ben Okafor",
+        "phone": "555-0144"
+       },
+       {
+        "name": "Cara Lee",
+        "phone": "555-0199"
+       },
+       {
+        "name": "Dev Ravi",
+        "phone": "555-0123"
+       }
+      ],
+      "ok"
+     ],
+     [
+      {
+       "name": "Ben Okafor",
+       "phone": "555-0144"
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "name": "Ava Patel",
+        "phone": "555-0101"
+       },
+       {
+        "name": "Ben Okafor",
+        "phone": "555-0144"
+       },
+       {
+        "name": "Cara Lee",
+        "phone": "555-0199"
+       },
+       {
+        "name": "Dev Ravi",
+        "phone": "555-0123"
+       }
+      ],
+      ""
+     ],
+     [
+      {
+       "name": "Ava Patel",
+       "phone": "555-0101"
+      },
+      {
+       "name": "Ben Okafor",
+       "phone": "555-0144"
+      },
+      {
+       "name": "Cara Lee",
+       "phone": "555-0199"
+      },
+      {
+       "name": "Dev Ravi",
+       "phone": "555-0123"
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "name": "Ava Patel",
+        "phone": "555-0101"
+       },
+       {
+        "name": "Ben Okafor",
+        "phone": "555-0144"
+       },
+       {
+        "name": "Cara Lee",
+        "phone": "555-0199"
+       },
+       {
+        "name": "Dev Ravi",
+        "phone": "555-0123"
+       }
+      ],
+      "zed"
+     ],
+     []
+    ]
+   ],
+   "s": "function search(people, query) {\n  const q = query.trim().toLowerCase();\n  return people.filter(p => p.name.toLowerCase().includes(q));\n}\n",
+   "st": "function search(people, query) {\n  // clean the query, then filter by name\n}\n"
+  },
+  {
+   "uid": "a15",
+   "t": "Sort by a column",
+   "k": "fn",
+   "fn": "sortBy",
+   "a": "rows, key, dir",
+   "l": "<p>Click a column heading in a spreadsheet or file manager and the rows sort by that column. Click again and it flips. <code>sort</code> takes a <b>compare function</b> that gets two rows and returns a negative number if <code>a</code> goes first, a positive number if <code>b</code> goes first, or <code>0</code> if they're tied.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const byPlays = songs.slice().sort((a, b) =&gt; {\n  if (a.plays &lt; b.plays) return -1;\n  if (a.plays &gt; b.plays) return 1;\n  return 0;\n});</code></pre><p><code>slice()</code> makes a copy first, because <code>sort</code> changes the array it's called on. Using <code>&lt;</code> and <code>&gt;</code> works for numbers <i>and</i> for text.</p>",
+   "p": "<p>Write <code>sortBy(rows, key, dir)</code>. Return a sorted <b>copy</b> of <code>rows</code>, sorted by the property named <code>key</code>. If <code>dir</code> is <code>\"asc\"</code>, smallest first. If it's <code>\"desc\"</code>, biggest first.</p>",
+   "h": "<p>Read the values with <code>a[key]</code> and <code>b[key]</code>. Work out the result like the example, then if <code>dir</code> is <code>\"desc\"</code>, return the opposite (multiply by -1).</p>",
+   "c": [
+    [
+     [
+      [
+       {
+        "name": "Mia",
+        "score": 82
+       },
+       {
+        "name": "Jon",
+        "score": 95
+       },
+       {
+        "name": "Ali",
+        "score": 70
+       }
+      ],
+      "score",
+      "asc"
+     ],
+     [
+      {
+       "name": "Ali",
+       "score": 70
+      },
+      {
+       "name": "Mia",
+       "score": 82
+      },
+      {
+       "name": "Jon",
+       "score": 95
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "name": "Mia",
+        "score": 82
+       },
+       {
+        "name": "Jon",
+        "score": 95
+       },
+       {
+        "name": "Ali",
+        "score": 70
+       }
+      ],
+      "score",
+      "desc"
+     ],
+     [
+      {
+       "name": "Jon",
+       "score": 95
+      },
+      {
+       "name": "Mia",
+       "score": 82
+      },
+      {
+       "name": "Ali",
+       "score": 70
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "name": "Mia",
+        "score": 82
+       },
+       {
+        "name": "Jon",
+        "score": 95
+       },
+       {
+        "name": "Ali",
+        "score": 70
+       }
+      ],
+      "name",
+      "asc"
+     ],
+     [
+      {
+       "name": "Ali",
+       "score": 70
+      },
+      {
+       "name": "Jon",
+       "score": 95
+      },
+      {
+       "name": "Mia",
+       "score": 82
+      }
+     ]
+    ],
+    [
+     [
+      [
+       {
+        "name": "Mia",
+        "score": 82
+       },
+       {
+        "name": "Jon",
+        "score": 95
+       },
+       {
+        "name": "Ali",
+        "score": 70
+       }
+      ],
+      "name",
+      "desc"
+     ],
+     [
+      {
+       "name": "Mia",
+       "score": 82
+      },
+      {
+       "name": "Jon",
+       "score": 95
+      },
+      {
+       "name": "Ali",
+       "score": 70
+      }
+     ]
+    ]
+   ],
+   "s": "function sortBy(rows, key, dir) {\n  const flip = dir === \"desc\" ? -1 : 1;\n  return rows.slice().sort((a, b) => {\n    if (a[key] < b[key]) return -1 * flip;\n    if (a[key] > b[key]) return 1 * flip;\n    return 0;\n  });\n}\n",
+   "st": "function sortBy(rows, key, dir) {\n  // copy, then sort with a compare function\n}\n"
+  },
+  {
+   "uid": "a16",
+   "t": "Totals with reduce",
+   "k": "fn",
+   "fn": "total",
+   "a": "items",
+   "step": "learn",
+   "l": "<p>Data apps are always adding things up: total spent, total minutes, total steps. <code>reduce</code> walks through an array carrying a running total.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const minutes = [{ min: 20 }, { min: 35 }, { min: 15 }];\nconst all = minutes.reduce((sum, m) =&gt; sum + m.min, 0);\nconsole.log(all);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>70</code></pre><p>The <code>0</code> at the end is where the total starts.</p><div class=\"callout warn\"><b>Watch out</b><p>Computers store decimals slightly wrong: <code>0.1 + 0.2</code> is <code>0.30000000000000004</code>! Money apps round to cents at the end: <code>Math.round(x * 100) / 100</code>.</p></div>",
+   "p": "<p>Write <code>total(items)</code>. Each item has an <code>amount</code>. Return the sum of all the amounts, rounded to cents (2 decimal places) as a number.</p>",
+   "h": "<p>Use <code>reduce</code> like the minutes example, then round the result with <code>Math.round(sum * 100) / 100</code>.</p>",
+   "c": [
+    [
+     [
+      [
+       {
+        "what": "Lunch",
+        "cat": "food",
+        "amount": 6.5
+       },
+       {
+        "what": "Bus pass",
+        "cat": "travel",
+        "amount": 12
+       },
+       {
+        "what": "Snacks",
+        "cat": "food",
+        "amount": 3.25
+       },
+       {
+        "what": "Game",
+        "cat": "fun",
+        "amount": 15
+       }
+      ]
+     ],
+     36.75
+    ],
+    [
+     [
+      [
+       {
+        "amount": 0.1
+       },
+       {
+        "amount": 0.2
+       }
+      ]
+     ],
+     0.3
+    ],
+    [
+     [
+      []
+     ],
+     0
+    ],
+    [
+     [
+      [
+       {
+        "amount": 19.99
+       },
+       {
+        "amount": 5.01
+       }
+      ]
+     ],
+     25
+    ]
+   ],
+   "s": "function total(items) {\n  const sum = items.reduce((s, it) => s + it.amount, 0);\n  return Math.round(sum * 100) / 100;\n}\n",
+   "st": "function total(items) {\n}\n"
+  },
+  {
+   "uid": "a17",
+   "t": "Group by category",
+   "k": "fn",
+   "fn": "byCategory",
+   "a": "items",
+   "l": "<p>\"How much did I spend on food?\" To answer that, apps <b>group</b> records by a property into an object, one key per group.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const counts = {};\nfor (const song of songs) {\n  const g = song.genre;\n  counts[g] = (counts[g] || 0) + 1;   // start at 0 the first time\n}\n// { pop: 3, rock: 1 }</code></pre><p><code>counts[g] || 0</code> means \"what's there already, or 0 if this is the first one\".</p>",
+   "p": "<p>Write <code>byCategory(items)</code>. Each item has <code>cat</code> and <code>amount</code>. Return an object with one key per category, holding the total <code>amount</code> for that category.</p>",
+   "h": "<p>Same loop as the genre example, but add <code>item.amount</code> instead of 1, and use <code>item.cat</code> as the key.</p>",
+   "c": [
+    [
+     [
+      [
+       {
+        "what": "Lunch",
+        "cat": "food",
+        "amount": 6.5
+       },
+       {
+        "what": "Bus pass",
+        "cat": "travel",
+        "amount": 12
+       },
+       {
+        "what": "Snacks",
+        "cat": "food",
+        "amount": 3.25
+       },
+       {
+        "what": "Game",
+        "cat": "fun",
+        "amount": 15
+       }
+      ]
+     ],
+     {
+      "food": 9.75,
+      "travel": 12,
+      "fun": 15
+     }
+    ],
+    [
+     [
+      [
+       {
+        "cat": "a",
+        "amount": 1
+       },
+       {
+        "cat": "a",
+        "amount": 2
+       }
+      ]
+     ],
+     {
+      "a": 3
+     }
+    ],
+    [
+     [
+      []
+     ],
+     {}
+    ]
+   ],
+   "s": "function byCategory(items) {\n  const totals = {};\n  for (const item of items) {\n    totals[item.cat] = (totals[item.cat] || 0) + item.amount;\n  }\n  return totals;\n}\n",
+   "st": "function byCategory(items) {\n  const totals = {};\n  return totals;\n}\n"
+  },
+  {
+   "uid": "a18",
+   "t": "Money that looks like money",
+   "k": "fn",
+   "fn": "money",
+   "a": "n",
+   "l": "<p>People read <i>$1,234.50</i> instantly. <i>1234.5</i> makes them squint. JavaScript has a built-in number formatter, <code>Intl.NumberFormat</code>, that knows how every country writes numbers and money:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const euros = new Intl.NumberFormat(&quot;de-DE&quot;, { style: &quot;currency&quot;, currency: &quot;EUR&quot; });\nconsole.log(euros.format(1234.5));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>1.234,50 €</code></pre><p>Germany uses a dot for thousands and a comma for cents! The formatter handles that for you. For the US, use <code>\"en-US\"</code> and <code>\"USD\"</code>.</p><div class=\"callout\"><b>Tip</b><p>For a quick fixed number of decimals without commas, <code>n.toFixed(2)</code> turns 3.5 into the string \"3.50\".</p></div>",
+   "p": "<p>Write <code>money(n)</code> that returns <code>n</code> as US dollars, like <code>$1,234.50</code>.</p>",
+   "h": "<p>Make a formatter like the euro one, with <code>\"en-US\"</code> and <code>currency: \"USD\"</code>, and return <code>.format(n)</code>.</p>",
+   "c": [
+    [
+     [
+      1234.5
+     ],
+     "$1,234.50"
+    ],
+    [
+     [
+      3
+     ],
+     "$3.00"
+    ],
+    [
+     [
+      0.5
+     ],
+     "$0.50"
+    ],
+    [
+     [
+      1000000
+     ],
+     "$1,000,000.00"
+    ]
+   ],
+   "s": "function money(n) {\n  const usd = new Intl.NumberFormat(\"en-US\", { style: \"currency\", currency: \"USD\" });\n  return usd.format(n);\n}\n",
+   "st": "function money(n) {\n}\n"
+  },
+  {
+   "uid": "a19",
+   "t": "Time as mm:ss",
+   "k": "fn",
+   "fn": "mmss",
+   "a": "seconds",
+   "l": "<p>Timers, music players and video editors all show time as <b>minutes:seconds</b>. Two tools help:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(Math.floor(130 / 60));   // whole minutes in 130 seconds\nconsole.log(130 % 60);               // seconds left over\nconsole.log(String(7).padStart(3, &quot;0&quot;));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>2\n10\n007</code></pre><p><code>%</code> gives the remainder after dividing. <code>padStart(length, \"0\")</code> adds zeros to the front until the string is long enough.</p>",
+   "p": "<p>Write <code>mmss(seconds)</code> that turns a whole number of seconds into a string like <code>02:05</code>. Both parts always have 2 digits.</p>",
+   "h": "<p>Minutes are <code>Math.floor(seconds / 60)</code>, seconds are <code>seconds % 60</code>. Turn each into a string, pad to length 2, and join with <code>\":\"</code>.</p>",
+   "c": [
+    [
+     [
+      125
+     ],
+     "02:05"
+    ],
+    [
+     [
+      0
+     ],
+     "00:00"
+    ],
+    [
+     [
+      59
+     ],
+     "00:59"
+    ],
+    [
+     [
+      600
+     ],
+     "10:00"
+    ],
+    [
+     [
+      3599
+     ],
+     "59:59"
+    ]
+   ],
+   "s": "function mmss(seconds) {\n  const m = String(Math.floor(seconds / 60)).padStart(2, \"0\");\n  const s = String(seconds % 60).padStart(2, \"0\");\n  return m + \":\" + s;\n}\n",
+   "st": "function mmss(seconds) {\n}\n"
+  },
+  {
+   "uid": "a20",
+   "t": "Reading a CSV file",
+   "k": "fn",
+   "fn": "parseCSV",
+   "a": "text",
+   "step": "learn",
+   "l": "<p>Spreadsheets, banks and fitness watches can all export data as <b>CSV</b> (comma-separated values). It's just text: the first line names the columns, and each line after that is one row.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"steps.csv\"><code>date,steps\nMon,8200\nTue,10450</code></pre><p>Reading it is a job for <code>split</code>:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const lines = &quot;a,b\\n1,2&quot;.split(&quot;\\n&quot;);   // [&quot;a,b&quot;, &quot;1,2&quot;]\nconst cells = lines[1].split(&quot;,&quot;);       // [&quot;1&quot;, &quot;2&quot;]</code></pre><p>Every cell comes out as a string. Turn number columns into numbers with <code>Number(...)</code> when you need to do maths.</p>",
+   "p": "<p>Write <code>parseCSV(text)</code>. Return an array with one object per row (not counting the header). Use the header names as the keys. Leave the values as strings. Ignore empty lines.</p>",
+   "h": "<p>Split into lines and drop empty ones. The first line split by commas gives the keys. For each other line, split it and build an object where <code>row[keys[i]] = cells[i]</code>.</p>",
+   "c": [
+    [
+     [
+      "date,steps\nMon,8200\nTue,10450"
+     ],
+     [
+      {
+       "date": "Mon",
+       "steps": "8200"
+      },
+      {
+       "date": "Tue",
+       "steps": "10450"
+      }
+     ]
+    ],
+    [
+     [
+      "name,cat,amount\nLunch,food,6.50\n"
+     ],
+     [
+      {
+       "name": "Lunch",
+       "cat": "food",
+       "amount": "6.50"
+      }
+     ]
+    ],
+    [
+     [
+      "a,b"
+     ],
+     []
+    ],
+    [
+     [
+      "x\n1\n\n2"
+     ],
+     [
+      {
+       "x": "1"
+      },
+      {
+       "x": "2"
+      }
+     ]
+    ]
+   ],
+   "s": "function parseCSV(text) {\n  const lines = text.split(\"\\n\").filter(l => l !== \"\");\n  const keys = lines[0].split(\",\");\n  return lines.slice(1).map(line => {\n    const cells = line.split(\",\");\n    const row = {};\n    keys.forEach((k, i) => { row[k] = cells[i]; });\n    return row;\n  });\n}\n",
+   "st": "function parseCSV(text) {\n  // lines, then keys from the first line, then one object per row\n}\n"
+  },
+  {
+   "uid": "a21",
+   "t": "Export to CSV",
+   "k": "fn",
+   "fn": "toCSV",
+   "a": "rows",
+   "l": "<p>Going the other way lets people open your app's data in Excel or Google Sheets. <code>Object.keys</code> gives you the column names, and <code>join</code> glues things together.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const pet = { name: &quot;Rex&quot;, age: 4 };\nconsole.log(Object.keys(pet).join(&quot; | &quot;));\nconsole.log(Object.keys(pet).map(k =&gt; pet[k]).join(&quot; | &quot;));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>name | age\nRex | 4</code></pre>",
+   "p": "<p>Write <code>toCSV(rows)</code>. The first line is the keys of the first row, joined with commas. Then one line per row with its values in the same order. Join the lines with <code>\"\\n\"</code>. If there are no rows, return <code>\"\"</code>.</p>",
+   "h": "<p>Get <code>keys</code> from <code>rows[0]</code>. Build an array starting with <code>keys.join(\",\")</code>, add <code>keys.map(k =&gt; row[k]).join(\",\")</code> for each row, then join that array with <code>\"\\n\"</code>.</p>",
+   "c": [
+    [
+     [
+      [
+       {
+        "date": "Mon",
+        "steps": 8200
+       },
+       {
+        "date": "Tue",
+        "steps": 10450
+       }
+      ]
+     ],
+     "date,steps\nMon,8200\nTue,10450"
+    ],
+    [
+     [
+      [
+       {
+        "a": 1,
+        "b": 2,
+        "c": 3
+       }
+      ]
+     ],
+     "a,b,c\n1,2,3"
+    ],
+    [
+     [
+      []
+     ],
+     ""
+    ]
+   ],
+   "s": "function toCSV(rows) {\n  if (rows.length === 0) return \"\";\n  const keys = Object.keys(rows[0]);\n  const lines = [keys.join(\",\")];\n  for (const row of rows) lines.push(keys.map(k => row[k]).join(\",\"));\n  return lines.join(\"\\n\");\n}\n",
+   "st": "function toCSV(rows) {\n}\n"
+  },
+  {
+   "uid": "a22",
+   "t": "Saving needs JSON",
+   "k": "predict",
+   "l": "<p>Apps remember things between visits with <code>localStorage</code>, which only stores <b>text</b>. If you hand it an array of objects, it turns it into text the lazy way, and your data is gone. The fix is <code>JSON.stringify</code> to save and <code>JSON.parse</code> to load.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>localStorage.setItem(&quot;songs&quot;, JSON.stringify(songs));        // save\nconst back = JSON.parse(localStorage.getItem(&quot;songs&quot;) || &quot;[]&quot;);  // load</code></pre>",
+   "p": "<p>This fake store works just like <code>localStorage</code>: it turns whatever you give it into a string. What does this print?</p>",
+   "code": "const store = { setItem(k, v) { this[k] = String(v); } };\nconst tasks = [{ text: \"Feed the cat\" }];\nstore.setItem(\"a\", tasks);\nstore.setItem(\"b\", JSON.stringify(tasks));\nconsole.log(store.a);\nconsole.log(store.b);",
+   "opts": [
+    "[object Object]\n[{\"text\":\"Feed the cat\"}]",
+    "[{\"text\":\"Feed the cat\"}]\n[{\"text\":\"Feed the cat\"}]",
+    "Feed the cat\nFeed the cat",
+    "undefined\n[{\"text\":\"Feed the cat\"}]"
+   ],
+   "miss": [
+    "",
+    "Without JSON.stringify, String() doesn't know how to write an object out.",
+    "Neither line pulls out just the text.",
+    "Something is stored for a. It's just not useful."
+   ],
+   "why": "<p><code>String()</code> on an object gives the useless <code>[object Object]</code>, and the task is lost. <code>JSON.stringify</code> writes out the whole structure, so <code>JSON.parse</code> can rebuild it later.</p>",
+   "h": "<p>Try <code>String({ a: 1 })</code> in your head. It's not what you'd hope.</p>"
+  },
+  {
+   "uid": "a23",
+   "t": "Undo",
+   "k": "fn",
+   "fn": "undo",
+   "a": "app",
+   "l": "<p>How does Undo work? Before every change, the app saves a copy of the data onto a <b>history</b> array (a stack). Undo pops the last copy off and puts it back.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>function rename(app, name) {\n  app.history.push(app.title);   // remember the old value first\n  app.title = name;\n  return app;\n}</code></pre><p><code>pop()</code> removes the last thing from an array and gives it back to you. Last in, first out, just like a stack of plates.</p>",
+   "p": "<p>Write <code>undo(app)</code>. <code>app</code> has <code>items</code> (the current list) and <code>history</code> (an array of older lists). If <code>history</code> is empty, return <code>app</code> unchanged. Otherwise pop the last list off <code>history</code>, make it the new <code>items</code>, and return <code>app</code>.</p>",
+   "h": "<p>Check <code>app.history.length === 0</code> first. Then <code>app.items = app.history.pop();</code></p>",
+   "c": [
+    [
+     [
+      {
+       "items": [
+        "a",
+        "b",
+        "c"
+       ],
+       "history": [
+        [
+         "a"
+        ],
+        [
+         "a",
+         "b"
+        ]
+       ]
+      }
+     ],
+     {
+      "items": [
+       "a",
+       "b"
+      ],
+      "history": [
+       [
+        "a"
+       ]
+      ]
+     }
+    ],
+    [
+     [
+      {
+       "items": [
+        "a"
+       ],
+       "history": [
+        []
+       ]
+      }
+     ],
+     {
+      "items": [],
+      "history": []
+     }
+    ],
+    [
+     [
+      {
+       "items": [
+        "x"
+       ],
+       "history": []
+      }
+     ],
+     {
+      "items": [
+       "x"
+      ],
+      "history": []
+     }
+    ]
+   ],
+   "s": "function undo(app) {\n  if (app.history.length === 0) return app;\n  app.items = app.history.pop();\n  return app;\n}\n",
+   "st": "function undo(app) {\n  return app;\n}\n"
+  },
+  {
+   "uid": "a24",
+   "t": "Order: save before you change",
+   "k": "fn",
+   "fn": "addWithHistory",
+   "a": "app, text",
+   "step": "order",
+   "mode": "order",
+   "l": "<p>For Undo to work, every change has to save a copy of the list <b>before</b> it changes anything. <code>slice()</code> makes the copy. Without it, history would hold the very same array that keeps changing.</p>",
+   "p": "<p>Tap the lines into order so <code>addWithHistory(app, text)</code> saves a copy of <code>app.items</code> onto <code>app.history</code>, then adds <code>text</code> to the items.</p>",
+   "h": "<p>Save first, change second. If you push the text first, the saved copy already has the new item in it, and Undo does nothing.</p>",
+   "c": [
+    [
+     [
+      {
+       "items": [
+        "a"
+       ],
+       "history": []
+      },
+      "b"
+     ],
+     {
+      "items": [
+       "a",
+       "b"
+      ],
+      "history": [
+       [
+        "a"
+       ]
+      ]
+     }
+    ],
+    [
+     [
+      {
+       "items": [],
+       "history": []
+      },
+      "x"
+     ],
+     {
+      "items": [
+       "x"
+      ],
+      "history": [
+       []
+      ]
+     }
+    ]
+   ],
+   "s": "function addWithHistory(app, text) {\napp.history.push(app.items.slice());\napp.items.push(text);\nreturn app;\n}\n",
+   "dl": [
+    "app.history.pop();",
+    "app.items = [];"
+   ]
+  },
+  {
+   "uid": "a25",
+   "t": "Draw the list from the data",
+   "k": "dom",
+   "step": "learn",
+   "ex": [
+    "render",
+    "tasks"
+   ],
+   "hook": "<p>Time to put it on screen. Remember the loop: change the data, then <b>render</b>. The render function is the bridge between your array and what people see.</p>",
+   "l": "<p>A render function does the same three things every time: <b>clear</b> the old view, <b>build</b> a piece of screen for each record, and <b>update</b> any totals.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const names = [&quot;Ava&quot;, &quot;Ben&quot;];\nconst ul = document.querySelector(&quot;#people&quot;);\nfunction show() {\n  ul.innerHTML = &quot;&quot;;                         // 1. clear\n  for (const n of names) {                   // 2. build one li per name\n    const item = document.createElement(&quot;li&quot;);\n    item.textContent = n;\n    ul.append(item);\n  }\n}\nshow();</code></pre><div class=\"callout\"><b>Why clear first?</b><p>Render runs again after every change. Without clearing, each run would add the whole list again underneath the old one.</p></div>",
+   "p": "<p>Finish <code>render()</code>. For each task, make an <code>li</code> with a <code>span</code> inside holding the task's text. Give the <code>li</code> the class <code>done</code> if the task is done, and set <code>li.dataset.id</code> to the task's id (you'll need it later). Then put <code>2 left</code> (the number of unfinished tasks) in <code>#count</code>.</p>",
+   "h": "<p>Clear <code>list.innerHTML</code>, loop over <code>tasks</code>, build <code>li</code> and <code>span</code> with <code>document.createElement</code>, use <code>classList.add(\"done\")</code> when <code>t.done</code>, and <code>append</code> the span to the li and the li to the list. For the count, filter for <code>!t.done</code> and add <code>\" left\"</code>.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">✅ My Tasks</div><div class=\"body\"><ul id=\"list\" class=\"list\"></ul><p id=\"count\" class=\"muted\"></p></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n",
+   "chk": "function (root, logs, ex) {\n    var lis = root.querySelectorAll(\"#list li\");\n    if (lis.length !== 3) return \"There should be 3 li items in #list. There are \" + lis.length + \".\";\n    if (!lis[0].querySelector(\"span\") || lis[0].querySelector(\"span\").textContent !== \"Feed the cat\") return \"Each li should hold a span with the task's text.\";\n    if (!lis[0].classList.contains(\"done\") || lis[1].classList.contains(\"done\")) return \"Only finished tasks should have the class done.\";\n    if (lis[2].dataset.id !== \"3\") return \"Set li.dataset.id to the task's id.\";\n    if (root.querySelector(\"#count\").textContent.trim() !== \"2 left\") return \"#count should say 2 left.\";\n    if (!ex.render || !ex.tasks) return \"Keep the render function and the tasks array.\";\n    ex.tasks.push({ id: 4, text: \"Tidy room\", done: false });\n    ex.render();\n    lis = root.querySelectorAll(\"#list li\");\n    if (lis.length !== 4) return \"After adding a task and calling render() again, there should be 4 items, not \" + lis.length + \". Did you clear the list first?\";\n    if (root.querySelector(\"#count\").textContent.trim() !== \"3 left\") return \"After adding a task, #count should update to 3 left.\";\n    return true;\n  }",
+   "s": "let tasks = [\n  { id: 1, text: \"Feed the cat\", done: true },\n  { id: 2, text: \"Maths homework\", done: false },\n  { id: 3, text: \"Pack PE kit\", done: false }\n];\nconst list = document.querySelector(\"#list\");\nconst count = document.querySelector(\"#count\");\n\nfunction render() {\n  list.innerHTML = \"\";\n  for (const t of tasks) {\n    const li = document.createElement(\"li\");\n    li.dataset.id = t.id;\n    if (t.done) li.classList.add(\"done\");\n    const span = document.createElement(\"span\");\n    span.textContent = t.text;\n    li.append(span);\n    list.append(li);\n  }\n  count.textContent = tasks.filter(t => !t.done).length + \" left\";\n}\n\nrender();\n",
+   "st": "let tasks = [\n  { id: 1, text: \"Feed the cat\", done: true },\n  { id: 2, text: \"Maths homework\", done: false },\n  { id: 3, text: \"Pack PE kit\", done: false }\n];\nconst list = document.querySelector(\"#list\");\nconst count = document.querySelector(\"#count\");\n\nfunction render() {\n  // 1. clear  2. one li per task  3. update the count\n}\n\nrender();\n"
+  },
+  {
+   "uid": "a26",
+   "t": "Add with a form",
+   "k": "dom",
+   "ex": [
+    "tasks"
+   ],
+   "l": "<p>The <b>create</b> part of CRUD usually comes from a form. Listening for <code>submit</code> on the form (not <code>click</code> on the button) means pressing Enter works too.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>noteForm.addEventListener(&quot;submit&quot;, e =&gt; {\n  e.preventDefault();               // don't reload the page\n  const title = noteBox.value.trim();\n  if (title === &quot;&quot;) return;         // prevent empty notes\n  notes.push({ id: nextNote++, title: title });\n  drawNotes();\n  noteBox.value = &quot;&quot;;               // ready for the next one\n});</code></pre><p><code>nextNote++</code> uses the current number, then adds 1, so every record gets a new id.</p>",
+   "p": "<p>When <code>#add</code> is submitted, add a task with the trimmed text from <code>#text</code>, the next id and <code>done: false</code>, then render and clear the box. Ignore empty or spaces-only text.</p>",
+   "h": "<p>Same shape as the notes example, using <code>form</code>, <code>box</code>, <code>tasks</code>, <code>nextId</code> and <code>render</code> from the starter.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">✅ My Tasks</div><div class=\"body\"><form id=\"add\" style=\"display:flex;gap:6px\"><input id=\"text\" placeholder=\"New task\" style=\"flex:1\"><button class=\"pri\">Add</button></form><ul id=\"list\" class=\"list\"></ul><p id=\"count\" class=\"muted\"></p></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n",
+   "chk": "function (root) {\n    var f = root.querySelector(\"#add\"), box = root.querySelector(\"#text\");\n    var send = function (v) { box.value = v; f.requestSubmit(); };\n    send(\"  Buy milk \");\n    var lis = root.querySelectorAll(\"#list li\");\n    if (lis.length !== 4) return \"After adding Buy milk there should be 4 tasks in the list.\";\n    if (lis[3].textContent.trim() !== \"Buy milk\") return \"The new task's text should be trimmed: Buy milk.\";\n    if (box.value !== \"\") return \"Clear #text after adding.\";\n    if (root.querySelector(\"#count\").textContent.trim() !== \"3 left\") return \"The count should go up to 3 left.\";\n    send(\"    \");\n    if (root.querySelectorAll(\"#list li\").length !== 4) return \"Spaces-only text shouldn't add a task.\";\n    send(\"Walk dog\");\n    if (root.querySelectorAll(\"#list li\")[4].dataset.id !== \"5\") return \"Each new task needs a new id: the second one you add should get id 5.\";\n    return true;\n  }",
+   "s": "let tasks = [\n  { id: 1, text: \"Feed the cat\", done: true },\n  { id: 2, text: \"Maths homework\", done: false },\n  { id: 3, text: \"Pack PE kit\", done: false }\n];\nconst list = document.querySelector(\"#list\");\nconst count = document.querySelector(\"#count\");\nlet nextId = 4;\nconst form = document.querySelector(\"#add\");\nconst box = document.querySelector(\"#text\");\n\nfunction render() {\n  list.innerHTML = \"\";\n  for (const t of tasks) {\n    const li = document.createElement(\"li\");\n    li.dataset.id = t.id;\n    if (t.done) li.classList.add(\"done\");\n    const span = document.createElement(\"span\");\n    span.textContent = t.text;\n    li.append(span);\n    list.append(li);\n  }\n  count.textContent = tasks.filter(t => !t.done).length + \" left\";\n}\n\nform.addEventListener(\"submit\", e => {\n  e.preventDefault();\n  const text = box.value.trim();\n  if (text === \"\") return;\n  tasks.push({ id: nextId++, text: text, done: false });\n  render();\n  box.value = \"\";\n});\n\nrender();\n",
+   "st": "let tasks = [\n  { id: 1, text: \"Feed the cat\", done: true },\n  { id: 2, text: \"Maths homework\", done: false },\n  { id: 3, text: \"Pack PE kit\", done: false }\n];\nconst list = document.querySelector(\"#list\");\nconst count = document.querySelector(\"#count\");\nlet nextId = 4;\nconst form = document.querySelector(\"#add\");\nconst box = document.querySelector(\"#text\");\n\nfunction render() {\n  list.innerHTML = \"\";\n  for (const t of tasks) {\n    const li = document.createElement(\"li\");\n    li.dataset.id = t.id;\n    if (t.done) li.classList.add(\"done\");\n    const span = document.createElement(\"span\");\n    span.textContent = t.text;\n    li.append(span);\n    list.append(li);\n  }\n  count.textContent = tasks.filter(t => !t.done).length + \" left\";\n}\n\n// listen for submit on the form here\n\nrender();\n"
+  },
+  {
+   "uid": "a27",
+   "t": "Click to tick off",
+   "k": "dom",
+   "l": "<p>You could add a click listener to every <code>li</code>, but render throws them away and makes new ones each time. Instead, put <b>one</b> listener on the list and ask which item was clicked. This is called <b>event delegation</b>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>palette.addEventListener(&quot;click&quot;, e =&gt; {\n  const swatch = e.target.closest(&quot;[data-color]&quot;);   // the swatch that was clicked, or null\n  if (!swatch) return;                               // clicked a gap\n  paint(swatch.dataset.color);\n});</code></pre><p><code>closest()</code> walks up from what was clicked (maybe the span) to the nearest match. <code>dataset</code> values are always strings, so use <code>Number()</code> to compare with number ids.</p>",
+   "p": "<p>Clicking a task should flip its <code>done</code> and render again. Use one click listener on <code>#list</code>.</p>",
+   "h": "<p>In the listener: <code>const li = e.target.closest(\"li\")</code>, stop if it's null, then find the task whose id is <code>Number(li.dataset.id)</code>, flip <code>done</code>, and call <code>render()</code>.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">✅ My Tasks</div><div class=\"body\"><ul id=\"list\" class=\"list\"></ul><p id=\"count\" class=\"muted\"></p></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n#list li{cursor:pointer}",
+   "chk": "function (root) {\n    var span = function (i) { return root.querySelectorAll(\"#list li\")[i].querySelector(\"span\"); };\n    span(1).click();\n    var li = root.querySelectorAll(\"#list li\")[1];\n    if (!li.classList.contains(\"done\")) return \"Clicking Maths homework should mark it done.\";\n    if (root.querySelector(\"#count\").textContent.trim() !== \"1 left\") return \"After ticking one off, #count should say 1 left.\";\n    span(0).click();\n    if (root.querySelectorAll(\"#list li\")[0].classList.contains(\"done\")) return \"Clicking a finished task should un-tick it.\";\n    if (root.querySelectorAll(\"#list li\").length !== 3) return \"There should still be 3 tasks.\";\n    return true;\n  }",
+   "s": "let tasks = [\n  { id: 1, text: \"Feed the cat\", done: true },\n  { id: 2, text: \"Maths homework\", done: false },\n  { id: 3, text: \"Pack PE kit\", done: false }\n];\nconst list = document.querySelector(\"#list\");\nconst count = document.querySelector(\"#count\");\n\nfunction render() {\n  list.innerHTML = \"\";\n  for (const t of tasks) {\n    const li = document.createElement(\"li\");\n    li.dataset.id = t.id;\n    if (t.done) li.classList.add(\"done\");\n    const span = document.createElement(\"span\");\n    span.textContent = t.text;\n    li.append(span);\n    list.append(li);\n  }\n  count.textContent = tasks.filter(t => !t.done).length + \" left\";\n}\n\nlist.addEventListener(\"click\", e => {\n  const li = e.target.closest(\"li\");\n  if (!li) return;\n  const task = tasks.find(t => t.id === Number(li.dataset.id));\n  task.done = !task.done;\n  render();\n});\n\nrender();\n",
+   "st": "let tasks = [\n  { id: 1, text: \"Feed the cat\", done: true },\n  { id: 2, text: \"Maths homework\", done: false },\n  { id: 3, text: \"Pack PE kit\", done: false }\n];\nconst list = document.querySelector(\"#list\");\nconst count = document.querySelector(\"#count\");\n\nfunction render() {\n  list.innerHTML = \"\";\n  for (const t of tasks) {\n    const li = document.createElement(\"li\");\n    li.dataset.id = t.id;\n    if (t.done) li.classList.add(\"done\");\n    const span = document.createElement(\"span\");\n    span.textContent = t.text;\n    li.append(span);\n    list.append(li);\n  }\n  count.textContent = tasks.filter(t => !t.done).length + \" left\";\n}\n\n// one click listener on the list\n\nrender();\n"
+  },
+  {
+   "uid": "a28",
+   "t": "Live search",
+   "k": "dom",
+   "l": "<p>The <code>input</code> event fires every time the text in a box changes, so the list can filter <b>as you type</b>. That instant feedback is what makes search feel fast.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>colorBox.addEventListener(&quot;input&quot;, () =&gt; {\n  swatch.style.background = colorBox.value;\n});</code></pre><p>Don't forget the empty state: when nothing matches, say so.</p>",
+   "p": "<p>Every time <code>#q</code> changes, render only the people whose name contains what's typed, ignoring capitals and spaces around it. <code>render</code> already shows <i>No matches</i> when the list is empty.</p>",
+   "h": "<p>Add an <code>input</code> listener on <code>q</code>. Inside, clean <code>q.value</code> with <code>trim</code> and <code>toLowerCase</code>, filter <code>people</code> like you did in the Search box logic stage, and pass the result to <code>render</code>.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">📇 Contacts</div><div class=\"body\"><input id=\"q\" type=\"search\" placeholder=\"Search\" style=\"width:100%\"><ul id=\"people\" class=\"list\"></ul><p id=\"none\" class=\"muted\" hidden>No matches.</p></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n",
+   "chk": "function (root) {\n    var q = root.querySelector(\"#q\"), n = function () { return root.querySelectorAll(\"#people li\").length; };\n    var type = function (v) { q.value = v; q.dispatchEvent(new Event(\"input\")); };\n    type(\"ben\");\n    if (n() !== 1 || root.querySelector(\"#people li\").textContent.indexOf(\"Ben\") < 0) return \"Typing ben should show only Ben Okafor.\";\n    type(\"  LEE \");\n    if (n() !== 1) return \"Searching should ignore capitals and spaces: LEE should find Cara Lee.\";\n    type(\"zzz\");\n    if (n() !== 0 || root.querySelector(\"#none\").hidden) return \"With no matches, the list should be empty and No matches should show.\";\n    type(\"\");\n    if (n() !== 4) return \"An empty search should show everyone again.\";\n    return true;\n  }",
+   "s": "const people = [\n  { name: \"Ava Patel\", phone: \"555-0101\" },\n  { name: \"Ben Okafor\", phone: \"555-0144\" },\n  { name: \"Cara Lee\", phone: \"555-0199\" },\n  { name: \"Dev Ravi\", phone: \"555-0123\" }\n];\nconst q = document.querySelector(\"#q\");\nconst list = document.querySelector(\"#people\");\nconst none = document.querySelector(\"#none\");\n\nfunction render(shown) {\n  list.innerHTML = \"\";\n  for (const p of shown) {\n    const li = document.createElement(\"li\");\n    li.textContent = p.name + \" · \" + p.phone;\n    list.append(li);\n  }\n  none.hidden = shown.length > 0;\n}\nrender(people);\n\nq.addEventListener(\"input\", () => {\n  const term = q.value.trim().toLowerCase();\n  render(people.filter(p => p.name.toLowerCase().includes(term)));\n});\n",
+   "st": "const people = [\n  { name: \"Ava Patel\", phone: \"555-0101\" },\n  { name: \"Ben Okafor\", phone: \"555-0144\" },\n  { name: \"Cara Lee\", phone: \"555-0199\" },\n  { name: \"Dev Ravi\", phone: \"555-0123\" }\n];\nconst q = document.querySelector(\"#q\");\nconst list = document.querySelector(\"#people\");\nconst none = document.querySelector(\"#none\");\n\nfunction render(shown) {\n  list.innerHTML = \"\";\n  for (const p of shown) {\n    const li = document.createElement(\"li\");\n    li.textContent = p.name + \" · \" + p.phone;\n    list.append(li);\n  }\n  none.hidden = shown.length > 0;\n}\nrender(people);\n\n// filter as you type\n"
+  },
+  {
+   "uid": "a29",
+   "t": "A sortable table",
+   "k": "dom",
+   "l": "<p>Tables are the heart of data apps. People expect to <b>click a column heading to sort</b>, and click it again to flip the order. The app has to remember which column is sorted and which way: that's more <b>state</b>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let view = &quot;grid&quot;;\nviewBtn.addEventListener(&quot;click&quot;, () =&gt; {\n  view = view === &quot;grid&quot; ? &quot;list&quot; : &quot;grid&quot;;   // flip between two values\n  drawFiles();\n});</code></pre>",
+   "p": "<p>Clicking a heading (<code>th</code> with <code>data-key</code>) sorts <code>rows</code> by that key. If it's the same key as last time, flip <code>sortDir</code>. If it's a new key, start with <code>\"asc\"</code>. Then render.</p>",
+   "h": "<p>Listen for clicks on <code>#head</code> and use <code>e.target.closest(\"th\")</code>. Read <code>th.dataset.key</code>. Update <code>sortDir</code> and <code>sortKey</code>, then <code>rows.sort(...)</code> with a compare function that checks <code>sortDir</code>, and call <code>render()</code>.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">📊 Scores</div><div class=\"body\"><table><thead id=\"head\"><tr><th data-key=\"name\">Name ⇅</th><th data-key=\"score\">Score ⇅</th></tr></thead><tbody id=\"body\"></tbody></table></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n",
+   "chk": "function (root) {\n    var th = function (k) { return root.querySelector('th[data-key=\"' + k + '\"]'); };\n    var first = function () { var td = root.querySelector(\"#body tr td\"); return td ? td.textContent : \"\"; };\n    th(\"score\").click();\n    if (first() !== \"Ali\") return \"Clicking Score once should sort lowest first, so Ali (70) is on top.\";\n    th(\"score\").click();\n    if (first() !== \"Jon\") return \"Clicking Score again should flip it, so Jon (95) is on top.\";\n    th(\"name\").click();\n    if (first() !== \"Ali\") return \"Clicking a different column should sort it A to Z first.\";\n    if (root.querySelectorAll(\"#body tr\").length !== 3) return \"There should still be 3 rows.\";\n    return true;\n  }",
+   "s": "const rows = [\n  { name: \"Mia\", score: 82 },\n  { name: \"Jon\", score: 95 },\n  { name: \"Ali\", score: 70 }\n];\nlet sortKey = null;\nlet sortDir = \"asc\";\nconst body = document.querySelector(\"#body\");\n\nfunction render() {\n  body.innerHTML = rows.map(r => \"<tr><td>\" + r.name + \"</td><td>\" + r.score + \"</td></tr>\").join(\"\");\n}\nrender();\n\ndocument.querySelector(\"#head\").addEventListener(\"click\", e => {\n  const th = e.target.closest(\"th\");\n  if (!th) return;\n  const key = th.dataset.key;\n  sortDir = key === sortKey && sortDir === \"asc\" ? \"desc\" : \"asc\";\n  sortKey = key;\n  const flip = sortDir === \"desc\" ? -1 : 1;\n  rows.sort((a, b) => (a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0) * flip);\n  render();\n});\n",
+   "st": "const rows = [\n  { name: \"Mia\", score: 82 },\n  { name: \"Jon\", score: 95 },\n  { name: \"Ali\", score: 70 }\n];\nlet sortKey = null;\nlet sortDir = \"asc\";\nconst body = document.querySelector(\"#body\");\n\nfunction render() {\n  body.innerHTML = rows.map(r => \"<tr><td>\" + r.name + \"</td><td>\" + r.score + \"</td></tr>\").join(\"\");\n}\nrender();\n\n// click a heading to sort\n"
+  },
+  {
+   "uid": "a30",
+   "t": "Bug hunt: the list doubles",
+   "k": "dom",
+   "step": "bug",
+   "l": "<p>A student's shopping list app works the first time. But every time they add an item, the whole list appears again underneath.</p>",
+   "p": "<p>Fix the bug so adding an item shows each item exactly once.</p>",
+   "h": "<p>Look at what <code>render</code> does before its loop. Remember the three steps of a render function.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">🛒 Shopping</div><div class=\"body\"><button id=\"addBtn\" class=\"pri\">+ Add bread</button><ul id=\"list\" class=\"list\"></ul></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n",
+   "chk": "function (root) {\n    var n = function () { return root.querySelectorAll(\"#list li\").length; };\n    if (n() !== 3) return \"At the start, the list should show 3 items. It shows \" + n() + \".\";\n    root.querySelector(\"#addBtn\").click();\n    if (n() !== 4) return \"After one add, there should be 4 items. There are \" + n() + \".\";\n    root.querySelector(\"#addBtn\").click();\n    if (n() !== 5) return \"After two adds, there should be 5 items. There are \" + n() + \".\";\n    return true;\n  }",
+   "s": "const items = [\"Milk\", \"Eggs\", \"Apples\"];\nconst list = document.querySelector(\"#list\");\n\nfunction render() {\n  list.innerHTML = \"\";\n  for (const item of items) {\n    const li = document.createElement(\"li\");\n    li.textContent = item;\n    list.append(li);\n  }\n}\n\ndocument.querySelector(\"#addBtn\").addEventListener(\"click\", () => {\n  items.push(\"Bread\");\n  render();\n});\n\nrender();\n",
+   "st": "const items = [\"Milk\", \"Eggs\", \"Apples\"];\nconst list = document.querySelector(\"#list\");\n\nfunction render() {\n  for (const item of items) {\n    const li = document.createElement(\"li\");\n    li.textContent = item;\n    list.append(li);\n  }\n}\n\ndocument.querySelector(\"#addBtn\").addEventListener(\"click\", () => {\n  items.push(\"Bread\");\n  render();\n});\n\nrender();\n"
+  },
+  {
+   "uid": "a31",
+   "t": "Delete with Undo",
+   "k": "dom",
+   "l": "<p>Remember the friendliest delete? Remove it right away, then show a toast with an <b>Undo</b> button. To undo, the app needs to remember <b>what</b> it removed and <b>where</b> it was.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const pos = songs.findIndex(s =&gt; s.id === id);   // where it is\nlastRemoved = { song: songs[pos], pos: pos };       // remember it\nsongs.splice(pos, 1);                               // take 1 item out at pos\n// later, to put it back:\nsongs.splice(lastRemoved.pos, 0, lastRemoved.song); // insert at pos, removing 0</code></pre><p><code>splice(start, howMany, ...newItems)</code> can remove and insert items anywhere in an array.</p>",
+   "p": "<p>Clicking a task's <code>✕</code> (class <code>del</code>) removes it, renders, and shows <code>#toast</code> with <code>Deleted: (the task's text)</code> in <code>#toastMsg</code>. Clicking <code>#undo</code> puts the task back in the same place, renders, and hides the toast.</p>",
+   "h": "<p>In a click listener on <code>list</code>: check <code>e.target.matches(\".del\")</code>, find the task's position with <code>findIndex</code> using the li's <code>dataset.id</code>, save it in <code>lastRemoved</code>, <code>splice</code> it out, render, and show the toast. In the undo listener, <code>splice</code> it back in.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">✅ My Tasks</div><div class=\"body\"><ul id=\"list\" class=\"list\"></ul><p id=\"count\" class=\"muted\"></p></div><div id=\"toast\" hidden style=\"margin:8px;padding:8px 12px;border-radius:8px;background:#1f2633;color:#fff;display:flex;gap:10px;align-items:center\"><span id=\"toastMsg\" style=\"flex:1\"></span><button id=\"undo\" style=\"background:transparent;color:#8fb4ff;border:0;font-weight:700\">Undo</button></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n",
+   "chk": "function (root) {\n    var texts = function () { return Array.prototype.map.call(root.querySelectorAll(\"#list li span\"), function (s) { return s.textContent; }).join(\"|\"); };\n    var toast = root.querySelector(\"#toast\");\n    root.querySelectorAll(\"#list .del\")[1].click();\n    if (texts() !== \"Feed the cat|Pack PE kit\") return \"Clicking ✕ on Maths homework should remove it from the list.\";\n    if (toast.hidden) return \"After deleting, show #toast.\";\n    if (root.querySelector(\"#toastMsg\").textContent !== \"Deleted: Maths homework\") return \"#toastMsg should say Deleted: Maths homework.\";\n    root.querySelector(\"#undo\").click();\n    if (texts() !== \"Feed the cat|Maths homework|Pack PE kit\") return \"Undo should put Maths homework back in the middle, where it was.\";\n    if (!toast.hidden) return \"After Undo, hide the toast.\";\n    return true;\n  }",
+   "s": "let tasks = [\n  { id: 1, text: \"Feed the cat\", done: true },\n  { id: 2, text: \"Maths homework\", done: false },\n  { id: 3, text: \"Pack PE kit\", done: false }\n];\nconst list = document.querySelector(\"#list\");\nconst count = document.querySelector(\"#count\");\nlet lastRemoved = null;\nconst toast = document.querySelector(\"#toast\");\n\nfunction render() {\n  list.innerHTML = \"\";\n  for (const t of tasks) {\n    const li = document.createElement(\"li\");\n    li.dataset.id = t.id;\n    const span = document.createElement(\"span\");\n    span.textContent = t.text;\n    span.style.flex = \"1\";\n    const del = document.createElement(\"button\");\n    del.className = \"del\";\n    del.textContent = \"✕\";\n    li.append(span, del);\n    list.append(li);\n  }\n  count.textContent = tasks.length + \" tasks\";\n}\n\nlist.addEventListener(\"click\", e => {\n  if (!e.target.matches(\".del\")) return;\n  const id = Number(e.target.closest(\"li\").dataset.id);\n  const pos = tasks.findIndex(t => t.id === id);\n  lastRemoved = { task: tasks[pos], pos: pos };\n  tasks.splice(pos, 1);\n  render();\n  document.querySelector(\"#toastMsg\").textContent = \"Deleted: \" + lastRemoved.task.text;\n  toast.hidden = false;\n});\n\ndocument.querySelector(\"#undo\").addEventListener(\"click\", () => {\n  if (!lastRemoved) return;\n  tasks.splice(lastRemoved.pos, 0, lastRemoved.task);\n  lastRemoved = null;\n  render();\n  toast.hidden = true;\n});\n\nrender();\n",
+   "st": "let tasks = [\n  { id: 1, text: \"Feed the cat\", done: true },\n  { id: 2, text: \"Maths homework\", done: false },\n  { id: 3, text: \"Pack PE kit\", done: false }\n];\nconst list = document.querySelector(\"#list\");\nconst count = document.querySelector(\"#count\");\nlet lastRemoved = null;\nconst toast = document.querySelector(\"#toast\");\n\nfunction render() {\n  list.innerHTML = \"\";\n  for (const t of tasks) {\n    const li = document.createElement(\"li\");\n    li.dataset.id = t.id;\n    const span = document.createElement(\"span\");\n    span.textContent = t.text;\n    span.style.flex = \"1\";\n    const del = document.createElement(\"button\");\n    del.className = \"del\";\n    del.textContent = \"✕\";\n    li.append(span, del);\n    list.append(li);\n  }\n  count.textContent = tasks.length + \" tasks\";\n}\n\n// 1. delete on ✕ and show the toast\n// 2. undo puts it back\n\nrender();\n"
+  },
+  {
+   "uid": "a32",
+   "t": "Keyboard shortcuts",
+   "k": "dom",
+   "l": "<p>People who use an app all day love <b>keyboard shortcuts</b>. Many apps (YouTube, GitHub, Gmail) jump to the search box when you press <kbd>/</kbd>, and <kbd>Esc</kbd> gets you out again.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>document.addEventListener(&quot;keydown&quot;, e =&gt; {\n  if (e.key === &quot;?&quot;) {\n    helpBox.hidden = false;\n    e.preventDefault();       // stop the key doing its normal job\n  }\n});</code></pre><p><code>e.key</code> is the key that was pressed, like <code>\"a\"</code>, <code>\"/\"</code>, <code>\"Enter\"</code> or <code>\"Escape\"</code>. Real apps also skip shortcuts while you're typing in a box, so <kbd>/</kbd> still types a slash there.</p>",
+   "p": "<p>Pressing <kbd>/</kbd> should focus <code>#q</code> (and <code>preventDefault</code>, so no slash gets typed). Pressing <kbd>Escape</kbd> should clear <code>#q</code> and take the focus away from it with <code>blur()</code>.</p>",
+   "h": "<p>One <code>keydown</code> listener on <code>document</code>. If <code>e.key === \"/\"</code>, call <code>q.focus()</code> and <code>e.preventDefault()</code>. If it's <code>\"Escape\"</code>, set <code>q.value = \"\"</code> and call <code>q.blur()</code>.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">📇 Contacts<span class=\"sp\"></span><span style=\"font-weight:400;font-size:12px\">Press / to search</span></div><div class=\"body\"><input id=\"q\" placeholder=\"Search\" style=\"width:100%\"><ul class=\"list\"><li>Ava Patel</li><li>Ben Okafor</li></ul></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n",
+   "chk": "async function (root, logs, ex, code, t) {\n    var q = root.querySelector(\"#q\"), sr = root.getRootNode();\n    var press = function (k) { var ev = new KeyboardEvent(\"keydown\", { key: k, bubbles: true, cancelable: true }); window.dispatchEvent(ev); return ev; };\n    q.blur();\n    var ev = press(\"/\"); await t.wait(30);\n    if (sr.activeElement !== q) return \"Pressing / should put the focus in #q.\";\n    if (!ev.defaultPrevented) return \"Call e.preventDefault() for / so it doesn't type a slash.\";\n    q.value = \"ben\";\n    press(\"Escape\"); await t.wait(30);\n    if (q.value !== \"\") return \"Escape should clear #q.\";\n    if (sr.activeElement === q) return \"Escape should take the focus out of #q with blur().\";\n    return true;\n  }",
+   "s": "const q = document.querySelector(\"#q\");\ndocument.addEventListener(\"keydown\", e => {\n  if (e.key === \"/\") {\n    q.focus();\n    e.preventDefault();\n  } else if (e.key === \"Escape\") {\n    q.value = \"\";\n    q.blur();\n  }\n});\n",
+   "st": "const q = document.querySelector(\"#q\");\n"
+  },
+  {
+   "uid": "a33",
+   "t": "Which chart?",
+   "k": "pick",
+   "step": "learn",
+   "hook": "<p>A table of 365 numbers is hard to read. A chart of the same numbers can be understood in one second. That's why every data app has charts.</p>",
+   "l": "<p>Each chart type answers a different question:</p><div class=\"tbl\"><table><thead><tr><th>Chart</th><th>Answers</th><th>Example</th></tr></thead><tbody><tr><td><b>Bar chart</b></td><td>Which is bigger? (comparing groups)</td><td>Spending per category</td></tr><tr><td><b>Line chart</b></td><td>How did it change over time?</td><td>Steps per day this month</td></tr><tr><td><b>Pie or donut</b></td><td>What share of the whole is each part? (2 to 5 parts only)</td><td>How your day is split up</td></tr><tr><td><b>Scatter plot</b></td><td>Are two things related?</td><td>Hours of sleep vs test score</td></tr></tbody></table></div><p>Two rules that keep charts honest: <b>bars start at zero</b> (otherwise small differences look huge), and <b>label everything</b>: a title, the units, and what each color means.</p>",
+   "p": "<p>A fitness app wants to show how your resting heart rate changed every week for a year.</p>",
+   "q": "Which chart fits best?",
+   "opts": [
+    "Pie chart",
+    "Line chart",
+    "A table of 52 numbers",
+    "Scatter plot"
+   ],
+   "ans": 1,
+   "miss": [
+    "A pie shows parts of a whole. 52 slices would be unreadable.",
+    "",
+    "Tables are good for exact lookups, not for spotting a trend.",
+    "Scatter plots compare two different measurements."
+   ],
+   "why": "<p>\"How did it change over time?\" is exactly what line charts are for. The eye follows the line and sees the trend straight away.</p>",
+   "h": "<p>Look at the Answers column. What question is the app trying to answer?</p>"
+  },
+  {
+   "uid": "a34",
+   "t": "Numbers to pixels",
+   "k": "fn",
+   "fn": "barHeight",
+   "a": "value, max, height",
+   "l": "<p>Every chart has to turn data values into pixel sizes. The trick is a <b>ratio</b>: how big is this value compared to the biggest one?</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// a progress ring: 30 of 120 minutes done, ring is 360 degrees\nconst degrees = 30 / 120 * 360;\nconsole.log(degrees);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>90</code></pre><p>The same idea makes the biggest bar fill the whole chart and every other bar the right size next to it.</p>",
+   "p": "<p>Write <code>barHeight(value, max, height)</code> that returns how many pixels tall a bar should be, rounded to a whole number. The biggest value (<code>max</code>) gets the full <code>height</code>. If <code>max</code> is 0, return 0 (so you never divide by zero).</p>",
+   "h": "<p><code>value / max</code> is the fraction. Multiply by <code>height</code> and round with <code>Math.round</code>. Check for <code>max === 0</code> first.</p>",
+   "c": [
+    [
+     [
+      50,
+      100,
+      120
+     ],
+     60
+    ],
+    [
+     [
+      100,
+      100,
+      120
+     ],
+     120
+    ],
+    [
+     [
+      33,
+      99,
+      150
+     ],
+     50
+    ],
+    [
+     [
+      0,
+      80,
+      120
+     ],
+     0
+    ],
+    [
+     [
+      5,
+      0,
+      120
+     ],
+     0
+    ],
+    [
+     [
+      7,
+      9,
+      100
+     ],
+     78
+    ]
+   ],
+   "s": "function barHeight(value, max, height) {\n  if (max === 0) return 0;\n  return Math.round(value / max * height);\n}\n",
+   "st": "function barHeight(value, max, height) {\n}\n"
+  },
+  {
+   "uid": "a35",
+   "t": "A bar chart on a canvas",
+   "k": "dom",
+   "step": "learn",
+   "l": "<p>For charts with lots of data, apps draw on a <code>&lt;canvas&gt;</code>. Here <code>canvas</code> and <code>ctx</code> are ready for you. Remember: y goes <b>down</b>, so a bar standing on a baseline at y 140 starts at <code>140 - h</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// one bar, 80 pixels tall, standing on y = 140\nctx.fillStyle = &quot;#e85d75&quot;;\nctx.fillRect(20, 140 - 80, 30, 80);   // x, y, width, height</code></pre><p>Loops make charts: one rectangle per data value, each one shifted along x.</p>",
+   "p": "<p>Draw one bar per value in <code>data</code>, colored <code>#2f6fec</code>. Bar <code>i</code> starts at x <code>20 + i * 60</code> and is 40 wide. Use <code>barHeight(value, max, 120)</code> for its height, and stand every bar on y <code>140</code>.</p>",
+   "h": "<p>Loop with <code>data.forEach((v, i) =&gt; { ... })</code>. Work out <code>h</code> with <code>barHeight</code>, then <code>ctx.fillRect(20 + i * 60, 140 - h, 40, h)</code>. Set the color once before the loop.</p>",
+   "html": "<canvas width=\"320\" height=\"160\"></canvas>",
+   "css": "canvas{display:block;width:100%;max-width:400px;background:#fff;border:1px solid #d5dbe6;border-radius:8px}.page{background:#eef1f6;padding:8px}",
+   "chk": "function (root) {\n    var c = root.querySelector(\"canvas\").getContext(\"2d\");\n    var blue = function (x, y) { var d = c.getImageData(x, y, 1, 1).data; return d[0] === 47 && d[1] === 111 && d[2] === 236; };\n    var data = [30, 60, 45, 15, 60], max = 60;\n    for (var i = 0; i < data.length; i++) {\n      var h = Math.round(data[i] / max * 120), x = 40 + i * 60;\n      if (!blue(x, 138)) return \"Bar \" + (i + 1) + \" should be #2f6fec, starting at x \" + (20 + i * 60) + \" and standing on y 140.\";\n      if (!blue(x, 142 - h)) return \"Bar \" + (i + 1) + \" should be \" + h + \" pixels tall.\";\n      if (blue(x, 136 - h)) return \"Bar \" + (i + 1) + \" is too tall. It should be \" + h + \" pixels.\";\n      if (blue(x + 30, 138)) return \"Bars should be 40 pixels wide with a gap between them.\";\n    }\n    if (blue(10, 138)) return \"The first bar should start at x 20.\";\n    return true;\n  }",
+   "s": "const data = [30, 60, 45, 15, 60];\nconst max = Math.max(...data);\nfunction barHeight(value, max, height) {\n  if (max === 0) return 0;\n  return Math.round(value / max * height);\n}\n\nctx.fillStyle = \"#2f6fec\";\ndata.forEach((v, i) => {\n  const h = barHeight(v, max, 120);\n  ctx.fillRect(20 + i * 60, 140 - h, 40, h);\n});\n",
+   "st": "const data = [30, 60, 45, 15, 60];\nconst max = Math.max(...data);\nfunction barHeight(value, max, height) {\n  if (max === 0) return 0;\n  return Math.round(value / max * height);\n}\n\n// one bar per value\n"
+  },
+  {
+   "uid": "a36",
+   "t": "A line chart",
+   "k": "dom",
+   "l": "<p>A line chart is points joined up. Canvas draws lines with a <b>path</b>: start with <code>beginPath()</code>, <code>moveTo</code> the first point, <code>lineTo</code> each next point, then <code>stroke()</code> to draw it.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>ctx.beginPath();\nctx.moveTo(10, 100);     // pick up the pen here\nctx.lineTo(60, 40);      // draw to here\nctx.lineTo(110, 70);     // and on to here\nctx.strokeStyle = &quot;green&quot;;\nctx.lineWidth = 2;\nctx.stroke();</code></pre><p>Dots on each point make the values easy to spot. Draw a circle with <code>ctx.arc(x, y, radius, 0, Math.PI * 2)</code> and <code>fill()</code>.</p>",
+   "p": "<p>Point <code>i</code> is at x <code>20 + i * 45</code> and y <code>140 - barHeight(steps[i], max, 120)</code>. Draw a line through all the points (<code>#2f6fec</code>, width 3), then a dot on each point (<code>#f28c28</code>, radius 5).</p>",
+   "h": "<p>Make a helper that returns <code>{ x, y }</code> for index <code>i</code>. Path: <code>beginPath</code>, <code>moveTo</code> point 0, <code>lineTo</code> the rest, set the style, <code>stroke</code>. Then a loop where each dot gets its own <code>beginPath</code>, <code>arc</code> and <code>fill</code>.</p>",
+   "html": "<canvas width=\"320\" height=\"160\"></canvas>",
+   "css": "canvas{display:block;width:100%;max-width:400px;background:#fff;border:1px solid #d5dbe6;border-radius:8px}.page{background:#eef1f6;padding:8px}",
+   "chk": "function (root) {\n    var c = root.querySelector(\"canvas\").getContext(\"2d\");\n    var px = function (x, y) { return c.getImageData(x, y, 1, 1).data; };\n    var steps = [4000, 7500, 6000, 9000, 5000, 10000, 8000], max = 10000;\n    var pt = function (i) { return { x: 20 + i * 45, y: 140 - Math.round(steps[i] / max * 120) }; };\n    for (var i = 0; i < steps.length; i++) {\n      var p = pt(i), d = px(p.x, p.y);\n      if (!(d[0] > 220 && d[1] > 120 && d[1] < 160 && d[2] < 70)) return \"There should be a #f28c28 dot at point \" + (i + 1) + \" (x \" + p.x + \", y \" + p.y + \").\";\n      if (px(p.x + 9, p.y)[3] > 0 && px(p.x + 9, p.y)[0] > 200) return \"The dots should have a radius of 5.\";\n    }\n    for (var j = 0; j < steps.length - 1; j++) {\n      var a = pt(j), b = pt(j + 1), m = px(Math.round((a.x + b.x) / 2), Math.round((a.y + b.y) / 2));\n      if (!(m[2] > 180 && m[0] < 120)) return \"The line from point \" + (j + 1) + \" to point \" + (j + 2) + \" should be #2f6fec.\";\n    }\n    return true;\n  }",
+   "s": "const steps = [4000, 7500, 6000, 9000, 5000, 10000, 8000];\nconst max = Math.max(...steps);\nfunction barHeight(value, max, height) {\n  if (max === 0) return 0;\n  return Math.round(value / max * height);\n}\nfunction point(i) {\n  return { x: 20 + i * 45, y: 140 - barHeight(steps[i], max, 120) };\n}\n\nctx.beginPath();\nctx.moveTo(point(0).x, point(0).y);\nfor (let i = 1; i < steps.length; i++) ctx.lineTo(point(i).x, point(i).y);\nctx.strokeStyle = \"#2f6fec\";\nctx.lineWidth = 3;\nctx.stroke();\n\nctx.fillStyle = \"#f28c28\";\nfor (let i = 0; i < steps.length; i++) {\n  ctx.beginPath();\n  ctx.arc(point(i).x, point(i).y, 5, 0, Math.PI * 2);\n  ctx.fill();\n}\n",
+   "st": "const steps = [4000, 7500, 6000, 9000, 5000, 10000, 8000];\nconst max = Math.max(...steps);\nfunction barHeight(value, max, height) {\n  if (max === 0) return 0;\n  return Math.round(value / max * height);\n}\n\n// 1. the line  2. a dot on each point\n"
+  },
+  {
+   "uid": "a37",
+   "t": "Pie chart shares",
+   "k": "fn",
+   "fn": "shares",
+   "a": "values",
+   "l": "<p>A pie chart shows each part as a <b>share of the whole</b>. First add everything up, then each slice is its value divided by the total. Times 100 gives a percent, and times 360 gives the slice's angle in degrees.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const day = { sleep: 9, school: 7, other: 8 };   // 24 hours\nconsole.log(day.school / 24 * 100);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>29.166666666666668</code></pre><div class=\"callout\"><b>Drawing it</b><p>On a canvas, each slice is <code>ctx.moveTo(cx, cy)</code> then <code>ctx.arc(cx, cy, r, start, end)</code>, where angles are in radians: a full circle is <code>Math.PI * 2</code>. Each slice starts where the last one ended.</p></div>",
+   "p": "<p>Write <code>shares(values)</code>. Return a new array with each value as a whole-number percent of the total (use <code>Math.round</code>). If the total is 0, return all zeros.</p>",
+   "h": "<p>Get the total with <code>reduce</code>. Then <code>map</code> each value to <code>Math.round(v / total * 100)</code>, or 0 when the total is 0.</p>",
+   "c": [
+    [
+     [
+      [
+       1,
+       1,
+       2
+      ]
+     ],
+     [
+      25,
+      25,
+      50
+     ]
+    ],
+    [
+     [
+      [
+       9,
+       7,
+       8
+      ]
+     ],
+     [
+      38,
+      29,
+      33
+     ]
+    ],
+    [
+     [
+      [
+       5
+      ]
+     ],
+     [
+      100
+     ]
+    ],
+    [
+     [
+      [
+       0,
+       0
+      ]
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    [
+     [
+      []
+     ],
+     []
+    ]
+   ],
+   "s": "function shares(values) {\n  const total = values.reduce((a, b) => a + b, 0);\n  return values.map(v => total === 0 ? 0 : Math.round(v / total * 100));\n}\n",
+   "st": "function shares(values) {\n}\n"
+  },
+  {
+   "uid": "a38",
+   "t": "How sound works",
+   "k": "pick",
+   "step": "learn",
+   "hook": "<p>Music players, voice recorders, tuners and beat makers are all apps too. Browsers have a full sound studio built in, called the <b>Web Audio API</b>, and you can drive it with JavaScript.</p>",
+   "l": "<p>Sound is air wobbling back and forth. Three numbers describe a simple sound:</p><div class=\"tbl\"><table><thead><tr><th>Word</th><th>What it is</th><th>You hear it as</th></tr></thead><tbody><tr><td><b>Frequency</b> (Hz)</td><td>How many wobbles per second</td><td><b>Pitch</b>: more wobbles = higher note. The note A is 440 Hz.</td></tr><tr><td><b>Amplitude</b> (gain)</td><td>How big the wobbles are</td><td><b>Volume</b>: 0 is silent, 1 is full volume</td></tr><tr><td><b>Waveform</b></td><td>The shape of each wobble</td><td><b>Tone</b>: <i>sine</i> is soft and pure, <i>square</i> is buzzy like old game consoles, <i>sawtooth</i> is bright and harsh</td></tr></tbody></table></div><p>Audio apps connect <b>nodes</b> like guitar pedals: a <b>source</b> (makes sound) → <b>effects</b> (volume, echo, filters) → the <b>destination</b> (your speakers).</p>",
+   "p": "<p>A tuner app shows a guitar string is playing at 82 Hz, but it should be at 110 Hz.</p>",
+   "q": "What does the guitarist need to do?",
+   "opts": [
+    "Make the note higher (tighten the string)",
+    "Make it louder",
+    "Make it quieter",
+    "Change the waveform"
+   ],
+   "ans": 0,
+   "miss": [
+    "",
+    "Volume is amplitude. The tuner is measuring frequency.",
+    "Volume doesn't change the pitch.",
+    "The shape changes the tone, not which note it is."
+   ],
+   "why": "<p>Frequency is pitch. 82 Hz is too few wobbles per second, so the note is too low. Tightening the string makes it wobble faster, raising the frequency toward 110 Hz.</p>",
+   "h": "<p>Frequency is about pitch. Is 82 lower or higher than 110?</p>"
+  },
+  {
+   "uid": "a39",
+   "t": "Notes are numbers",
+   "k": "fn",
+   "fn": "noteFreq",
+   "a": "n",
+   "l": "<p>On a piano, every key is a <b>semitone</b> apart, and every 12 semitones (an <b>octave</b>) the frequency <b>doubles</b>. So A above middle C is 440 Hz, the next A up is 880 Hz, and the A below is 220 Hz.</p><p>The keys in between are spaced evenly by multiplying. Each semitone multiplies the frequency by <code>2 ** (1 / 12)</code> (about 1.0595). So a note <code>n</code> semitones away from A 440 is:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// ** means &quot;to the power of&quot;: 2 ** 3 is 2 × 2 × 2 = 8\nconst up7 = 440 * 2 ** (7 / 12);   // 7 semitones up from A\nconsole.log(up7.toFixed(2));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>659.26</code></pre><p>Negative <code>n</code> works too, for notes below A.</p>",
+   "p": "<p>Write <code>noteFreq(n)</code> that returns the frequency of the note <code>n</code> semitones from A 440, rounded to 2 decimal places as a <b>number</b>.</p>",
+   "h": "<p>Use the formula from the example with <code>n</code> instead of 7, then round with <code>Math.round(f * 100) / 100</code>.</p>",
+   "c": [
+    [
+     [
+      0
+     ],
+     440
+    ],
+    [
+     [
+      12
+     ],
+     880
+    ],
+    [
+     [
+      -12
+     ],
+     220
+    ],
+    [
+     [
+      3
+     ],
+     523.25
+    ],
+    [
+     [
+      -9
+     ],
+     261.63
+    ],
+    [
+     [
+      2
+     ],
+     493.88
+    ]
+   ],
+   "s": "function noteFreq(n) {\n  const f = 440 * 2 ** (n / 12);\n  return Math.round(f * 100) / 100;\n}\n",
+   "st": "function noteFreq(n) {\n}\n"
+  },
+  {
+   "uid": "a40",
+   "t": "Make a sound",
+   "k": "dom",
+   "step": "learn",
+   "ex": [
+    "playNote"
+   ],
+   "l": "<p>To play a note with the Web Audio API, you make an <b>oscillator</b> (a source that wobbles at a frequency), send it through a <b>gain</b> node (volume) to the speakers, start it, and stop it a moment later.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const audio = new AudioContext();     // the sound studio, made once\n\nfunction beep() {\n  const osc = audio.createOscillator();\n  const vol = audio.createGain();\n  osc.type = &quot;sine&quot;;\n  osc.frequency.value = 880;           // Hz\n  vol.gain.value = 0.1;                // quiet, please\n  osc.connect(vol);\n  vol.connect(audio.destination);      // destination = the speakers\n  osc.start();\n  osc.stop(audio.currentTime + 0.2);   // 0.2 seconds from now\n  return osc;\n}</code></pre><div class=\"callout warn\"><b>Volume</b><p>Turn your volume down before you test this! Browsers also only allow sound after you've clicked something on the page, so sounds belong in click handlers.</p></div>",
+   "p": "<p>Finish <code>playNote(freq)</code>: play a <code>\"triangle\"</code> wave at <code>freq</code> Hz with gain <code>0.2</code> for 0.3 seconds, and return the oscillator. Then make clicking a key in <code>#keys</code> play <code>noteFreq</code> of that key's <code>data-n</code>, and show the key's letter and frequency in <code>#now</code>, like <code>A · 440 Hz</code>.</p>",
+   "h": "<p>Copy the shape of <code>beep</code>, but use <code>freq</code>, <code>\"triangle\"</code>, <code>0.2</code> and <code>0.3</code>. For the keys, one click listener on <code>#keys</code> with <code>e.target.closest(\"button\")</code>, then <code>noteFreq(Number(btn.dataset.n))</code>.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">🎹 Mini Piano<span class=\"sp\"></span><span id=\"now\" style=\"font-weight:400\">Press a key</span></div><div class=\"body\" id=\"keys\" style=\"display:flex;gap:4px\">\n<button data-n=\"-9\">C</button><button data-n=\"-7\">D</button><button data-n=\"-5\">E</button><button data-n=\"-4\">F</button><button data-n=\"-2\">G</button><button data-n=\"0\">A</button><button data-n=\"2\">B</button></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n#keys button{flex:1;min-height:70px;font-weight:700}",
+   "chk": "function (root, logs, ex) {\n    if (typeof ex.playNote !== \"function\") return \"Keep the playNote function.\";\n    var osc = ex.playNote(330);\n    if (!osc || !osc.frequency) return \"playNote should return the oscillator it made.\";\n    if (Math.abs(osc.frequency.value - 330) > 0.01) return \"playNote(330) should set the oscillator's frequency to 330.\";\n    if (osc.type !== \"triangle\") return \"Use a \\\"triangle\\\" wave.\";\n    root.querySelector('#keys button[data-n=\"0\"]').click();\n    if (root.querySelector(\"#now\").textContent !== \"A · 440 Hz\") return \"Clicking A should show A · 440 Hz in #now.\";\n    root.querySelector('#keys button[data-n=\"-9\"]').click();\n    if (root.querySelector(\"#now\").textContent !== \"C · 261.63 Hz\") return \"Clicking C should show C · 261.63 Hz in #now.\";\n    return true;\n  }",
+   "s": "const audio = new AudioContext();\nfunction noteFreq(n) {\n  return Math.round(440 * 2 ** (n / 12) * 100) / 100;\n}\n\nfunction playNote(freq) {\n  const osc = audio.createOscillator();\n  const vol = audio.createGain();\n  osc.type = \"triangle\";\n  osc.frequency.value = freq;\n  vol.gain.value = 0.2;\n  osc.connect(vol);\n  vol.connect(audio.destination);\n  osc.start();\n  osc.stop(audio.currentTime + 0.3);\n  return osc;\n}\n\ndocument.querySelector(\"#keys\").addEventListener(\"click\", e => {\n  const btn = e.target.closest(\"button\");\n  if (!btn) return;\n  const f = noteFreq(Number(btn.dataset.n));\n  playNote(f);\n  document.querySelector(\"#now\").textContent = btn.textContent + \" · \" + f + \" Hz\";\n});\n",
+   "st": "const audio = new AudioContext();\nfunction noteFreq(n) {\n  return Math.round(440 * 2 ** (n / 12) * 100) / 100;\n}\n\nfunction playNote(freq) {\n  // oscillator → gain → speakers\n}\n\n// play a note when a key is clicked\n"
+  },
+  {
+   "uid": "a41",
+   "t": "A stopwatch",
+   "k": "dom",
+   "l": "<p>Timers, stopwatches and recorders need code that runs again and again. <code>setInterval(fn, ms)</code> calls <code>fn</code> every <code>ms</code> milliseconds and gives back an id. <code>clearInterval(id)</code> stops it.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let left = 10;\nconst id = setInterval(() =&gt; {\n  left--;\n  label.textContent = left;\n  if (left === 0) clearInterval(id);   // countdown finished\n}, 1000);</code></pre><p>Keep the id in a variable, set it back to <code>null</code> when stopped, and check it before starting, so pressing Start twice doesn't run two timers at once.</p>",
+   "p": "<p>Make the stopwatch work. <b>Start</b> adds 1 to <code>tenths</code> every 100 ms and shows the time in <code>#time</code> with one decimal (<code>2.5</code>). <b>Stop</b> pauses it. <b>Reset</b> stops it and shows <code>0.0</code>. Pressing Start twice must not make it run double speed.</p>",
+   "h": "<p>Write a <code>show()</code> that sets <code>#time</code> to <code>(tenths / 10).toFixed(1)</code>. Start: if <code>timer</code> is null, <code>timer = setInterval(...)</code>. Stop: <code>clearInterval(timer); timer = null;</code>. Reset: stop, set <code>tenths = 0</code>, <code>show()</code>.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">⏱ Stopwatch</div><div class=\"body\" style=\"text-align:center\"><div id=\"time\" style=\"font:800 40px/1.2 ui-monospace,monospace;margin:8px 0\">0.0</div><button id=\"start\" class=\"pri\">Start</button> <button id=\"stop\">Stop</button> <button id=\"reset\">Reset</button></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n",
+   "chk": "async function (root, logs, ex, code, t) {\n    var time = function () { return parseFloat(root.querySelector(\"#time\").textContent); };\n    var b = function (id) { root.querySelector(\"#\" + id).click(); };\n    b(\"start\"); b(\"start\");\n    await t.wait(1050);\n    var a = time();\n    if (!(a >= 0.8 && a <= 1.3)) return \"After about 1 second, #time should show about 1.0. It shows \" + root.querySelector(\"#time\").textContent + (a > 1.5 ? \". Is Start running two timers?\" : \".\");\n    if (!/^\\d+\\.\\d$/.test(root.querySelector(\"#time\").textContent.trim())) return \"Show the time with exactly one decimal, like 1.0.\";\n    b(\"stop\"); var s = time(); await t.wait(350);\n    if (time() !== s) return \"Stop should pause the stopwatch.\";\n    b(\"start\"); await t.wait(250);\n    if (!(time() > s)) return \"Start after Stop should carry on from where it paused.\";\n    b(\"reset\"); await t.wait(250);\n    if (root.querySelector(\"#time\").textContent.trim() !== \"0.0\") return \"Reset should stop the stopwatch and show 0.0.\";\n    return true;\n  }",
+   "s": "let tenths = 0;\nlet timer = null;\nconst time = document.querySelector(\"#time\");\n\nfunction show() {\n  time.textContent = (tenths / 10).toFixed(1);\n}\nfunction stop() {\n  clearInterval(timer);\n  timer = null;\n}\n\ndocument.querySelector(\"#start\").addEventListener(\"click\", () => {\n  if (timer !== null) return;\n  timer = setInterval(() => {\n    tenths++;\n    show();\n  }, 100);\n});\ndocument.querySelector(\"#stop\").addEventListener(\"click\", stop);\ndocument.querySelector(\"#reset\").addEventListener(\"click\", () => {\n  stop();\n  tenths = 0;\n  show();\n});\n",
+   "st": "let tenths = 0;\nlet timer = null;\nconst time = document.querySelector(\"#time\");\n\n// Start, Stop and Reset\n"
+  },
+  {
+   "uid": "a42",
+   "t": "Boss: a pocket money tracker",
+   "k": "dom",
+   "step": "boss",
+   "l": "<p>Time to build a whole app: a pocket money tracker. It uses everything from this module: an array of records, a form that creates, a delete button, a total in money format, an empty state and a little bar chart. The page and the <code>render</code> pieces are there. You write the data side.</p><div class=\"callout\"><b>Make it yours</b><p>When you pass, try it in the <button class=\"linkish\" type=\"button\" data-go=\"studio\">Web Studio</button>: add saving with <code>localStorage</code>, a pie chart, or a monthly budget warning.</p></div>",
+   "p": "<p>Write the app:</p><ol><li><b>Add</b>: when <code>#add</code> is submitted, read <code>#what</code> (trimmed), <code>#amount</code> (as a number) and <code>#cat</code>. If the text is empty or the amount isn't more than 0, put <code>Add a name and an amount above 0.</code> in <code>#err</code> and add nothing. Otherwise clear <code>#err</code>, push <code>{ id, what, amount, cat }</code> with a new id, clear both boxes and render.</li><li><b>Delete</b>: clicking a <code>.del</code> button removes that item and renders.</li><li><b>render()</b> must also: put the total in <code>#total</code> as US dollars (like <code>$12.50</code>), hide <code>#empty</code> when there are items, and fill <code>#bars</code> with one <code>.row</code> per category that has spending, using <code>barRow(cat, amount, max)</code>, where <code>max</code> is the biggest category total.</li></ol>",
+   "h": "<p>Reuse your own work: <code>money</code> (Intl.NumberFormat), <code>byCategory</code> (group totals), the form pattern from Add with a form, and delegation from Delete with Undo. For the bars: <code>const totals = byCategory(items);</code>, <code>const max = Math.max(...Object.values(totals));</code>, then <code>Object.keys(totals).map(c =&gt; barRow(c, totals[c], max)).join(\"\")</code>.</p>",
+   "html": "<div class=\"app\"><div class=\"bar\">💰 Pocket Money<span class=\"sp\"></span><span>Total: <span id=\"total\">$0.00</span></span></div><div class=\"body\">\n<form id=\"add\" style=\"display:flex;gap:6px;flex-wrap:wrap\"><input id=\"what\" placeholder=\"What\" style=\"flex:2;min-width:90px\"><input id=\"amount\" type=\"number\" step=\"0.01\" placeholder=\"Amount\" style=\"flex:1;min-width:70px\"><select id=\"cat\"><option value=\"food\">Food</option><option value=\"fun\">Fun</option><option value=\"travel\">Travel</option></select><button class=\"pri\">Add</button></form>\n<p id=\"err\" style=\"color:#c0262f;font-weight:700;min-height:1em;margin:6px 0\"></p>\n<ul id=\"list\" class=\"list\"></ul><p id=\"empty\" class=\"muted\">No spending yet. Add your first item above.</p>\n<div id=\"bars\"></div></div></div>",
+   "css": "\n.page{background:#eef1f6;color:#1f2633}\n.app{display:flex;flex-direction:column;min-height:160px;background:#fff;border:1px solid #d5dbe6;border-radius:10px;overflow:hidden;margin:8px}\n.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#24324d;color:#fff;font-weight:700}\n.bar .sp{flex:1}\n.body{padding:10px}\nbutton{font:inherit;padding:6px 12px;border-radius:7px;border:1px solid #c2cad8;background:#fff;color:#1f2633;cursor:pointer;min-height:32px}\nbutton.pri{background:#2f6fec;border-color:#2f6fec;color:#fff;font-weight:700}\ninput,select{font:inherit;padding:6px 8px;border:1px solid #c2cad8;border-radius:7px;min-height:32px;max-width:100%}\nul.list{list-style:none;margin:8px 0 0;padding:0}\nul.list li{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid #e6eaf1}\nul.list li.done span{text-decoration:line-through;color:#7a8396}\n.muted{color:#66708a;font-size:13px}\ntable{border-collapse:collapse;width:100%;font-size:14px}\nth,td{text-align:left;padding:6px 8px;border-bottom:1px solid #e6eaf1}\nth{background:#f3f5f9;cursor:pointer;user-select:none}\n.tag{position:absolute;background:#e63946;color:#fff;font:700 12px/1 system-ui,sans-serif;padding:4px 7px;border-radius:999px;z-index:2}\n[hidden]{display:none!important}\n#bars{margin-top:10px}#bars .row{display:flex;align-items:center;gap:8px;font-size:13px;margin:4px 0}#bars .row b{width:52px}#bars .fill{height:14px;background:#2f6fec;border-radius:4px}",
+   "chk": "function (root) {\n    var $ = function (s) { return root.querySelector(s); };\n    var add = function (w, a, c) { $(\"#what\").value = w; $(\"#amount\").value = a; $(\"#cat\").value = c; $(\"#add\").requestSubmit(); };\n    if ($(\"#empty\").hidden) return \"With no items, #empty should show.\";\n    if ($(\"#total\").textContent !== \"$0.00\") return \"With no items, #total should be $0.00.\";\n    add(\"Lunch\", \"6.5\", \"food\");\n    if (root.querySelectorAll(\"#list li\").length !== 1) return \"Adding Lunch should put 1 item in #list.\";\n    if ($(\"#total\").textContent !== \"$6.50\") return \"After adding Lunch for 6.5, #total should be $6.50.\";\n    if (!$(\"#empty\").hidden) return \"Hide #empty once there's an item.\";\n    if ($(\"#what\").value !== \"\" || $(\"#amount\").value !== \"\") return \"Clear #what and #amount after adding.\";\n    add(\"Bus\", \"12\", \"travel\"); add(\"Snacks\", \"3.25\", \"food\");\n    if ($(\"#total\").textContent !== \"$21.75\") return \"After Lunch 6.5, Bus 12 and Snacks 3.25, #total should be $21.75. It's \" + $(\"#total\").textContent + \".\";\n    add(\"   \", \"4\", \"fun\");\n    if (root.querySelectorAll(\"#list li\").length !== 3 || $(\"#err\").textContent !== \"Add a name and an amount above 0.\") return \"An empty name should show the error in #err and add nothing.\";\n    add(\"Game\", \"-5\", \"fun\");\n    if (root.querySelectorAll(\"#list li\").length !== 3) return \"An amount of 0 or less shouldn't be added.\";\n    add(\"Game\", \"15\", \"fun\");\n    if ($(\"#err\").textContent !== \"\") return \"Clear #err after a good add.\";\n    var rows = root.querySelectorAll(\"#bars .row\");\n    if (rows.length !== 3) return \"#bars should have one .row per category with spending (3 now). It has \" + rows.length + \".\";\n    var fills = Array.prototype.map.call(rows, function (r) { return r.querySelector(\".fill\").style.width; }).join(\" \");\n    if (fills.indexOf(\"100%\") < 0 || fills.indexOf(\"65%\") < 0) return \"The biggest category (fun, $15) should get a 100% bar, and food ($9.75) 65%. Got: \" + fills + \".\";\n    root.querySelectorAll(\"#list .del\")[1].click();\n    if (root.querySelectorAll(\"#list li\").length !== 3 || $(\"#total\").textContent !== \"$24.75\") return \"Deleting Bus should leave 3 items and a total of $24.75.\";\n    if (root.querySelectorAll(\"#bars .row\").length !== 2) return \"With no travel spending left, the travel bar should disappear.\";\n    return true;\n  }",
+   "s": "let items = [];\nlet nextId = 1;\nconst list = document.querySelector(\"#list\");\nconst err = document.querySelector(\"#err\");\n\nfunction barRow(cat, amount, max) {\n  const pct = Math.round(amount / max * 100);\n  return '<div class=\"row\"><b>' + cat + '</b><div class=\"fill\" style=\"width:' + pct + '%\"></div></div>';\n}\nfunction money(n) {\n  return new Intl.NumberFormat(\"en-US\", { style: \"currency\", currency: \"USD\" }).format(n);\n}\nfunction byCategory(items) {\n  const totals = {};\n  for (const it of items) totals[it.cat] = (totals[it.cat] || 0) + it.amount;\n  return totals;\n}\n\nfunction render() {\n  list.innerHTML = \"\";\n  for (const it of items) {\n    const li = document.createElement(\"li\");\n    li.dataset.id = it.id;\n    li.innerHTML = '<span style=\"flex:1\"></span><b></b><button class=\"del\">✕</button>';\n    li.querySelector(\"span\").textContent = it.what + \" (\" + it.cat + \")\";\n    li.querySelector(\"b\").textContent = money(it.amount);\n    list.append(li);\n  }\n  const sum = items.reduce((s, it) => s + it.amount, 0);\n  document.querySelector(\"#total\").textContent = money(sum);\n  document.querySelector(\"#empty\").hidden = items.length > 0;\n  const totals = byCategory(items);\n  const max = Math.max(...Object.values(totals));\n  document.querySelector(\"#bars\").innerHTML = Object.keys(totals).map(c => barRow(c, totals[c], max)).join(\"\");\n}\n\ndocument.querySelector(\"#add\").addEventListener(\"submit\", e => {\n  e.preventDefault();\n  const what = document.querySelector(\"#what\").value.trim();\n  const amount = Number(document.querySelector(\"#amount\").value);\n  const cat = document.querySelector(\"#cat\").value;\n  if (what === \"\" || !(amount > 0)) {\n    err.textContent = \"Add a name and an amount above 0.\";\n    return;\n  }\n  err.textContent = \"\";\n  items.push({ id: nextId++, what: what, amount: amount, cat: cat });\n  document.querySelector(\"#what\").value = \"\";\n  document.querySelector(\"#amount\").value = \"\";\n  render();\n});\n\nlist.addEventListener(\"click\", e => {\n  if (!e.target.matches(\".del\")) return;\n  const id = Number(e.target.closest(\"li\").dataset.id);\n  items = items.filter(it => it.id !== id);\n  render();\n});\n\nrender();\n",
+   "st": "let items = [];\nlet nextId = 1;\nconst list = document.querySelector(\"#list\");\nconst err = document.querySelector(\"#err\");\n\nfunction barRow(cat, amount, max) {\n  const pct = Math.round(amount / max * 100);\n  return '<div class=\"row\"><b>' + cat + '</b><div class=\"fill\" style=\"width:' + pct + '%\"></div></div>';\n}\n\nfunction render() {\n  list.innerHTML = \"\";\n  for (const it of items) {\n    const li = document.createElement(\"li\");\n    li.dataset.id = it.id;\n    li.innerHTML = '<span style=\"flex:1\"></span><b></b><button class=\"del\">✕</button>';\n    li.querySelector(\"span\").textContent = it.what + \" (\" + it.cat + \")\";\n    li.querySelector(\"b\").textContent = it.amount;\n    list.append(li);\n  }\n  // total, empty state and bars\n}\n\n// add, delete\n\nrender();\n"
+  }
+ ]
+}
