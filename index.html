@@ -998,6 +998,15 @@ html[data-hover="glow"] :is(.qcard,.tile,.cart,.swatch,.fxbtn):hover{box-shadow:
 .fxbtn b{font-size:14px}
 .fxbtn .muted{font-size:12px;line-height:1.35}
 .fxbtn[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.swatch.locked,.fxbtn.locked{border-style:dashed;cursor:not-allowed}
+.swatch.locked .sw{filter:grayscale(.9);opacity:.45}
+.swatch.locked b,.fxbtn.locked b{opacity:.65}
+.lock{display:inline-flex;align-items:center;gap:5px;font-family:var(--f-display);font-size:11px;letter-spacing:.06em;color:var(--muted)}
+.lock svg,.cart.locked svg,.locked-sec .eyebrow svg{width:12px;height:12px}
+.cart.locked{opacity:.75}
+.cart.locked .band{background:var(--muted)}
+.unlhint{margin:12px 0 0}
+.hello .nextunl{margin:6px 0 0;font-size:14px}
 .setsub{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--muted);margin:16px 0 8px;padding-top:12px;border-top:2px solid var(--line)}
 .totop{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40;display:inline-flex;align-items:center;gap:8px;background:var(--panel);color:var(--ink);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--shadow);padding:8px 12px;font-family:var(--f-display);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 html[data-bar="bottom"]:not([data-bar-hidden="1"]) .totop{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
@@ -20165,12 +20174,62 @@ function skipHtml(s) {
   return '<p class="muted" style="margin:10px 0 0">Already know this? <button class="linkish" type="button" data-go="quiz" data-arg="' + id + '">Take the skip-ahead test</button> to mark stages 1 to ' + upto + " as known.</p>";
 }
 function nextSection(s) {
-  var order = SECS.slice().sort(function (a, b) { return mapRank(a) - mapRank(b); });
+  var order = SECS.filter(function (x) { return x === s || !(x.secret && isLocked("section", x.id)); }).sort(function (a, b) { return mapRank(a) - mapRank(b); });
   return order[order.indexOf(s) + 1] || null;
 }
 function xpFor(lv) { return 30 * (lv - 1) * (lv - 1); }
 var RANKS = [[1, "Script Kiddo"], [3, "Syntax Scout"], [5, "Loop Rookie"], [7, "Variable Wrangler"], [9, "Function Knight"], [12, "Array Ranger"], [15, "Object Smith"], [18, "Closure Mage"], [21, "Async Ace"], [24, "DOM Tamer"], [27, "Algorithm Hunter"], [30, "Engine Builder"], [34, "JavaScript Legend"]];
 function rankOf(lv) { var r = RANKS[0][1]; RANKS.forEach(function (x) { if (lv >= x[0]) r = x[1]; }); return r; }
+
+// ---------------- level unlocks ----------------
+// Themes, backgrounds and trails open up as you level. Anything not listed in UNLOCK_LV is free from the start.
+// To gate something new, add it here, or give a section `unlock: <level>` in SQDATA (add `secret: true` to hide it from the Map until then).
+var TRAILS = [["off", "Off"], ["sparkle", "Sparkles"], ["pixels", "Pixels"], ["rainbow", "Rainbow"], ["bubbles", "Bubbles"]];
+var UNLOCK_LV = {
+  skin: { retro: 2, modern: 3, candy: 4, mocha: 5, arctic: 6, forest: 7, aero: 8, girlypop: 9, terminal: 10, toon: 11, sixtyfour: 12, cube: 13, miami: 14, eighties: 16, lava: 18 },
+  bg: { fireflies: 2, comets: 3, waves: 4, confetti: 5, leaves: 6, petals: 7, constellation: 8, hearts: 9, rain: 10, shapes: 11, blocks: 12, aurora: 13, warp: 14, grid: 16, lava: 18 },
+  trail: { pixels: 2, bubbles: 5, rainbow: 9 }
+};
+var UNLOCK_KIND = { skin: "theme", bg: "background", trail: "mouse trail", section: "module" };
+function unlockList() {
+  var out = [], name = function (list, k) { var x = list.filter(function (e) { return e[0] === k; })[0]; return x ? x[1] : k; };
+  [["skin", SKINS], ["bg", BGFX], ["trail", TRAILS]].forEach(function (p) { Object.keys(UNLOCK_LV[p[0]]).forEach(function (k) { out.push({ id: p[0] + ":" + k, kind: p[0], key: k, name: name(p[1], k), lv: UNLOCK_LV[p[0]][k] }); }); });
+  SECS.forEach(function (s) { if (s.unlock) out.push({ id: "section:" + s.id, kind: "section", key: s.id, name: s.title, lv: s.unlock, secret: !!s.secret }); });
+  return out.sort(function (a, b) { return a.lv - b.lv; });
+}
+// the level something needs, or 0 when it's free or the player kept it from before unlocks existed
+function lockLv(kind, key) { var n = kind === "section" ? (SEC[key] && SEC[key].unlock) || 0 : (UNLOCK_LV[kind] || {})[key] || 0; return n && !(S.unl && S.unl.keep[kind + ":" + key]) ? n : 0; }
+function isLocked(kind, key, lv) { var n = lockLv(kind, key); return n > 0 && (lv || levelOf(totalXp())) < n; }
+function lockTag(n) { return '<span class="lock">' + glyph("lock") + "LEVEL " + n + "</span>"; }
+function lockedMsg(kind, key, name) { SFX.fail(); toast("Reach level " + lockLv(kind, key) + " to unlock the " + name + " " + UNLOCK_KIND[kind] + "."); }
+function unlockLabel(u) { return u.secret ? "a secret " + UNLOCK_KIND[u.kind] : u.name + " " + UNLOCK_KIND[u.kind]; }
+function andList(a) { return a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]; }
+// the next level that unlocks something, and what it unlocks
+function nextUnlocks(lv) { var up = unlockList().filter(function (u) { return isLocked(u.kind, u.key, lv); }); return up.length ? up.filter(function (u) { return u.lv === up[0].lv; }) : []; }
+function nextUnlockLine(lv, xp) {
+  var nx = nextUnlocks(lv); if (!nx.length) return "Everything is unlocked. Legend!";
+  var more = nx.length > 2 ? " and " + (nx.length - 2) + " more" : "";
+  return "Next unlock at level " + nx[0].lv + ": " + nx.slice(0, 2).map(unlockLabel).join(", ") + more + " (" + (xpFor(nx[0].lv) - xp).toLocaleString() + " XP to go)";
+}
+// toast what the player's level has opened up since last time; quiet just records it (first boot, loaded saves)
+function checkUnlocks(delay, quiet) {
+  var lv = levelOf(totalXp()), fresh = unlockList().filter(function (u) { return !isLocked(u.kind, u.key, lv) && !S.unl.seen[u.id]; });
+  if (!fresh.length) return;
+  fresh.forEach(function (u) { S.unl.seen[u.id] = Date.now(); }); save("unlocks", S.unl);
+  if (quiet) return;
+  var cos = fresh.filter(function (u) { return u.kind !== "section"; }), secs = fresh.filter(function (u) { return u.kind === "section"; });
+  if (cos.length) queueToast("Unlocked: " + andList(cos.map(unlockLabel)) + "! Try " + (cos.length === 1 ? "it" : "them") + " in Settings.", delay);
+  if (secs.length) queueToast("New module unlocked: " + andList(secs.map(function (u) { return u.name; })) + "! Find it on the Map.", delay);
+}
+function seedUnlocks() {
+  S.unl = load("unlocks", null);
+  if (S.unl && S.unl.seen) { S.unl.keep = S.unl.keep || {}; checkUnlocks(1500); return; }
+  // first run with unlocks: whatever the player already picked stays theirs
+  S.unl = { seen: {}, keep: {} };
+  [["skin", S.set.skin], ["bg", S.set.bgFx], ["trail", S.set.trail]].forEach(function (p) { if (isLocked(p[0], p[1])) S.unl.keep[p[0] + ":" + p[1]] = 1; });
+  checkUnlocks(0, true); save("unlocks", S.unl);
+  if (S.profile && Object.keys(S.done).length) queueToast("New: themes and effects now unlock as you level up. See what's next on your player card.", 1200);
+}
 function nameOf() { return (S.profile && S.profile.name) || "Player"; }
 function personal(s) { return String(s || "").replace(/@@name/g, h(nameOf())); }
 function personalCode(s) { return String(s || "").replace(/@@name/g, nameOf().replace(/["\\`$]/g, "")); }
@@ -20642,7 +20701,8 @@ var GLYPH = {
   up: ["...#...", "..###..", ".##.##.", "##...##", "#.....#"],
   down: ["#.....#", "##...##", ".##.##.", "..###..", "...#..."],
   left: ["...##", "..##.", ".##..", "##...", ".##..", "..##.", "...##"],
-  right: ["##...", ".##..", "..##.", "...##", "..##.", ".##..", "##..."]
+  right: ["##...", ".##..", "..##.", "...##", "..##.", ".##..", "##..."],
+  lock: [".###.", "#...#", "#...#", "#####", "##.##", "##.##", "#####"]
 };
 function glyph(name) {
   var g = GLYPH[name], w = g[0].length, r = "";
@@ -20737,7 +20797,7 @@ function viewMap(V) {
   var totalStages = SECS.reduce(function (a, s) { return a + s.stages.length; }, 0);
   var html = '<div class="wrap">';
   if (!storageOk) html += '<div class="banner">This browser is blocking saved data, so progress lasts only until you close the tab. Copy your save code from <b>Settings → Save data</b> before leaving.</div>';
-  html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + (streakNow() > 1 ? " · " + streakNow() + "-DAY STREAK" : "") + "</p><h1>" + greet + "</h1></div>" +
+  html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + (streakNow() > 1 ? " · " + streakNow() + "-DAY STREAK" : "") + "</p><h1>" + greet + '</h1><p class="muted nextunl"><button class="linkish" type="button" data-go="me">' + h(nextUnlockLine(lv, xp)) + "</button></p></div>" +
     '<div class="row">' + (cont ? '<button class="btn primary" data-go="stage" data-arg="' + cont.id + '">' + icon("play") + "Continue: " + h(cont.sec.title) + " " + cont.n + "</button>" : "") +
     (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="review">Review Deck: ' + (rvQs().length + rvStages().length) + " to review</button>" : "") + "</div></section>";
   html += '<section class="stats" aria-label="Your stats">' +
@@ -20749,7 +20809,7 @@ function viewMap(V) {
   var rvN = rvQs().length + rvStages().length;
   if (rvN || S.rvCleared) html += '<div class="group-h"><h2>REVIEW DECK</h2><span class="muted">Mistakes collect here so you can come back and beat them.</span></div><section class="carts"><button class="cart" data-go="review" style="--sc:var(--fail)"><span class="band"><span>↻ ' + rvN + " TO REVIEW</span><span>" + S.rvCleared + ' CLEARED</span></span><span class="body"><h3>Review Deck</h3><p>' + (rvN ? rvQs().length + " quiz question" + (rvQs().length === 1 ? "" : "s") + " and " + rvStages().length + " stage" + (rvStages().length === 1 ? "" : "s") + " to try again." : "All clear. New mistakes will show up here.") + "</p></span></button></section>";
   GROUPS.forEach(function (g) {
-    var secs = SECS.filter(function (s) { return s.group === g.id; });
+    var secs = SECS.filter(function (s) { return s.group === g.id && !(s.secret && isLocked("section", s.id, lv)); });
     if (!secs.length) return;
     html += '<div class="group-h"><h2>' + g.title.toUpperCase() + '</h2><span class="muted">' + g.sub + "</span></div>";
     if (g.id === "core") {
@@ -20765,7 +20825,8 @@ function viewMap(V) {
   V.innerHTML = html;
 }
 function cartHtml(s) {
-  var d = secDone(s), pct = d / s.stages.length * 100;
+  var d = secDone(s), pct = d / s.stages.length * 100, n = isLocked("section", s.id) ? lockLv("section", s.id) : 0;
+  if (n) return '<button class="cart locked" data-go="section" data-arg="' + s.id + '" style="--sc:var(--' + s.color + ')"><span class="band"><span>' + glyph("lock") + "LOCKED</span><span>LEVEL " + n + '</span></span><span class="body"><h3>' + h(s.title) + "</h3><p>Reach level " + n + " to open this module.</p></span></button>";
   return '<button class="cart" data-go="section" data-arg="' + s.id + '" style="--sc:var(--' + s.color + ')"><span class="band"><span>' + h(s.icon) + " " + s.stages.length + " STAGES</span><span>+" + s.xp + " XP EACH</span></span>" +
     '<span class="body"><h3>' + h(s.title) + "</h3><p>" + h(s.blurb) + '</p><span class="meta"><span class="bar"><i style="width:' + pct + '%"></i></span><span>' + d + "/" + s.stages.length + "</span></span></span></button>";
 }
@@ -20773,6 +20834,11 @@ function cartHtml(s) {
 // ---------------- SECTION ----------------
 function viewSection(V, id) {
   var s = SEC[id]; if (!s) return viewMap(V);
+  if (isLocked("section", s.id)) {
+    var xp = totalXp(), n = lockLv("section", s.id);
+    V.innerHTML = '<div class="wrap"><div class="crumbs"><button data-go="map">Map</button><span>›</span><span>Locked</span></div><section class="card locked-sec"><p class="eyebrow">' + glyph("lock") + "LOCKED · LEVEL " + n + "</p><h1 class=\"title\">" + (s.secret ? "Something is hidden here" : h(s.title)) + '</h1><p class="muted">Reach level ' + n + " to open " + (s.secret ? "it" : "this module") + ". You're level " + levelOf(xp) + ", " + (xpFor(n) - xp).toLocaleString() + ' XP to go.</p><div class="row"><button class="btn primary" data-go="map">Back to the Map</button></div></section></div>';
+    return;
+  }
   var d = secDone(s), nx = s.stages.filter(function (st) { return !S.done[st.id]; })[0];
   var html = '<div class="wrap" style="--sc:var(--' + s.color + ')"><div class="crumbs"><button data-go="map">Map</button><span>›</span><span>' + h(s.title) + "</span></div>" +
     '<section class="sec-head"><div class="card"><p class="eyebrow">' + h(GROUPS.filter(function (g) { return g.id === s.group; })[0].title.toUpperCase()) + " · " + s.stages.length + " STAGES</p>" +
@@ -20958,7 +21024,7 @@ function starterFor(st) {
 }
 function viewStage(V, id) {
   var st = STAGE[id], s = st ? st.sec : SEC[String(id).split(":")[0]]; if (!s) return viewMap(V);
-  if (!st) return viewSection(V, s.id);
+  if (!st || isLocked("section", s.id)) return viewSection(V, s.id);
   var prev = s.stages[st.n - 2], next = s.stages[st.n];
   var isDom = st.k === "dom", isGame = !!st.game;
   var showHint = S.set.hints !== "off" && st.h;
@@ -21042,7 +21108,7 @@ function viewStage(V, id) {
       if ($("play2")) $("play2").onclick = function () { openCabinet(st.game.engine, editor.get(), st); };
       SFX.pass(); if (first) confetti();
       if (lvAfter > lvBefore) { setTimeout(function () { SFX.level(); toast("Level up! You're now level " + lvAfter + ": " + rankOf(lvAfter)); }, 500); }
-      var md = lvAfter > lvBefore ? 3200 : 700; markActive(md); checkMedals(md);
+      var md = lvAfter > lvBefore ? 3200 : 700; markActive(md); checkMedals(md); checkUnlocks(md);
       renderTop();
       var dots = V.querySelectorAll(".dots i"); if (dots[st.n - 1]) dots[st.n - 1].className = "c d";
     } else {
@@ -21256,7 +21322,7 @@ function viewQuiz(V, id) {
     var prev = S.quiz[q.id], bestBefore = prev ? prev.best : 0;
     var best = Math.max(bestBefore, score);
     var gain = Math.max(0, best - bestBefore) * 5;
-    S.quiz[q.id] = { best: best, total: qs.length, xp: best * 5, at: Date.now() }; save("quiz", S.quiz); markActive(900); checkMedals(900);
+    S.quiz[q.id] = { best: best, total: qs.length, xp: best * 5, at: Date.now() }; save("quiz", S.quiz); markActive(900); checkMedals(900); checkUnlocks(900);
     var pct = Math.round(score / qs.length * 100), pass = pct >= 70;
     if (pass) { SFX.pass(); confetti(); } else SFX.fail();
     var ni = D.quizzes.indexOf(q) + 1, nq = D.quizzes[ni];
@@ -21499,6 +21565,15 @@ function arcadeCard() {
     return '<div class="arcrow"><b>' + h(SQ_ENGINES[e].title) + '</b><span class="muted">' + (hi.re ? "Best " + hiFmt(r.best || 0) + " " + hi.unit + " · " : "") + (hi.by === "wins" ? (r.wins || 0) + " win" + (r.wins === 1 ? "" : "s") + " · " : "") + r.plays + " play" + (r.plays === 1 ? "" : "s") + "</span></div>";
   }).join("") + "</div></section>";
 }
+function unlockCard(lv, xp) {
+  var all = unlockList(), got = all.filter(function (u) { return !isLocked(u.kind, u.key, lv); }).length, rows = {};
+  all.forEach(function (u) { (rows[u.lv] = rows[u.lv] || []).push(u); });
+  return '<section class="card" id="unlocks"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">UNLOCKS · ' + got + " / " + all.length + '</h2><button class="ghost" data-go="settings">Settings ›</button></div>' +
+    '<p class="muted" style="margin:8px 0 12px">' + h(nextUnlockLine(lv, xp)) + '</p><div class="ranks">' + Object.keys(rows).sort(function (a, b) { return a - b; }).map(function (n) {
+      var on = lv >= Number(n);
+      return '<div class="rank' + (on ? " got" : "") + '"><span class="lvn">LV ' + n + "</span><span>" + rows[n].map(function (u) { return u.secret && isLocked(u.kind, u.key, lv) ? "??? (a secret " + UNLOCK_KIND[u.kind] + ")" : h(u.name) + ' <span class="muted">' + UNLOCK_KIND[u.kind] + "</span>"; }).join(" · ") + "</span></div>";
+    }).join("") + "</div></section>";
+}
 function seedMedals() { if (load("medals", null) === null) { S.medalsSeen = {}; checkMedals(0, true); save("medals", S.medalsSeen); } }
 function viewMe(V) {
   var xp = totalXp(), lv = levelOf(xp), into = xp - xpFor(lv), need = xpFor(lv + 1) - xpFor(lv);
@@ -21509,7 +21584,7 @@ function viewMe(V) {
     '<section class="stats"><div class="stat"><b>' + cleared + '</b><span>stages cleared</span></div><div class="stat"><b>' + Object.keys(S.done).filter(function (k) { return !S.done[k].sol && !S.done[k].skip; }).length + '</b><span>solved without peeking</span></div><div class="stat"><b>' + quizzes + '</b><span>quizzes taken</span></div><div class="stat"><b>' + aces + '</b><span>perfect quiz scores</span></div></section>' +
     '<div class="board"><section class="card"><h2 class="sub">SECTIONS</h2><div class="secbars">' + SECS.map(function (s) { var d = secDone(s); return '<div class="secbar" style="--sc:var(--' + s.color + ')"><span>' + h(s.title) + '</span><span class="bar"><i style="width:' + (d / s.stages.length * 100) + '%"></i></span><span>' + d + "/" + s.stages.length + "</span></div>"; }).join("") + "</div></section>" +
     '<section class="card"><h2 class="sub">RANKS</h2><div class="ranks">' + RANKS.map(function (r) { return '<div class="rank' + (lv >= r[0] ? " got" : "") + '"><span class="lvn">LV ' + r[0] + "</span><span>" + r[1] + "</span></div>"; }).join("") + "</div></section></div>" +
-    arcadeCard() + '<section class="card"><h2 class="sub">MEDALS</h2><div class="medals">' + medals.map(medalTile).join("") + "</div></section></div>";
+    unlockCard(lv, xp) + arcadeCard() + '<section class="card"><h2 class="sub">MEDALS</h2><div class="medals">' + medals.map(medalTile).join("") + "</div></section></div>";
 }
 
 // ---------------- SETTINGS ----------------
@@ -21517,14 +21592,16 @@ var SKINS = [["auto", "Auto", "Follows your device", ["#E8EBE3", "#2C52C4", "#13
 function viewSettings(V) {
   var st = S.set;
   var sel = function (id, opts, val) { return '<select class="sel" id="' + id + '">' + opts.map(function (o) { var v = Array.isArray(o) ? o[0] : o, l = Array.isArray(o) ? o[1] : o; return '<option value="' + h(v) + '"' + (String(v) === String(val) ? " selected" : "") + ">" + h(l) + "</option>"; }).join("") + "</select>"; };
+  var myLv = levelOf(totalXp()), lk = function (kind, key) { return isLocked(kind, key, myLv) ? lockLv(kind, key) : 0; };
   var tog = function (id, label, on) { return '<label class="toggle"><span>' + label + '</span><input type="checkbox" class="switch" id="' + id + '"' + (on ? " checked" : "") + "></label>"; };
   V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">OPTIONS</p><h1>Settings</h1><p class="muted" style="margin:6px 0 0">Changes save as you make them.</p></div><button class="ghost" id="resetSet">Reset settings to defaults</button></section>' +
     '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Theme"], ["setBg", "Background & effects"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setLayout", "Layout & look"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setKeys2", "Shortcuts"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" +
     '<div class="setgrid">' +
     '<section class="card" id="setPlayer"><h2 class="sub">PLAYER</h2><div class="field"><label for="setName">Your name</label><input type="text" id="setName" maxlength="24" value="' + h(nameOf()) + '"><span class="hint2">Lessons, greetings, and some starter code use this name.</span></div></section>' +
-    '<section class="card" id="setTheme"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { return '<button type="button" class="swatch" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + '</b><span class="muted">' + s[2] + "</span></button>"; }).join("") + "</div></section>" +
+    '<section class="card" id="setTheme"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { var n = lk("skin", s[0]); return '<button type="button" class="swatch' + (n ? " locked" : "") + '" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(s[1]) + ', locked until level ' + n + '"' : "") + '><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + "</b>" + (n ? lockTag(n) : '<span class="muted">' + s[2] + "</span>") + "</button>"; }).join("") + "</div>" +
+    '<p class="hint2 unlhint">You are level ' + myLv + ". New themes, backgrounds and mouse trails unlock as you level up. " + '<button class="linkish" type="button" data-go="me">See what unlocks next</button></p></section>' +
     '<section class="card" id="setBg"><h2 class="sub">BACKGROUND & EFFECTS</h2><p class="muted" style="margin-top:0;font-size:14px">A moving background behind everything. Tap one to try it. Press X anywhere to flip through them.</p><div class="fxpick" role="group" aria-label="Background effect">' +
-    BGFX.map(function (f) { return '<button type="button" class="fxbtn" data-bgfx="' + f[0] + '" aria-pressed="' + (st.bgFx === f[0]) + '"><b>' + h(f[1]) + '</b><span class="muted">' + h(f[2]) + "</span></button>"; }).join("") + "</div>" +
+    BGFX.map(function (f) { var n = lk("bg", f[0]); return '<button type="button" class="fxbtn' + (n ? " locked" : "") + '" data-bgfx="' + f[0] + '" aria-pressed="' + (st.bgFx === f[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(f[1]) + ', locked until level ' + n + '"' : "") + '><b>' + h(f[1]) + "</b>" + (n ? lockTag(n) : '<span class="muted">' + h(f[2]) + "</span>") + "</button>"; }).join("") + "</div>" +
     '<div class="field"><label for="setBgColor">Effect colors</label>' + sel("setBgColor", [["theme", "Theme colors"], ["rainbow", "Rainbow"], ["mono", "One color (matches the text)"]], st.bgColor) + "</div>" +
     '<div class="field"><label for="setBgAmount">How much</label>' + sel("setBgAmount", [["few", "A little"], ["normal", "Some"], ["lots", "Lots"]], st.bgDensity) + "</div>" +
     '<div class="field"><label for="setBgSpeed">Speed</label>' + sel("setBgSpeed", [["slow", "Slow"], ["normal", "Normal"], ["fast", "Fast"]], st.bgSpeed) + "</div>" +
@@ -21534,7 +21611,7 @@ function viewSettings(V) {
     '<h3 class="setsub">LAYERS</h3>' + tog("setBgGlow", "Ambient glow (soft moving color clouds)", st.bgGlow) + tog("setBgMove", "Move the theme's pattern", st.bgMove) + '<span class="hint2">For patterned themes: Neon \'80s, Girlypop, Toon Checker and Terminal.</span>' + tog("setBgScan", "Retro screen lines (old TV look)", st.bgScan) +
     '<h3 class="setsub">FLAIR</h3><div class="field"><label for="setPageAnim">Page change animation</label>' + sel("setPageAnim", [["off", "Off"], ["fade", "Fade"], ["rise", "Rise up"], ["slide", "Slide in"]], st.pageAnim) + "</div>" +
     '<div class="field"><label for="setHover">When you point at a card</label>' + sel("setHover", [["off", "Nothing"], ["lift", "It lifts up"], ["glow", "It glows"]], st.hoverFx) + "</div>" +
-    '<div class="field"><label for="setTrail">Mouse trail</label>' + sel("setTrail", [["off", "Off"], ["sparkle", "Sparkles"], ["pixels", "Pixels"], ["rainbow", "Rainbow"], ["bubbles", "Bubbles"]], st.trail) + "</div>" +
+    '<div class="field"><label for="setTrail">Mouse trail</label>' + sel("setTrail", TRAILS.map(function (t) { var n = lk("trail", t[0]); return n ? [t[0], t[1] + " (unlocks at level " + n + ")"] : t; }), st.trail) + "</div>" +
     tog("setClickFx", "Sparkle burst when you click a button", st.clickFx) +
     '<span class="hint2">With Animations turned off (Sound & feel), backgrounds show a still picture and the flair stays off.</span></section>' +
     '<section class="card" id="setLayout"><h2 class="sub">LAYOUT & LOOK</h2>' +
@@ -21577,7 +21654,7 @@ function viewSettings(V) {
     '<div style="margin-top:16px;padding-top:12px;border-top:2px solid var(--line)"><button class="ghost" id="resetAll" style="border-color:var(--fail);color:var(--fail)">Erase all progress</button></div></section></div></div>';
   var bind = function (id, key, conv) { $(id).onchange = $(id).oninput = function () { st[key] = conv ? conv(this) : this.value; save("settings", st); applySettings(); }; };
   $("setName").oninput = function () { var v = this.value.trim().slice(0, 24); S.profile = S.profile || {}; S.profile.name = v || "Player"; save("profile", S.profile); renderTop(); };
-  V.querySelectorAll("[data-skin]").forEach(function (b) { b.onclick = function () { st.skin = b.getAttribute("data-skin"); save("settings", st); applySettings(); V.querySelectorAll("[data-skin]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); }; });
+  V.querySelectorAll("[data-skin]").forEach(function (b) { b.onclick = function () { if (b.classList.contains("locked")) return lockedMsg("skin", b.getAttribute("data-skin"), b.querySelector("b").textContent); st.skin = b.getAttribute("data-skin"); save("settings", st); applySettings(); V.querySelectorAll("[data-skin]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); }; });
   bind("setScale", "scale", function (e) { return Number(e.value); }); bind("setBody", "body"); bind("setCode", "code"); bind("setDisplay", "display");
   bind("setCodeSize", "codeSize", function (e) { $("csv").textContent = e.value + "px"; return Number(e.value); });
   bind("setLines", "lineNumbers", function (e) { return e.checked; }); bind("setClose", "autoClose", function (e) { return e.checked; }); bind("setKeys", "keys", function (e) { return e.checked; });
@@ -21603,11 +21680,12 @@ function viewSettings(V) {
   bind("setNavLabels", "navLabels", chk); bind("setNavIcons", "navIcons", chk); bind("setShowCont", "showCont", chk); bind("setShowMe", "showMe", chk);
   ["setShowCont", "setShowMe"].forEach(function (id) { $(id).addEventListener("change", renderTop); });
   bind("setGuides", "guides", chk); bind("setKeySize", "keySize"); bind("setShortcuts", "shortcuts", chk);
-  V.querySelectorAll("button[data-bgfx]").forEach(function (b) { b.onclick = function () { st.bgFx = b.getAttribute("data-bgfx"); save("settings", st); applySettings(); V.querySelectorAll("button[data-bgfx]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); }; });
+  V.querySelectorAll("button[data-bgfx]").forEach(function (b) { b.onclick = function () { if (b.classList.contains("locked")) return lockedMsg("bg", b.getAttribute("data-bgfx"), b.querySelector("b").textContent); st.bgFx = b.getAttribute("data-bgfx"); save("settings", st); applySettings(); V.querySelectorAll("button[data-bgfx]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); }; });
   bind("setBgColor", "bgColor"); bind("setBgAmount", "bgDensity"); bind("setBgSpeed", "bgSpeed"); bind("setBgStrength", "bgStrength");
   bind("setBgMouse", "bgMouse", chk); bind("setBgCalm", "bgCalm", chk); bind("setBgFps", "bgFps", function (e) { return e.checked ? "saver" : "smooth"; });
   bind("setBgGlow", "bgGlow", chk); bind("setBgMove", "bgMove", chk); bind("setBgScan", "bgScan", chk);
-  bind("setPageAnim", "pageAnim"); bind("setHover", "hoverFx"); bind("setTrail", "trail"); bind("setClickFx", "clickFx", chk);
+  bind("setPageAnim", "pageAnim"); bind("setHover", "hoverFx"); bind("setTrail", "trail");
+  V.querySelectorAll("#setTrail option").forEach(function (o) { if (lk("trail", o.value)) o.disabled = true; }); bind("setClickFx", "clickFx", chk);
   bind("setTop", "backTop", chk); bind("setToastPos", "toastPos");
   $("setToastPos").addEventListener("change", function () { toast("Messages will pop up here."); });
   $("kbList").onclick = showShortcuts;
@@ -21631,7 +21709,7 @@ function viewSettings(V) {
         var t = $("impTa").value.trim(); if (t.indexOf("SQ1:") !== 0) throw new Error("x");
         var dump = JSON.parse(decodeURIComponent(escape(atob(t.slice(4)))));
         allKeys().forEach(del); Object.keys(dump).forEach(function (k) { save(k, dump[k]); });
-        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.rvCleared = load("reviewCleared", 0); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.medalsSeen = load("medals", {}); seedMedals();
+        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.rvCleared = load("reviewCleared", 0); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.medalsSeen = load("medals", {}); seedMedals(); seedUnlocks();
         S.lastStage = load("lastStage", S.last && S.last.v === "stage" ? S.last.arg : null);
         applySettings(); toast("Save loaded. Welcome back, " + nameOf() + "!"); go("map");
       } catch (e) { $("impMsg").innerHTML = '<p style="color:var(--fail)">That code didn\'t work. Make sure you copied all of it, starting with SQ1:</p>'; }
@@ -21642,7 +21720,7 @@ function viewSettings(V) {
     if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to erase everything"; return; }
     var keepName = nameOf(), keepSet = S.set;
     allKeys().forEach(del);
-    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.medalsSeen = {}; save("medals", {});
+    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.medalsSeen = {}; save("medals", {}); seedUnlocks();
     toast("Progress erased."); go("map");
   };
 }
@@ -21663,6 +21741,7 @@ function onboard() {
 // ---------------- boot ----------------
 applySettings();
 seedMedals();
+seedUnlocks();
 // a share link (#sbx=SQS1:…) drops the shared code into the sandbox
 var shared = /^#sbx=/.test(location.hash || "") ? sbxDecode(location.hash) : null;
 if (/^#sbx=/.test(location.hash || "")) {
@@ -21708,8 +21787,8 @@ document.addEventListener("keydown", function (e) {
   else if (low === "c") done = click(".dk.cont") || click('.hello [data-go="stage"]');
   else if (low === "v") toggleMute();
   else if (low === "b") setBarHidden(!S.set.barHidden);
-  else if (low === "t") cycleSetting("skin", SKINS, "Theme");
-  else if (low === "x") cycleSetting("bgFx", BGFX, "Background");
+  else if (low === "t") cycleSetting("skin", SKINS.filter(function (x) { return !isLocked("skin", x[0]); }), "Theme");
+  else if (low === "x") cycleSetting("bgFx", BGFX.filter(function (x) { return !isLocked("bg", x[0]); }), "Background");
   else if (k === "?") showShortcuts();
   else if (k === "[" && route.v === "stage") done = click('[aria-label="Previous stage"]');
   else if (k === "]" && route.v === "stage") done = click('[aria-label="Next stage"]');
