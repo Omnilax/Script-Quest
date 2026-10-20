@@ -67,7 +67,7 @@
    ],
    "l": "<p>A regex is written between slashes. Its <code>test()</code> method answers one question: does this pattern appear <b>anywhere</b> in the text? It returns <code>true</code> or <code>false</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const pattern = /orc/;\npattern.test(&quot;An orc appears&quot;);   // true\npattern.test(&quot;A goblin appears&quot;); // false\npattern.test(&quot;Orc&quot;);              // false, capital O</code></pre><p>By default a regex is case-sensitive, so <code>O</code> and <code>o</code> are different letters.</p>",
    "p": "<p>Return <code>true</code> if <code>text</code> contains <code>sword</code> (lowercase), otherwise <code>false</code>.</p>",
-   "h": "<p><code>return /sword/.test(text);</code></p>",
+   "h": "<p>Write the word between slashes to make a regex, then call its <code>.test(text)</code> method, like <code>/shield/.test(s)</code>.</p>",
    "s": "function hasSword(text) {\n  return /sword/.test(text);\n}\n",
    "st": "function hasSword(text) {\n  // your code here\n}\n\nconsole.log(hasSword(\"You found a sword!\")); // should be true\n"
   },
@@ -478,7 +478,7 @@
    ],
    "l": "<p>Round brackets <code>( )</code> make a <b>group</b> that remembers what it matched. <code>text.match(pattern)</code> returns an array: item <code>0</code> is the whole match, item <code>1</code> is the first group, and so on. If nothing matches, you get <code>null</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const m = &quot;Gold: 250&quot;.match(/Gold: (\\d+)/);\nconsole.log(m[0]);          // &quot;Gold: 250&quot;\nconsole.log(m[1]);          // &quot;250&quot;, still a string\nconsole.log(Number(m[1]));  // 250\n\n&quot;Nothing here&quot;.match(/Gold: (\\d+)/);  // null</code></pre>",
    "p": "<p>Return the number after <code>Level</code> as a number, or <code>0</code> if there's no match. Capital <code>L</code> only.</p>",
-   "h": "<p><code>const m = text.match(/Level (\\d+)/);</code> then <code>return m ? Number(m[1]) : 0;</code></p>",
+   "h": "<p>Use <code>text.match</code> with a regex that captures digits in brackets, like <code>/Score (\\d+)/</code>. If there's a match, turn <code>m[1]</code> into a number with <code>Number</code>, otherwise return 0.</p>",
    "s": "function getLevel(text) {\n  const m = text.match(/Level (\\d+)/);\n  return m ? Number(m[1]) : 0;\n}\n",
    "st": "function getLevel(text) {\n  // your code here\n}\n\nconsole.log(getLevel(\"Level 12 reached\")); // should be 12\n"
   },
@@ -527,7 +527,7 @@
    ],
    "l": "<p>Normally a regex stops at the first match. The <code>g</code> flag (global) finds <b>every</b> match. With <code>g</code>, <code>match()</code> returns an array of all the matched strings, or <code>null</code> if there were none.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>&quot;a1 b22 c333&quot;.match(/\\d+/g);   // [&quot;1&quot;, &quot;22&quot;, &quot;333&quot;]\n&quot;abc&quot;.match(/\\d+/g);           // null</code></pre><div class=\"callout\"><b>Tip</b><p><code>text.match(/x/g) || []</code> turns that <code>null</code> into an empty array, so you can safely <code>.map()</code> it.</p></div>",
    "p": "<p>Return all the whole numbers in <code>text</code> as an array of numbers. Return <code>[]</code> if there are none.</p>",
-   "h": "<p><code>return (text.match(/\\d+/g) || []).map(Number);</code></p>",
+   "h": "<p>Match <code>\\d+</code> with the <code>g</code> flag to get every number. <code>match</code> gives <code>null</code> when nothing matches, so fall back to <code>[]</code> with <code>||</code>, then <code>.map(Number)</code>.</p>",
    "s": "function allNumbers(text) {\n  return (text.match(/\\d+/g) || []).map(Number);\n}\n",
    "st": "function allNumbers(text) {\n  // your code here\n}\n\nconsole.log(allNumbers(\"3 orcs and 12 bats\")); // should be [3, 12]\n"
   },

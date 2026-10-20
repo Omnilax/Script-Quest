@@ -81,7 +81,7 @@
    ],
    "l": "<p>You don't have to do it by hand. <code>n.toString(2)</code> turns a number into a binary string. The <code>2</code> is the <b>base</b>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>(10).toString(2);    // &quot;1010&quot;\n(7).toString(2);     // &quot;111&quot;</code></pre><p>You can also write binary straight into your code with <code>0b</code>: <code>0b1010</code> is just the number 10.</p>",
    "p": "<p>Return <code>n</code> written in binary, as a string.</p>",
-   "h": "<p><code>return n.toString(2);</code></p>",
+   "h": "<p>Numbers have a <code>toString</code> method that takes a base. Base 2 is binary (base 16 would be hex).</p>",
    "s": "function toBinary(n) {\n  return n.toString(2);\n}\n",
    "st": "function toBinary(n) {\n  // your code here\n}\n\nconsole.log(toBinary(5)); // should be \"101\"\n"
   },
@@ -126,7 +126,7 @@
    ],
    "l": "<p>Going the other way, <code>parseInt(text, 2)</code> reads a string as base 2.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>parseInt(&quot;1010&quot;, 2);   // 10\nparseInt(&quot;0111&quot;, 2);   // 7, leading zeros are fine</code></pre><div class=\"callout\"><b>Tip</b><p>Always pass the base to <code>parseInt</code>. Without it, JavaScript assumes base 10.</p></div>",
    "p": "<p>Return the number that the binary string <code>bits</code> stands for.</p>",
-   "h": "<p><code>return parseInt(bits, 2);</code></p>",
+   "h": "<p><code>parseInt</code> takes a second argument: the base the string is written in. For example <code>parseInt(&quot;ff&quot;, 16)</code> is 255.</p>",
    "s": "function fromBinary(bits) {\n  return parseInt(bits, 2);\n}\n",
    "st": "function fromBinary(bits) {\n  // your code here\n}\n\nconsole.log(fromBinary(\"101\")); // should be 5\n"
   },
@@ -267,7 +267,7 @@
    ],
    "l": "<p><b>Bitwise</b> operators work on each bit separately. <code>&amp;</code> (AND) gives a 1 only where <b>both</b> numbers have a 1.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>  1100   (12)\n&amp; 1010   (10)\n= 1000   (8)</code></pre><p>A common use: <code>x &amp; 1</code> looks at just the last bit. Odd numbers always end in a 1 in binary, even numbers in a 0.</p><div class=\"callout\"><b>Tip</b><p>Don't mix up <code>&amp;</code> with <code>&amp;&amp;</code>. The double one is the logical &quot;and&quot; you use in <code>if</code>. The single one works on bits.</p></div>",
    "p": "<p>Return <code>true</code> if <code>n</code> is odd, using <code>&amp;</code> instead of <code>%</code>.</p>",
-   "h": "<p><code>return (n &amp; 1) === 1;</code></p>",
+   "h": "<p>The lowest bit of an odd number is 1. Use <code>&amp;</code> with <code>1</code> to pick out that bit, then compare it.</p>",
    "s": "function isOdd(n) {\n  return (n & 1) === 1;\n}\n",
    "st": "function isOdd(n) {\n  // your code here\n}\n\nconsole.log(isOdd(3)); // should be true\n"
   },
@@ -322,7 +322,7 @@
    ],
    "l": "<p>Two more:</p><ul><li><code>|</code> (OR) gives a 1 where <b>either</b> number has a 1.</li><li><code>^</code> (XOR, &quot;exclusive or&quot;) gives a 1 where the bits are <b>different</b>.</li></ul><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>  1100 | 1010 = 1110   (14)\n  1100 ^ 1010 = 0110   (6)</code></pre>",
    "p": "<p>Return an array <code>[a | b, a ^ b]</code>.</p>",
-   "h": "<p><code>return [a | b, a ^ b];</code></p>",
+   "h": "<p>Return an array with two entries: the OR of the two numbers (<code>|</code>) and the XOR (<code>^</code>).</p>",
    "s": "function mix(a, b) {\n  return [a | b, a ^ b];\n}\n",
    "st": "function mix(a, b) {\n  // your code here\n}\n\nconsole.log(mix(12, 10)); // should be [14, 6]\n"
   },
@@ -367,7 +367,7 @@
    ],
    "l": "<p><code>~</code> (NOT) flips <b>every</b> bit: 0 becomes 1 and 1 becomes 0. JavaScript bitwise numbers have 32 bits, so <code>~5</code> flips all 32 and gives <code>-6</code>, which surprises everyone the first time.</p><p>To keep only the bits you care about, AND the result with a <b>mask</b>. <code>255</code> is <code>11111111</code>, so <code>&amp; 255</code> keeps the lowest 8 bits.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>~5;          // -6\n~5 &amp; 255;    // 250, which is 11111010</code></pre>",
    "p": "<p>Flip all 8 bits of the byte <code>n</code> and return a number from 0 to 255.</p>",
-   "h": "<p><code>return ~n &amp; 255;</code></p>",
+   "h": "<p><code>~</code> flips every bit, but also gives a negative number. Mask the result with <code>&amp; 255</code> to keep just the low 8 bits.</p>",
    "s": "function invert8(n) {\n  return ~n & 255;\n}\n",
    "st": "function invert8(n) {\n  // your code here\n}\n\nconsole.log(invert8(0)); // should be 255\n"
   },
@@ -475,7 +475,7 @@
    ],
    "l": "<p>Now the fun part. Think of a number as a row of on/off switches numbered from the right, starting at 0. To ask &quot;is switch <code>n</code> on?&quot;, AND with a number that has only that bit on.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const flags = 0b0110;\n(flags &amp; (1 &lt;&lt; 1)) !== 0;   // true, bit 1 is on\n(flags &amp; (1 &lt;&lt; 0)) !== 0;   // false, bit 0 is off</code></pre>",
    "p": "<p>Return <code>true</code> if bit <code>n</code> of <code>flags</code> is on.</p>",
-   "h": "<p><code>return (flags &amp; (1 &lt;&lt; n)) !== 0;</code></p>",
+   "h": "<p>Build a mask with only bit <code>n</code> on using <code>1 &lt;&lt; n</code>. AND it with <code>flags</code> and check whether the result is not zero.</p>",
    "s": "function hasBit(flags, n) {\n  return (flags & (1 << n)) !== 0;\n}\n",
    "st": "function hasBit(flags, n) {\n  // your code here\n}\n\nconsole.log(hasBit(5, 0)); // should be true\n"
   },
@@ -523,7 +523,7 @@
    ],
    "l": "<p>To switch a bit <b>on</b>, OR it in. If it was already on, it stays on.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let flags = 0b0100;\nflags = flags | (1 &lt;&lt; 0);   // 0b0101\nflags |= 1 &lt;&lt; 0;            // still 0b0101, same thing, shorter</code></pre>",
    "p": "<p>Return <code>flags</code> with bit <code>n</code> switched on.</p>",
-   "h": "<p><code>return flags | (1 &lt;&lt; n);</code></p>",
+   "h": "<p>Make a mask for bit <code>n</code> with <code>1 &lt;&lt; n</code>, then combine it with <code>flags</code> using OR.</p>",
    "s": "function setBit(flags, n) {\n  return flags | (1 << n);\n}\n",
    "st": "function setBit(flags, n) {\n  // your code here\n}\n\nconsole.log(setBit(0, 0)); // should be 1\n"
   },
@@ -571,7 +571,7 @@
    ],
    "l": "<p>To switch a bit <b>off</b>, AND with a mask that has every bit on <b>except</b> that one. <code>~</code> makes that mask for you.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>~(1 &lt;&lt; 1)              // ...11111101\n0b0111 &amp; ~(1 &lt;&lt; 1);    // 0b0101</code></pre>",
    "p": "<p>Return <code>flags</code> with bit <code>n</code> switched off.</p>",
-   "h": "<p><code>return flags &amp; ~(1 &lt;&lt; n);</code></p>",
+   "h": "<p>Make a mask for bit <code>n</code> with <code>1 &lt;&lt; n</code>, invert it with <code>~</code>, then AND it with <code>flags</code>.</p>",
    "s": "function clearBit(flags, n) {\n  return flags & ~(1 << n);\n}\n",
    "st": "function clearBit(flags, n) {\n  // your code here\n}\n\nconsole.log(clearBit(7, 1)); // should be 5\n"
   },
@@ -619,7 +619,7 @@
    ],
    "l": "<p>XOR flips a bit: on becomes off, off becomes on. Perfect for things like a torch the player switches on and off.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let lights = 0b0000;\nlights ^= 1 &lt;&lt; 2;   // 0b0100\nlights ^= 1 &lt;&lt; 2;   // 0b0000 again</code></pre>",
    "p": "<p>Return <code>flags</code> with bit <code>n</code> flipped.</p>",
-   "h": "<p><code>return flags ^ (1 &lt;&lt; n);</code></p>",
+   "h": "<p>Make a mask for bit <code>n</code> with <code>1 &lt;&lt; n</code>, then combine it with <code>flags</code> using XOR (<code>^</code>), which flips just that bit.</p>",
    "s": "function toggleBit(flags, n) {\n  return flags ^ (1 << n);\n}\n",
    "st": "function toggleBit(flags, n) {\n  // your code here\n}\n\nconsole.log(toggleBit(0, 0)); // should be 1\n"
   },
@@ -716,9 +716,9 @@
      1
     ]
    ],
-   "l": "<p>How many effects is a player suffering from? Count the 1 bits. One way: look at the last bit with <code>&amp; 1</code>, then shift right, until nothing is left.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let n = 0b1011, count = 0;\nwhile (n &gt; 0) {\n  count += n &amp; 1;\n  n &gt;&gt;= 1;\n}\n// count is 3</code></pre>",
+   "l": "<p>How many effects is a player suffering from? Count the 1 bits. One way: look at the last bit with <code>&amp; 1</code>, then shift right, until nothing is left.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let flags = 0b1101, on = 0;\nwhile (flags !== 0) {\n  on += flags &amp; 1;\n  flags = flags &gt;&gt; 1;\n}\n// on is 3</code></pre>",
    "p": "<p>Return how many bits are on in <code>n</code> (a whole number, 0 or more).</p>",
-   "h": "<p>Use the loop from the example and return <code>count</code>.</p>",
+   "h": "<p>Use the same loop shape on <code>n</code>: keep a <code>count</code>, add the last bit each time, shift right, and return <code>count</code> at the end.</p>",
    "s": "function countBits(n) {\n  let count = 0;\n  while (n > 0) {\n    count += n & 1;\n    n >>= 1;\n  }\n  return count;\n}\n",
    "st": "function countBits(n) {\n  // your code here\n}\n\nconsole.log(countBits(0)); // should be 0\n"
   },
@@ -775,7 +775,7 @@
    ],
    "l": "<p>A power of two (1, 2, 4, 8...) has exactly <b>one</b> bit on. Here's a classic trick: subtracting 1 flips that bit off and turns on all the bits below it, so the two numbers share no bits.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>  8 = 1000      6 = 0110\n  7 = 0111      5 = 0101\n8 &amp; 7 = 0     6 &amp; 5 = 0100  (not zero)</code></pre><p>Texture sizes in old engines often had to be powers of two, so this check is a real one.</p>",
    "p": "<p>Return <code>true</code> if <code>n</code> is a power of two. Remember that <code>0</code> is not.</p>",
-   "h": "<p><code>return n &gt; 0 &amp;&amp; (n &amp; (n - 1)) === 0;</code></p>",
+   "h": "<p>A power of two has exactly one bit on, so <code>n &amp; (n - 1)</code> is zero for it. Also check that <code>n</code> is above zero, joining both tests with <code>&amp;&amp;</code>.</p>",
    "s": "function isPowerOfTwo(n) {\n  return n > 0 && (n & (n - 1)) === 0;\n}\n",
    "st": "function isPowerOfTwo(n) {\n  // your code here\n}\n\nconsole.log(isPowerOfTwo(1)); // should be true\n"
   },
@@ -830,7 +830,7 @@
    ],
    "l": "<p>Three bytes fit inside one number. Shift red up 16 bits, green up 8, and OR them together with blue:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>  red   &lt;&lt; 16   rrrrrrrr 00000000 00000000\n  green &lt;&lt; 8             gggggggg 00000000\n  blue                            bbbbbbbb\n  OR together   rrrrrrrr gggggggg bbbbbbbb</code></pre><p>That's exactly how <code>0xff8800</code> is laid out. GameMaker stores colours as one number too (in blue, green, red order).</p>",
    "p": "<p>Pack <code>r</code>, <code>g</code> and <code>b</code> (each 0 to 255) into a single number.</p>",
-   "h": "<p><code>return (r &lt;&lt; 16) | (g &lt;&lt; 8) | b;</code></p>",
+   "h": "<p>Shift <code>r</code> left by 16 bits and <code>g</code> by 8 with <code>&lt;&lt;</code>, then glue all three together with <code>|</code>.</p>",
    "s": "function packRgb(r, g, b) {\n  return (r << 16) | (g << 8) | b;\n}\n",
    "st": "function packRgb(r, g, b) {\n  // your code here\n}\n\nconsole.log(packRgb(255, 0, 0)); // should be 16711680\n"
   },

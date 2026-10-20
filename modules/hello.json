@@ -28,9 +28,9 @@
    "o": [
     "Hello, world!"
    ],
-   "l": "<p>Hi @@name, welcome to coding! Programmers have a tradition: the very first program anyone writes just says hello.</p><p><code>console.log()</code> prints whatever you put between the brackets. Text goes inside quotes.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;Hello, world!&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>Hello, world!</code></pre><p>Type it exactly like that, then press <b>RUN</b>. Capital letters, the comma and the quotes all matter.</p>",
+   "l": "<p>Hi @@name, welcome to coding! Programmers have a tradition: the very first program anyone writes just says hello.</p><p><code>console.log()</code> prints whatever you put between the brackets. Text goes inside quotes.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;Hi there!&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>Hi there!</code></pre><p>Now write your own line that prints <b>Hello, world!</b> instead, then press <b>RUN</b>. Capital letters, the comma and the quotes all matter.</p>",
    "p": "<p>Print exactly <code>Hello, world!</code> using <code>console.log</code>.</p>",
-   "h": "<p>Copy the example: <code>console.log(&quot;Hello, world!&quot;);</code></p>",
+   "h": "<p>Use the same shape as the example, but put <code>Hello, world!</code> between the quotes.</p>",
    "s": "console.log(\"Hello, world!\");\n",
    "st": "// Type your first line of code below\n"
   },
@@ -69,7 +69,7 @@
    "reqMsg": "For the second line, write the math without quotes so JavaScript works it out: console.log(2 + 2);",
    "l": "<p>Quotes tell JavaScript &quot;this is text, print it exactly&quot;. Numbers don't need quotes, and without quotes JavaScript does the math for you.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;10 + 5&quot;);\nconsole.log(10 + 5);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>10 + 5\n15</code></pre><p>Text in quotes is called a <b>string</b>. A plain number is a <b>number</b>.</p>",
    "p": "<p>Print the text <code>2 + 2</code> on the first line, then let JavaScript work out <code>2 + 2</code> on the second line.</p>",
-   "h": "<p>First line uses quotes: <code>console.log(&quot;2 + 2&quot;);</code> Second line has none: <code>console.log(2 + 2);</code></p>",
+   "h": "<p>Text in quotes is printed exactly as written; without quotes JavaScript calculates it. Use one <code>console.log</code> of each kind.</p>",
    "s": "console.log(\"2 + 2\");\nconsole.log(2 + 2);\n",
    "st": "// line 1: the text 2 + 2\n// line 2: the answer\n"
   },
@@ -108,7 +108,7 @@
    },
    "l": "<p>A <b>variable</b> is a labelled box that holds a value. You make one with <code>let</code>, a name, <code>=</code>, and the value.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let lives = 3;</code></pre><p>Read it as &quot;let <b>lives</b> be 3&quot;. From now on, the name <code>lives</code> means 3.</p>",
    "p": "<p>Make a variable called <code>coins</code> that holds the number <code>5</code>.</p>",
-   "h": "<p><code>let coins = 5;</code></p>",
+   "h": "<p>Use <code>let</code>, then the name, then <code>=</code> and the value, like <code>let lives = 3;</code>.</p>",
    "s": "let coins = 5;\n",
    "st": "// Make your coins variable here\n"
   },
@@ -122,7 +122,7 @@
    "reqMsg": "Print the variable itself: console.log(hero); with no quotes around hero.",
    "l": "<p>To see what's inside a variable, print its name <b>without quotes</b>. With quotes you'd just print the word itself.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let lives = 3;\nconsole.log(lives);\nconsole.log(&quot;lives&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>3\nlives</code></pre>",
    "p": "<p>The starter makes a variable <code>hero</code>. Print what's inside it.</p>",
-   "h": "<p><code>console.log(hero);</code></p>",
+   "h": "<p>Put the variable name inside the brackets of <code>console.log( )</code>, with no quotes.</p>",
    "s": "let hero = \"Robin\";\nconsole.log(hero);\n",
    "st": "let hero = \"Robin\";\n// print hero here\n"
   },
@@ -136,7 +136,7 @@
    "reqMsg": "Take the damage away from hp itself: hp = hp - 3;",
    "l": "<p>Variables can change. That's why they're called variables! Use <code>=</code> again, but <b>without</b> <code>let</code> this time, because the box already exists.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let lives = 3;\nlives = lives - 1;   // now 2</code></pre><p><code>lives = lives - 1</code> means &quot;work out lives minus 1, then put that back into lives&quot;.</p>",
    "p": "<p>Your hero has <code>10</code> hp and gets hit for <code>3</code> damage. Subtract 3 from <code>hp</code>.</p>",
-   "h": "<p>On the empty line write <code>hp = hp - 3;</code></p>",
+   "h": "<p>Set <code>hp</code> to itself minus the damage, like <code>score = score + 1;</code> adds one.</p>",
    "s": "let hp = 10;\nhp = hp - 3;\n",
    "st": "let hp = 10;\n// take 3 damage here\n"
   },
@@ -151,7 +151,7 @@
    "reqMsg": "Use the variables in your math, for example coins * 2.",
    "l": "<p>JavaScript is a great calculator. These are the math symbols:</p><div class=\"tbl\"><table><tr><th>Symbol</th><th>Meaning</th><th>Example</th></tr><tr><td><code>+</code></td><td>add</td><td><code>4 + 2</code> is 6</td></tr><tr><td><code>-</code></td><td>subtract</td><td><code>4 - 2</code> is 2</td></tr><tr><td><code>*</code></td><td>multiply</td><td><code>4 * 2</code> is 8</td></tr><tr><td><code>/</code></td><td>divide</td><td><code>4 / 2</code> is 2</td></tr></table></div><p>You can do math with variables too:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let lives = 3;\nconsole.log(lives + 1);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>4</code></pre>",
    "p": "<p>Using the variables, print <code>coins</code> doubled, then print <code>coins</code> minus <code>price</code>.</p>",
-   "h": "<p><code>console.log(coins * 2);</code> and then <code>console.log(coins - price);</code></p>",
+   "h": "<p>Use <code>*</code> to multiply and <code>-</code> to subtract, with one <code>console.log</code> for each result.</p>",
    "s": "let coins = 12;\nlet price = 5;\nconsole.log(coins * 2);\nconsole.log(coins - price);\n",
    "st": "let coins = 12;\nlet price = 5;\n// print coins doubled\n// print coins minus price\n"
   },
@@ -165,7 +165,7 @@
    "reqMsg": "Build the message with + and the name variable.",
    "l": "<p>With text, <code>+</code> <b>joins</b> pieces together, end to end.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let item = &quot;potion&quot;;\nconsole.log(&quot;You found a &quot; + item + &quot;!&quot;);\nconsole.log(&quot;Coins: &quot; + 12);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>You found a potion!\nCoins: 12</code></pre><div class=\"callout\"><b>Tip</b><p>Spaces matter. Put the space inside the quotes, like <code>&quot;You found a &quot;</code>, or the words will be squashed together.</p></div>",
    "p": "<p>Use <code>+</code> and the <code>name</code> variable to print <code>Hello, Robin!</code></p>",
-   "h": "<p><code>console.log(&quot;Hello, &quot; + name + &quot;!&quot;);</code></p>",
+   "h": "<p>Join strings and variables with <code>+</code>, like <code>&quot;Bye, &quot; + friend</code>. Remember the comma, the space and the <code>!</code>.</p>",
    "s": "let name = \"Robin\";\nconsole.log(\"Hello, \" + name + \"!\");\n",
    "st": "let name = \"Robin\";\n// print Hello, Robin! using name\n"
   },
@@ -179,7 +179,7 @@
    "reqMsg": "Use an if to decide whether to print.",
    "l": "<p><code>if</code> lets your program make a choice. The code inside the curly braces <code>{ }</code> only runs when the check in the brackets is true.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let coins = 20;\nif (coins &gt;= 10) {\n  console.log(&quot;You can buy a sword&quot;);\n}</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>You can buy a sword</code></pre><p>Some handy checks: <code>&gt;</code> more than, <code>&lt;</code> less than, <code>&gt;=</code> at least, <code>&lt;=</code> at most, <code>===</code> exactly equal.</p>",
    "p": "<p>Print <code>Game over</code>, but only if <code>hp</code> is <code>0</code> or less.</p>",
-   "h": "<p><code>if (hp &lt;= 0) { console.log(&quot;Game over&quot;); }</code></p>",
+   "h": "<p>Use an <code>if</code> with the <code>&lt;=</code> operator to check <code>hp</code>, and put the <code>console.log</code> inside its braces.</p>",
    "s": "let hp = 0;\nif (hp <= 0) {\n  console.log(\"Game over\");\n}\n",
    "st": "let hp = 0;\n// if hp is 0 or less, print Game over\n"
   },
@@ -193,9 +193,9 @@
    ],
    "req": "for\\s*\\(",
    "reqMsg": "Use a for loop for this one.",
-   "l": "<p>A <code>for</code> loop repeats code for you. This one counts with a variable <code>i</code>:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>for (let i = 1; i &lt;= 5; i++) {\n  console.log(i);\n}</code></pre><p>It has three parts, split by <code>;</code></p><ul><li><code>let i = 1</code>: start at 1</li><li><code>i &lt;= 5</code>: keep going while i is 5 or less</li><li><code>i++</code>: add 1 to i after each round</li></ul>",
+   "l": "<p>A <code>for</code> loop repeats code for you. This one counts with a variable <code>i</code>:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>for (let i = 1; i &lt;= 5; i++) {\n  console.log(&quot;Round &quot; + i);\n}</code></pre><p>It has three parts, split by <code>;</code></p><ul><li><code>let i = 1</code>: start at 1</li><li><code>i &lt;= 5</code>: keep going while i is 5 or less</li><li><code>i++</code>: add 1 to i after each round</li></ul>",
    "p": "<p>Use a <code>for</code> loop to print <code>1</code>, <code>2</code> and <code>3</code>, each on its own line.</p>",
-   "h": "<p>Change the example to stop at 3: <code>i &lt;= 3</code></p>",
+   "h": "<p>Use the same loop, but keep going only while <code>i &lt;= 3</code>, and print just <code>i</code>.</p>",
    "s": "for (let i = 1; i <= 3; i++) {\n  console.log(i);\n}\n",
    "st": "// count from 1 to 3 with a for loop\n"
   },
@@ -232,7 +232,7 @@
    ],
    "l": "<p>A <b>function</b> is a named recipe you can use again and again. You give it inputs, and <code>return</code> hands back an answer.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>function double(n) {\n  return n * 2;\n}\nconsole.log(double(4));\nconsole.log(double(10));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>8\n20</code></pre><p><code>n</code> is the input. Each time you call <code>double(...)</code>, <code>n</code> is whatever you put in the brackets.</p>",
    "p": "<p>Finish <code>greet(name)</code> so it returns <code>&quot;Hi, &quot;</code>, then the name, then <code>&quot;!&quot;</code>. For example <code>greet(&quot;Robin&quot;)</code> returns <code>&quot;Hi, Robin!&quot;</code>.</p>",
-   "h": "<p>Join with <code>+</code> and return it: <code>return &quot;Hi, &quot; + name + &quot;!&quot;;</code></p>",
+   "h": "<p>Join the pieces with <code>+</code> and <code>return</code> them, like <code>return &quot;Bye, &quot; + who;</code> but with the <code>&quot;!&quot;</code> on the end.</p>",
    "s": "function greet(name) {\n  return \"Hi, \" + name + \"!\";\n}\n",
    "st": "function greet(name) {\n  // your code here\n}\n\nconsole.log(greet(\"Robin\")); // should be \"Hi, Robin!\"\n"
   },
