@@ -682,6 +682,9 @@ pre.cb[data-k="txt"]{--kc:var(--k-pat);background:var(--panel2);color:var(--ink)
 .mission>b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--accent);display:block;margin-bottom:4px}
 .mission .prose p:last-child{margin-bottom:0}
 .hintbox{margin-top:12px}
+.mixup{border:2px solid var(--warn);background:var(--panel2);padding:8px 12px;margin-top:10px;max-width:66ch}
+.mixup b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--warn);display:block}
+.mixup p{margin:4px 0 0}
 .hintbox .h + .h{margin-top:8px}
 .linkish{background:none;border:0;padding:0;color:var(--accent);text-decoration:underline;font:inherit;cursor:pointer}
 .recap{margin:0 0 14px;border:2px dashed var(--line);padding:6px 10px;max-width:66ch}
@@ -20301,6 +20304,31 @@ function ckptAfter(st) {
   return c ? '<button class="btn small gold" type="button" data-go="quiz" data-arg="' + c.quiz.id + '">★ Checkpoint quiz</button>' : "";
 }
 // first, gentler hint: the building blocks the solution uses that the starter doesn't have yet
+// a failed check often comes from a well-known misconception; name it instead of only saying "wrong"
+function mixupFor(st, code, result) {
+  var c = String(code || "").replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, ""), rows = (result && result.rows) || [], bad = rows.filter(function (r) { return !r.ok; })[0], out = [];
+  var add = function (t) { if (out.indexOf(t) < 0) out.push(t); };
+  var unq = function (v) { return /^".*"$/.test(v) ? v.slice(1, -1) : null; };
+  if (bad) {
+    var g = String(bad.got), w = String(bad.want), gs = unq(g), ws = unq(w);
+    if (gs !== null && ws === null && /^-?\d+(\.\d+)?$/.test(w) && /^-?\d+$/.test(gs)) add("Your answer is text, not a number. In JavaScript <code>\"5\" + 1</code> glues the pieces into <code>\"51\"</code>. Turn text into a number with <code>Number()</code> before doing math.");
+    if (g === "NaN") add("<code>NaN</code> means math was done on something that isn't a number. Usually a value is <code>undefined</code>: a misspelled name, a missing parameter, or a variable that was never given a value.");
+    if (/^Promise/.test(g) || (result.msg && /Promise/.test(result.msg) && !st.async)) add("You got a Promise back instead of the value. Async work needs <code>await</code> (inside an <code>async</code> function) or <code>.then()</code> to get at the result.");
+    if (gs !== null && ws !== null && gs !== ws && gs.toLowerCase() === ws.toLowerCase()) add("So close: only the capital letters differ. JavaScript treats <code>\"Sword\"</code> and <code>\"sword\"</code> as different text.");
+    if (gs !== null && ws !== null && gs !== ws && gs.trim() === ws.trim()) add("There are extra spaces at the start or end of your text. <code>.trim()</code> removes them.");
+    if (/^-?\d+$/.test(g) && /^-?\d+$/.test(w) && Math.abs(g - w) === 1 && /(<=|>=)\s*[\w.]*length|length\s*\+\s*1|= 1;\s*\w+\s*</.test(c)) add("Off by one? Arrays start at index 0, so the last index is <code>length - 1</code>. Check whether your loop should use <code>&lt;</code> or <code>&lt;=</code>, and where it starts.");
+    if (gs !== null && ws !== null && gs !== ws && gs.trim() !== ws.trim() && gs.toLowerCase() !== ws.toLowerCase() && gs.replace(/[\s.,!?:;]/g, "") === ws.replace(/[\s.,!?:;]/g, "")) { add("The words are right, but spaces or punctuation differ. Printed output has to match exactly, down to every space and comma."); }
+  }
+  if (!S.set.lint && /\bif\s*\([^)]*[^=!<>]=[^=>][^)]*\)/.test(c)) add("Inside <code>if ( )</code>, one <code>=</code> <b>stores</b> a value. To <b>compare</b>, use <code>===</code>.");
+  if (st.k === "fn" && result.msg && /undefined/.test(result.msg) && /console\.log\(/.test(c) && !/\breturn\b/.test(c)) add("Printing is not the same as returning. <code>console.log</code> shows a value to you, but the game checks what your function <b>returns</b>. Add a <code>return</code>.");
+  if (/\.forEach\([^]*?\breturn\b/.test(c) && st.k === "fn") add("A <code>return</code> inside <code>forEach</code> only leaves that one little callback, not your function. Use a <code>for...of</code> loop, or <code>find</code>, <code>some</code> or <code>filter</code>.");
+  if (/\.(map|filter|find|some|every)\(\s*\(?[\w\s,]*\)?\s*=>\s*\{(?:(?!return)[^}])*\}/.test(c)) add("An arrow function with <code>{ }</code> braces needs its own <code>return</code>. Without braces, <code>x =&gt; x * 2</code> returns automatically.");
+  if (/\.sort\(\s*\)/.test(c) && bad && /\d/.test(String(bad.want))) add("<code>sort()</code> with no compare function sorts as text, so 100 comes before 9. For numbers use <code>sort((a, b) =&gt; a - b)</code>.");
+  if (/(===|!==|==)\s*[\[{]/.test(c)) add("Two arrays or objects are never <code>===</code> unless they are the very same one, even with the same contents. Compare their items or properties instead.");
+  if (/for\s*\([^)]*\)\s*\{\s*(let|var)\s+\w+\s*=\s*(0|""|\[\])/.test(c) && st.k !== "out") add("Is your running total created <b>inside</b> the loop? Then it starts over every time round. Create it once, before the loop.");
+  if (!out.length) return "";
+  return '<div class="mixup"><b>COMMON MIX-UP</b>' + out.slice(0, 2).map(function (t) { return "<p>" + t + "</p>"; }).join("") + "</div>";
+}
 function nudgeFor(st) {
   if (!st.s || st.game || st.k === "steps" || st.k === "predict") return "";
   var strip = function (c) { return String(c || "").replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "").replace(/(["'`])(?:\\.|(?!\1)[^\\])*\1/g, '""'); };
@@ -21876,7 +21904,7 @@ function viewStage(V, id) {
     else {
       fails[st.id] = (fails[st.id] || 0) + 1; if (!st.game) trackStage(st, false, visit);
       var crash = r.result.crash ? explainHtml(r.result.crash, code) : null;
-      res.innerHTML = '<div class="verdict no" role="status"><div class="vt">✗ Not yet</div><div>' + h(r.result.msg) + "</div></div>" + (st.k === "vars" ? varBoxes(r.result.rows) : "") + resultsHtml(r.result.rows) + (crash ? crash.html : "") + lintHtml(code);
+      res.innerHTML = '<div class="verdict no" role="status"><div class="vt">✗ Not yet</div><div>' + h(r.result.msg) + "</div></div>" + mixupFor(st, code, r.result) + (st.k === "vars" ? varBoxes(r.result.rows) : "") + resultsHtml(r.result.rows) + (crash ? crash.html : "") + lintHtml(code);
       if (crash && crash.line) editor.markErr(crash.line);
       SFX.fail(); maybeAutoHint(); gateSol();
     }
