@@ -841,7 +841,26 @@ select.sel{border:2px solid var(--ink);background:var(--panel);padding:6px 8px;f
 .CodeMirror,pre.cb,code,textarea.fallback{letter-spacing:normal}
 html[data-focus="strong"] :focus-visible{outline:4px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 7px var(--gold)}
 html[data-cb="1"]{--pass:#1D5FC4;--fail:#B35C00}
-html[data-cb="1"][data-skin="night"],html[data-cb="1"][data-skin="blueprint"],html[data-cb="1"][data-skin="contrast"],html[data-cb="1"][data-skin="miami"],html[data-cb="1"][data-skin="eighties"],html[data-cb="1"][data-skin="sixtyfour"],html[data-cb="1"][data-skin="cube"],html[data-cb="1"][data-skin="terminal"],html[data-cb="1"][data-skin="mocha"],html[data-cb="1"][data-skin="forest"],html[data-cb="1"][data-skin="lava"]{--pass:#8DB8FF;--fail:#FFAA4D}
+/* Unlockable skins added with sound themes. Colors, corners, shadows and backgrounds only. */
+html:root[data-skin="matcha"]{--bg:#E6EEDA; --panel:#FAFDF5; --panel2:#F0F6E8; --ink:#1E2B15; --muted:#4C5E3F; --line:#C2D3AE; --chip:#DDE8CE; --accent:#3F6E1A; --accent-ink:#FFFFFF; --gold-ink:#1E2B15; --gold:#C9A24A; --pass:#2E7A2E; --fail:#B23A2E; --warn:#8F5A00; --code-bg:#1E2B15; --code-line:#26361B; --code-sel:#3E5530; --k-ex:#3F6E1A; --k-try:#8A6A10; --k-out:#2E7A2E; --k-bug:#B23A2E; --k-gml:#8F5A00; --k-gd:#1F7A6A; --k-lua:#A8442E; --k-pat:#4C5E3F; --k-py:#2F6E9A; --s1:#3F6E1A; --s2:#8A6A10; --s3:#1F7A6A; --s4:#A8442E; --s5:#6A4FB0; --s6:#2F6E9A; --shadow:#1E2B15; color-scheme:light}
+html[data-skin="matcha"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="matcha"] .dock{overflow:hidden}
+html:root[data-skin="desert"]{--bg:#F1E1C2; --panel:#FFF8EA; --panel2:#F8ECD3; --ink:#3A2612; --muted:#6B4F31; --line:#DCC29A; --chip:#EEDBB8; --accent:#A8481A; --accent-ink:#FFFFFF; --gold-ink:#10302E; --gold:#2FA3A0; --pass:#3C7A2A; --fail:#B2331E; --warn:#8F5400; --code-bg:#33220F; --code-line:#402C16; --code-sel:#5E4426; --k-ex:#A8481A; --k-try:#1F7F7C; --k-out:#3C7A2A; --k-bug:#B2331E; --k-gml:#8F5400; --k-gd:#8F6200; --k-lua:#8A3E7A; --k-pat:#6B4F31; --k-py:#4E7A2A; --s1:#A8481A; --s2:#1F7F7C; --s3:#8F6200; --s4:#8A3E7A; --s5:#3E6EA8; --s6:#4E7A2A; --shadow:#7A4A1E; color-scheme:light}
+html[data-skin="desert"] body{background-image:repeating-linear-gradient(170deg,rgba(168,72,26,.05) 0 30px,transparent 30px 60px)}
+html:root[data-skin="sakura"]{--bg:#FBEDF1; --panel:#FFFAFB; --panel2:#FDF1F4; --ink:#33182A; --muted:#6E4A5E; --line:#F0C6D4; --chip:#F9DEE7; --accent:#B02D63; --accent-ink:#FFFFFF; --gold-ink:#33182A; --gold:#F4A9C4; --pass:#2A7A4A; --fail:#B8283E; --warn:#985400; --code-bg:#2E1726; --code-line:#3A1E31; --code-sel:#5A2E4C; --k-ex:#B02D63; --k-try:#8A4AB0; --k-out:#2A7A4A; --k-bug:#B8283E; --k-gml:#985400; --k-gd:#2A7A6A; --k-lua:#B8462E; --k-pat:#6E4A5E; --k-py:#8F5C00; --s1:#B02D63; --s2:#8A4AB0; --s3:#2A7A6A; --s4:#B8462E; --s5:#3A6AB0; --s6:#8F5C00; --shadow:#C26A8E; color-scheme:light}
+html[data-skin="sakura"] body{background-image:radial-gradient(circle at 30px 30px,rgba(244,169,196,.35) 4px,transparent 5px),radial-gradient(circle at 70px 80px,rgba(244,169,196,.25) 3px,transparent 4px);background-size:100px 100px}
+html[data-skin="sakura"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="sakura"] .dock{overflow:hidden}
+html:root[data-skin="ocean"]{--bg:#06202C; --panel:#0B2C3B; --panel2:#103545; --ink:#E6F7FB; --muted:#9FC6D3; --line:#1E4E61; --chip:#14404F; --accent:#3FD6E6; --accent-ink:#062029; --gold-ink:#2A1006; --gold:#FF9A6B; --pass:#5EE6A6; --fail:#FF8080; --warn:#FFC46B; --code-bg:#041821; --code-line:#0A2633; --code-sel:#1E4E61; --k-ex:#3FD6E6; --k-try:#FF9A6B; --k-out:#5EE6A6; --k-bug:#FF8080; --k-gml:#FFC46B; --k-gd:#7FE6A6; --k-lua:#B9A0FF; --k-pat:#9FC6D3; --k-py:#FF8AB8; --s1:#3FD6E6; --s2:#FF9A6B; --s3:#7FE6A6; --s4:#B9A0FF; --s5:#FFD36B; --s6:#FF8AB8; --shadow:#020E14; color-scheme:dark}
+html[data-skin="ocean"] body{background-image:linear-gradient(180deg,#0A2E3E 0%,#06202C 45%,#031620 100%);background-attachment:fixed}
+html:root[data-skin="royal"]{--bg:#0E1430; --panel:#151D45; --panel2:#1A2452; --ink:#F3F0FF; --muted:#B8BEE6; --line:#2C3878; --chip:#212C5E; --accent:#F2C94C; --accent-ink:#141005; --gold-ink:#0E1430; --gold:#9DB6FF; --pass:#6EE0A0; --fail:#FF8A9A; --warn:#FFB86B; --code-bg:#0A0F26; --code-line:#121A3C; --code-sel:#2C3878; --k-ex:#F2C94C; --k-try:#9DB6FF; --k-out:#6EE0A0; --k-bug:#FF8A9A; --k-gml:#FFB86B; --k-gd:#E68AC8; --k-lua:#6EE0C8; --k-pat:#B8BEE6; --k-py:#B9A0FF; --s1:#F2C94C; --s2:#9DB6FF; --s3:#E68AC8; --s4:#6EE0C8; --s5:#FF9F6B; --s6:#B9A0FF; --shadow:#070A1C; color-scheme:dark}
+html:root[data-skin="galaxy"]{--bg:#0A0718; --panel:#140F2C; --panel2:#1A1438; --ink:#F2EEFF; --muted:#BEB4E6; --line:#33296A; --chip:#221B48; --accent:#A98BFF; --accent-ink:#0A0718; --gold-ink:#1A1200; --gold:#FFD36E; --pass:#6EF0B0; --fail:#FF7EA0; --warn:#FFB86E; --code-bg:#06040F; --code-line:#110C24; --code-sel:#33296A; --k-ex:#A98BFF; --k-try:#FFD36E; --k-out:#6EF0B0; --k-bug:#FF7EA0; --k-gml:#FFB86E; --k-gd:#5EE0FF; --k-lua:#FF7EC8; --k-pat:#BEB4E6; --k-py:#FF9F6E; --s1:#A98BFF; --s2:#FFD36E; --s3:#5EE0FF; --s4:#FF7EC8; --s5:#6EF0B0; --s6:#FF9F6E; --shadow:#000000; color-scheme:dark}
+html[data-skin="galaxy"] body{background-image:radial-gradient(ellipse at 20% 15%,rgba(169,139,255,.22),transparent 45%),radial-gradient(ellipse at 85% 70%,rgba(255,126,200,.16),transparent 45%),radial-gradient(ellipse at 50% 100%,rgba(94,224,255,.12),transparent 50%);background-attachment:fixed}
+html:root[data-skin="cyber"]{--bg:#0C0A10; --panel:#16131D; --panel2:#1C1826; --ink:#F6F3FF; --muted:#BDB6D2; --line:#3A3350; --chip:#25203A; --accent:#FCEE0A; --accent-ink:#0C0A10; --gold-ink:#00181A; --gold:#00F0FF; --pass:#5CFF9D; --fail:#FF4D6D; --warn:#FFB020; --code-bg:#07060A; --code-line:#120F18; --code-sel:#3A3350; --k-ex:#FCEE0A; --k-try:#00F0FF; --k-out:#5CFF9D; --k-bug:#FF4D6D; --k-gml:#FFB020; --k-gd:#FF4DB8; --k-lua:#5CFF9D; --k-pat:#BDB6D2; --k-py:#FF8A3D; --s1:#FCEE0A; --s2:#00F0FF; --s3:#FF4DB8; --s4:#5CFF9D; --s5:#B48CFF; --s6:#FF8A3D; --shadow:#FCEE0A; color-scheme:dark}
+html[data-skin="cyber"] body{background-image:repeating-linear-gradient(-45deg,rgba(252,238,10,.05) 0 14px,transparent 14px 28px)}
+html:root[data-skin="legend"]{--bg:#121008; --panel:#1C180D; --panel2:#231E11; --ink:#FFF6DA; --muted:#D4C49A; --line:#4A3E1C; --chip:#2E2714; --accent:#FFC83D; --accent-ink:#121008; --gold-ink:#1C1500; --gold:#FFE7A0; --pass:#8FE07A; --fail:#FF8A6B; --warn:#FFB03D; --code-bg:#0B0904; --code-line:#17130A; --code-sel:#4A3E1C; --k-ex:#FFC83D; --k-try:#FFE7A0; --k-out:#8FE07A; --k-bug:#FF8A6B; --k-gml:#FFB03D; --k-gd:#E6A84A; --k-lua:#8FE07A; --k-pat:#D4C49A; --k-py:#FF9A7A; --s1:#FFC83D; --s2:#FFE7A0; --s3:#E6A84A; --s4:#8FE07A; --s5:#9CC8FF; --s6:#FF9A7A; --shadow:#000000; color-scheme:dark}
+html[data-skin="legend"] body{background-image:radial-gradient(ellipse at 50% -10%,rgba(255,200,61,.22),transparent 55%);background-attachment:fixed}
+html[data-cb="1"][data-skin="ocean"],html[data-cb="1"][data-skin="royal"],html[data-cb="1"][data-skin="galaxy"],html[data-cb="1"][data-skin="cyber"],html[data-cb="1"][data-skin="legend"],html[data-cb="1"][data-skin="night"],html[data-cb="1"][data-skin="blueprint"],html[data-cb="1"][data-skin="contrast"],html[data-cb="1"][data-skin="miami"],html[data-cb="1"][data-skin="eighties"],html[data-cb="1"][data-skin="sixtyfour"],html[data-cb="1"][data-skin="cube"],html[data-cb="1"][data-skin="terminal"],html[data-cb="1"][data-skin="mocha"],html[data-cb="1"][data-skin="forest"],html[data-cb="1"][data-skin="lava"]{--pass:#8DB8FF;--fail:#FFAA4D}
 @media (prefers-color-scheme: dark){html[data-cb="1"]:not([data-skin]){--pass:#8DB8FF;--fail:#FFAA4D}}
 .setgrid>.card{break-inside:avoid;margin-bottom:16px;display:block}
 .field{display:grid;gap:6px;margin-bottom:14px}
@@ -19989,7 +20008,7 @@ var DEFAULTS = {
   showCont: true, showMe: true, dots: true, learnLinks: true, guides: false, keySize: "normal", shortcuts: true,
   lineHeight: "normal", letterSpacing: "normal", measure: "normal", toastTime: "normal", focusStrong: false, cbColors: false,
   wrap: false, indent: 2, brackets: true, edHeight: "medium", readAloud: true, readRate: 1, quizShuffle: true, quizAuto: false, clickSound: true,
-  bgFx: "off", bgColor: "theme", bgDensity: "normal", bgSpeed: "normal", bgStrength: "normal", bgMouse: true, bgCalm: true, bgFps: "smooth",
+  soundPack: "retro", typeSound: false, bgFx: "off", bgColor: "theme", bgDensity: "normal", bgSpeed: "normal", bgStrength: "normal", bgMouse: true, bgCalm: true, bgFps: "smooth",
   bgGlow: false, bgMove: false, bgScan: false, pageAnim: "off", hoverFx: "off", trail: "off", clickFx: false, backTop: true, toastPos: "bottom"
 };
 var S = {
@@ -20184,16 +20203,21 @@ function rankOf(lv) { var r = RANKS[0][1]; RANKS.forEach(function (x) { if (lv >
 // ---------------- level unlocks ----------------
 // Themes, backgrounds and trails open up as you level. Anything not listed in UNLOCK_LV is free from the start.
 // To gate something new, add it here, or give a section `unlock: <level>` in SQDATA (add `secret: true` to hide it from the Map until then).
-var TRAILS = [["off", "Off"], ["sparkle", "Sparkles"], ["pixels", "Pixels"], ["rainbow", "Rainbow"], ["bubbles", "Bubbles"]];
+var TRAILS = [["off", "Off"], ["sparkle", "Sparkles"], ["pixels", "Pixels"], ["rainbow", "Rainbow"], ["bubbles", "Bubbles"], ["snow", "Snowflakes"], ["hearts", "Hearts"], ["fire", "Fire"], ["stars", "Shooting stars"]];
 var UNLOCK_LV = {
   skin: { retro: 2, modern: 3, candy: 4, mocha: 5, arctic: 6, forest: 7, aero: 8, girlypop: 9, terminal: 10, toon: 11, sixtyfour: 12, cube: 13, miami: 14, eighties: 16, lava: 18 },
   bg: { fireflies: 2, comets: 3, waves: 4, confetti: 5, leaves: 6, petals: 7, constellation: 8, hearts: 9, rain: 10, shapes: 11, blocks: 12, aurora: 13, warp: 14, grid: 16, lava: 18 },
   trail: { pixels: 2, bubbles: 5, rainbow: 9 }
 };
-var UNLOCK_KIND = { skin: "theme", bg: "background", trail: "mouse trail", section: "module" };
+// unlockables added with sound themes; themes and effects keep filling the climb toward level 25
+Object.assign(UNLOCK_LV.skin, { matcha: 3, desert: 5, sakura: 7, ocean: 15, royal: 17, galaxy: 19, cyber: 21, legend: 24 });
+Object.assign(UNLOCK_LV.bg, { ripples: 3, balloons: 4, glitter: 6, butterflies: 8, fish: 10, orbits: 17, fireworks: 20, tunnel: 22 });
+Object.assign(UNLOCK_LV.trail, { snow: 6, hearts: 11, fire: 15, stars: 19 });
+UNLOCK_LV.sound = { bubble: 3, typewriter: 5, clicky: 7, arcade: 10, space: 13, wood: 16, musicbox: 20, laser: 23 };
+var UNLOCK_KIND = { skin: "theme", bg: "background", trail: "mouse trail", sound: "sound theme", section: "module" };
 function unlockList() {
   var out = [], name = function (list, k) { var x = list.filter(function (e) { return e[0] === k; })[0]; return x ? x[1] : k; };
-  [["skin", SKINS], ["bg", BGFX], ["trail", TRAILS]].forEach(function (p) { Object.keys(UNLOCK_LV[p[0]]).forEach(function (k) { out.push({ id: p[0] + ":" + k, kind: p[0], key: k, name: name(p[1], k), lv: UNLOCK_LV[p[0]][k] }); }); });
+  [["skin", SKINS], ["bg", BGFX], ["trail", TRAILS], ["sound", SOUNDS]].forEach(function (p) { Object.keys(UNLOCK_LV[p[0]]).forEach(function (k) { out.push({ id: p[0] + ":" + k, kind: p[0], key: k, name: name(p[1], k), lv: UNLOCK_LV[p[0]][k] }); }); });
   SECS.forEach(function (s) { if (s.unlock) out.push({ id: "section:" + s.id, kind: "section", key: s.id, name: s.title, lv: s.unlock, secret: !!s.secret }); });
   return out.sort(function (a, b) { return a.lv - b.lv; });
 }
@@ -20267,7 +20291,7 @@ function applySettings() {
   r.style.setProperty("--bgfx-op", { faint: .35, normal: .65, bold: 1 }[st.bgStrength] || .65);
   setA("data-glow", st.bgGlow ? "on" : ""); setA("data-bgmove", st.bgMove ? "on" : ""); setA("data-scan", st.bgScan ? "on" : "");
   setA("data-pageanim", st.pageAnim !== "off" ? st.pageAnim : ""); setA("data-hover", st.hoverFx !== "off" ? st.hoverFx : ""); setA("data-toastpos", st.toastPos !== "bottom" ? st.toastPos : "");
-  bgCalmAttr(); bgStart(); toTopCheck();
+  bgCalmAttr(); bgStart(); toTopCheck(); sndPick();
   if (editor && editor.cm) { editor.cm.setOption("lineNumbers", st.lineNumbers); editor.cm.setOption("autoCloseBrackets", st.autoClose); editor.cm.setOption("styleActiveLine", st.activeLine); editor.cm.setOption("lineWrapping", st.wrap); editor.cm.setOption("matchBrackets", st.brackets); editor.cm.setOption("indentUnit", Number(st.indent)); editor.cm.setOption("tabSize", Number(st.indent)); setGuides(editor.cm); editor.cm.refresh(); }
 }
 
@@ -20280,7 +20304,7 @@ function beep(seq) {
     var t = actx.currentTime;
     seq.forEach(function (n) {
       var o = actx.createOscillator(), g = actx.createGain();
-      o.type = n[3] || "square"; o.frequency.setValueAtTime(n[0], t + n[1]);
+      var pk = sndPack(); o.type = n[3] || pk.wave || "square"; o.frequency.setValueAtTime(n[0] * (pk.shift || 1), t + n[1]);
       g.gain.setValueAtTime(0.0001, t + n[1]); g.gain.exponentialRampToValueAtTime(0.06 * S.set.volume + 0.0001, t + n[1] + 0.01);
       g.gain.exponentialRampToValueAtTime(0.0001, t + n[1] + n[2]);
       o.connect(g); g.connect(actx.destination); o.start(t + n[1]); o.stop(t + n[1] + n[2] + 0.02);
@@ -20291,7 +20315,7 @@ var SFX = {
   run: function () { beep([[660, 0, .05]]); },
   pass: function () { beep([[523, 0, .08], [659, .07, .08], [784, .14, .08], [1046, .21, .16]]); },
   fail: function () { beep([[196, 0, .12, "sawtooth"], [147, .1, .16, "sawtooth"]]); },
-  click: function () { if (S.set.clickSound) beep([[880, 0, .03]]); },
+  click: function () { if (S.set.clickSound) sndPack().click(); },
   level: function () { beep([[392, 0, .1], [523, .1, .1], [659, .2, .1], [784, .3, .1], [1046, .4, .25]]); },
   right: function () { beep([[784, 0, .06], [1046, .06, .1]]); },
   wrong: function () { beep([[220, 0, .14, "triangle"]]); }
@@ -20323,11 +20347,15 @@ var BGFX = [
   ["pixels", "Pixel float", "Little squares rising up"], ["blocks", "Falling blocks", "Puzzle pieces tumbling down"],
   ["shapes", "Floating shapes", "Circles, squares and triangles"], ["hearts", "Hearts", "Little hearts floating up"],
   ["petals", "Petals", "Cherry blossoms on the wind"], ["leaves", "Autumn leaves", "Leaves twirling down"],
-  ["lava", "Lava lamp", "Big, slow, glowing blobs"]
+  ["lava", "Lava lamp", "Big, slow, glowing blobs"], ["ripples", "Ripples", "Rings spreading across water"],
+  ["balloons", "Balloons", "A bunch of balloons drifting up"], ["glitter", "Glitter", "Sparkles that flash and fade"],
+  ["butterflies", "Butterflies", "Fluttering, colorful wings"], ["fish", "Aquarium", "Little fish swimming by"],
+  ["orbits", "Solar system", "Planets circling a glowing sun"], ["fireworks", "Fireworks", "Rockets bursting into sparks"],
+  ["tunnel", "Tunnel", "Spinning squares zooming at you"]
 ];
 // "Match my theme" picks one of these
-var BG_THEME = { auto: "pixels", cartridge: "pixels", night: "stars", pocket: "pixels", blueprint: "constellation", contrast: "off", miami: "grid", eighties: "grid", retro: "blocks", sixtyfour: "shapes", cube: "shapes", modern: "constellation", girlypop: "hearts", candy: "confetti", terminal: "rain", aero: "bubbles", toon: "shapes", mocha: "leaves", arctic: "snow", forest: "fireflies", lava: "lava" };
-var BG = { cv: null, c: null, w: 0, h: 0, ps: [], ex: [], fx: "off", key: "", t: 0, raf: 0, last: 0, mx: -9999, my: -9999, cols: ["#2C52C4"], ink: "#222", dark: false, pal: null, rt: 0 };
+var BG_THEME = { matcha: "leaves", desert: "glitter", sakura: "petals", ocean: "fish", royal: "glitter", galaxy: "orbits", cyber: "tunnel", legend: "fireworks", auto: "pixels", cartridge: "pixels", night: "stars", pocket: "pixels", blueprint: "constellation", contrast: "off", miami: "grid", eighties: "grid", retro: "blocks", sixtyfour: "shapes", cube: "shapes", modern: "constellation", girlypop: "hearts", candy: "confetti", terminal: "rain", aero: "bubbles", toon: "shapes", mocha: "leaves", arctic: "snow", forest: "fireflies", lava: "lava" };
+var BG = { fwq: [], cv: null, c: null, w: 0, h: 0, ps: [], ex: [], fx: "off", key: "", t: 0, raf: 0, last: 0, mx: -9999, my: -9999, cols: ["#2C52C4"], ink: "#222", dark: false, pal: null, rt: 0 };
 var WHITES = ["#FFFFFF", "#DCE6FF", "#FFF2D6"];
 function stillMotion() { return S.set.motion === "off" || !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches); }
 function bgEffect() { var f = S.set.bgFx; return f === "theme" ? (BG_THEME[S.set.skin] || BG_THEME.auto) : f; }
@@ -20534,6 +20562,97 @@ var BGE = {
       c.fillStyle = bgCol(p, .75); c.beginPath(); c.moveTo(0, -s); c.quadraticCurveTo(s * .85, 0, 0, s); c.quadraticCurveTo(-s * .85, 0, 0, -s); c.fill();
       c.strokeStyle = "rgba(0,0,0,.2)"; c.lineWidth = 1; c.beginPath(); c.moveTo(0, -s * .8); c.lineTo(0, s * 1.2); c.stroke(); c.restore();
     } },
+  ripples: { n: 0,
+    frame: function (c, dt) {
+      if (!dt && !BG.ex.length) for (var i = 0; i < 5; i++) BG.ex.push({ x: bgR(0, BG.w), y: bgR(0, BG.h), r: bgR(10, 120), ci: i, hue: i * 70 });
+      if (dt && Math.random() < dt * 1.4) BG.ex.push({ x: bgR(0, BG.w), y: bgR(0, BG.h), r: 0, ci: Math.floor(bgR(0, 7)), hue: bgR(0, 360) });
+      if (dt && bgMouseOn() && Math.random() < dt * 2) BG.ex.push({ x: BG.mx, y: BG.my, r: 0, ci: Math.floor(bgR(0, 7)), hue: bgR(0, 360) });
+      c.lineWidth = 2;
+      BG.ex = BG.ex.filter(function (m) {
+        m.r += 55 * dt; var k = 1 - m.r / 150; if (k <= 0) return false;
+        for (var j = 0; j < 3; j++) { var rr = m.r - j * 16; if (rr <= 0) continue; c.strokeStyle = bgCol(m, k * (.6 - j * .17)); c.beginPath(); c.ellipse(m.x, m.y, rr, rr * .45, 0, 0, 6.283); c.stroke(); }
+        return true;
+      });
+    } },
+  balloons: { n: 16, push: true,
+    make: function (p, first) { p.r = bgR(12, 22); rising(p, first, p.r * 3); p.vy = bgR(20, 40); },
+    step: function (p, dt) { p.y -= p.vy * dt; p.x += Math.sin(BG.t * .8 + p.ph) * 12 * dt; if (p.y < -p.r * 4) BGE.balloons.make(p, false); },
+    draw: function (c, p) {
+      var r = p.r, sw = Math.sin(BG.t * 1.2 + p.ph) * 4;
+      c.strokeStyle = bgCol(p, .35); c.lineWidth = 1; c.beginPath(); c.moveTo(p.x, p.y + r * 1.2); c.quadraticCurveTo(p.x + sw, p.y + r * 2, p.x - sw, p.y + r * 3); c.stroke();
+      c.fillStyle = bgCol(p, .6); c.beginPath(); c.ellipse(p.x, p.y, r * .85, r * 1.05, 0, 0, 6.283); c.fill();
+      c.beginPath(); c.moveTo(p.x - 3, p.y + r * 1.2); c.lineTo(p.x + 3, p.y + r * 1.2); c.lineTo(p.x, p.y + r * 1.02); c.fill();
+      c.fillStyle = "rgba(255,255,255,.45)"; c.beginPath(); c.ellipse(p.x - r * .3, p.y - r * .4, r * .15, r * .28, -.5, 0, 6.283); c.fill();
+    } },
+  glitter: { n: 110, pale: true,
+    make: function (p, first) { falling(p, first, 10); p.s = bgR(2, 6); p.sp = bgR(1.5, 4); p.vy = bgR(4, 14); },
+    step: function (p, dt) { p.y += p.vy * dt; if (p.y > BG.h + 10) BGE.glitter.make(p, false); },
+    draw: function (c, p) {
+      var k = Math.pow(Math.abs(Math.sin(BG.t * p.sp + p.ph)), 6), s = p.s * (.3 + k); if (k < .04) return;
+      c.fillStyle = bgCol(p, .25 + .75 * k); c.beginPath(); c.moveTo(p.x, p.y - s * 2); c.quadraticCurveTo(p.x, p.y, p.x + s * 2, p.y); c.quadraticCurveTo(p.x, p.y, p.x, p.y + s * 2); c.quadraticCurveTo(p.x, p.y, p.x - s * 2, p.y); c.quadraticCurveTo(p.x, p.y, p.x, p.y - s * 2); c.fill();
+    } },
+  butterflies: { n: 12, push: true, pal: function () { return ["#FF9F1C", "#5EC8FF", "#FF5CA8", "#B48CFF", "#FFE14D", "#6EE09A"]; },
+    make: function (p) { p.x = bgR(0, BG.w); p.y = bgR(0, BG.h); p.a = bgR(0, 6.283); p.s = bgR(7, 12); p.v = bgR(25, 45); },
+    step: function (p, dt) { p.a += bgR(-2.5, 2.5) * dt; p.x += Math.cos(p.a) * p.v * dt; p.y += Math.sin(p.a) * p.v * dt * .7 + Math.sin(BG.t * 3 + p.ph) * 10 * dt; bgWrap(p, 30); },
+    draw: function (c, p) {
+      var s = p.s, f = .25 + .75 * Math.abs(Math.sin(BG.t * 9 + p.ph));
+      c.save(); c.translate(p.x, p.y); c.rotate(Math.cos(p.a) > 0 ? .25 : -.25); c.fillStyle = bgCol(p, .7);
+      [-1, 1].forEach(function (d) { c.beginPath(); c.ellipse(d * s * .55 * f, -s * .25, s * .6 * f, s * .75, d * .5, 0, 6.283); c.fill(); c.beginPath(); c.ellipse(d * s * .45 * f, s * .45, s * .4 * f, s * .45, -d * .4, 0, 6.283); c.fill(); });
+      c.fillStyle = "rgba(0,0,0,.45)"; c.fillRect(-1, -s * .7, 2, s * 1.4); c.restore();
+    } },
+  fish: { n: 14, push: true, pal: function () { return ["#FF8A3D", "#FFD23F", "#4FC3F7", "#FF6FA8", "#7FE0A6", "#B48CFF"]; },
+    make: function (p, first) { p.d = Math.random() < .5 ? 1 : -1; p.s = bgR(9, 18); p.v = bgR(25, 60); p.y = bgR(BG.h * .1, BG.h * .95); p.x = first ? bgR(0, BG.w) : p.d > 0 ? -40 : BG.w + 40; },
+    step: function (p, dt) { p.x += p.d * p.v * dt; p.y += Math.sin(BG.t * 1.5 + p.ph) * 10 * dt; if (p.x < -60 || p.x > BG.w + 60) BGE.fish.make(p, false); },
+    draw: function (c, p) {
+      var s = p.s, w = Math.sin(BG.t * 8 + p.ph) * s * .25;
+      c.save(); c.translate(p.x, p.y); c.scale(p.d, 1); c.fillStyle = bgCol(p, .65);
+      c.beginPath(); c.ellipse(0, 0, s, s * .55, 0, 0, 6.283); c.fill();
+      c.beginPath(); c.moveTo(-s * .8, 0); c.lineTo(-s * 1.6, -s * .55 + w); c.lineTo(-s * 1.6, s * .55 + w); c.closePath(); c.fill();
+      c.fillStyle = "rgba(0,0,0,.6)"; c.beginPath(); c.arc(s * .5, -s * .12, Math.max(1.2, s * .1), 0, 6.283); c.fill(); c.restore();
+    } },
+  orbits: { n: 9, fixed: true, pale: true,
+    make: function (p) { p.k = 0; },
+    init: function () { BG.ps.forEach(function (p, i) { p.k = i; p.R = 60 + i * 48 + bgR(-8, 8); p.sp = .9 / Math.sqrt(1 + i) * (Math.random() < .2 ? -1 : 1); p.a = bgR(0, 6.283); p.s = bgR(3, 9); p.ci = i; }); },
+    step: function (p, dt) { p.a += p.sp * dt * .5; },
+    under: function (c) {
+      var cx = BG.w / 2, cy = BG.h / 2; if (bgMouseOn()) { cx += (BG.mx - BG.w / 2) * .05; cy += (BG.my - BG.h / 2) * .05; } BG.ocx = cx; BG.ocy = cy;
+      var g = c.createRadialGradient(cx, cy, 0, cx, cy, 60), sun = { ci: 5, hue: 45 }; g.addColorStop(0, bgCol(sun, .9)); g.addColorStop(.3, bgCol(sun, .5)); g.addColorStop(1, bgCol(sun, 0));
+      c.fillStyle = g; c.beginPath(); c.arc(cx, cy, 60, 0, 6.283); c.fill();
+      c.lineWidth = 1; BG.ps.forEach(function (p) { c.strokeStyle = bgCol(p, .18); c.beginPath(); c.ellipse(cx, cy, p.R, p.R * .42, 0, 0, 6.283); c.stroke(); });
+    },
+    draw: function (c, p) {
+      var x = BG.ocx + Math.cos(p.a) * p.R, y = BG.ocy + Math.sin(p.a) * p.R * .42;
+      c.fillStyle = bgCol(p, .85); c.beginPath(); c.arc(x, y, p.s, 0, 6.283); c.fill();
+      if (p.k % 3 === 2) { c.strokeStyle = bgCol(p, .5); c.beginPath(); c.ellipse(x, y, p.s * 1.9, p.s * .55, -.3, 0, 6.283); c.stroke(); }
+    } },
+  fireworks: { n: 0,
+    frame: function (c, dt) {
+      var dm = { few: .5, normal: 1, lots: 1.8 }[S.set.bgDensity] || 1;
+      if (!dt && !BG.ex.length) for (var b = 0; b < 3; b++) fwBurst(bgR(BG.w * .2, BG.w * .8), bgR(BG.h * .15, BG.h * .5), .4);
+      if (BG.fwq.length) { BG.ex = BG.ex.concat(BG.fwq); BG.fwq = []; }
+      if (dt && Math.random() < dt * .9 * dm) BG.ex.push({ x: bgR(BG.w * .1, BG.w * .9), y: BG.h + 10, vx: bgR(-30, 30), vy: -bgR(BG.h * .7, BG.h * 1.05), rocket: true, life: 0, ci: Math.floor(bgR(0, 7)), hue: bgR(0, 360) });
+      BG.ex = BG.ex.filter(function (m) {
+        m.life += dt;
+        if (m.rocket) {
+          m.vy += 320 * dt; m.x += m.vx * dt; m.y += m.vy * dt;
+          c.fillStyle = bgCol(m, .9); c.fillRect(m.x - 1.5, m.y - 1.5, 3, 3); c.fillStyle = bgCol(m, .3); c.fillRect(m.x - 1, m.y + 2, 2, 8);
+          if (m.vy > -40) { fwBurst(m.x, m.y, 0, m); return false; } return true;
+        }
+        m.vx *= 1 - 1.4 * dt; m.vy = m.vy * (1 - 1.4 * dt) + 90 * dt; m.x += m.vx * dt; m.y += m.vy * dt;
+        var k = 1 - m.life / m.max; if (k <= 0) return false;
+        c.fillStyle = bgCol(m, k); c.fillRect(m.x - 1.5, m.y - 1.5, 3, 3); return true;
+      });
+    } },
+  tunnel: { n: 0,
+    frame: function (c) {
+      var W = BG.w, H = BG.h, cx = W / 2, cy = H / 2, M = Math.hypot(W, H) * .62, off = BG.t * .25 % 1, N = 16;
+      if (bgMouseOn()) { cx += (BG.mx - W / 2) * .12; cy += (BG.my - H / 2) * .12; }
+      c.lineWidth = 2;
+      for (var i = 0; i < N; i++) {
+        var z = (i + off) / N, s = z * z * M, rot = BG.t * .35 + z * 2.2, p = { ci: i, hue: i * 22 };
+        c.strokeStyle = bgCol(p, Math.min(.8, z * 1.2)); c.save(); c.translate(cx, cy); c.rotate(rot); c.strokeRect(-s, -s, s * 2, s * 2); c.restore();
+      }
+    } },
   lava: { n: 7, fixed: true,
     make: function (p) { p.r = bgR(.14, .26) * Math.min(BG.w, BG.h) + 40; p.x = bgR(0, BG.w); p.y = bgR(0, BG.h); p.vx = bgR(-26, 26); p.vy = bgR(-26, 26); },
     step: function (p, dt) {
@@ -20547,13 +20666,18 @@ var BGE = {
       c.fillStyle = g; c.beginPath(); c.arc(p.x, p.y, r, 0, 6.283); c.fill();
     } }
 };
+// a firework's sparks; age > 0 spreads them out for the still picture
+function fwBurst(x, y, age, src) {
+  var ci = src ? src.ci : Math.floor(bgR(0, 7)), hue = src ? src.hue : bgR(0, 360), n = 34;
+  for (var i = 0; i < n; i++) { var ang = i / n * 6.283 + bgR(-.1, .1), sp = bgR(60, 170); BG.fwq.push({ x: x + Math.cos(ang) * sp * age, y: y + Math.sin(ang) * sp * age, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp, life: age, max: bgR(1, 1.6), ci: i % 3 ? ci : ci + 1, hue: hue + (i % 3) * 20 }); }
+}
 function bgSize() {
   var dpr = Math.min(window.devicePixelRatio || 1, 1.5); BG.w = innerWidth; BG.h = innerHeight;
   BG.cv.width = Math.round(BG.w * dpr); BG.cv.height = Math.round(BG.h * dpr); BG.c.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 function bgInit() {
   var e = BGE[BG.fx], dm = { few: .5, normal: 1, lots: 1.8 }[S.set.bgDensity] || 1;
-  BG.ps = []; BG.ex = []; BG.t = 0;
+  BG.ps = []; BG.ex = []; BG.fwq = []; BG.t = 0;
   var n = Math.min(600, Math.round(e.fixed ? e.n * dm : e.n * dm * BG.w * BG.h / 1e6));
   for (var i = 0; i < n; i++) { var p = { ci: Math.floor(Math.random() * 7), hue: Math.random() * 360, ph: Math.random() * 6.283 }; e.make(p, true); BG.ps.push(p); }
   if (e.init) e.init(dm);
@@ -20597,6 +20721,63 @@ window.addEventListener("resize", function () { clearTimeout(BG.rt); BG.rt = set
 document.addEventListener("visibilitychange", function () { if (document.hidden) { cancelAnimationFrame(BG.raf); BG.raf = 0; } else if (BG.fx !== "off") bgStart(); });
 if (window.matchMedia) { try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () { if (S.set.skin === "auto") bgStart(); }); } catch (e) {} }
 
+// ---------------- sound themes ----------------
+// each theme has its own button click and typing sounds; wave/shift recolor the other game sounds
+var SOUNDS = [["retro", "Retro", "Classic square-wave beeps"], ["soft", "Soft", "Gentle, quiet pops"], ["bubble", "Bubbles", "Bloopy water pops"], ["typewriter", "Typewriter", "Clacks, and a bell on Enter"], ["clicky", "Clicky keys", "A crunchy mechanical keyboard"], ["arcade", "Arcade", "Bright coin-op chirps"], ["space", "Space", "Sci-fi zaps and pings"], ["wood", "Wood blocks", "Warm wooden knocks"], ["musicbox", "Music box", "Typing plays Twinkle Twinkle"], ["laser", "Laser", "Pew pew pew"]];
+var TWINKLE = [523, 523, 784, 784, 880, 880, 784, 698, 698, 659, 659, 587, 587, 523, 784, 784, 698, 698, 659, 659, 587, 784, 784, 698, 698, 659, 659, 587];
+var SND = { pack: null, i: 0, last: 0, buf: null };
+function sndCtx() {
+  if (!S.set.sound) return null;
+  try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === "suspended") actx.resume(); return actx; } catch (e) { return null; }
+}
+function tone(f1, f2, dur, type, vol, at) {
+  var a = sndCtx(); if (!a) return;
+  try {
+    var t = a.currentTime + (at || 0), o = a.createOscillator(), g = a.createGain();
+    o.type = type || "sine"; o.frequency.setValueAtTime(f1, t); if (f2 && f2 !== f1) o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime((vol || .06) * S.set.volume + .0001, t + .005); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + .02);
+  } catch (e) {}
+}
+function noise(dur, freq, q, vol) {
+  var a = sndCtx(); if (!a) return;
+  try {
+    if (!SND.buf) { SND.buf = a.createBuffer(1, Math.floor(a.sampleRate * .5), a.sampleRate); var d = SND.buf.getChannelData(0); for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
+    var t = a.currentTime, s = a.createBufferSource(), f = a.createBiquadFilter(), g = a.createGain();
+    s.buffer = SND.buf; f.type = "bandpass"; f.frequency.value = freq; f.Q.value = q || 1;
+    g.gain.setValueAtTime((vol || .3) * S.set.volume + .0001, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    s.connect(f); f.connect(g); g.connect(a.destination); s.start(t, Math.random() * .4); s.stop(t + dur + .02);
+  } catch (e) {}
+}
+function rndOf(a) { return a[Math.floor(Math.random() * a.length)]; }
+var SPACKS = {
+  retro: { wave: "square", click: function () { tone(880, 0, .03, "square"); }, key: function (k) { tone(k === "enter" ? 660 : k === "back" ? 330 : bgR(500, 640), 0, .025, "square", .03); } },
+  soft: { wave: "sine", click: function () { tone(640, 520, .06, "sine", .09); }, key: function (k) { tone(k === "enter" ? 520 : k === "back" ? 420 : bgR(720, 820), 0, .035, "sine", .05); } },
+  bubble: { wave: "sine", shift: 1.2, click: function () { tone(320, 900, .07, "sine", .11); }, key: function (k) { var f = k === "back" ? 700 : bgR(380, 640); tone(f, k === "back" ? f * .5 : f * 2.2, .05, "sine", .08); } },
+  typewriter: { wave: "triangle", click: function () { noise(.04, 2200, 1.5, .55); tone(140, 90, .05, "triangle", .1); },
+    key: function (k) { if (k === "enter") { noise(.06, 1600, 1.2, .55); tone(1760, 0, .6, "sine", .07, .06); } else noise(k === "space" ? .06 : .03, k === "space" ? 900 : bgR(2400, 3300), 1.6, .5); } },
+  clicky: { wave: "square", shift: 1.1, click: function () { noise(.02, 4200, 2, .55); tone(2600, 0, .012, "square", .03); },
+    key: function (k) { var big = k === "space" || k === "enter"; noise(big ? .045 : .022, big ? 1400 : bgR(3600, 4600), 2.2, .55); tone(big ? 170 : 240, 0, .02, "triangle", .06); } },
+  arcade: { wave: "square", shift: 1.5, click: function () { tone(1200, 1900, .05, "square", .05); }, key: function (k) { tone(k === "back" ? 262 : rndOf([523, 659, 784, 1047, 1319]), 0, .035, "square", .035); } },
+  space: { wave: "triangle", shift: .9, click: function () { tone(1400, 300, .1, "sine", .09); }, key: function (k) { var f = bgR(900, 1400); tone(f, k === "back" ? f * .4 : f * 1.6, .05, "triangle", .06); } },
+  wood: { wave: "triangle", shift: .8, click: function () { tone(820, 620, .05, "triangle", .14); }, key: function (k) { var f = k === "enter" ? 330 : bgR(520, 980); tone(f, f * .8, .04, "triangle", .11); } },
+  musicbox: { wave: "triangle", click: function () { tone(1047, 0, .3, "triangle", .07); tone(2094, 0, .15, "sine", .02); },
+    key: function (k) { if (k === "back") { SND.i = Math.max(0, SND.i - 1); tone(392, 0, .12, "triangle", .05); return; } if (k === "enter") SND.i = 0; var f = TWINKLE[SND.i++ % TWINKLE.length]; tone(f, 0, .4, "triangle", .07); tone(f * 2, 0, .2, "sine", .02); } },
+  laser: { wave: "sawtooth", shift: 1.3, click: function () { tone(1800, 200, .12, "sawtooth", .04); }, key: function (k) { tone(bgR(2000, 2800), k === "back" ? 120 : 400, .06, "sawtooth", .025); } }
+};
+// the player's pick, falling back to Retro if it isn't unlocked (say, from an old save code)
+function sndPick() { var id = S.set.soundPack; SND.pack = SPACKS[id] && !isLocked("sound", id) ? SPACKS[id] : SPACKS.retro; }
+function sndPack() { if (!SND.pack) sndPick(); return SND.pack; }
+function sndPreview() { var p = sndPack(); p.click(); ["char", "char", "char", "space", "char", "enter"].forEach(function (k, i) { setTimeout(function () { p.key(k); }, 220 + i * 130); }); }
+document.addEventListener("keydown", function (e) {
+  if (!S.set.typeSound || !S.set.sound || e.ctrlKey || e.metaKey || e.altKey) return;
+  var t = e.target; if (!t || !t.closest || !t.closest(".CodeMirror,textarea,input[type=text],input[type=search],input:not([type])")) return;
+  var k = e.key, kind = k === "Enter" ? "enter" : k === " " ? "space" : k === "Backspace" || k === "Delete" ? "back" : k.length === 1 ? "char" : "";
+  if (!kind) return;
+  var now = performance.now(); if (now - SND.last < 28) return; SND.last = now;
+  sndPack().key(kind);
+}, true);
+
 // ---------------- cursor trail and click sparkles ----------------
 var TR = { cv: null, c: null, ps: [], raf: 0, last: 0, lx: -99, ly: -99 };
 function trCanvas() {
@@ -20610,6 +20791,10 @@ function trAdd(x, y, kind, i) {
   p.col = kind === "rainbow" ? "hsl(" + (p.hue | 0) + ",95%,60%)" : cols[Math.floor(Math.random() * cols.length)];
   if (kind === "burst") { var ang = (i || 0) / 14 * 6.283 + bgR(-.2, .2), sp = bgR(90, 230); p.vx = Math.cos(ang) * sp; p.vy = Math.sin(ang) * sp; p.g = 380; p.s = bgR(3, 6); p.max = bgR(.45, .7); }
   else if (kind === "bubbles") { p.vx = bgR(-15, 15); p.vy = bgR(-50, -25); p.g = 0; p.s = bgR(3, 7); p.max = bgR(.6, 1); }
+  else if (kind === "snow") { p.col = BG.dark ? "#FFFFFF" : "#7FA8D6"; p.vx = bgR(-12, 12); p.vy = bgR(10, 35); p.g = 0; p.s = bgR(3, 6); p.max = bgR(.8, 1.3); }
+  else if (kind === "hearts") { p.col = rndOf(["#FF4F7B", "#FF6FA8", "#E0457B"]); p.vx = bgR(-20, 20); p.vy = bgR(-60, -30); p.g = 0; p.s = bgR(4, 8); p.max = bgR(.6, 1); }
+  else if (kind === "fire") { p.col = rndOf(["#FFD23F", "#FF9A1F", "#FF5A1F"]); p.vx = bgR(-18, 18); p.vy = bgR(-90, -50); p.g = 0; p.s = bgR(4, 9); p.max = bgR(.35, .6); }
+  else if (kind === "stars") { p.col = rndOf(cols); p.vx = bgR(-60, -20); p.vy = bgR(20, 60); p.g = 0; p.s = bgR(3, 6); p.max = bgR(.5, .9); }
   else { p.vx = bgR(-25, 25); p.vy = bgR(-25, 15); p.g = kind === "pixels" ? 160 : 60; p.s = kind === "pixels" ? bgR(3, 6) : bgR(4, 8); p.max = bgR(.45, .8); }
   TR.ps.push(p);
 }
@@ -20623,6 +20808,10 @@ function trLoop(now) {
     if (p.kind === "pixels" || p.kind === "burst") { s = p.s * (p.kind === "burst" ? 1 : .5 + .5 * k); c.fillRect(p.x - s / 2, p.y - s / 2, s, s); }
     else if (p.kind === "rainbow") { c.beginPath(); c.arc(p.x, p.y, p.s * k, 0, 6.283); c.fill(); }
     else if (p.kind === "bubbles") { c.lineWidth = 1.5; c.beginPath(); c.arc(p.x, p.y, p.s * (1.4 - k * .4), 0, 6.283); c.stroke(); }
+    else if (p.kind === "snow") { c.lineWidth = 1.4; s = p.s; for (var j = 0; j < 3; j++) { var an = p.a + j * 1.047; c.beginPath(); c.moveTo(p.x - Math.cos(an) * s, p.y - Math.sin(an) * s); c.lineTo(p.x + Math.cos(an) * s, p.y + Math.sin(an) * s); c.stroke(); } p.a += dt; }
+    else if (p.kind === "hearts") { c.save(); c.translate(p.x, p.y); heartPath(c, p.s * (.6 + .4 * k)); c.fill(); c.restore(); }
+    else if (p.kind === "fire") { c.globalCompositeOperation = "lighter"; c.beginPath(); c.arc(p.x, p.y, p.s * k, 0, 6.283); c.fill(); c.globalCompositeOperation = "source-over"; }
+    else if (p.kind === "stars") { c.lineWidth = 2; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * .12 * k, p.y - p.vy * .12 * k); c.stroke(); c.fillRect(p.x - 1.5, p.y - 1.5, 3, 3); }
     else { s = p.s * (.4 + .6 * k); c.beginPath(); c.moveTo(p.x, p.y - s); c.quadraticCurveTo(p.x, p.y, p.x + s, p.y); c.quadraticCurveTo(p.x, p.y, p.x, p.y + s); c.quadraticCurveTo(p.x, p.y, p.x - s, p.y); c.quadraticCurveTo(p.x, p.y, p.x, p.y - s); c.fill(); }
   });
   c.globalAlpha = 1;
@@ -21588,7 +21777,7 @@ function viewMe(V) {
 }
 
 // ---------------- SETTINGS ----------------
-var SKINS = [["auto", "Auto", "Follows your device", ["#E8EBE3", "#2C52C4", "#13161D", "#EFB13A"]], ["cartridge", "Cartridge", "Light grey and cobalt", ["#E8EBE3", "#F8F9F4", "#2C52C4", "#D4900E"]], ["night", "Night Shift", "Dark, easy on the eyes", ["#13161D", "#1B1F28", "#7D9DFF", "#EFB13A"]], ["pocket", "Pocket", "Green handheld screen", ["#C4CFA1", "#D7E0B6", "#2F4A16", "#5B7A1E"]], ["blueprint", "Blueprint", "Navy drafting table", ["#13305E", "#183A70", "#FFD25C", "#9CC3FF"]], ["contrast", "High Contrast", "Maximum readability", ["#000000", "#FFFFFF", "#FFE500", "#5CFF8F"]], ["miami", "Miami Nights", "Neon pink and teal at sunset", ["#1A1033", "#24174A", "#FF4FB4", "#2EE6D6"]], ["eighties", "Neon '80s", "Laser grid and arcade neon", ["#0A0A14", "#13132A", "#00E5FF", "#FFE14D"]], ["retro", "Retro", "Warm '70s cream, orange and brown", ["#F3E6C8", "#FFF6E0", "#B8461B", "#E89A1E"]], ["sixtyfour", "64-Bit", "Charcoal console with primary-color buttons", ["#2B2D31", "#FF4A3D", "#3BA0FF", "#FFC21A"]], ["cube", "Indigo Cube", "Deep indigo with lavender and orange", ["#25204F", "#2F2963", "#B3A6FF", "#FF9F3D"]], ["modern", "Modern", "Clean white, soft shadows, round corners", ["#F4F5F8", "#FFFFFF", "#4F46E5", "#F59E0B"]], ["girlypop", "Girlypop", "Bubblegum pink, glitter and hearts", ["#FFE4F1", "#FFF5FA", "#C21C6E", "#FF8FC4"]], ["candy", "Candy", "Mint, bubblegum and lemon stripes", ["#E9FBF4", "#FFFFFF", "#C8246A", "#FFD23F"]], ["terminal", "Terminal", "Green phosphor on black", ["#050805", "#0A110A", "#7CFF7C", "#C8FF5C"]], ["aero", "Frutiger Aero", "Glossy sky, bubbles and fresh green", ["#CDEBFA", "#F4FBFF", "#0A6FC2", "#5BC236"]], ["toon", "Toon Checker", "Black-and-white checks, loud cartoon colors", ["#000000", "#FFFFFF", "#0057FF", "#FFD400"]], ["mocha", "Mocha", "Cozy coffee-shop browns", ["#241A15", "#2E221C", "#E6A15C", "#F2C46D"]], ["arctic", "Arctic", "Icy blues and crisp white", ["#E3EEF5", "#F8FCFF", "#0B6E99", "#3FB8C9"]], ["forest", "Forest", "Deep pine greens and campfire orange", ["#13201A", "#1A2B22", "#7FD39B", "#F29A4A"]], ["lava", "Lava", "Volcanic black with molten orange", ["#1A0F0C", "#251512", "#FF7A33", "#FFC23D"]]];
+var SKINS = [["auto", "Auto", "Follows your device", ["#E8EBE3", "#2C52C4", "#13161D", "#EFB13A"]], ["cartridge", "Cartridge", "Light grey and cobalt", ["#E8EBE3", "#F8F9F4", "#2C52C4", "#D4900E"]], ["night", "Night Shift", "Dark, easy on the eyes", ["#13161D", "#1B1F28", "#7D9DFF", "#EFB13A"]], ["pocket", "Pocket", "Green handheld screen", ["#C4CFA1", "#D7E0B6", "#2F4A16", "#5B7A1E"]], ["blueprint", "Blueprint", "Navy drafting table", ["#13305E", "#183A70", "#FFD25C", "#9CC3FF"]], ["contrast", "High Contrast", "Maximum readability", ["#000000", "#FFFFFF", "#FFE500", "#5CFF8F"]], ["miami", "Miami Nights", "Neon pink and teal at sunset", ["#1A1033", "#24174A", "#FF4FB4", "#2EE6D6"]], ["eighties", "Neon '80s", "Laser grid and arcade neon", ["#0A0A14", "#13132A", "#00E5FF", "#FFE14D"]], ["retro", "Retro", "Warm '70s cream, orange and brown", ["#F3E6C8", "#FFF6E0", "#B8461B", "#E89A1E"]], ["sixtyfour", "64-Bit", "Charcoal console with primary-color buttons", ["#2B2D31", "#FF4A3D", "#3BA0FF", "#FFC21A"]], ["cube", "Indigo Cube", "Deep indigo with lavender and orange", ["#25204F", "#2F2963", "#B3A6FF", "#FF9F3D"]], ["modern", "Modern", "Clean white, soft shadows, round corners", ["#F4F5F8", "#FFFFFF", "#4F46E5", "#F59E0B"]], ["girlypop", "Girlypop", "Bubblegum pink, glitter and hearts", ["#FFE4F1", "#FFF5FA", "#C21C6E", "#FF8FC4"]], ["candy", "Candy", "Mint, bubblegum and lemon stripes", ["#E9FBF4", "#FFFFFF", "#C8246A", "#FFD23F"]], ["terminal", "Terminal", "Green phosphor on black", ["#050805", "#0A110A", "#7CFF7C", "#C8FF5C"]], ["aero", "Frutiger Aero", "Glossy sky, bubbles and fresh green", ["#CDEBFA", "#F4FBFF", "#0A6FC2", "#5BC236"]], ["toon", "Toon Checker", "Black-and-white checks, loud cartoon colors", ["#000000", "#FFFFFF", "#0057FF", "#FFD400"]], ["mocha", "Mocha", "Cozy coffee-shop browns", ["#241A15", "#2E221C", "#E6A15C", "#F2C46D"]], ["arctic", "Arctic", "Icy blues and crisp white", ["#E3EEF5", "#F8FCFF", "#0B6E99", "#3FB8C9"]], ["forest", "Forest", "Deep pine greens and campfire orange", ["#13201A", "#1A2B22", "#7FD39B", "#F29A4A"]], ["lava", "Lava", "Volcanic black with molten orange", ["#1A0F0C", "#251512", "#FF7A33", "#FFC23D"]], ["matcha", "Matcha", "Soft green tea and warm cream", ["#E6EEDA", "#FAFDF5", "#3F6E1A", "#C9A24A"]], ["desert", "Desert", "Sunbaked sand, clay and turquoise", ["#F1E1C2", "#FFF8EA", "#A8481A", "#2FA3A0"]], ["sakura", "Sakura", "Cherry blossom pink and ink", ["#FBEDF1", "#FFFAFB", "#B02D63", "#F4A9C4"]], ["ocean", "Deep Ocean", "Midnight water and glowing coral", ["#06202C", "#0B2C3B", "#3FD6E6", "#FF9A6B"]], ["royal", "Royal", "Navy velvet trimmed with gold", ["#0E1430", "#151D45", "#F2C94C", "#9DB6FF"]], ["galaxy", "Galaxy", "Deep space with purple nebulas", ["#0A0718", "#140F2C", "#A98BFF", "#FFD36E"]], ["cyber", "Cyberpunk", "Hazard yellow and electric cyan", ["#0C0A10", "#16131D", "#FCEE0A", "#00F0FF"]], ["legend", "Legendary", "Black and gold, for true legends", ["#121008", "#1C180D", "#FFC83D", "#FFE7A0"]]];
 function viewSettings(V) {
   var st = S.set;
   var sel = function (id, opts, val) { return '<select class="sel" id="' + id + '">' + opts.map(function (o) { var v = Array.isArray(o) ? o[0] : o, l = Array.isArray(o) ? o[1] : o; return '<option value="' + h(v) + '"' + (String(v) === String(val) ? " selected" : "") + ">" + h(l) + "</option>"; }).join("") + "</select>"; };
@@ -21599,7 +21788,7 @@ function viewSettings(V) {
     '<div class="setgrid">' +
     '<section class="card" id="setPlayer"><h2 class="sub">PLAYER</h2><div class="field"><label for="setName">Your name</label><input type="text" id="setName" maxlength="24" value="' + h(nameOf()) + '"><span class="hint2">Lessons, greetings, and some starter code use this name.</span></div></section>' +
     '<section class="card" id="setTheme"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { var n = lk("skin", s[0]); return '<button type="button" class="swatch' + (n ? " locked" : "") + '" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(s[1]) + ', locked until level ' + n + '"' : "") + '><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + "</b>" + (n ? lockTag(n) : '<span class="muted">' + s[2] + "</span>") + "</button>"; }).join("") + "</div>" +
-    '<p class="hint2 unlhint">You are level ' + myLv + ". New themes, backgrounds and mouse trails unlock as you level up. " + '<button class="linkish" type="button" data-go="me">See what unlocks next</button></p></section>' +
+    '<p class="hint2 unlhint">You are level ' + myLv + ". New themes, backgrounds, mouse trails and sound themes unlock as you level up. " + '<button class="linkish" type="button" data-go="me">See what unlocks next</button></p></section>' +
     '<section class="card" id="setBg"><h2 class="sub">BACKGROUND & EFFECTS</h2><p class="muted" style="margin-top:0;font-size:14px">A moving background behind everything. Tap one to try it. Press X anywhere to flip through them.</p><div class="fxpick" role="group" aria-label="Background effect">' +
     BGFX.map(function (f) { var n = lk("bg", f[0]); return '<button type="button" class="fxbtn' + (n ? " locked" : "") + '" data-bgfx="' + f[0] + '" aria-pressed="' + (st.bgFx === f[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(f[1]) + ', locked until level ' + n + '"' : "") + '><b>' + h(f[1]) + "</b>" + (n ? lockTag(n) : '<span class="muted">' + h(f[2]) + "</span>") + "</button>"; }).join("") + "</div>" +
     '<div class="field"><label for="setBgColor">Effect colors</label>' + sel("setBgColor", [["theme", "Theme colors"], ["rainbow", "Rainbow"], ["mono", "One color (matches the text)"]], st.bgColor) + "</div>" +
@@ -21647,7 +21836,8 @@ function viewSettings(V) {
     '<section class="card" id="setLearn"><h2 class="sub">LEARNING</h2><div class="field"><label for="setHints">Hints</label>' + sel("setHints", [["button", "Show a hint button"], ["auto", "Show hints automatically after 2 misses"], ["off", "No hints (hard mode)"]], st.hints) + "</div>" +
     tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + "</section>" +
     '<section class="card" id="setQuiz"><h2 class="sub">QUIZZES</h2>' + tog("setShuffle", "Shuffle answer choices", st.quizShuffle) + tog("setQAuto", "Go to the next question after a right answer", st.quizAuto) + "</section>" +
-    '<section class="card" id="setFeel"><h2 class="sub">SOUND & FEEL</h2>' + tog("setSound", "Sound effects", st.sound) + tog("setClick", "Click sounds on buttons", st.clickSound) + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
+    '<section class="card" id="setFeel"><h2 class="sub">SOUND & FEEL</h2>' + tog("setSound", "Sound effects", st.sound) + tog("setClick", "Click sounds on buttons", st.clickSound) + tog("setTypeSnd", "Typing sounds in code and answer boxes", st.typeSound) +
+    '<div class="field" style="margin-top:10px"><label for="setSndPack">Sound theme</label>' + sel("setSndPack", SOUNDS.map(function (t) { var n = lk("sound", t[0]); return [t[0], t[1] + (n ? " (unlocks at level " + n + ")" : ": " + t[2])]; }), st.soundPack) + '<span class="hint2">Changes the click and typing sounds, and gives the other game sounds a new flavor. You hear a preview when you pick one.</span></div>' + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
     '<section class="card" id="setKeys2"><h2 class="sub">SHORTCUTS</h2>' + tog("setShortcuts", "Keyboard shortcuts", st.shortcuts) + '<span class="hint2">Single keys like M for Map and V for sound. Press ? anywhere to see them all.</span><div class="row" style="margin-top:10px"><button class="ghost" type="button" id="kbList">Show all shortcuts</button></div></section>' +
     '<section class="card" id="setSave"><h2 class="sub">SAVE DATA</h2><p class="muted" style="margin-top:0;font-size:14px">Progress saves in this browser automatically. To move it to another device or keep a backup, copy your save code and paste it in on the other device.</p>' +
     '<div class="row"><button class="btn" id="expBtn">Copy save code</button><button class="btn" id="impBtn">Load save code</button></div><div id="saveArea"></div>' +
@@ -21674,6 +21864,9 @@ function viewSettings(V) {
   bind("setIndent", "indent", function (e) { return Number(e.value); }); bind("setEdH", "edHeight");
   bind("setShuffle", "quizShuffle", function (e) { return e.checked; }); bind("setQAuto", "quizAuto", function (e) { return e.checked; });
   bind("setClick", "clickSound", function (e) { return e.checked; });
+  bind("setTypeSnd", "typeSound", function (e) { return e.checked; }); bind("setSndPack", "soundPack");
+  V.querySelectorAll("#setSndPack option").forEach(function (o) { if (lk("sound", o.value)) o.disabled = true; });
+  $("setSndPack").addEventListener("change", sndPreview);
   var chk = function (e) { return e.checked; };
   bind("setBtnSize", "btnSize"); bind("setDensity", "density"); bind("setPageW", "pageWidth"); bind("setBorders", "borders"); bind("setShadows", "shadows"); bind("setCorners", "corners");
   bind("setIcons", "icons", chk); bind("setDots", "dots", chk); bind("setLinks", "learnLinks", chk);
