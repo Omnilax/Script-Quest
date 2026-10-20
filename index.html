@@ -1020,6 +1020,7 @@ html[data-cb="1"][data-skin="sunset"],html[data-cb="1"][data-skin="hologram"],ht
 .medal{border:2px solid var(--line);padding:10px;text-align:center;display:grid;gap:6px;justify-items:center;font-size:13px}
 .medal.got{border-color:var(--ink);background:var(--panel2)}
 .medal .m{width:40px;height:40px;display:grid;place-items:center;font-family:var(--f-display);font-size:16px;border:3px solid var(--line);color:var(--muted)}
+.weekly{display:flex;justify-content:space-between;align-items:center;gap:12px 20px;flex-wrap:wrap;border-color:var(--gold)}.weekly .eyebrow{margin:0 0 2px}.weekly.done{border-style:dashed}.wkt{margin:0 0 4px;font-size:calc(20px * var(--scale))}.wkpast{display:flex;flex-wrap:wrap;gap:8px}.wkhint{border:2px dashed var(--line);padding:10px 12px}
 .shelf .medals{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));margin-top:10px}
 .arcrows{display:grid;gap:8px}.arcrow{display:flex;justify-content:space-between;gap:4px 12px;flex-wrap:wrap;border-bottom:1px dashed var(--line);padding-bottom:6px}
 .sbpanel{display:grid;gap:10px;margin-bottom:14px}.sbpanel .sub{margin:0}.sbpanel textarea{border:2px solid var(--ink);background:var(--panel);color:var(--ink);padding:8px 10px;width:100%;min-height:72px;font-family:var(--f-code);font-size:12px;word-break:break-all}
@@ -20221,6 +20222,7 @@ var S = {
   medalsSeen: load("medals", {}),
   streak: load("streak", { last: "", cur: 0, best: 0 }),
   arc: load("arcade", {}),
+  weekly: load("weekly", null),
   bonus: load("bonus", { xp: 0, days: 0 }),
   fold: load("fold", {})
 };
@@ -21183,7 +21185,7 @@ function bgStart() {
   if (stillMotion()) { bgDraw(0); return; }
   if (!document.hidden) BG.raf = requestAnimationFrame(bgLoop);
 }
-function bgCalmAttr() { document.documentElement.setAttribute("data-bgcalm", S.set.bgCalm && /^(stage|quiz|sandbox|studio|games|review)$/.test(route.v) ? "1" : "0"); }
+function bgCalmAttr() { document.documentElement.setAttribute("data-bgcalm", S.set.bgCalm && /^(stage|quiz|sandbox|studio|games|weekly|review)$/.test(route.v) ? "1" : "0"); }
 window.addEventListener("resize", function () { clearTimeout(BG.rt); BG.rt = setTimeout(function () { if (BG.fx !== "off") bgStart(); }, 200); });
 document.addEventListener("visibilitychange", function () { if (document.hidden) { cancelAnimationFrame(BG.raf); BG.raf = 0; } else if (BG.fx !== "off") bgStart(); });
 if (window.matchMedia) { try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () { if (S.set.skin === "auto") bgStart(); }); } catch (e) {} }
@@ -21310,7 +21312,8 @@ function routeHash(v, arg) { return "#" + v + (arg ? "/" + encodeURIComponent(ar
 function parseRoute(hash) {
   var m = /^#([a-z]+)(?:\/(.+))?$/.exec(hash || ""); if (!m) return null;
   var v = m[1], arg = null; try { arg = m[2] ? decodeURIComponent(m[2]) : null; } catch (e) { return null; }
-  if (!/^(map|section|stage|quizzes|quiz|review|sandbox|studio|games|ref|settings|me)$/.test(v)) return null;
+  if (!/^(map|section|stage|quizzes|quiz|review|sandbox|studio|games|weekly|ref|settings|me)$/.test(v)) return null;
+  if (v === "weekly" && arg && !/^-?\d+$/.test(arg)) return null;
   if ((v === "section" && !SEC[arg]) || (v === "stage" && !STAGE[arg]) || (v === "quiz" && !D.quizzes.some(function (q) { return q.id === arg; }) && !XQUIZ[arg])) return null;
   return { v: v, arg: arg };
 }
@@ -21323,7 +21326,7 @@ function histPush(prev, v, arg, replace) {
 }
 function pageTitle(v, arg) {
   var st = v === "stage" && STAGE[arg], sec = v === "section" && SEC[arg], q = v === "quiz" && (D.quizzes.filter(function (x) { return x.id === arg; })[0] || XQUIZ[arg]);
-  var t = st ? st.sec.title + " " + st.n + ": " + st.t : sec ? sec.title : q ? q.title : { map: "Map", quizzes: "Quiz Hall", sandbox: "Sandbox", studio: "Web Studio", games: "Game Studio", ref: arg === "links" ? "Learning Links" : arg === "videos" ? "Video Library" : "Reference", settings: "Settings", me: "Player card", review: "Review" }[v];
+  var t = st ? st.sec.title + " " + st.n + ": " + st.t : sec ? sec.title : q ? q.title : { map: "Map", quizzes: "Quiz Hall", sandbox: "Sandbox", studio: "Web Studio", weekly: "Weekly challenge", games: "Game Studio", ref: arg === "links" ? "Learning Links" : arg === "videos" ? "Video Library" : "Reference", settings: "Settings", me: "Player card", review: "Review" }[v];
   return (t ? t + " · " : "") + "Script Quest";
 }
 function toTopCheck() { var b = $("toTop"); if (!b) return; var show = !!S.set.backTop && window.scrollY > 500; if (b.hidden === show) b.hidden = !show; }
@@ -21400,7 +21403,7 @@ function toggleMute() {
 }
 function renderTop() {
   var xp = totalXp(), lv = levelOf(xp), pct = Math.min(100, (xp - xpFor(lv)) / (xpFor(lv + 1) - xpFor(lv)) * 100);
-  var cur = route.v === "section" || route.v === "stage" ? "map" : route.v === "quiz" ? "quizzes" : route.v === "studio" || route.v === "games" ? "sandbox" : route.v;
+  var cur = route.v === "section" || route.v === "stage" ? "map" : route.v === "quiz" ? "quizzes" : route.v === "studio" || route.v === "games" ? "sandbox" : route.v === "weekly" ? "map" : route.v;
   $("top").innerHTML = '<div class="top-in"><button class="logo" data-go="map" aria-label="Script Quest home">' + icon("cart", "cart") + 'Script Quest</button>' +
     '<nav class="nav" aria-label="Main">' + TABS.map(function (t) { return '<button data-go="' + t[0] + '" title="' + t[1] + '"' + (cur === t[0] ? ' aria-current="page"' : "") + ">" + icon(t[2]) + '<span class="tl">' + t[1] + "</span></button>"; }).join("") + "</nav>" +
     '<span class="spacer"></span>' + dockHtml(lv, xp, pct) + "</div>";
@@ -21461,7 +21464,7 @@ function go(v, arg, opts) {
   if (v !== "stage" || !opts.keepScroll) window.scrollTo(0, 0);
   renderTop();
   var V = $("view");
-  ({ studio: viewStudio, games: viewGames, map: viewMap, section: viewSection, stage: viewStage, quizzes: viewQuizzes, quiz: viewQuiz, review: viewReview, sandbox: viewSandbox, ref: viewRef, settings: viewSettings, me: viewMe }[v] || viewMap)(V, arg);
+  ({ weekly: viewWeekly, studio: viewStudio, games: viewGames, map: viewMap, section: viewSection, stage: viewStage, quizzes: viewQuizzes, quiz: viewQuiz, review: viewReview, sandbox: viewSandbox, ref: viewRef, settings: viewSettings, me: viewMe }[v] || viewMap)(V, arg);
   highlightAll(V);
   document.title = pageTitle(v, arg); bgCalmAttr(); toTopCheck();
   if (!same && S.set.pageAnim !== "off") { V.classList.remove("enter"); void V.offsetWidth; V.classList.add("enter"); }
@@ -21508,7 +21511,7 @@ function viewMap(V) {
     '<div class="stat"><b>' + puzzles + '</b><span>puzzles solved</span></div>' +
     '<div class="stat"><b>' + quizzesPassed + '</b><span>quizzes passed of ' + D.quizzes.length + "</span></div>" +
     '<div class="stat"><b>' + xp.toLocaleString() + '</b><span>XP · ' + arcade + " arcade stages</span></div></section>";
-  html += medalShelf();
+  html += weeklyCard() + medalShelf();
   var rvN = rvQs().length + rvStages().length;
   if (rvN || S.rvCleared) html += '<div class="fgrp" data-fk="review"><div class="group-h"><h2>REVIEW DECK</h2><span class="muted">Mistakes collect here so you can come back and beat them.</span></div><section class="carts"><button class="cart" data-go="review" style="--sc:var(--fail)"><span class="band"><span>↻ ' + rvN + " TO REVIEW</span><span>" + S.rvCleared + ' CLEARED</span></span><span class="body"><h3>Review Deck</h3><p>' + (rvN ? rvQs().length + " quiz question" + (rvQs().length === 1 ? "" : "s") + " and " + rvStages().length + " stage" + (rvStages().length === 1 ? "" : "s") + " to try again." : "All clear. New mistakes will show up here.") + "</p></span></button></section></div>";
   GROUPS.forEach(function (g) {
@@ -22315,6 +22318,75 @@ function viewSandbox(V) {
   }
 }
 
+// ---------------- WEEKLY CHALLENGE ----------------
+// one puzzle a week, the same for everyone; weeks start on Monday and the bank repeats once it runs out
+var WEEKLY = [{"id": "caesar", "t": "Secret Agent Code", "k": "fn", "fn": "secret", "a": "text, shift", "p": "<p>Spies hide messages by shifting every letter along the alphabet. Write <code>secret(text, shift)<\/code> that moves each lowercase letter <code>shift<\/code> places forward, wrapping from <code>z<\/code> back to <code>a<\/code>. Leave spaces and punctuation alone.<\/p>", "h": "<p>Turn a letter into a number with <code>ch.charCodeAt(0) - 97<\/code>, add the shift, use <code>% 26<\/code> to wrap, then turn it back with <code>String.fromCharCode(n + 97)<\/code>.<\/p>", "c": [[["abc", 1], "bcd"], [["xyz", 3], "abc"], [["hi there!", 13], "uv gurer!"], [["quest", 0], "quest"]], "s": "function secret(text, shift) {\n  let out = \"\";\n  for (const ch of text) {\n    if (ch >= \"a\" && ch <= \"z\") {\n      const n = (ch.charCodeAt(0) - 97 + shift) % 26;\n      out += String.fromCharCode(n + 97);\n    } else {\n      out += ch;\n    }\n  }\n  return out;\n}\n", "st": "function secret(text, shift) {\n  // your code here\n}\n\nconsole.log(secret(\"abc\", 1)); // should be \"bcd\"\n"}, {"id": "gems", "t": "Treasure Count", "k": "fn", "fn": "countGems", "a": "map", "p": "<p>A treasure map is an array of strings, and every <code>*<\/code> is a gem. Write <code>countGems(map)<\/code> that returns how many gems there are in total.<\/p>", "h": "<p>Loop over each row, then over each character in the row, and add 1 when it is <code>\"*\"<\/code>.<\/p>", "c": [[[["..*", "*.*"]], 3], [[[]], 0], [[["***", "...", "*"]], 4]], "s": "function countGems(map) {\n  let gems = 0;\n  for (const row of map) {\n    for (const ch of row) {\n      if (ch === \"*\") gems++;\n    }\n  }\n  return gems;\n}\n", "st": "function countGems(map) {\n  // your code here\n}\n\nconsole.log(countGems([\"..*\", \"*.*\"])); // should be 3\n"}, {"id": "pal", "t": "Palindrome Portal", "k": "fn", "fn": "isPalindrome", "a": "s", "p": "<p>The portal only opens for words that read the same forwards and backwards. Write <code>isPalindrome(s)<\/code>. Ignore capital letters, spaces and punctuation.<\/p>", "h": "<p>First clean the text: <code>s.toLowerCase().replace(/[^a-z]/g, \"\")<\/code>. Then compare it with a reversed copy.<\/p>", "c": [[["Race car"], true], [["hello"], false], [["A man, a plan, a canal: Panama"], true], [[""], true]], "s": "function isPalindrome(s) {\n  const clean = s.toLowerCase().replace(/[^a-z]/g, \"\");\n  return clean === clean.split(\"\").reverse().join(\"\");\n}\n", "st": "function isPalindrome(s) {\n  // your code here\n}\n\nconsole.log(isPalindrome(\"Race car\")); // should be true\n"}, {"id": "fizz", "t": "FizzBuzz Remix", "k": "fn", "fn": "fizz", "a": "n", "p": "<p>Write <code>fizz(n)<\/code> that returns an array of the numbers 1 to <code>n<\/code>, but multiples of 3 become <code>\"Fizz\"<\/code>, multiples of 5 become <code>\"Buzz\"<\/code>, and multiples of both become <code>\"FizzBuzz\"<\/code>.<\/p>", "h": "<p>Check <code>i % 15 === 0<\/code> first, then 3, then 5. Push each answer into an array.<\/p>", "c": [[[5], [1, 2, "Fizz", 4, "Buzz"]], [[15], [1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz"]], [[0], []]], "s": "function fizz(n) {\n  const out = [];\n  for (let i = 1; i <= n; i++) {\n    if (i % 15 === 0) out.push(\"FizzBuzz\");\n    else if (i % 3 === 0) out.push(\"Fizz\");\n    else if (i % 5 === 0) out.push(\"Buzz\");\n    else out.push(i);\n  }\n  return out;\n}\n", "st": "function fizz(n) {\n  // your code here\n}\n\nconsole.log(fizz(5)); // should be [1, 2, \"Fizz\", 4, \"Buzz\"]\n"}, {"id": "longest", "t": "Longest Word", "k": "fn", "fn": "longest", "a": "sentence", "p": "<p>Write <code>longest(sentence)<\/code> that returns the longest word. If two words tie, return the first one.<\/p>", "h": "<p>Split the sentence into words with <code>sentence.split(\" \")<\/code>, then keep the best word so far, replacing it only when a word is <b>longer<\/b>.<\/p>", "c": [[["I love JavaScript"], "JavaScript"], [["a bb cc"], "bb"], [["hello"], "hello"]], "s": "function longest(sentence) {\n  let best = \"\";\n  for (const word of sentence.split(\" \")) {\n    if (word.length > best.length) best = word;\n  }\n  return best;\n}\n", "st": "function longest(sentence) {\n  // your code here\n}\n\nconsole.log(longest(\"I love JavaScript\")); // should be \"JavaScript\"\n"}, {"id": "dice", "t": "Dice Stats", "k": "fn", "fn": "stats", "a": "rolls", "p": "<p>Write <code>stats(rolls)<\/code> for an array of dice rolls. Return an object with the <code>min<\/code>, the <code>max<\/code>, and the <code>avg<\/code> (average) rounded to 1 decimal place.<\/p>", "h": "<p><code>Math.min(...rolls)<\/code> and <code>Math.max(...rolls)<\/code> find the ends. For the average, add them up, divide by the length, then use <code>Math.round(x * 10) / 10<\/code>.<\/p>", "c": [[[[3, 1, 6]], {"min": 1, "max": 6, "avg": 3.3}], [[[4]], {"min": 4, "max": 4, "avg": 4}], [[[2, 2, 5, 6]], {"min": 2, "max": 6, "avg": 3.8}]], "s": "function stats(rolls) {\n  const total = rolls.reduce((sum, r) => sum + r, 0);\n  return {\n    min: Math.min(...rolls),\n    max: Math.max(...rolls),\n    avg: Math.round((total / rolls.length) * 10) / 10\n  };\n}\n", "st": "function stats(rolls) {\n  // your code here\n}\n\nconsole.log(stats([3, 1, 6])); // should be { min: 1, max: 6, avg: 3.3 }\n"}, {"id": "robot", "t": "Robot Walk", "k": "fn", "fn": "walk", "a": "moves", "p": "<p>A robot starts at <code>[0, 0]<\/code>. Each letter in <code>moves<\/code> is a step: <code>U<\/code> adds 1 to y, <code>D<\/code> takes 1 from y, <code>R<\/code> adds 1 to x, <code>L<\/code> takes 1 from x. Write <code>walk(moves)<\/code> that returns where it ends up as <code>[x, y]<\/code>.<\/p>", "h": "<p>Keep <code>let x = 0, y = 0;<\/code> and loop over the letters, changing x or y for each one.<\/p>", "c": [[["UUR"], [1, 2]], [[""], [0, 0]], [["LLDD"], [-2, -2]], [["UDLR"], [0, 0]]], "s": "function walk(moves) {\n  let x = 0, y = 0;\n  for (const m of moves) {\n    if (m === \"U\") y++;\n    if (m === \"D\") y--;\n    if (m === \"R\") x++;\n    if (m === \"L\") x--;\n  }\n  return [x, y];\n}\n", "st": "function walk(moves) {\n  // your code here\n}\n\nconsole.log(walk(\"UUR\")); // should be [1, 2]\n"}, {"id": "vowels", "t": "Vowel Hunter", "k": "fn", "fn": "vowels", "a": "s", "p": "<p>Write <code>vowels(s)<\/code> that counts the vowels (a, e, i, o, u) in <code>s<\/code>. Capital letters count too.<\/p>", "h": "<p><code>\"aeiou\".includes(ch.toLowerCase())<\/code> tells you if a character is a vowel.<\/p>", "c": [[["Script Quest"], 3], [["rhythm"], 0], [["AEIOU aeiou"], 10]], "s": "function vowels(s) {\n  let n = 0;\n  for (const ch of s) {\n    if (\"aeiou\".includes(ch.toLowerCase())) n++;\n  }\n  return n;\n}\n", "st": "function vowels(s) {\n  // your code here\n}\n\nconsole.log(vowels(\"Script Quest\")); // should be 3\n"}, {"id": "merge", "t": "Inventory Merge", "k": "fn", "fn": "merge", "a": "a, b", "p": "<p>Two backpacks are objects of item counts. Write <code>merge(a, b)<\/code> that returns one object with the counts added together.<\/p>", "h": "<p>Start with a copy: <code>const out = { ...a };<\/code>. Then loop over <code>Object.keys(b)<\/code> and add each count, using <code>(out[k] || 0)<\/code> for items that are new.<\/p>", "c": [[[{"sword": 1, "potion": 2}, {"potion": 3, "shield": 1}], {"sword": 1, "potion": 5, "shield": 1}], [[{}, {"gem": 2}], {"gem": 2}], [[{"key": 1}, {}], {"key": 1}]], "s": "function merge(a, b) {\n  const out = { ...a };\n  for (const k of Object.keys(b)) {\n    out[k] = (out[k] || 0) + b[k];\n  }\n  return out;\n}\n", "st": "function merge(a, b) {\n  // your code here\n}\n\nconsole.log(merge({ sword: 1, potion: 2 }, { potion: 3, shield: 1 }));\n"}, {"id": "rle", "t": "Squish Code", "k": "fn", "fn": "squish", "a": "s", "p": "<p>Write <code>squish(s)<\/code> that shortens runs of the same letter into the letter and how many times it repeats: <code>\"aaabcc\"<\/code> becomes <code>\"a3b1c2\"<\/code>.<\/p>", "h": "<p>Walk through the string, counting while the next letter is the same. When it changes, add the letter and its count to the answer.<\/p>", "c": [[["aaabcc"], "a3b1c2"], [[""], ""], [["x"], "x1"], [["zzzzzz"], "z6"]], "s": "function squish(s) {\n  let out = \"\";\n  let i = 0;\n  while (i < s.length) {\n    let count = 1;\n    while (s[i + count] === s[i]) count++;\n    out += s[i] + count;\n    i += count;\n  }\n  return out;\n}\n", "st": "function squish(s) {\n  // your code here\n}\n\nconsole.log(squish(\"aaabcc\")); // should be \"a3b1c2\"\n"}, {"id": "missing", "t": "Missing Number", "k": "fn", "fn": "missing", "a": "nums", "p": "<p>An array holds the numbers 1 to n with exactly one missing, in any order. Write <code>missing(nums)<\/code> that finds it.<\/p>", "h": "<p>The numbers 1 to n add up to <code>n * (n + 1) / 2<\/code>, where n is <code>nums.length + 1<\/code>. Subtract the real total.<\/p>", "c": [[[[1, 2, 4]], 3], [[[2, 3, 1, 5]], 4], [[[2]], 1], [[[1]], 2]], "s": "function missing(nums) {\n  const n = nums.length + 1;\n  const total = nums.reduce((sum, x) => sum + x, 0);\n  return (n * (n + 1)) / 2 - total;\n}\n", "st": "function missing(nums) {\n  // your code here\n}\n\nconsole.log(missing([1, 2, 4])); // should be 3\n"}, {"id": "anagram", "t": "Anagram Detector", "k": "fn", "fn": "isAnagram", "a": "a, b", "p": "<p>Two phrases are anagrams if they use exactly the same letters. Write <code>isAnagram(a, b)<\/code>. Ignore capital letters and spaces.<\/p>", "h": "<p>Make a key for each phrase: lowercase, remove spaces, split into letters, sort, join. Anagrams have the same key.<\/p>", "c": [[["listen", "silent"], true], [["Dormitory", "dirty room"], true], [["abc", "abd"], false], [["ab", "abb"], false]], "s": "function isAnagram(a, b) {\n  const key = (s) => s.toLowerCase().replace(/ /g, \"\").split(\"\").sort().join(\"\");\n  return key(a) === key(b);\n}\n", "st": "function isAnagram(a, b) {\n  // your code here\n}\n\nconsole.log(isAnagram(\"listen\", \"silent\")); // should be true\n"}, {"id": "top", "t": "Score Board", "k": "fn", "fn": "topScorer", "a": "players", "p": "<p>Each player is an object like <code>{ name: \"Ada\", score: 57 }<\/code>. Write <code>topScorer(players)<\/code> that returns the <b>name<\/b> of the player with the highest score. If the array is empty, return <code>null<\/code>.<\/p>", "h": "<p>Keep the best player so far and swap it when you find a higher score. Remember to return <code>best.name<\/code>, not the whole object.<\/p>", "c": [[[[{"name": "Ada", "score": 57}, {"name": "Linus", "score": 70}, {"name": "Grace", "score": 35}]], "Linus"], [[[]], null], [[[{"name": "Solo", "score": 0}]], "Solo"]], "s": "function topScorer(players) {\n  if (players.length === 0) return null;\n  let best = players[0];\n  for (const p of players) {\n    if (p.score > best.score) best = p;\n  }\n  return best.name;\n}\n", "st": "function topScorer(players) {\n  // your code here\n}\n\nconsole.log(topScorer([{ name: \"Ada\", score: 57 }, { name: \"Linus\", score: 70 }])); // should be \"Linus\"\n"}, {"id": "title", "t": "Title Maker", "k": "fn", "fn": "titleCase", "a": "s", "p": "<p>Write <code>titleCase(s)<\/code> that capitalizes the first letter of every word and makes the rest lowercase: <code>\"the QUEST begins\"<\/code> becomes <code>\"The Quest Begins\"<\/code>.<\/p>", "h": "<p>Split on spaces, change each word with <code>w[0].toUpperCase() + w.slice(1).toLowerCase()<\/code>, then join with spaces. Watch out for empty words.<\/p>", "c": [[["the QUEST begins"], "The Quest Begins"], [["hello"], "Hello"], [[""], ""]], "s": "function titleCase(s) {\n  return s\n    .split(\" \")\n    .map((w) => (w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : w))\n    .join(\" \");\n}\n", "st": "function titleCase(s) {\n  // your code here\n}\n\nconsole.log(titleCase(\"the QUEST begins\")); // should be \"The Quest Begins\"\n"}, {"id": "mines", "t": "Minefield Scanner", "k": "fn", "fn": "neighbors", "a": "grid, r, c", "p": "<p>A grid is an array of strings where <code>#<\/code> is a mine. Write <code>neighbors(grid, r, c)<\/code> that counts the mines in the 8 squares around row <code>r<\/code>, column <code>c<\/code> (not counting the square itself).<\/p>", "h": "<p>Use two loops for <code>dr<\/code> and <code>dc<\/code> from -1 to 1. Skip when both are 0, and check that <code>grid[r + dr]<\/code> exists before reading it.<\/p>", "c": [[[["#..", ".#.", "..#"], 1, 1], 2], [[["###", "#.#", "###"], 1, 1], 8], [[["#.", ".."], 0, 0], 0], [[["..", ".#"], 0, 0], 1]], "s": "function neighbors(grid, r, c) {\n  let n = 0;\n  for (let dr = -1; dr <= 1; dr++) {\n    for (let dc = -1; dc <= 1; dc++) {\n      if (dr === 0 && dc === 0) continue;\n      const row = grid[r + dr];\n      if (row && row[c + dc] === \"#\") n++;\n    }\n  }\n  return n;\n}\n", "st": "function neighbors(grid, r, c) {\n  // your code here\n}\n\nconsole.log(neighbors([\"#..\", \".#.\", \"..#\"], 1, 1)); // should be 2\n"}, {"id": "words", "t": "Number Speller", "k": "fn", "fn": "spell", "a": "n", "p": "<p>Write <code>spell(n)<\/code> that spells each digit of a whole number as a word, with spaces between: <code>42<\/code> becomes <code>\"four two\"<\/code>.<\/p>", "h": "<p>Make an array of words from <code>\"zero\"<\/code> to <code>\"nine\"<\/code>. Turn the number into a string with <code>String(n)<\/code>, then look up each digit.<\/p>", "c": [[[42], "four two"], [[0], "zero"], [[907], "nine zero seven"]], "s": "function spell(n) {\n  const words = [\"zero\", \"one\", \"two\", \"three\", \"four\", \"five\", \"six\", \"seven\", \"eight\", \"nine\"];\n  return String(n).split(\"\").map((d) => words[d]).join(\" \");\n}\n", "st": "function spell(n) {\n  // your code here\n}\n\nconsole.log(spell(42)); // should be \"four two\"\n"}];
+var WEEK_ZERO = new Date(2026, 0, 5), WEEK_XP = 50;
+function weekNow() { var d = new Date(); d.setHours(0, 0, 0, 0); return Math.floor(Math.round((d - WEEK_ZERO) / 864e5) / 7); }
+function weekPuzzle(w) { var n = WEEKLY.length; return WEEKLY[((w % n) + n) % n]; }
+function weekStart(w) { var d = new Date(WEEK_ZERO); d.setDate(d.getDate() + w * 7); return d; }
+function weekLabel(w) { return weekStart(w).toLocaleDateString(undefined, { month: "short", day: "numeric" }); }
+function weekDaysLeft() { var d = new Date(); d.setHours(0, 0, 0, 0); return 7 - (Math.round((d - WEEK_ZERO) / 864e5) % 7 + 7) % 7; }
+function weeklyState() { if (!S.weekly) S.weekly = { done: {}, drafts: {} }; if (!S.weekly.drafts) S.weekly.drafts = {}; return S.weekly; }
+function weeklyCount() { return Object.keys(weeklyState().done).length; }
+// the longest run of weeks in a row with the challenge solved
+function weeklyRun() {
+  var ws = Object.keys(weeklyState().done).map(Number).sort(function (a, b) { return a - b; }), best = 0, run = 0;
+  ws.forEach(function (w, i) { run = i && w === ws[i - 1] + 1 ? run + 1 : 1; best = Math.max(best, run); });
+  return best;
+}
+function weeklyCard() {
+  var w = weekNow(), pz = weekPuzzle(w), done = weeklyState().done[w], left = weekDaysLeft();
+  return '<section class="card weekly' + (done ? " done" : "") + '" aria-label="Weekly challenge"><div><p class="eyebrow">WEEKLY CHALLENGE · WEEK OF ' + h(weekLabel(w).toUpperCase()) + '</p><h2 class="wkt">' + h(pz.t) + '</h2><p class="muted" style="margin:0">' +
+    (done ? "Solved! A new puzzle arrives in " + left + " day" + (left === 1 ? "" : "s") + "." : "One small puzzle, the same for everyone. +" + WEEK_XP + " XP and medals. " + left + " day" + (left === 1 ? "" : "s") + " left.") +
+    '</p></div><button class="btn ' + (done ? "" : "gold") + '" data-go="weekly">' + (done ? "See it again" : icon("play") + "Take the challenge") + "</button></section>";
+}
+function viewWeekly(V, arg) {
+  var ws = weeklyState(), now = weekNow(), w = arg != null && /^-?\d+$/.test(String(arg)) ? Math.min(Number(arg), now) : now;
+  var pz = weekPuzzle(w), cur = w === now, solved = !!ws.done[w], hintOn = false, tries = 0;
+  var st = { k: "fn", fn: pz.fn, c: pz.c };
+  var past = []; for (var i = 1; i <= 4; i++) past.push(now - i);
+  V.innerHTML = '<div class="wrap"><div class="stage-top"><div><p class="eyebrow">WEEKLY CHALLENGE · WEEK OF ' + h(weekLabel(w).toUpperCase()) + (cur ? "" : " · PRACTICE") + '</p><h1 class="title">' + h(pz.t) + "</h1></div>" +
+    '<div class="row"><span class="muted">' + (cur ? (solved ? "✓ Solved this week" : weekDaysLeft() + " days left · +" + WEEK_XP + " XP") : solved ? "✓ Solved that week" : "Past weeks are for practice") + "</span></div></div>" +
+    '<section class="card prose">' + pz.p + '<div id="wkHint" hidden class="hintbox wkhint">' + pz.h + "</div></section>" +
+    '<section class="card console" aria-label="Code console"><div class="cbar"><span class="file"><i></i>weekly-' + h(pz.id) + '.js</span><div class="row"><button class="ghost" type="button" id="wkHintBtn">Show hint</button><button class="ghost" type="button" id="wkSol"' + (solved || !cur ? "" : " hidden") + '>Show solution</button><button class="ghost" type="button" id="wkReset">Reset</button><button class="btn primary" type="button" id="wkRun">▶ RUN</button></div></div>' +
+    '<div class="edwrap" id="wkHost"></div>' + keysHtml() + '<div class="outh"><span>OUTPUT</span><span class="muted" style="font-family:var(--f-body);letter-spacing:0">Ctrl+Enter runs</span></div><div class="out" id="wkOut"><span class="dim">Press RUN to test your function.</span></div><div id="wkRes"></div></section>' +
+    '<section class="card"><h2 class="sub">PAST WEEKS</h2><div class="wkpast">' + past.map(function (p) {
+      var q = weekPuzzle(p); return '<button class="ghost" data-go="weekly" data-arg="' + p + '">' + (ws.done[p] ? "✓ " : "") + h(q.t) + ' <span class="muted">· ' + h(weekLabel(p)) + "</span></button>";
+    }).join("") + (cur ? "" : '<button class="btn" data-go="weekly">This week’s challenge ›</button>') + '</div><p class="hint2">Solve this week’s puzzle for XP and medals. Past weeks are free practice.</p></section></div>';
+  var editor = makeEditor($("wkHost"), ws.drafts[pz.id] || personalCode(pz.st), function (c) { ws.drafts[pz.id] = c; save("weekly", ws); }, run);
+  wireKeys(V, editor); editor.refresh();
+  $("wkRun").onclick = run;
+  $("wkHintBtn").onclick = function () { hintOn = !hintOn; $("wkHint").hidden = !hintOn; this.textContent = hintOn ? "Hide hint" : "Show hint"; };
+  $("wkSol").onclick = function () { editor.set(pz.s); toast("Solution loaded. Read it, then try it from memory next time."); };
+  $("wkReset").onclick = function () { editor.set(personalCode(pz.st)); };
+  async function run() {
+    SFX.run(); var code = editor.get(), out = $("wkOut"), res = $("wkRes");
+    out.innerHTML = '<span class="dim">Running…</span>'; res.innerHTML = ""; editor.clearErr();
+    var r = await runWorker(specFor(st, code), 4000);
+    if (!$("wkOut")) return;
+    renderOutput(out, r.logs || [], r.err);
+    if (r.err) { var x = explainHtml(r.err, code); res.innerHTML = x.html; if (x.line) editor.markErr(x.line); SFX.fail(); tries++; return; }
+    var rr = r.result || {};
+    if (!rr.pass) {
+      tries++; SFX.fail();
+      res.innerHTML = '<div class="verdict no" role="status"><div class="vt">✗ Not yet</div><div>' + h(rr.msg || "Some tests didn't match yet.") + (tries >= 2 && !hintOn ? " Stuck? Try <b>Show hint</b>." : "") + "</div></div>" + (rr.rows ? resultsHtml(rr.rows) : "");
+      if (rr.crash && rr.crash.line) editor.markErr(rr.crash.line);
+      return;
+    }
+    var first = cur && !ws.done[w];
+    if (first) {
+      ws.done[w] = { at: Date.now(), id: pz.id }; save("weekly", ws);
+      S.bonus.xp = (S.bonus.xp || 0) + WEEK_XP; save("bonus", S.bonus);
+      confetti(); markActive(700); checkMedals(700); renderTop();
+      $("wkSol").hidden = false;
+    }
+    SFX.pass();
+    res.innerHTML = '<div class="verdict ok" role="status"><div class="vt"><span class="stamp">' + (cur ? "CHALLENGE CLEAR" : "PRACTICE CLEAR") + "</span>" + (first ? '<span class="xpgain">+' + WEEK_XP + " XP</span>" : "") +
+      '<span class="cheer">' + (first ? "That's this week done, " + h(nameOf()) + "! Come back next week for a new one." : cur ? "Already solved this week. Nice to see it again." : "Good practice!") + "</span></div></div>" + (rr.rows ? resultsHtml(rr.rows) : "");
+  }
+}
+
 // ---------------- WEB STUDIO ----------------
 // build-your-own-website mode: HTML, CSS and JS tabs, a live preview, and one-click features
 var WEB_BASE = { html: "<!-- Your website! Add sections with ADD A FEATURE below, or type your own tags. -->\n", css: "/* Color theme: change these and the whole site follows */\n:root {\n  --main: #2457d6;\n  --accent: #f0b33a;\n  --bg: #ffffff;\n  --text: #1d2330;\n  --soft: #eef2fb;\n}\n* { box-sizing: border-box; }\nbody {\n  font-family: system-ui, sans-serif;\n  line-height: 1.5;\n  background: var(--bg);\n  color: var(--text);\n  margin: 0;\n  transition: background 0.3s, color 0.3s;\n}\nsection { padding: 24px 20px; }\nh1, h2, h3 { margin-top: 0; }\nimg { max-width: 100%; }\n", js: "// JavaScript makes your site do things. Features you add put their code here.\n" };
@@ -22890,6 +22962,9 @@ function medalList(real) {
   cnt("sbx50", "Mad scientist", 50, runs, "clean sandbox runs", "s2", "{}"); cnt("arcade25", "Arcade regular", 25, plays, "arcade plays", "s3", "▶");
   medals.push({ id: "look", t: "Looking sharp", got: !!stored, sub: "Customize your profile", sc: "s1", m: "☺" }, { id: "show3", t: "Show-off", got: !!(stored && stored.show && stored.show.length >= 3), sub: "Pin 3 medals to your profile", sc: "s5", m: "✦" });
   cnt("collector", "Collector", 25, owned, "unlocks", "s4", "◆"); cnt("hoarder", "Treasure hoarder", 75, owned, "unlocks", "s4", "◆");
+  var wkN = S.weekly ? Object.keys(S.weekly.done || {}).length : 0, wkRun = S.weekly ? weeklyRun() : 0;
+  cnt("wk1", "Challenger", 1, wkN, "weekly challenges", "s5", "W"); cnt("wk4", "Weekly regular", 4, wkN, "weekly challenges", "s5", "W"); cnt("wk12", "Season champion", 12, wkN, "weekly challenges", "s5", "W");
+  cnt("wkrow3", "Three-peat", 3, wkRun, "weeks in a row", "s5", "W");
   if (!real && devMode()) medals.forEach(function (m) { m.got = true; });
   return medals;
 }
@@ -23265,7 +23340,7 @@ function viewSettings(V) {
         var t = $("impTa").value.trim(); if (t.indexOf("SQ1:") !== 0) throw new Error("x");
         var dump = JSON.parse(decodeURIComponent(escape(atob(t.slice(4)))));
         allKeys().forEach(del); Object.keys(dump).forEach(function (k) { save(k, dump[k]); });
-        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.rvCleared = load("reviewCleared", 0); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.web = load("web", null); S.gs = load("gamestudio", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.medalsSeen = load("medals", {}); S.bonus = load("bonus", { xp: 0, days: 0 }); seedMedals(); seedUnlocks(); seedLevel(); devSync(true);
+        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.rvCleared = load("reviewCleared", 0); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.web = load("web", null); S.gs = load("gamestudio", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.weekly = load("weekly", null); S.medalsSeen = load("medals", {}); S.bonus = load("bonus", { xp: 0, days: 0 }); seedMedals(); seedUnlocks(); seedLevel(); devSync(true);
         S.lastStage = load("lastStage", S.last && S.last.v === "stage" ? S.last.arg : null);
         applySettings(); toast("Save loaded. Welcome back, " + nameOf() + "!"); go("map");
       } catch (e) { $("impMsg").innerHTML = '<p style="color:var(--fail)">That code didn\'t work. Make sure you copied all of it, starting with SQ1:</p>'; }
@@ -23276,7 +23351,7 @@ function viewSettings(V) {
     if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to erase everything"; return; }
     var keepName = nameOf(), keepSet = S.set;
     allKeys().forEach(del);
-    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.web = null; S.gs = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.medalsSeen = {}; save("medals", {}); S.bonus = { xp: 0, days: 0 }; save("bonus", S.bonus); seedUnlocks(); seedLevel();
+    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.web = null; S.gs = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.weekly = null; S.medalsSeen = {}; save("medals", {}); S.bonus = { xp: 0, days: 0 }; save("bonus", S.bonus); seedUnlocks(); seedLevel();
     toast("Progress erased."); go("map");
   };
 }
