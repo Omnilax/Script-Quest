@@ -1,0 +1,233 @@
+[
+ {
+  "id": "gamedev-1",
+  "title": "Game Design Basics",
+  "topic": "Game Design with JavaScript",
+  "level": "Beginner",
+  "qs": [
+   {
+    "type": "mc",
+    "q": "In the MDA model, what are mechanics?",
+    "opts": [
+     "The rules and actions in the code",
+     "The feelings players have",
+     "What players end up doing",
+     "The art style"
+    ],
+    "ans": 0,
+    "why": "Mechanics are the rules. Dynamics grow out of them, and aesthetics are the feelings."
+   },
+   {
+    "type": "mc",
+    "q": "What is a game's core loop?",
+    "opts": [
+     "The set of actions players repeat over and over",
+     "The title screen",
+     "The last level",
+     "The game's music track"
+    ],
+    "ans": 0,
+    "why": "If the core loop is fun, the game is fun."
+   },
+   {
+    "type": "mc",
+    "q": "Which genre is about running and jumping between platforms, seen from the side?",
+    "opts": [
+     "Platformer",
+     "Strategy",
+     "Rhythm",
+     "Racing"
+    ],
+    "ans": 0,
+    "why": "Mario and Celeste are classic platformers."
+   },
+   {
+    "type": "tf",
+    "q": "Mixing pixel art, photos and smooth cartoon art in one game makes it look richer.",
+    "opts": [
+     "True",
+     "False"
+    ],
+    "ans": 1,
+    "why": "Pick one style and a small palette so everything belongs together."
+   },
+   {
+    "type": "mc",
+    "q": "What is juice?",
+    "opts": [
+     "Small effects like particles, shake and sounds that make actions feel strong",
+     "A power-up",
+     "Extra levels",
+     "A type of collision"
+    ],
+    "ans": 0,
+    "why": "Juice is extra feedback, not extra rules."
+   },
+   {
+    "type": "mc",
+    "q": "What does it mean to telegraph an attack?",
+    "opts": [
+     "Show a clear warning before it hits",
+     "Make it invisible",
+     "Make it stronger",
+     "Send it to another player"
+    ],
+    "ans": 0,
+    "why": "Players accept getting hit when they could have seen it coming."
+   },
+   {
+    "type": "mc",
+    "q": "In \"teach, test, twist\" level design, where should a new idea be introduced?",
+    "opts": [
+     "Somewhere safe, where failing costs almost nothing",
+     "Over a bottomless pit",
+     "In the final boss fight",
+     "Only in a text tutorial"
+    ],
+    "ans": 0,
+    "why": "Let players try the idea with nothing to lose first."
+   },
+   {
+    "type": "mc",
+    "q": "Most testers quit at the same point in level 3. What is that called?",
+    "opts": [
+     "A difficulty spike",
+     "Flow",
+     "A core loop",
+     "Coyote time"
+    ],
+    "ans": 0,
+    "why": "Smooth it into smaller steps so the curve rises gently."
+   },
+   {
+    "type": "mc",
+    "q": "Which is a gentle way to guide players toward a hidden area?",
+    "opts": [
+     "A trail of coins leading to it",
+     "A big sign saying SECRET",
+     "Making it invisible",
+     "A pop-up message"
+    ],
+    "ans": 0,
+    "why": "Breadcrumbs pull players along and let them feel clever."
+   }
+  ]
+ },
+ {
+  "id": "gamedev-2",
+  "title": "Collision and Mechanics",
+  "topic": "Game Design with JavaScript",
+  "level": "Intermediate",
+  "qs": [
+   {
+    "type": "mc",
+    "q": "What is a hurtbox?",
+    "opts": [
+     "The area where a character can be hit",
+     "The area of an attack that does damage",
+     "A box that stops you walking through walls",
+     "The health bar"
+    ],
+    "ans": 0,
+    "why": "Hitboxes hit, hurtboxes get hurt."
+   },
+   {
+    "type": "mc",
+    "q": "When does an attack land?",
+    "opts": [
+     "When the attacker's active hitbox overlaps the defender's hurtbox",
+     "When two hurtboxes overlap",
+     "Whenever the attack button is pressed",
+     "When the two characters are on screen"
+    ],
+    "ans": 0,
+    "why": "It needs an active hitbox touching a hurtbox."
+   },
+   {
+    "type": "out",
+    "q": "What does this print?",
+    "code": "const a = { x: 0, w: 20 };\nconst b = { x: 20, w: 20 };\nconsole.log(a.x < b.x + b.w && a.x + a.w > b.x);",
+    "codeKind": "ex",
+    "opts": [
+     "false",
+     "true",
+     "20",
+     "undefined"
+    ],
+    "ans": 0,
+    "why": "A ends exactly where B starts. Touching edges don't count as overlapping, so it's false."
+   },
+   {
+    "type": "fb",
+    "q": "Fill in the missing operator so gravity changes the speed, not the position directly.",
+    "code": "player.vy ____ 0.5;\nplayer.y += player.vy;",
+    "codeKind": "ex",
+    "accept": [
+     "+="
+    ],
+    "why": "Gravity adds to the falling speed each frame, and the speed moves the player."
+   },
+   {
+    "type": "mc",
+    "q": "On a canvas, which way does y go?",
+    "opts": [
+     "Down",
+     "Up",
+     "Left",
+     "Right"
+    ],
+    "ans": 0,
+    "why": "(0, 0) is the top-left corner, and y grows downward."
+   },
+   {
+    "type": "mc",
+    "q": "Why give the player invincibility frames after a hit?",
+    "opts": [
+     "So one touch doesn't take a life every single frame",
+     "To make the game harder",
+     "To save memory",
+     "So enemies move faster"
+    ],
+    "ans": 0,
+    "why": "Without them, touching an enemy for 1 second would cost 60 lives."
+   },
+   {
+    "type": "mc",
+    "q": "What is coyote time?",
+    "opts": [
+     "A few frames where you can still jump after walking off a ledge",
+     "Time spent on the title screen",
+     "A slow-motion power-up",
+     "The time before an enemy attacks"
+    ],
+    "ans": 0,
+    "why": "It forgives players who press jump a moment too late."
+   },
+   {
+    "type": "out",
+    "q": "Tiles are 20 pixels. What does this print?",
+    "code": "console.log(Math.floor(45 / 20));",
+    "codeKind": "ex",
+    "opts": [
+     "2",
+     "2.25",
+     "3",
+     "45"
+    ],
+    "ans": 0,
+    "why": "45 / 20 is 2.25, and Math.floor rounds it down to tile 2."
+   },
+   {
+    "type": "order",
+    "q": "Put these lines in order to stop the player at the floor.",
+    "lines": [
+     "player.y += player.vy;",
+     "if (player.y > FLOOR) {",
+     "  player.y = FLOOR;",
+     "  player.vy = 0;",
+     "}"
+    ]
+   }
+  ]
+ }
+]
