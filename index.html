@@ -863,6 +863,10 @@ html[data-cb="1"][data-skin="night"],html[data-cb="1"][data-skin="blueprint"],ht
 .medal{border:2px solid var(--line);padding:10px;text-align:center;display:grid;gap:6px;justify-items:center;font-size:13px}
 .medal.got{border-color:var(--ink);background:var(--panel2)}
 .medal .m{width:40px;height:40px;display:grid;place-items:center;font-family:var(--f-display);font-size:16px;border:3px solid var(--line);color:var(--muted)}
+.shelf .medals{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));margin-top:10px}
+.arcrows{display:grid;gap:8px}.arcrow{display:flex;justify-content:space-between;gap:4px 12px;flex-wrap:wrap;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.sbpanel{display:grid;gap:10px;margin-bottom:14px}.sbpanel .sub{margin:0}.sbpanel textarea{border:2px solid var(--ink);background:var(--panel);color:var(--ink);padding:8px 10px;width:100%;min-height:72px;font-family:var(--f-code);font-size:12px;word-break:break-all}
+.tpls{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}.tpl{text-align:left;display:grid;gap:4px;padding:10px;border:2px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}.tpl:hover,.tpl:focus-visible{border-color:var(--ink)}.tpl .tag{font-size:11px;color:var(--muted);justify-self:start}.cab .msg .hiline{font-size:11px;color:#F0B33A}
 .medal.got .m{border-color:var(--sc,var(--gold));background:var(--sc,var(--gold));color:var(--panel)}
 .secbars{display:grid;gap:8px}
 .secbar{display:grid;grid-template-columns:150px minmax(0,1fr) 54px;gap:10px;align-items:center;font-size:14px}
@@ -19935,7 +19939,9 @@ var S = {
   set: Object.assign({}, DEFAULTS, load("settings", {})),
   last: load("last", null),
   sbx: load("sandbox", null),
-  medalsSeen: load("medals", {})
+  medalsSeen: load("medals", {}),
+  streak: load("streak", { last: "", cur: 0, best: 0 }),
+  arc: load("arcade", {})
 };
 S.lastStage = load("lastStage", S.last && S.last.v === "stage" ? S.last.arg : null);
 function lastStageObj() { return (S.lastStage && STAGE[S.lastStage]) || null; }
@@ -20249,7 +20255,7 @@ function viewMap(V) {
   var totalStages = SECS.reduce(function (a, s) { return a + s.stages.length; }, 0);
   var html = '<div class="wrap">';
   if (!storageOk) html += '<div class="banner">This browser is blocking saved data, so progress lasts only until you close the tab. Copy your save code from <b>Settings → Save data</b> before leaving.</div>';
-  html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + "</p><h1>" + greet + "</h1></div>" +
+  html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + (streakNow() > 1 ? " · " + streakNow() + "-DAY STREAK" : "") + "</p><h1>" + greet + "</h1></div>" +
     '<div class="row">' + (cont ? '<button class="btn primary" data-go="stage" data-arg="' + cont.id + '">' + icon("play") + "Continue: " + h(cont.sec.title) + " " + cont.n + "</button>" : "") +
     (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="quizzes">Warm-up: ' + Math.min(5, S.review.length) + " to review</button>" : "") + "</div></section>";
   html += '<section class="stats" aria-label="Your stats">' +
@@ -20257,6 +20263,7 @@ function viewMap(V) {
     '<div class="stat"><b>' + puzzles + '</b><span>puzzles solved</span></div>' +
     '<div class="stat"><b>' + quizzesPassed + '</b><span>quizzes passed of ' + D.quizzes.length + "</span></div>" +
     '<div class="stat"><b>' + xp.toLocaleString() + '</b><span>XP · ' + arcade + " arcade stages</span></div></section>";
+  html += medalShelf();
   GROUPS.forEach(function (g) {
     var secs = SECS.filter(function (s) { return s.group === g.id; });
     if (!secs.length) return;
@@ -20548,7 +20555,7 @@ function viewStage(V, id) {
       if ($("play2")) $("play2").onclick = function () { openCabinet(st.game.engine, editor.get(), st); };
       SFX.pass(); if (first) confetti();
       if (lvAfter > lvBefore) { setTimeout(function () { SFX.level(); toast("Level up! You're now level " + lvAfter + ": " + rankOf(lvAfter)); }, 500); }
-      if (first) checkMedals(lvAfter > lvBefore ? 3200 : 700);
+      var md = lvAfter > lvBefore ? 3200 : 700; markActive(md); checkMedals(md);
       renderTop();
       var dots = V.querySelectorAll(".dots i"); if (dots[st.n - 1]) dots[st.n - 1].className = "c d";
     } else {
@@ -20563,6 +20570,19 @@ function viewStage(V, id) {
 }
 
 // ---------------- ARCADE CABINET ----------------
+// how each cabinet's score text maps to a high score (re), and the medal it unlocks
+var ARC_HI = {
+  snake: { re: /^(\d+)$/, unit: "food", t: "Snake charmer", by: "best", need: 15 },
+  pong: { re: /^(\d+) :/, unit: "points", t: "Pong champ", by: "wins", need: 1 },
+  breakout: { re: /Score (\d+)/, unit: "points", t: "Wall breaker", by: "wins", need: 1 },
+  rain: { re: /^([\d.]+)s$/, unit: "seconds", t: "Stayed dry", by: "best", need: 30 },
+  ttt: { re: null, t: "Tic-tac-pro", by: "wins", need: 3 },
+  mines: { re: null, t: "Mine sweeper", by: "wins", need: 1 },
+  life: { re: /^Gen (\d+)/, unit: "generations", t: "Long life", by: "best", need: 100 },
+  space: { re: /^Ore (\d+)/, unit: "ore", t: "Ore baron", by: "best", need: 500 },
+  dice: { re: /· (\d+) \//, unit: "points", t: "Lucky roller", by: "wins", need: 1 }
+};
+function hiFmt(v) { return String(Math.round(v * 10) / 10); }
 function openCabinet(engineId, code, st) {
   var E = SQ_ENGINES[engineId], ov = $("overlay");
   var sec = st.sec;
@@ -20586,9 +20606,26 @@ function openCabinet(engineId, code, st) {
   var cs = getComputedStyle(document.documentElement);
   var colors = { bg: "#0D1016", fg: "#E4E7EE", grid: "#1E2431", a1: cs.getPropertyValue("--s1").trim() || "#7D9DFF", a2: "#F2725B", a3: "#43C2AE", dim: "#7A8296" };
   colors.a1 = "#7D9DFF"; colors.a2 = "#F2725B"; colors.a3 = "#43C2AE";
-  var memo = {}, game = null;
+  var memo = {}, game = null, hi = ARC_HI[engineId], run = null;
+  // a run counts as a play when it ends or the cabinet closes; returns true on a new best
+  function commitRun(win) {
+    if (!hi || !run || run.done) return false;
+    run.done = true;
+    var r = S.arc[engineId] = S.arc[engineId] || { best: 0, wins: 0, plays: 0 }, nb = run.best !== null && run.best > (r.best || 0);
+    r.plays++; if (win) r.wins++; if (nb) r.best = run.best;
+    save("arcade", S.arc); checkMedals(400);
+    return nb;
+  }
+  function bestLine(nb) {
+    var r = S.arc[engineId]; if (!r) return "";
+    var parts = [];
+    if (hi.re) parts.push((nb ? "New best: " : "Best: ") + hiFmt(r.best) + " " + hi.unit);
+    if (hi.by === "wins") parts.push((r.wins || 0) + " win" + (r.wins === 1 ? "" : "s") + " so far");
+    return '<br><span class="hiline">' + parts.join(" · ") + "</span>";
+  }
   function start() {
     if (game) game.stop();
+    commitRun(false); run = { best: null, done: false };
     $("cabMsg").hidden = true; $("cabStatus").textContent = "";
     var keyH = [], tapH = [], moveH = [], longH = [], raf = 0, stopped = false, fps = 60, stepFn = null, drawFn = null, last = 0, acc = 0;
     var api = {
@@ -20602,8 +20639,8 @@ function openCabinet(engineId, code, st) {
       loop: function (s, f, d) { stepFn = s; fps = f; drawFn = d; },
       setFps: function (f) { fps = f; },
       onKey: function (f) { keyH.push(f); }, onTap: function (f) { tapH.push(f); }, onPointerMove: function (f) { moveH.push(f); }, onLongPress: function (f) { longH.push(f); },
-      score: function (s) { $("cabScore").textContent = s; }, status: function (s) { $("cabStatus").textContent = s; },
-      over: function (msg, win) { stop(); draw(); showMsg(h(msg), win); }
+      score: function (s) { $("cabScore").textContent = s; var m = hi && hi.re && String(s).match(hi.re); if (m && (run.best === null || +m[1] > run.best)) run.best = +m[1]; }, status: function (s) { $("cabStatus").textContent = s; },
+      over: function (msg, win) { stop(); draw(); var nb = commitRun(win); showMsg(h(msg) + bestLine(nb), win); }
     };
     function stop() { stopped = true; cancelAnimationFrame(raf); }
     function draw() { if (drawFn) try { drawFn(); } catch (e) {} }
@@ -20629,7 +20666,7 @@ function openCabinet(engineId, code, st) {
   var kmap = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right", w: "up", s: "down", a: "left", d: "right", W: "up", S: "down", A: "left", D: "right", " ": "a", Enter: "a", f: "f", F: "f", z: "a", x: "a" };
   function kd(e) { var k = kmap[e.key]; if (!k || !game) return; e.preventDefault(); if (!e.repeat) game.key(k, true); }
   function ku(e) { var k = kmap[e.key]; if (!k || !game) return; game.key(k, false); }
-  function close() { if (game) game.stop(); window.removeEventListener("keydown", kd); window.removeEventListener("keyup", ku); ov.hidden = true; ov.innerHTML = ""; }
+  function close() { if (game) game.stop(); commitRun(false); window.removeEventListener("keydown", kd); window.removeEventListener("keyup", ku); ov.hidden = true; ov.innerHTML = ""; }
   window.addEventListener("keydown", kd); window.addEventListener("keyup", ku);
   $("cabX").onclick = close;
   ov.onclick = function (e) { if (e.target === ov) close(); };
@@ -20730,7 +20767,7 @@ function viewQuiz(V, id) {
     var prev = S.quiz[q.id], bestBefore = prev ? prev.best : 0;
     var best = Math.max(bestBefore, score);
     var gain = Math.max(0, best - bestBefore) * 5;
-    S.quiz[q.id] = { best: best, total: qs.length, xp: best * 5, at: Date.now() }; save("quiz", S.quiz); checkMedals(900);
+    S.quiz[q.id] = { best: best, total: qs.length, xp: best * 5, at: Date.now() }; save("quiz", S.quiz); markActive(900); checkMedals(900);
     var pct = Math.round(score / qs.length * 100), pass = pct >= 70;
     if (pass) { SFX.pass(); confetti(); } else SFX.fail();
     var ni = D.quizzes.indexOf(q) + 1, nq = D.quizzes[ni];
@@ -20746,13 +20783,38 @@ function viewQuiz(V, id) {
 // ---------------- SANDBOX ----------------
 var SBX_DEFAULT = "// Sandbox: write anything here.\n// Console mode runs safely in the background.\n// Page mode gives you `root` (a box on the page) and `canvas` + `ctx` for drawing.\n\nconst hero = { name: \"@@name\", hp: 100, items: [\"sword\", \"potion\"] };\n\nfor (const item of hero.items) {\n  console.log(`${hero.name} checks the ${item}`);\n}\n\nconsole.log(\"Total items:\", hero.items.length);\n";
 var SBX_PAGE = "// Page mode: draw a bouncing square on the canvas\nlet x = 20, y = 40, vx = 2, vy = 1.5;\n\nfunction frame() {\n  ctx.fillStyle = \"#0D1016\";\n  ctx.fillRect(0, 0, canvas.width, canvas.height);\n  ctx.fillStyle = \"#F0B33A\";\n  ctx.fillRect(x, y, 16, 16);\n  x += vx; y += vy;\n  if (x < 0 || x > canvas.width - 16) vx = -vx;\n  if (y < 0 || y > canvas.height - 16) vy = -vy;\n  requestAnimationFrame(frame);\n}\nframe();\n\nroot.innerHTML = \"<p>Hello from the page, <b>@@name</b>!</p>\";\n";
-function viewSandbox(V) {
+var SBX_TPL = [
+  { name: "Game loop", desc: "Move a square with the arrow keys and grab coins.", mode: "page", code: "// Starter: game loop\n// Click the PAGE box, then move with the arrow keys (or WASD). Grab the coins!\nconst player = { x: 150, y: 90, size: 14, speed: 3 };\nlet coin = newCoin();\nlet score = 0;\nconst keys = {};\n\ndocument.addEventListener(\"keydown\", (e) => { keys[e.key] = true; });\ndocument.addEventListener(\"keyup\", (e) => { keys[e.key] = false; });\n\nfunction newCoin() {\n  return { x: 10 + Math.random() * 290, y: 10 + Math.random() * 170 };\n}\n\nfunction update() {\n  if (keys.ArrowLeft || keys.a) player.x -= player.speed;\n  if (keys.ArrowRight || keys.d) player.x += player.speed;\n  if (keys.ArrowUp || keys.w) player.y -= player.speed;\n  if (keys.ArrowDown || keys.s) player.y += player.speed;\n  // keep the player on the screen\n  player.x = Math.max(0, Math.min(canvas.width - player.size, player.x));\n  player.y = Math.max(0, Math.min(canvas.height - player.size, player.y));\n  // touching the coin?\n  const dx = player.x + player.size / 2 - coin.x;\n  const dy = player.y + player.size / 2 - coin.y;\n  if (Math.hypot(dx, dy) < 12) {\n    score++;\n    coin = newCoin();\n  }\n}\n\nfunction draw() {\n  ctx.fillStyle = \"#0D1016\";\n  ctx.fillRect(0, 0, canvas.width, canvas.height);\n  ctx.fillStyle = \"#F0B33A\";\n  ctx.beginPath();\n  ctx.arc(coin.x, coin.y, 6, 0, Math.PI * 2);\n  ctx.fill();\n  ctx.fillStyle = \"#7D9DFF\";\n  ctx.fillRect(player.x, player.y, player.size, player.size);\n  root.textContent = \"@@name's score: \" + score;\n}\n\nfunction frame() {\n  update();\n  draw();\n  requestAnimationFrame(frame);\n}\nframe();\n\n// Ideas: add a timer, make the coin move, or add an enemy to dodge.\n" },
+  { name: "Quiz app", desc: "Buttons, clicks and a running score.", mode: "page", code: "// Starter: quiz app\n// Click an answer button in the PAGE box.\nconst questions = [\n  { q: \"Which keyword makes a variable you can't reassign?\", options: [\"let\", \"const\", \"var\"], answer: \"const\" },\n  { q: \"What does [1, 2, 3].length give?\", options: [\"2\", \"3\", \"4\"], answer: \"3\" },\n  { q: \"Which one checks value AND type?\", options: [\"==\", \"===\", \"=\"], answer: \"===\" }\n];\nlet index = 0;\nlet score = 0;\n\nfunction show() {\n  root.innerHTML = \"\";\n  if (index >= questions.length) {\n    root.innerHTML = \"<h3>Done, @@name!</h3><p>You scored \" + score + \" / \" + questions.length + \"</p>\";\n    return;\n  }\n  const item = questions[index];\n  const title = document.createElement(\"p\");\n  title.textContent = (index + 1) + \". \" + item.q;\n  root.appendChild(title);\n  for (const option of item.options) {\n    const button = document.createElement(\"button\");\n    button.textContent = option;\n    button.style.margin = \"4px\";\n    button.addEventListener(\"click\", () => {\n      if (option === item.answer) score++;\n      console.log(item.q, \"->\", option, option === item.answer ? \"✓\" : \"✗\");\n      index++;\n      show();\n    });\n    root.appendChild(button);\n  }\n}\nshow();\n\n// Ideas: add your own questions, shuffle them, or show the right answer after a miss.\n" },
+  { name: "To-do list", desc: "Add and tick off tasks on the page.", mode: "page", code: "// Starter: to-do list\n// Type in the box and press Add. Click a task to tick it off.\nconst tasks = [\"Finish a Script Quest stage\", \"Try a new snippet\"];\n\nroot.innerHTML = '<input id=\"task\" placeholder=\"New task\"> <button id=\"add\">Add</button><ul id=\"list\"></ul>';\nconst input = document.getElementById(\"task\");\nconst list = document.getElementById(\"list\");\n\nfunction render() {\n  list.innerHTML = \"\";\n  tasks.forEach((text, i) => {\n    const li = document.createElement(\"li\");\n    li.textContent = text;\n    li.style.cursor = \"pointer\";\n    li.addEventListener(\"click\", () => {\n      tasks.splice(i, 1);\n      console.log(\"Done:\", text);\n      render();\n    });\n    list.appendChild(li);\n  });\n}\n\ndocument.getElementById(\"add\").addEventListener(\"click\", () => {\n  const text = input.value.trim();\n  if (!text) return;\n  tasks.push(text);\n  input.value = \"\";\n  render();\n});\nrender();\n\n// Ideas: show a count of tasks left, or add a \"clear all\" button.\n" },
+  { name: "Pattern art", desc: "Spinning colors with loops and Math.sin.", mode: "page", code: "// Starter: pattern art\n// Loops + Math.sin/cos draw a spinning flower. Change the numbers!\nlet t = 0;\nconst petals = 7;\n\nfunction frame() {\n  ctx.fillStyle = \"rgba(13, 16, 22, 0.15)\";\n  ctx.fillRect(0, 0, canvas.width, canvas.height);\n  for (let i = 0; i < petals; i++) {\n    const angle = t + (i * Math.PI * 2) / petals;\n    const r = 60 + 25 * Math.sin(t * 3);\n    const x = canvas.width / 2 + Math.cos(angle) * r;\n    const y = canvas.height / 2 + Math.sin(angle) * r;\n    ctx.fillStyle = `hsl(${(i * 360) / petals + t * 50}, 80%, 60%)`;\n    ctx.beginPath();\n    ctx.arc(x, y, 8, 0, Math.PI * 2);\n    ctx.fill();\n  }\n  t += 0.02;\n  requestAnimationFrame(frame);\n}\nframe();\nroot.innerHTML = \"<p>Art by <b>@@name</b></p>\";\n\n// Ideas: change petals, the colors, or the radius formula.\n" },
+  { name: "Text adventure", desc: "Rooms, exits and a bag of items.", mode: "console", code: "// Starter: text adventure\n// Each room has a description and exits. Change the moves list to explore.\nconst rooms = {\n  hall: { text: \"A dusty hall. Doors lead north and east.\", exits: { north: \"library\", east: \"kitchen\" } },\n  library: { text: \"Shelves of old books. Something glitters.\", exits: { south: \"hall\" }, item: \"golden key\" },\n  kitchen: { text: \"A cold kitchen. A locked chest sits here.\", exits: { west: \"hall\" } }\n};\n\nconst player = { name: \"@@name\", room: \"hall\", bag: [] };\nconst moves = [\"north\", \"take\", \"south\", \"east\", \"open\"];\n\nfunction look() {\n  console.log(`[${player.room}] ${rooms[player.room].text}`);\n}\n\nlook();\nfor (const move of moves) {\n  console.log(`> ${move}`);\n  const room = rooms[player.room];\n  if (room.exits[move]) {\n    player.room = room.exits[move];\n    look();\n  } else if (move === \"take\" && room.item) {\n    player.bag.push(room.item);\n    console.log(`You pick up the ${room.item}.`);\n    delete room.item;\n  } else if (move === \"open\" && player.room === \"kitchen\") {\n    console.log(player.bag.includes(\"golden key\") ? `${player.name} opens the chest. Treasure!` : \"It's locked.\");\n  } else {\n    console.log(\"You can't do that here.\");\n  }\n}\nconsole.log(\"Bag:\", player.bag);\n\n// Ideas: add a new room, a second item, or a \"go back\" command.\n" },
+  { name: "Data cruncher", desc: "Stats from an array with map, filter and reduce.", mode: "console", code: "// Starter: data cruncher\n// Arrays + map, filter and reduce turn raw data into answers.\nconst scores = [\n  { player: \"@@name\", game: \"Snake\", points: 42 },\n  { player: \"Ada\", game: \"Snake\", points: 57 },\n  { player: \"Linus\", game: \"Pong\", points: 7 },\n  { player: \"@@name\", game: \"Pong\", points: 11 },\n  { player: \"Grace\", game: \"Snake\", points: 35 }\n];\n\nconst snake = scores.filter((s) => s.game === \"Snake\");\nconst total = snake.reduce((sum, s) => sum + s.points, 0);\nconst best = snake.reduce((top, s) => (s.points > top.points ? s : top));\n\nconsole.log(\"Snake games:\", snake.length);\nconsole.log(\"Average:\", (total / snake.length).toFixed(1));\nconsole.log(\"Best:\", best.player, best.points);\nconsole.log(\"Names:\", scores.map((s) => s.player).join(\", \"));\nconsole.table(snake);\n\n// Ideas: find the best Pong player, or sort everyone by points.\n" }
+];
+function sbxState() {
   if (!S.sbx) S.sbx = { slots: [{ name: "Slot 1", code: personalCode(SBX_DEFAULT) }, { name: "Slot 2", code: personalCode(SBX_PAGE) }, { name: "Slot 3", code: "" }], cur: 0, mode: "console" };
-  var sb = S.sbx, slot = sb.slots[sb.cur];
+  return S.sbx;
+}
+// puts code in the current slot when it's empty, otherwise in a new one; false when all 8 are full
+function sbxAdd(name, code, mode) {
+  var sb = sbxState(), cur = sb.slots[sb.cur];
+  if (cur && !cur.code.trim()) { cur.name = name; cur.code = code; cur.mode = mode; }
+  else { if (sb.slots.length >= 8) return false; sb.slots.push({ name: name, code: code, mode: mode }); sb.cur = sb.slots.length - 1; }
+  if (mode) sb.mode = mode;
+  save("sandbox", sb); return true;
+}
+function sbxEncode(slot, mode) { return "SQS1:" + btoa(unescape(encodeURIComponent(JSON.stringify({ n: slot.name, m: mode, c: slot.code })))); }
+function sbxDecode(t) {
+  t = String(t || "").trim(); var i = t.indexOf("#sbx="); if (i >= 0) t = decodeURIComponent(t.slice(i + 5));
+  if (t.indexOf("SQS1:") !== 0) return null;
+  try { var o = JSON.parse(decodeURIComponent(escape(atob(t.slice(5))))); return typeof o.c === "string" ? { n: String(o.n || "Shared").slice(0, 24), m: o.m === "page" ? "page" : "console", c: o.c } : null; } catch (e) { return null; }
+}
+function viewSandbox(V) {
+  var sb = sbxState(), slot = sb.slots[sb.cur];
   var snipQ = "";
   V.innerHTML = '<div class="wrap sandbox"><div class="stage-top"><div><p class="eyebrow">FREE PLAY</p><h1 class="title">Sandbox</h1></div><div class="row"><span class="seg" role="group" aria-label="Run mode"><button type="button" data-mode="console" aria-pressed="' + (sb.mode === "console") + '">CONSOLE</button><button type="button" data-mode="page" aria-pressed="' + (sb.mode === "page") + '">PAGE</button></span>' +
-    '<select class="sel" id="slotSel" aria-label="Save slot">' + sb.slots.map(function (s, i) { return '<option value="' + i + '"' + (i === sb.cur ? " selected" : "") + ">" + h(s.name) + "</option>"; }).join("") + '</select><button class="ghost" id="renSlot">Rename</button><button class="ghost" id="newSlot" title="New empty slot">+ New</button><button class="ghost" id="delSlot"' + (sb.slots.length > 1 ? "" : " disabled") + '>Delete</button></div></div>' +
-    '<div class="sbx"><section class="card console" aria-label="Sandbox console"><div class="cbar"><span class="file"><i></i><span id="slotName">' + h(slot.name) + '.js</span></span><div class="row"><button class="ghost" id="sbCopy">Copy</button><button class="ghost" id="sbSave" title="Download this slot as a .js file">Download</button><button class="ghost" id="sbClear">Clear</button><button class="ghost" id="sbStop"' + (sb.mode === "page" ? "" : " hidden") + '>Stop</button><button class="btn primary" id="sbRun">▶ RUN</button></div></div>' +
+    '<select class="sel" id="slotSel" aria-label="Save slot">' + sb.slots.map(function (s, i) { return '<option value="' + i + '"' + (i === sb.cur ? " selected" : "") + ">" + h(s.name) + "</option>"; }).join("") + '</select><button class="ghost" id="renSlot">Rename</button><button class="ghost" id="newSlot" title="New empty slot">+ New</button><button class="ghost" id="delSlot"' + (sb.slots.length > 1 ? "" : " disabled") + '>Delete</button><button class="ghost" id="tplBtn">Templates</button><button class="ghost" id="openShare">Open shared</button></div></div><div id="sbPanel"></div>' +
+    '<div class="sbx"><section class="card console" aria-label="Sandbox console"><div class="cbar"><span class="file"><i></i><span id="slotName">' + h(slot.name) + '.js</span></span><div class="row"><button class="ghost" id="sbCopy">Copy</button><button class="ghost" id="sbSave" title="Download this slot as a .js file">Download</button><button class="ghost" id="sbShare">Share</button><button class="ghost" id="sbClear">Clear</button><button class="ghost" id="sbStop"' + (sb.mode === "page" ? "" : " hidden") + '>Stop</button><button class="btn primary" id="sbRun">▶ RUN</button></div></div>' +
     '<div class="preview" id="sbPrev"' + (sb.mode === "page" ? "" : " hidden") + '><div class="lbl"><span>PAGE · root</span><span>canvas 320×200</span></div><div class="stagebox" id="sbRoot"></div><canvas id="sbCv" width="320" height="200"></canvas></div>' +
     '<div class="edwrap" id="sbHost"></div>' + keysHtml() + '<div class="outh"><span>OUTPUT</span></div><div class="out" id="sbOut"><span class="dim">Press RUN.</span></div><div id="sbRes"></div></section>' +
     '<aside class="card drawer" aria-label="Snippets"><div class="dh"><h2 class="sub" style="margin:0">SNIPPET DRAWER</h2><input id="snipQ" placeholder="Search snippets (loop, array, fetch…)" aria-label="Search snippets"><span class="muted" style="font-size:13px">Tap Insert to drop code at your cursor.</span></div><div class="dl" id="snipList"></div></aside></div></div>';
@@ -20779,8 +20841,8 @@ function viewSandbox(V) {
     if (b.hasAttribute("data-ins")) { editor.insert((editor.get().length && !/\n$/.test(editor.get()) ? "\n" : "") + it.code + "\n"); toast("Inserted " + it.title); }
     else copyText(it.code, b);
   });
-  V.querySelectorAll("[data-mode]").forEach(function (b) { b.onclick = function () { sb.mode = b.getAttribute("data-mode"); save("sandbox", sb); viewSandbox(V); highlightAll(V); }; });
-  $("slotSel").onchange = function () { sb.cur = Number(this.value); save("sandbox", sb); viewSandbox(V); highlightAll(V); };
+  V.querySelectorAll("[data-mode]").forEach(function (b) { b.onclick = function () { sb.mode = sb.slots[sb.cur].mode = b.getAttribute("data-mode"); save("sandbox", sb); viewSandbox(V); highlightAll(V); }; });
+  $("slotSel").onchange = function () { sb.cur = Number(this.value); if (sb.slots[sb.cur].mode) sb.mode = sb.slots[sb.cur].mode; save("sandbox", sb); viewSandbox(V); highlightAll(V); };
   $("renSlot").onclick = function () {
     var cb = $("renSlot").parentNode;
     if ($("renIn")) return;
@@ -20789,6 +20851,32 @@ function viewSandbox(V) {
     var done = function () { var v = inp.value.trim(); if (v) { sb.slots[sb.cur].name = v; save("sandbox", sb); } viewSandbox(V); highlightAll(V); };
     inp.onkeydown = function (e) { if (e.key === "Enter") done(); if (e.key === "Escape") viewSandbox(V); };
     inp.onblur = done;
+  };
+  function showPanel(k, inner) { var p = $("sbPanel"); if (p.dataset.k === k) { p.innerHTML = ""; p.dataset.k = ""; return false; } p.dataset.k = k; p.innerHTML = '<section class="card sbpanel">' + inner + "</section>"; return true; }
+  $("tplBtn").onclick = function () {
+    if (!showPanel("tpl", '<h2 class="sub">START FROM A TEMPLATE</h2><div class="tpls">' + SBX_TPL.map(function (t, i) { return '<button type="button" class="tpl" data-tpl="' + i + '"><b>' + h(t.name) + '</b><span class="muted">' + h(t.desc) + '</span><span class="tag">' + t.mode.toUpperCase() + " MODE</span></button>"; }).join("") + '</div><p class="hint2">A template loads into this slot if it is empty, or into a new slot.</p>')) return;
+    $("sbPanel").querySelectorAll("[data-tpl]").forEach(function (b) { b.onclick = function () {
+      var t = SBX_TPL[+b.getAttribute("data-tpl")];
+      if (!sbxAdd(t.name, personalCode(t.code), t.mode)) { toast("8 slots is the limit. Delete one first."); return; }
+      viewSandbox(V); highlightAll(V); toast("Loaded " + t.name + ". Press RUN!");
+    }; });
+  };
+  $("sbShare").onclick = function () {
+    var code = sbxEncode(sb.slots[sb.cur], sb.mode), link = location.href.split("#")[0] + "#sbx=" + encodeURIComponent(code);
+    if (!showPanel("share", '<h2 class="sub">SHARE ' + h(sb.slots[sb.cur].name.toUpperCase()) + '</h2><textarea id="shareTa" readonly aria-label="Share code">' + h(code) + '</textarea><div class="row"><button class="btn primary" id="shareCode">Copy code</button><button class="btn" id="shareLink">Copy link</button></div><p class="hint2">Friends paste the code into <b>Open shared</b>. The link opens it straight in their sandbox when they use the same copy of Script Quest (the same web address).</p>')) return;
+    $("shareTa").onfocus = function () { this.select(); };
+    $("shareCode").onclick = function () { copyText(code, $("shareCode")); };
+    $("shareLink").onclick = function () { copyText(link, $("shareLink")); };
+  };
+  $("openShare").onclick = function () {
+    if (!showPanel("open", '<h2 class="sub">OPEN SHARED CODE</h2><textarea id="openTa" placeholder="SQS1:… or a share link" aria-label="Shared code"></textarea><div class="row"><button class="btn primary" id="openGo">Open it</button><span id="openMsg" class="hint2">It opens in an empty slot, so nothing gets overwritten.</span></div>')) return;
+    $("openTa").focus();
+    $("openGo").onclick = function () {
+      var o = sbxDecode($("openTa").value);
+      if (!o) { $("openMsg").innerHTML = '<span style="color:var(--fail)">That code didn\'t work. Copy all of it, starting with SQS1:</span>'; return; }
+      if (!sbxAdd(o.n, o.c, o.m)) { toast("8 slots is the limit. Delete one first."); return; }
+      viewSandbox(V); highlightAll(V); toast("Opened " + o.n);
+    };
   };
   $("newSlot").onclick = function () {
     if (sb.slots.length >= 8) { toast("8 slots is the limit. Delete one first."); return; }
@@ -20824,7 +20912,7 @@ function viewSandbox(V) {
     if (!$("sbOut")) return;
     renderOutput(out, r.logs || [], r.err);
     if (r.err) { var x = explainHtml(r.err, code); res.innerHTML = x.html + lintHtml(code); if (x.line) editor.markErr(x.line); SFX.fail(); }
-    else { res.innerHTML = lintHtml(code); sb.runs = (sb.runs || 0) + 1; save("sandbox", sb); checkMedals(600); }
+    else { res.innerHTML = lintHtml(code); sb.runs = (sb.runs || 0) + 1; save("sandbox", sb); markActive(600); checkMedals(600); }
   }
 }
 
@@ -20874,6 +20962,13 @@ function medalList() {
   medals.push({ id: "first", t: "First stage", got: cleared >= 1, sub: cleared >= 1 ? "done" : "0/1", sc: "s3", m: "1" }, { id: "c100", t: "100 stages", got: cleared >= 100, sub: Math.min(cleared, 100) + "/100", sc: "s5", m: "C" },
     { id: "clean25", t: "Sharp eye ×25", got: clean >= 25, sub: Math.min(clean, 25) + "/25 without peeking", sc: "s4", m: "◉" }, { id: "ace10", t: "Quiz ace ×10", got: aces >= 10, sub: Math.min(aces, 10) + "/10", sc: "s1", m: "★" },
     { id: "qall", t: "Quiz Hall regular", got: qTaken >= D.quizzes.length, sub: qTaken + "/" + D.quizzes.length + " quizzes", sc: "s1", m: "?" }, { id: "sbx10", t: "Tinkerer", got: runs >= 10, sub: Math.min(runs, 10) + "/10 clean sandbox runs", sc: "s2", m: "{}" });
+  var stk = S.streak.best || 0;
+  [[3, "On a roll"], [7, "Week streak"], [30, "Month streak"]].forEach(function (x) { medals.push({ id: "streak" + x[0], t: x[1], got: stk >= x[0], sub: Math.min(stk, x[0]) + "/" + x[0] + " days in a row", sc: "s5", m: "≋" }); });
+  Object.keys(ARC_HI).forEach(function (e) {
+    if (!arcadeGames[e]) return;
+    var hi = ARC_HI[e], r = S.arc[e] || {}, v = hi.by === "wins" ? r.wins || 0 : r.best || 0;
+    medals.push({ id: "hi:" + e, t: hi.t, got: v >= hi.need, sub: hi.by === "wins" ? Math.min(v, hi.need) + "/" + hi.need + " " + SQ_ENGINES[e].title + " win" + (hi.need > 1 ? "s" : "") : SQ_ENGINES[e].title + ": best " + hiFmt(Math.min(v, hi.need)) + "/" + hi.need + " " + hi.unit, sc: "s3", m: "♛" });
+  });
   return medals;
 }
 // toast medals the player hasn't seen yet; quiet just records them (first boot, loaded saves)
@@ -20882,19 +20977,49 @@ function checkMedals(delay, quiet) {
   if (!fresh.length) return;
   fresh.forEach(function (m) { S.medalsSeen[m.id] = Date.now(); }); save("medals", S.medalsSeen);
   if (quiet) return;
-  setTimeout(function () { SFX.level(); toast(fresh.length === 1 ? "Medal earned: " + fresh[0].t + "! See it on your player card." : fresh.length + " medals earned! See them on your player card."); }, delay || 0);
+  queueToast(fresh.length === 1 ? "Medal earned: " + fresh[0].t + "! See it on your player card." : fresh.length + " medals earned! See them on your player card.", delay);
+}
+// medal and streak toasts wait their turn so one never hides another
+var toastQ = [], toastBusy = false;
+function queueToast(msg, delay) { setTimeout(function () { toastQ.push(msg); if (!toastBusy) nextToast(); }, delay || 0); }
+function nextToast() { var m = toastQ.shift(); if (!m) { toastBusy = false; return; } toastBusy = true; SFX.level(); toast(m); setTimeout(nextToast, 2800); }
+function dayKey(d) { d = d || new Date(); return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
+function yesterdayKey() { var d = new Date(); d.setDate(d.getDate() - 1); return dayKey(d); }
+function streakNow() { return S.streak.last === dayKey() || S.streak.last === yesterdayKey() ? S.streak.cur : 0; }
+// a cleared stage, a finished quiz or a clean sandbox run keeps the daily streak going
+function markActive(delay) {
+  var st = S.streak, today = dayKey();
+  if (st.last === today) return;
+  st.cur = st.last === yesterdayKey() ? st.cur + 1 : 1; st.last = today; st.best = Math.max(st.best || 0, st.cur); save("streak", st);
+  if (st.cur > 1) queueToast(st.cur + "-day streak! Come back tomorrow to keep it going.", delay);
+}
+function medalTile(m) { var at = m.got && S.medalsSeen[m.id]; return '<div class="medal' + (m.got ? " got" : "") + '" style="--sc:var(--' + m.sc + ')"' + (at ? ' title="Earned ' + new Date(at).toLocaleDateString() + '"' : "") + '><span class="m">' + h(m.m) + "</span><b>" + h(m.t) + '</b><span class="muted">' + h(m.sub) + "</span></div>"; }
+// the six newest medals on the Map, so they're seen outside the player card
+function medalShelf() {
+  var all = medalList(), got = all.filter(function (m) { return m.got; });
+  got.sort(function (a, b) { return (S.medalsSeen[b.id] || 0) - (S.medalsSeen[a.id] || 0); });
+  return '<section class="card shelf" aria-label="Medals"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">MEDALS · ' + got.length + " / " + all.length + '</h2><button class="ghost" data-go="me">All medals ›</button></div>' +
+    (got.length ? '<div class="medals">' + got.slice(0, 6).map(medalTile).join("") + "</div>" : '<p class="muted" style="margin:10px 0 0">Clear your first stage to earn your first medal.</p>') + "</section>";
+}
+function arcadeCard() {
+  var rows = Object.keys(ARC_HI).filter(function (e) { return S.arc[e] && S.arc[e].plays; });
+  if (!rows.length) return "";
+  return '<section class="card"><h2 class="sub">ARCADE RECORDS</h2><div class="arcrows">' + rows.map(function (e) {
+    var r = S.arc[e], hi = ARC_HI[e];
+    return '<div class="arcrow"><b>' + h(SQ_ENGINES[e].title) + '</b><span class="muted">' + (hi.re ? "Best " + hiFmt(r.best || 0) + " " + hi.unit + " · " : "") + (hi.by === "wins" ? (r.wins || 0) + " win" + (r.wins === 1 ? "" : "s") + " · " : "") + r.plays + " play" + (r.plays === 1 ? "" : "s") + "</span></div>";
+  }).join("") + "</div></section>";
 }
 function seedMedals() { if (load("medals", null) === null) { S.medalsSeen = {}; checkMedals(0, true); save("medals", S.medalsSeen); } }
 function viewMe(V) {
   var xp = totalXp(), lv = levelOf(xp), into = xp - xpFor(lv), need = xpFor(lv + 1) - xpFor(lv);
   var cleared = Object.keys(S.done).length, quizzes = Object.keys(S.quiz).length, aces = Object.keys(S.quiz).filter(function (k) { return S.quiz[k].best === S.quiz[k].total; }).length;
   var medals = medalList();
-  V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">PLAYER CARD</p><h1>' + h(nameOf()) + '</h1><p class="muted" style="margin:6px 0 0">Level ' + lv + " · " + rankOf(lv) + " · " + xp.toLocaleString() + ' XP</p></div><button class="btn" data-go="settings">Change name</button></section>' +
+  V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">PLAYER CARD</p><h1>' + h(nameOf()) + '</h1><p class="muted" style="margin:6px 0 0">Level ' + lv + " · " + rankOf(lv) + " · " + xp.toLocaleString() + ' XP' + (S.streak.best ? " · " + streakNow() + "-day streak (best " + S.streak.best + ")" : "") + '</p></div><button class="btn" data-go="settings">Change name</button></section>' +
     '<section class="card"><div class="row" style="justify-content:space-between"><b>Level ' + lv + '</b><span class="muted">' + into + " / " + need + " XP to level " + (lv + 1) + '</span></div><div class="bar" style="margin-top:8px;height:16px"><i style="width:' + (into / need * 100) + '%"></i></div></section>' +
     '<section class="stats"><div class="stat"><b>' + cleared + '</b><span>stages cleared</span></div><div class="stat"><b>' + Object.keys(S.done).filter(function (k) { return !S.done[k].sol && !S.done[k].skip; }).length + '</b><span>solved without peeking</span></div><div class="stat"><b>' + quizzes + '</b><span>quizzes taken</span></div><div class="stat"><b>' + aces + '</b><span>perfect quiz scores</span></div></section>' +
     '<div class="board"><section class="card"><h2 class="sub">SECTIONS</h2><div class="secbars">' + SECS.map(function (s) { var d = secDone(s); return '<div class="secbar" style="--sc:var(--' + s.color + ')"><span>' + h(s.title) + '</span><span class="bar"><i style="width:' + (d / s.stages.length * 100) + '%"></i></span><span>' + d + "/" + s.stages.length + "</span></div>"; }).join("") + "</div></section>" +
     '<section class="card"><h2 class="sub">RANKS</h2><div class="ranks">' + RANKS.map(function (r) { return '<div class="rank' + (lv >= r[0] ? " got" : "") + '"><span class="lvn">LV ' + r[0] + "</span><span>" + r[1] + "</span></div>"; }).join("") + "</div></section></div>" +
-    '<section class="card"><h2 class="sub">MEDALS</h2><div class="medals">' + medals.map(function (m) { var at = m.got && S.medalsSeen[m.id]; return '<div class="medal' + (m.got ? " got" : "") + '" style="--sc:var(--' + m.sc + ')"' + (at ? ' title="Earned ' + new Date(at).toLocaleDateString() + '"' : "") + ">" + '<span class="m">' + h(m.m) + "</span><b>" + h(m.t) + '</b><span class="muted">' + h(m.sub) + "</span></div>"; }).join("") + "</div></section></div>";
+    arcadeCard() + '<section class="card"><h2 class="sub">MEDALS</h2><div class="medals">' + medals.map(medalTile).join("") + "</div></section></div>";
 }
 
 // ---------------- SETTINGS ----------------
@@ -20994,7 +21119,7 @@ function viewSettings(V) {
         var t = $("impTa").value.trim(); if (t.indexOf("SQ1:") !== 0) throw new Error("x");
         var dump = JSON.parse(decodeURIComponent(escape(atob(t.slice(4)))));
         allKeys().forEach(del); Object.keys(dump).forEach(function (k) { save(k, dump[k]); });
-        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.last = load("last", null); S.medalsSeen = load("medals", {}); seedMedals();
+        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.medalsSeen = load("medals", {}); seedMedals();
         S.lastStage = load("lastStage", S.last && S.last.v === "stage" ? S.last.arg : null);
         applySettings(); toast("Save loaded. Welcome back, " + nameOf() + "!"); go("map");
       } catch (e) { $("impMsg").innerHTML = '<p style="color:var(--fail)">That code didn\'t work. Make sure you copied all of it, starting with SQ1:</p>'; }
@@ -21005,7 +21130,7 @@ function viewSettings(V) {
     if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to erase everything"; return; }
     var keepName = nameOf(), keepSet = S.set;
     allKeys().forEach(del);
-    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.medalsSeen = {}; save("medals", {});
+    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.medalsSeen = {}; save("medals", {});
     toast("Progress erased."); go("map");
   };
 }
@@ -21026,7 +21151,14 @@ function onboard() {
 // ---------------- boot ----------------
 applySettings();
 seedMedals();
-var startHash = (location.hash || "").replace(/^#/, "");
+// a share link (#sbx=SQS1:…) drops the shared code into the sandbox
+var shared = /^#sbx=/.test(location.hash || "") ? sbxDecode(location.hash) : null;
+if (/^#sbx=/.test(location.hash || "")) {
+  try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+  var sharedMsg = !shared ? "That share link is broken. Ask for the code instead." : sbxAdd(shared.n, shared.c, shared.m) ? "Opened shared code: " + shared.n : "Your sandbox is full (8 slots). Delete one, then open the link again.";
+  setTimeout(function () { toast(sharedMsg); }, 400);
+}
+var startHash = shared && S.profile ? "sandbox" : (location.hash || "").replace(/^#/, "");
 if (S.profile && startHash && /^(map|quizzes|sandbox|ref|settings|me)$/.test(startHash)) go(startHash);
 else go("map");
 if (!S.profile) onboard();
