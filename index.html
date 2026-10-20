@@ -691,6 +691,11 @@ pre.cb[data-k="txt"]{--kc:var(--k-pat);background:var(--panel2);color:var(--ink)
 .tile.skip .n{background:var(--chip);border-color:var(--line);color:var(--muted)}
 .warm{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:0 0 14px}
 .warm b{font-family:var(--f-display);font-weight:400;font-size:12px;letter-spacing:.08em;color:var(--gold)}
+.rvsec{margin:0 0 14px}.rvsec .rvb{font-family:var(--f-display);font-weight:400;font-size:12px;letter-spacing:.08em;color:var(--gold)}
+.rvh{font-size:15px;margin:16px 0 8px}.rvlist{display:grid;gap:6px}
+.rvq{display:flex;gap:12px;justify-content:space-between;align-items:center;text-align:left;background:var(--panel);border:2px solid var(--line);padding:8px 10px;color:var(--ink);min-height:44px}
+.rvq:hover,.rvq:focus-visible{border-color:var(--ink)}.rvq .t{min-width:0;overflow-wrap:anywhere}.rvq .muted{flex:none;font-size:13px}
+.grid50.rvgrid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}.rvt{border-left:6px solid var(--sc)}.rvt .t{display:block}.rvt small{display:block;font-size:12px;margin-top:2px}
 .hintbox .h{border-left:4px solid var(--gold);padding:6px 0 6px 12px;background:var(--panel2)}
 .hintbox .h p:last-child{margin:0}
 .reslinks{margin-top:16px;padding-top:12px;border-top:2px solid var(--line)}
@@ -19936,6 +19941,7 @@ var S = {
   done: load("done", {}),
   quiz: load("quiz", {}),
   review: load("review", []),
+  rvCleared: load("reviewCleared", 0),
   set: Object.assign({}, DEFAULTS, load("settings", {})),
   last: load("last", null),
   sbx: load("sandbox", null),
@@ -20016,12 +20022,71 @@ function recapHtml(st) {
 // ad-hoc quizzes (warm-up, skip-ahead tests) built from existing questions
 var XQUIZ = {};
 function questionAt(src) { var q = D.quizzes.filter(function (x) { return x.id === src.q; })[0], x = q && q.qs[src.i]; return x ? Object.assign({}, x, { src: src }) : null; }
+// Review Deck: every missed quiz question ({q, i}) and every stage that beat you ({s}); clearing one again takes it off
+function rvFind(fn) { for (var i = 0; i < S.review.length; i++) if (fn(S.review[i])) return i; return -1; }
+function rvQs() { return S.review.filter(function (r) { return r.q != null && questionAt(r); }); }
+function rvStages() { return S.review.filter(function (r) { return r.s && STAGE[r.s]; }); }
+function rvSave() { while (S.review.length > 200) S.review.shift(); save("review", S.review); }
+function rvCleared() { S.rvCleared++; save("reviewCleared", S.rvCleared); }
 function trackReview(src, ok) {
   if (!src) return;
-  var at = -1; S.review.forEach(function (r, i) { if (r.q === src.q && r.i === src.i) at = i; });
-  if (ok && at >= 0) S.review.splice(at, 1); else if (!ok && at < 0) S.review.push({ q: src.q, i: src.i });
-  if (S.review.length > 60) S.review.shift();
-  save("review", S.review);
+  var at = rvFind(function (r) { return r.q === src.q && r.i === src.i; });
+  if (ok && at >= 0) { S.review.splice(at, 1); rvCleared(); }
+  else if (!ok && at < 0) S.review.push({ q: src.q, i: src.i, n: 1, at: Date.now() });
+  else if (!ok) S.review[at].n = (S.review[at].n || 1) + 1;
+  rvSave();
+}
+// a failed run adds the stage right away (so leaving keeps it); fixing it in the same visit takes it back off
+// unless it took 3+ tries or the solution; clearing it on a later visit counts as a review clear
+function trackStage(st, ok, visit, tries, peeked) {
+  var at = rvFind(function (r) { return r.s === st.id; }), r = at >= 0 ? S.review[at] : null;
+  if (!ok) {
+    if (!r) S.review.push({ s: st.id, n: 1, at: Date.now(), v: visit }); else { r.n = (r.n || 1) + 1; if (r.v !== visit) r.again = visit; }
+    rvSave(); return false;
+  }
+  if (!r) return false;
+  var fresh = r.v === visit && r.again !== visit;
+  if (fresh && (tries >= 3 || peeked)) return false;
+  S.review.splice(at, 1); rvSave();
+  if (fresh) return false;
+  rvCleared(); return true;
+}
+function rvStripQ(x) { var t = document.createElement("div"); t.innerHTML = x.q; return (t.textContent || "").replace(/\s+/g, " ").trim(); }
+function rvQuiz(id, title, srcs, back) {
+  XQUIZ[id] = { id: id, title: title, qs: srcs.map(questionAt).filter(Boolean), onFinish: function (V, score, total) {
+    var left = rvQs().length + rvStages().length;
+    quizEnd(V, "REVIEW DECK", score, total, (score === total ? "All correct. Those are off your deck." : "Right answers left the deck. The rest stay for next time.") + " " + (left ? left + " left to review." : "Your deck is empty!"), '<button class="btn primary" data-go="review">Back to Review Deck</button>', score === total);
+  } };
+  return id;
+}
+function viewReview(V) {
+  var qs = rvQs(), sts = rvStages(), total = qs.length + sts.length;
+  var html = '<div class="wrap"><section class="hello"><div><p class="eyebrow">REVIEW DECK · ' + total + " TO REVIEW</p><h1>Review Deck</h1>" +
+    '<p class="muted" style="margin:6px 0 0;max-width:62ch">Every quiz question you get wrong and every stage that gives you real trouble lands here. Get it right again and it leaves the deck. A stage you fix in one or two tries doesn\'t count.</p></div>' +
+    '<div class="stat"><b>' + S.rvCleared + "</b><span>cleared so far</span></div></section>";
+  if (!total) html += '<section class="card"><p style="margin:0"><b>Nothing to review right now.</b></p><p class="muted" style="margin:6px 0 0">When you miss a quiz question or a stage beats you, it shows up here so you can come back and beat it.</p><div class="row" style="margin-top:12px"><button class="btn primary" data-go="quizzes">Quiz Hall</button><button class="btn" data-go="map">Map</button></div></section>';
+  if (qs.length) {
+    var pick = shuffle(qs).slice(0, 10);
+    rvQuiz("review", "Review Deck", pick);
+    var byQuiz = {}, order = [];
+    qs.forEach(function (r) { if (!byQuiz[r.q]) { byQuiz[r.q] = []; order.push(r.q); } byQuiz[r.q].push(r); });
+    html += '<section class="card rvsec"><div class="warm" style="margin:0"><div><b>QUESTIONS · ' + qs.length + '</b><p class="muted" style="margin:4px 0 0">Ones you answered wrong. Take a round of up to 10, or pick one.</p></div><button class="btn primary" data-go="quiz" data-arg="review">Review ' + pick.length + " question" + (pick.length === 1 ? "" : "s") + "</button></div>" +
+      order.map(function (qid) {
+        var quiz = D.quizzes.filter(function (x) { return x.id === qid; })[0];
+        return '<h3 class="rvh">' + h(quiz.title) + (QSEC[qid] ? ' <span class="muted">· ' + h(QSEC[qid].title) + "</span>" : "") + '</h3><div class="rvlist">' + byQuiz[qid].map(function (r) {
+          var id = rvQuiz("rv-" + r.q + "-" + r.i, quiz.title, [r]);
+          return '<button class="rvq" data-go="quiz" data-arg="' + id + '"><span class="t">' + h(rvStripQ(questionAt(r))) + '</span><span class="muted">' + ((r.n || 1) > 1 ? "missed " + r.n + "×" : "missed once") + "</span></button>";
+        }).join("") + "</div>";
+      }).join("") + "</section>";
+  }
+  if (sts.length) {
+    html += '<section class="card rvsec"><div><b class="rvb">STAGES · ' + sts.length + '</b><p class="muted" style="margin:4px 0 12px">Stages that took lots of tries, needed the solution, or you left before clearing. Clear one again to take it off.</p></div><section class="grid50 rvgrid">' +
+      sts.map(function (r) {
+        var st = STAGE[r.s];
+        return '<button class="tile rvt" data-go="stage" data-arg="' + st.id + '" style="--sc:var(--' + st.sec.color + ')" aria-label="' + h(st.sec.title) + " stage " + st.n + ": " + h(st.t) + '"><span class="n">' + st.n + '</span><span class="t">' + h(st.t) + '<small class="muted">' + h(st.sec.title) + ((r.n || 1) > 1 ? " · " + r.n + " misses" : "") + "</small></span></button>";
+      }).join("") + "</section></section>";
+  }
+  V.innerHTML = html + "</div>";
 }
 function quizEnd(V, label, score, total, msg, btns, pass) {
   if (pass) { SFX.pass(); confetti(); } else SFX.fail();
@@ -20029,12 +20094,12 @@ function quizEnd(V, label, score, total, msg, btns, pass) {
   renderTop();
 }
 function warmupHtml() {
-  var qs = shuffle(S.review).slice(0, 5).map(questionAt).filter(Boolean);
+  var all = rvQs(), qs = shuffle(all).slice(0, 5).map(questionAt).filter(Boolean);
   if (!qs.length) return "";
   XQUIZ.warmup = { id: "warmup", title: "Warm-up", qs: qs, onFinish: function (V, score, total) {
     quizEnd(V, "WARM-UP", score, total, score === total ? "All correct. Those ones are sticking now." : "Anything you missed comes back in a later warm-up.", '<button class="btn primary" data-go="quizzes">Quiz Hall</button>', score === total);
   } };
-  return '<section class="card warm"><div><b>WARM-UP</b><p class="muted" style="margin:4px 0 0">' + S.review.length + " question" + (S.review.length === 1 ? "" : "s") + " you missed earlier. Answer one right and it leaves the list.</p></div>" + '<button class="btn primary" data-go="quiz" data-arg="warmup">Start warm-up (' + qs.length + ")</button></section>";
+  return '<section class="card warm"><div><b>WARM-UP</b><p class="muted" style="margin:4px 0 0">' + all.length + " question" + (all.length === 1 ? "" : "s") + " you missed earlier. Answer one right and it leaves your Review Deck.</p></div>" + '<div class="row"><button class="btn" data-go="review">Review Deck</button><button class="btn primary" data-go="quiz" data-arg="warmup">Start warm-up (' + qs.length + ")</button></div></section>";
 }
 function skipHtml(s) {
   if (s.group !== "core" && s.group !== "adv") return "";
@@ -20218,7 +20283,7 @@ function go(v, arg, opts) {
   if (v !== "stage" || !opts || !opts.keepScroll) window.scrollTo(0, 0);
   renderTop();
   var V = $("view");
-  ({ map: viewMap, section: viewSection, stage: viewStage, quizzes: viewQuizzes, quiz: viewQuiz, sandbox: viewSandbox, ref: viewRef, settings: viewSettings, me: viewMe }[v] || viewMap)(V, arg);
+  ({ map: viewMap, section: viewSection, stage: viewStage, quizzes: viewQuizzes, quiz: viewQuiz, review: viewReview, sandbox: viewSandbox, ref: viewRef, settings: viewSettings, me: viewMe }[v] || viewMap)(V, arg);
   highlightAll(V);
   if (v === "section" || v === "stage" || v === "sandbox") { S.last = { v: v, arg: arg }; save("last", S.last); }
   if (v === "stage" && arg && arg !== S.lastStage) { S.lastStage = arg; save("lastStage", arg); renderTop(); }
@@ -20257,13 +20322,15 @@ function viewMap(V) {
   if (!storageOk) html += '<div class="banner">This browser is blocking saved data, so progress lasts only until you close the tab. Copy your save code from <b>Settings → Save data</b> before leaving.</div>';
   html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + (streakNow() > 1 ? " · " + streakNow() + "-DAY STREAK" : "") + "</p><h1>" + greet + "</h1></div>" +
     '<div class="row">' + (cont ? '<button class="btn primary" data-go="stage" data-arg="' + cont.id + '">' + icon("play") + "Continue: " + h(cont.sec.title) + " " + cont.n + "</button>" : "") +
-    (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="quizzes">Warm-up: ' + Math.min(5, S.review.length) + " to review</button>" : "") + "</div></section>";
+    (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="review">Review Deck: ' + (rvQs().length + rvStages().length) + " to review</button>" : "") + "</div></section>";
   html += '<section class="stats" aria-label="Your stats">' +
     '<div class="stat"><b>' + stagesDone + '</b><span>stages cleared of ' + totalStages + "</span></div>" +
     '<div class="stat"><b>' + puzzles + '</b><span>puzzles solved</span></div>' +
     '<div class="stat"><b>' + quizzesPassed + '</b><span>quizzes passed of ' + D.quizzes.length + "</span></div>" +
     '<div class="stat"><b>' + xp.toLocaleString() + '</b><span>XP · ' + arcade + " arcade stages</span></div></section>";
   html += medalShelf();
+  var rvN = rvQs().length + rvStages().length;
+  if (rvN || S.rvCleared) html += '<div class="group-h"><h2>REVIEW DECK</h2><span class="muted">Mistakes collect here so you can come back and beat them.</span></div><section class="carts"><button class="cart" data-go="review" style="--sc:var(--fail)"><span class="band"><span>↻ ' + rvN + " TO REVIEW</span><span>" + S.rvCleared + ' CLEARED</span></span><span class="body"><h3>Review Deck</h3><p>' + (rvN ? rvQs().length + " quiz question" + (rvQs().length === 1 ? "" : "s") + " and " + rvStages().length + " stage" + (rvStages().length === 1 ? "" : "s") + " to try again." : "All clear. New mistakes will show up here.") + "</p></span></button></section>";
   GROUPS.forEach(function (g) {
     var secs = SECS.filter(function (s) { return s.group === g.id; });
     if (!secs.length) return;
@@ -20478,13 +20545,15 @@ function viewStage(V, id) {
   var prev = s.stages[st.n - 2], next = s.stages[st.n];
   var isDom = st.k === "dom", isGame = !!st.game;
   var showHint = S.set.hints !== "off" && st.h;
+  fails[st.id] = 0;
+  var visit = Date.now() + ":" + Math.random(), inDeck = rvFind(function (r) { return r.s === st.id; }) >= 0;
   var html = '<div class="wrap" style="--sc:var(--' + s.color + ')">' +
     '<div class="stage-top"><div class="crumbs"><button data-go="map">Map</button><span>›</span><button data-go="section" data-arg="' + s.id + '">' + h(s.title) + "</button><span>›</span><span>Stage " + st.n + " of " + s.stages.length + "</span></div>" +
     '<div class="row"><div class="dots" aria-hidden="true">' + s.stages.map(function (x) { return "<i class=\"" + (x.id === st.id ? "c" : S.done[x.id] ? "d" : "") + '"></i>'; }).join("") + "</div>" +
     (prev ? '<button class="btn small" data-go="stage" data-arg="' + prev.id + '" aria-label="Previous stage">‹ Prev</button>' : "") +
     (next ? '<button class="btn small" data-go="stage" data-arg="' + next.id + '" aria-label="Next stage">Next ›</button>' : "") + "</div></div>" +
     '<div class="board"><article class="card lesson"><p class="eyebrow">' + h(s.title.toUpperCase()) + " · STAGE " + st.n + (S.done[st.id] ? ' · <span style="color:var(--pass)">CLEARED</span>' : "") + "</p><h1>" + h(st.t) + "</h1>" + readBtnHtml() +
-    lessonExtras(st) + (st.l ? '<div class="prose">' + personal(st.l) + "</div>" : recapHtml(st)) +
+    (inDeck ? '<div class="callout"><b>REVIEW DECK</b><p>This stage tripped you up before. Clear it again to take it off your <button class="linkish" type="button" data-go="review">Review Deck</button>.</p></div>' : "") + lessonExtras(st) + (st.l ? '<div class="prose">' + personal(st.l) + "</div>" : recapHtml(st)) +
     '<div class="mission"><b>YOUR MISSION</b><div class="prose">' + personal(st.p) + "</div></div>" +
     (st.k !== "free" ? '<div class="row" style="margin-top:12px">' + (showHint && S.set.hints === "button" ? '<button class="ghost" type="button" id="hintBtn">Show hint</button>' : "") + (S.set.solutions && st.s ? '<button class="ghost" type="button" id="solBtn">Show solution</button>' : "") + (isGame ? '<button class="btn gold small" type="button" id="playBtn">' + icon("play") + "Play " + h(SQ_ENGINES[st.game.engine].title) + "</button>" : "") + "</div>" : "") +
     '<div class="hintbox" id="hintBox"></div>' +
@@ -20539,11 +20608,12 @@ function viewStage(V, id) {
     renderOutput(out, r.logs || [], r.err);
     if (r.err) {
       var x = explainHtml(r.err, code); res.innerHTML = x.html + lintHtml(code); if (x.line) editor.markErr(x.line);
-      fails[st.id] = (fails[st.id] || 0) + 1; SFX.fail(); maybeAutoHint(); return;
+      fails[st.id] = (fails[st.id] || 0) + 1; trackStage(st, false, visit); SFX.fail(); maybeAutoHint(); return;
     }
     if (st.k === "free" || !r.result) return;
     if (r.result.pass) {
       var first = !S.done[st.id], gain = 0, lvBefore = levelOf(totalXp());
+      if (!st.game && trackStage(st, true, visit, fails[st.id] || 0, !!revealed[st.id])) queueToast("Cleared from your Review Deck. " + (rvQs().length + rvStages().length) + " left.", 900);
       if (first) { gain = revealed[st.id] ? Math.ceil(stageXp(st) / 2) : stageXp(st); S.done[st.id] = { xp: gain, at: Date.now(), sol: !!revealed[st.id] }; save("done", S.done); }
       var lvAfter = levelOf(totalXp());
       var cheers = ["Nice one, " + h(nameOf()) + ".", "Clean solve.", "That's it, " + h(nameOf()) + "!", "Locked in.", "Smooth.", "Another one down, " + h(nameOf()) + ".", "Exactly right.", "Good thinking."];
@@ -20559,7 +20629,7 @@ function viewStage(V, id) {
       renderTop();
       var dots = V.querySelectorAll(".dots i"); if (dots[st.n - 1]) dots[st.n - 1].className = "c d";
     } else {
-      fails[st.id] = (fails[st.id] || 0) + 1;
+      fails[st.id] = (fails[st.id] || 0) + 1; if (!st.game) trackStage(st, false, visit);
       var crash = r.result.crash ? explainHtml(r.result.crash, code) : null;
       res.innerHTML = '<div class="verdict no" role="status"><div class="vt">✗ Not yet</div><div>' + h(r.result.msg) + "</div></div>" + resultsHtml(r.result.rows) + (crash ? crash.html : "") + lintHtml(code);
       if (crash && crash.line) editor.markErr(crash.line);
@@ -20961,7 +21031,8 @@ function medalList() {
   Object.keys(arcadeGames).forEach(function (e) { medals.push({ id: "arc:" + e, t: SQ_ENGINES[e].title + " built", got: arcadeGames[e].done === arcadeGames[e].all, sub: arcadeGames[e].done + "/" + arcadeGames[e].all, sc: "s2", m: "▶" }); });
   medals.push({ id: "first", t: "First stage", got: cleared >= 1, sub: cleared >= 1 ? "done" : "0/1", sc: "s3", m: "1" }, { id: "c100", t: "100 stages", got: cleared >= 100, sub: Math.min(cleared, 100) + "/100", sc: "s5", m: "C" },
     { id: "clean25", t: "Sharp eye ×25", got: clean >= 25, sub: Math.min(clean, 25) + "/25 without peeking", sc: "s4", m: "◉" }, { id: "ace10", t: "Quiz ace ×10", got: aces >= 10, sub: Math.min(aces, 10) + "/10", sc: "s1", m: "★" },
-    { id: "qall", t: "Quiz Hall regular", got: qTaken >= D.quizzes.length, sub: qTaken + "/" + D.quizzes.length + " quizzes", sc: "s1", m: "?" }, { id: "sbx10", t: "Tinkerer", got: runs >= 10, sub: Math.min(runs, 10) + "/10 clean sandbox runs", sc: "s2", m: "{}" });
+    { id: "qall", t: "Quiz Hall regular", got: qTaken >= D.quizzes.length, sub: qTaken + "/" + D.quizzes.length + " quizzes", sc: "s1", m: "?" }, { id: "sbx10", t: "Tinkerer", got: runs >= 10, sub: Math.min(runs, 10) + "/10 clean sandbox runs", sc: "s2", m: "{}" },
+    { id: "rv10", t: "Second wind", got: S.rvCleared >= 10, sub: Math.min(S.rvCleared, 10) + "/10 cleared from the Review Deck", sc: "s3", m: "↻" });
   var stk = S.streak.best || 0;
   [[3, "On a roll"], [7, "Week streak"], [30, "Month streak"]].forEach(function (x) { medals.push({ id: "streak" + x[0], t: x[1], got: stk >= x[0], sub: Math.min(stk, x[0]) + "/" + x[0] + " days in a row", sc: "s5", m: "≋" }); });
   Object.keys(ARC_HI).forEach(function (e) {
@@ -21119,7 +21190,7 @@ function viewSettings(V) {
         var t = $("impTa").value.trim(); if (t.indexOf("SQ1:") !== 0) throw new Error("x");
         var dump = JSON.parse(decodeURIComponent(escape(atob(t.slice(4)))));
         allKeys().forEach(del); Object.keys(dump).forEach(function (k) { save(k, dump[k]); });
-        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.medalsSeen = load("medals", {}); seedMedals();
+        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.rvCleared = load("reviewCleared", 0); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.medalsSeen = load("medals", {}); seedMedals();
         S.lastStage = load("lastStage", S.last && S.last.v === "stage" ? S.last.arg : null);
         applySettings(); toast("Save loaded. Welcome back, " + nameOf() + "!"); go("map");
       } catch (e) { $("impMsg").innerHTML = '<p style="color:var(--fail)">That code didn\'t work. Make sure you copied all of it, starting with SQ1:</p>'; }
