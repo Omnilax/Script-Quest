@@ -1,0 +1,229 @@
+[
+ {
+  "id": "web-1",
+  "title": "Web Design Basics",
+  "topic": "Web Design with JavaScript",
+  "level": "Beginner",
+  "qs": [
+   {
+    "type": "mc",
+    "q": "What is the big banner right under the header, with a headline and a main button, called?",
+    "opts": [
+     "The hero",
+     "The footer",
+     "The sidebar",
+     "The breadcrumb"
+    ],
+    "ans": 0,
+    "why": "The hero is the first big message a visitor sees, usually above the fold."
+   },
+   {
+    "type": "mc",
+    "q": "What does \"above the fold\" mean?",
+    "opts": [
+     "The part of the page you see without scrolling",
+     "The header only",
+     "Anything with a picture",
+     "Text inside a card"
+    ],
+    "ans": 0,
+    "why": "The name comes from newspapers: the top half of the front page shows when the paper is folded."
+   },
+   {
+    "type": "tf",
+    "q": "A page should have several equally bold main buttons so visitors have lots of choice.",
+    "opts": [
+     "True",
+     "False"
+    ],
+    "ans": 1,
+    "why": "One clear main call to action works best. Other buttons should look quieter."
+   },
+   {
+    "type": "mc",
+    "q": "In the 60-30-10 rule, what is the 10% for?",
+    "opts": [
+     "An accent color for the things you want clicked",
+     "The background",
+     "The footer",
+     "Body text"
+    ],
+    "ans": 0,
+    "why": "The accent is rare on purpose, so the main button and links stand out."
+   },
+   {
+    "type": "mc",
+    "q": "What is the minimum contrast ratio WCAG asks for normal-size text?",
+    "opts": [
+     "4.5 : 1",
+     "1.5 : 1",
+     "2 : 1",
+     "21 : 1"
+    ],
+    "ans": 0,
+    "why": "4.5 : 1 for normal text, 3 : 1 for large text. 21 : 1 is black on white, the maximum."
+   },
+   {
+    "type": "mc",
+    "q": "On a dashboard, where should the single most important number usually go?",
+    "opts": [
+     "Top-left, and biggest",
+     "Bottom-right, small",
+     "In the footer",
+     "Hidden behind a button"
+    ],
+    "ans": 0,
+    "why": "Eyes start top-left, so that's prime space for the key KPI."
+   },
+   {
+    "type": "mc",
+    "q": "Which chart best shows how something changed over time?",
+    "opts": [
+     "A line chart",
+     "A pie chart",
+     "A single KPI tile",
+     "A table"
+    ],
+    "ans": 0,
+    "why": "Line charts show trends at a glance."
+   },
+   {
+    "type": "mc",
+    "q": "Why should a success message use a ✓ as well as green?",
+    "opts": [
+     "Some people can't tell red and green apart",
+     "Green is too bright",
+     "Icons load faster",
+     "Browsers need it"
+    ],
+    "ans": 0,
+    "why": "Never rely on color alone. An icon or a word works for everyone."
+   },
+   {
+    "type": "mc",
+    "q": "Which spacing values follow the 8-point grid?",
+    "opts": [
+     "8, 16, 24, 32",
+     "5, 10, 15, 20",
+     "7, 14, 21, 28",
+     "3, 6, 9, 12"
+    ],
+    "ans": 0,
+    "why": "Multiples of 8 keep spacing consistent across a whole site."
+   }
+  ]
+ },
+ {
+  "id": "web-2",
+  "title": "Building Websites",
+  "topic": "Web Design with JavaScript",
+  "level": "Intermediate",
+  "qs": [
+   {
+    "type": "mc",
+    "q": "Which element should you use for something that <b>does</b> an action, like Like or Play?",
+    "opts": [
+     "`<button>`",
+     "`<a>`",
+     "`<div>`",
+     "`<span>`"
+    ],
+    "ans": 0,
+    "why": "Buttons do things, links go places. Buttons also work with the keyboard and screen readers for free."
+   },
+   {
+    "type": "fb",
+    "q": "Fill in the method that adds a class if it's missing and removes it if it's there.",
+    "code": "document.body.classList.____(\"dark\");",
+    "codeKind": "ex",
+    "accept": [
+     "toggle"
+    ],
+    "why": "<code>classList.toggle</code> flips a class on and off, perfect for dark mode."
+   },
+   {
+    "type": "out",
+    "q": "What does this print?",
+    "code": "const hex = \"#00ff80\";\nconsole.log(parseInt(hex.slice(3, 5), 16));",
+    "codeKind": "ex",
+    "opts": [
+     "255",
+     "0",
+     "128",
+     "ff"
+    ],
+    "ans": 0,
+    "why": "Characters 3 and 4 are <code>ff</code>, which is 255 in base 16."
+   },
+   {
+    "type": "out",
+    "q": "There are 4 slides and <code>i</code> is 3. What does this print?",
+    "code": "let i = 3;\ni = (i + 1) % 4;\nconsole.log(i);",
+    "codeKind": "ex",
+    "opts": [
+     "0",
+     "4",
+     "3",
+     "1"
+    ],
+    "ans": 0,
+    "why": "4 % 4 is 0, so the slider wraps back to the first slide."
+   },
+   {
+    "type": "mc",
+    "q": "What does <code>e.preventDefault()</code> do in a link's click listener?",
+    "opts": [
+     "Stops the browser following the link the normal way",
+     "Deletes the link",
+     "Opens the link in a new tab",
+     "Stops other code running"
+    ],
+    "ans": 0,
+    "why": "It cancels the default action, so your JavaScript can show the page instead."
+   },
+   {
+    "type": "mc",
+    "q": "Which attributes should a link to another website get so it opens safely in a new tab?",
+    "opts": [
+     "`target=\"_blank\"` and `rel=\"noopener\"`",
+     "`hidden`",
+     "`aria-current=\"page\"`",
+     "`data-link`"
+    ],
+    "ans": 0,
+    "why": "<code>noopener</code> stops the new page from reaching back into yours."
+   },
+   {
+    "type": "fb",
+    "q": "Fill in the property that says how far the page has scrolled down.",
+    "code": "if (window.____ > 150) toTop.hidden = false;",
+    "codeKind": "ex",
+    "accept": [
+     "scrollY",
+     "pageYOffset"
+    ],
+    "why": "<code>window.scrollY</code> is the number of pixels scrolled from the top."
+   },
+   {
+    "type": "tf",
+    "q": "The <code>value</code> of a range slider is a number, so you never need to convert it.",
+    "opts": [
+     "True",
+     "False"
+    ],
+    "ans": 1,
+    "why": "Input values are always strings. Use <code>Number()</code> before doing math."
+   },
+   {
+    "type": "order",
+    "q": "Put these lines in order to make a button that shows a message when clicked.",
+    "lines": [
+     "const btn = document.querySelector(\"#go\");",
+     "btn.addEventListener(\"click\", () => {",
+     "  msg.textContent = \"Let's go!\";",
+     "});"
+    ]
+   }
+  ]
+ }
+]
