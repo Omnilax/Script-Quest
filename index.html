@@ -1078,6 +1078,62 @@ html[data-hover="glow"] :is(.qcard,.tile,.cart,.swatch,.fxbtn):hover{box-shadow:
 .cart.locked .band{background:var(--muted)}
 .unlhint{margin:12px 0 0}
 .hello .nextunl{margin:6px 0 0;font-size:14px}
+/* player card: banner, avatar, frames, tiers */
+.lvchip{display:inline-block;font-family:var(--f-display);font-size:11px;letter-spacing:.06em;background:var(--tc,var(--gold));color:#1B1B1B;padding:3px 6px;line-height:1.1;white-space:nowrap}
+.dk.me .lv.lvchip{background:var(--tc,var(--gold));color:#1B1B1B}
+.rank .lvn[style]{border-color:var(--tc)}
+.rank.got .lvn[style]{background:var(--tc);border-color:var(--tc);color:#1B1B1B}
+.avatar{--av:#2C52C4;display:inline-grid;place-items:center;flex:none;width:72px;height:72px;background:var(--av);color:#fff;border:3px solid var(--ink)}
+.avatar svg{width:66%;height:66%}
+.avatar.mid{width:44px;height:44px}
+.avatar.sm{width:24px;height:24px;border-width:2px;box-shadow:none!important;border-style:solid!important;border-color:var(--ink)!important}
+.avatar.big{width:88px;height:88px}
+.avatar.fr-none{border-color:transparent}
+.avatar.fr-double{border:6px double var(--ink)}
+.avatar.fr-dashed{border-style:dashed}
+.avatar.fr-pixel{box-shadow:5px 0 0 -1px var(--ink),-5px 0 0 -1px var(--ink),0 5px 0 -1px var(--ink),0 -5px 0 -1px var(--ink)}
+.avatar.fr-glow{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 0 18px 4px var(--accent)}
+.avatar.fr-fire{border-color:#FF7A1A;box-shadow:0 0 0 3px #FFB21A,0 -6px 16px #FF5A1A,0 0 22px #FF7A1A}
+.avatar.fr-gold{border-color:#C9971A;box-shadow:0 0 0 3px #FFE08A,0 0 0 6px #C9971A}
+.avatar.fr-neon{border-color:#2EE6D6;box-shadow:0 0 10px #2EE6D6,0 0 0 3px #FF4FB4,0 0 20px #FF4FB4}
+.avatar.fr-diamond{border-color:#BFE6FF;box-shadow:0 0 0 3px #7FB8FF,0 0 0 6px #E8F6FF,0 0 22px #9FD0FF}
+.dk.me .avatar.sm{margin-right:-2px}
+.pbanner{display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding:22px;margin:0 0 14px;border:2px solid var(--ink);box-shadow:5px 5px 0 var(--shadow);background:var(--panel);color:var(--ink)}
+.pbanner .avatar{margin:6px}
+.pinfo{flex:1;min-width:200px}
+.pinfo .eyebrow{margin:0 0 4px}
+.pinfo h1{margin:0;font-size:calc(30px * var(--scale));line-height:1.1;overflow-wrap:anywhere}
+.ptags{gap:10px;margin-top:8px;font-size:14px;font-weight:600}
+.tiertag{font-family:var(--f-display);font-size:11px;letter-spacing:.06em;color:var(--tc);text-shadow:0 1px 0 rgba(0,0,0,.25)}
+.motto{margin:10px 0 0;font-style:italic;opacity:.85;overflow-wrap:anywhere}
+.pins{display:flex;flex-wrap:wrap;gap:8px}
+.pin{display:grid;justify-items:center;gap:4px;min-width:84px;max-width:110px;padding:8px;border:2px solid var(--sc);background:var(--panel);color:var(--ink);text-align:center;font-size:12px}
+.pin .m{font-family:var(--f-display);font-size:16px;color:var(--sc)}
+.ptabs{margin-bottom:14px}
+.ptabs button[aria-current="page"]{background:var(--ink);color:var(--panel)}
+.bn-stripes{background:repeating-linear-gradient(45deg,var(--panel) 0 16px,var(--panel2) 16px 32px)}
+.bn-dots{background:radial-gradient(var(--line) 2.5px,transparent 3px) 0 0/18px 18px,var(--panel)}
+.bn-grid{background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/20px 20px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/20px 20px,var(--panel)}
+.bn-waves{background:radial-gradient(circle at 50% 100%,transparent 13px,var(--line) 14px 17px,transparent 18px) 0 0/36px 18px,var(--panel)}
+.bn-checker{background:conic-gradient(var(--panel2) 25%,var(--panel) 0 50%,var(--panel2) 0 75%,var(--panel) 0) 0 0/32px 32px}
+.bn-sunrise{background:linear-gradient(170deg,#FFB067,#FF5F7E 55%,#6A3FB5)}
+.bn-stars{background:radial-gradient(#fff 1px,transparent 1.6px) 0 0/23px 23px,radial-gradient(#FFE08A 1.4px,transparent 2px) 11px 7px/37px 37px,linear-gradient(135deg,#141634,#2A1B4D)}
+.bn-circuit{background:linear-gradient(90deg,transparent 47%,#1FAF6E 47% 53%,transparent 53%) 0 0/48px 48px,linear-gradient(transparent 47%,#1FAF6E 47% 53%,transparent 53%) 24px 0/48px 48px,radial-gradient(#5CFFA8 3px,transparent 3.5px) 21px 21px/48px 48px,#08140F}
+.bn-aurora{background:linear-gradient(120deg,#0E1A3A,#123E4A 35%,#1F6B4F 55%,#3A2A6B 80%,#0E1A3A)}
+.bn-legend{background:linear-gradient(135deg,#3A1C00,#8A5A00 35%,#E9BE4A 50%,#8A5A00 65%,#3A1C00)}
+.pbanner:is(.bn-sunrise,.bn-stars,.bn-circuit,.bn-aurora,.bn-legend){color:#fff}
+.pbanner:is(.bn-sunrise,.bn-stars,.bn-circuit,.bn-aurora,.bn-legend) .eyebrow{color:#fff;opacity:.85}
+.lookgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+.lookgrid.wide{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.lookbtn{border:2px solid var(--line);background:var(--panel);color:var(--ink);padding:10px 8px;display:grid;justify-items:center;align-content:start;gap:6px;font-size:13px;text-align:center}
+.lookbtn.ttl{justify-items:start;text-align:left}
+.lookbtn[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.lookbtn.locked{border-style:dashed;cursor:not-allowed}
+.lookbtn.locked>.avatar,.lookbtn.locked>.chip,.lookbtn.locked>.bnprev{filter:grayscale(.9);opacity:.45}
+.lookbtn.locked b{opacity:.65}
+.lookbtn .chip{width:36px;height:36px;background:var(--av);border:2px solid var(--ink)}
+.lookbtn .bnprev{width:100%;height:40px;border:2px solid var(--line)}
+
 .setsub{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--muted);margin:16px 0 8px;padding-top:12px;border-top:2px solid var(--line)}
 .totop{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40;display:inline-flex;align-items:center;gap:8px;background:var(--panel);color:var(--ink);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--shadow);padding:8px 12px;font-family:var(--f-display);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 html[data-bar="bottom"]:not([data-bar-hidden="1"]) .totop{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
@@ -20078,7 +20134,8 @@ var S = {
   gs: load("gamestudio", null),
   medalsSeen: load("medals", {}),
   streak: load("streak", { last: "", cur: 0, best: 0 }),
-  arc: load("arcade", {})
+  arc: load("arcade", {}),
+  bonus: load("bonus", { xp: 0, days: 0 })
 };
 S.lastStage = load("lastStage", S.last && S.last.v === "stage" ? S.last.arg : null);
 function lastStageObj() { return (S.lastStage && STAGE[S.lastStage]) || null; }
@@ -20103,9 +20160,11 @@ function secDone(s) { var n = 0; s.stages.forEach(function (st) { if (S.done[st.
 function totalXp() {
   var x = 0; Object.keys(S.done).forEach(function (k) { x += S.done[k].xp || 0; });
   Object.keys(S.quiz).forEach(function (k) { x += S.quiz[k].xp || 0; });
-  return x;
+  // every medal earned is worth MEDAL_XP, plus the daily bonuses
+  return x + Object.keys(S.medalsSeen).length * MEDAL_XP + ((S.bonus && S.bonus.xp) || 0);
 }
-function levelOf(xp) { return Math.floor(Math.sqrt(xp / 30)) + 1; }
+// level n needs 10 * n * (n - 1) XP: 20 for level 2, 900 for level 10, 24,500 for level 50
+function levelOf(xp) { return Math.max(1, Math.floor((1 + Math.sqrt(1 + 0.4 * Math.max(0, xp))) / 2 + 1e-9)); }
 // quizzes belong to the section whose title matches their topic; Quiz Hall follows map order
 var QSEC = {};
 D.quizzes.forEach(function (q) { SECS.forEach(function (s) { if (s.title === q.topic) QSEC[q.id] = s; }); });
@@ -20302,8 +20361,8 @@ function nextSection(s) {
   var order = SECS.filter(function (x) { return x === s || !(x.secret && isLocked("section", x.id)); }).sort(function (a, b) { return mapRank(a) - mapRank(b); });
   return order[order.indexOf(s) + 1] || null;
 }
-function xpFor(lv) { return 30 * (lv - 1) * (lv - 1); }
-var RANKS = [[1, "Script Kiddo"], [3, "Syntax Scout"], [5, "Loop Rookie"], [7, "Variable Wrangler"], [9, "Function Knight"], [12, "Array Ranger"], [15, "Object Smith"], [18, "Closure Mage"], [21, "Async Ace"], [24, "DOM Tamer"], [27, "Algorithm Hunter"], [30, "Engine Builder"], [34, "JavaScript Legend"]];
+function xpFor(lv) { return 10 * lv * (lv - 1); }
+var RANKS = [[1, "Script Kiddo"], [2, "Button Masher"], [3, "Syntax Scout"], [4, "Semicolon Squire"], [5, "Loop Rookie"], [6, "Bug Spotter"], [7, "Variable Wrangler"], [8, "String Slinger"], [9, "Function Knight"], [10, "Condition Captain"], [11, "Boolean Bard"], [12, "Array Ranger"], [13, "Index Explorer"], [14, "Method Mechanic"], [15, "Object Smith"], [16, "Recursion Rider"], [17, "Callback Cadet"], [18, "Closure Mage"], [19, "Prototype Pilot"], [20, "Class Commander"], [21, "Async Ace"], [22, "Promise Keeper"], [23, "Event Wizard"], [24, "DOM Tamer"], [25, "Regex Sorcerer"], [26, "Bit Twiddler"], [27, "Algorithm Hunter"], [28, "Data Druid"], [29, "Pixel Painter"], [30, "Engine Builder"], [32, "Web Weaver"], [34, "JavaScript Legend"], [36, "Bug Slayer"], [38, "Stack Overlord"], [40, "Code Sage"], [42, "Byte Baron"], [44, "Logic Titan"], [46, "Grandmaster Coder"], [48, "Mythic Developer"], [50, "Script Quest Hero"]];
 function rankOf(lv) { var r = RANKS[0][1]; RANKS.forEach(function (x) { if (lv >= x[0]) r = x[1]; }); return r; }
 
 // ---------------- level unlocks ----------------
@@ -20330,17 +20389,104 @@ var UNLOCK_MEDAL = {
 var medalNames = { at: 0, map: {} };
 function medalReq(kind, key) { return (UNLOCK_MEDAL[kind] || {})[key] || ""; }
 function medalName(id) { if (Date.now() - medalNames.at > 2000) { medalNames.map = {}; medalList().forEach(function (m) { medalNames.map[m.id] = m.t; }); medalNames.at = Date.now(); } return medalNames.map[id] || id; }
-function itemName(kind, key) { var x = ({ skin: SKINS, bg: BGFX, trail: TRAILS, sound: SOUNDS }[kind] || []).filter(function (e) { return e[0] === key; })[0]; return x ? x[1] : key; }
+function itemName(kind, key) { var x = ({ skin: SKINS, bg: BGFX, trail: TRAILS, sound: SOUNDS, avatar: AVATARS, color: AV_COLORS, frame: FRAMES, banner: BANNERS, title: TITLES }[kind] || []).filter(function (e) { return e[0] === key; })[0]; return x ? x[1] : key; }
 function medalItems() { var out = []; Object.keys(UNLOCK_MEDAL).forEach(function (k) { Object.keys(UNLOCK_MEDAL[k]).forEach(function (key) { out.push({ kind: k, key: key, medal: UNLOCK_MEDAL[k][key], name: itemName(k, key) }); }); }); return out; }
 function medalRewards(id) { return medalItems().filter(function (u) { return u.medal === id; }).map(function (u) { return u.name + " " + UNLOCK_KIND[u.kind]; }); }
 // a lock's requirement in words: a level number, or "<medal> medal"
 function lockReq(kind, key, lv) { if (devMode()) return 0; var m = medalReq(kind, key); if (m) return S.medalsSeen[m] ? 0 : medalName(m) + " medal"; return isLocked(kind, key, lv) ? lockLv(kind, key) : 0; }
 function lockWords(n) { return typeof n === "number" ? "level " + n : "you earn the " + n; }
 function unlockWords(n) { return typeof n === "number" ? "unlocks at level " + n : "earn the " + n; }
-var UNLOCK_KIND = { skin: "theme", bg: "background", trail: "mouse trail", sound: "sound theme", section: "module" };
+var UNLOCK_KIND = { skin: "theme", bg: "background", trail: "mouse trail", sound: "sound theme", section: "module", avatar: "avatar", color: "avatar color", frame: "frame", banner: "banner", title: "title" };
+
+// ---------------- profile look: avatar, color, frame, banner, title ----------------
+// 8x8 pixel avatars, drawn in white on the avatar color
+var AVATARS = [
+  ["robot", "Robot", ["...##...", ".######.", "#.#..#.#", "#......#", "#.####.#", ".######.", "..#..#..", ".##..##."]],
+  ["cat", "Cat", ["#......#", "##....##", "########", "#.#..#.#", "########", "#..##..#", ".######.", "..#..#.."]],
+  ["slime", "Slime", ["........", "...##...", "..####..", ".######.", "##.##.##", "########", "########", ".######."]],
+  ["ghost", "Ghost", ["..####..", ".######.", "##.##.##", "########", "########", "########", "########", "#.#..#.#"]],
+  ["bug", "Bug", ["#......#", ".#.##.#.", "..####..", ".#.##.#.", "########", ".######.", "#.####.#", "..#..#.."]],
+  ["frog", "Frog", [".##..##.", "#.####.#", "########", "########", "#......#", ".######.", "..####..", ".#....#."]],
+  ["fox", "Fox", ["#......#", "##....##", "###..###", "#.####.#", "########", ".#.##.#.", "..####..", "...##..."]],
+  ["owl", "Owl", ["#.####.#", ".######.", "#..##..#", "#.#..#.#", "#..##..#", ".######.", ".#.##.#.", "..#..#.."]],
+  ["alien", "Alien", ["..####..", ".######.", "########", "#..##..#", "#..##..#", ".######.", "..#..#..", ".#....#."]],
+  ["knight", "Knight", ["..####..", ".######.", "##....##", "##.##.##", "########", "##.##.##", ".######.", "..####.."]],
+  ["ninja", "Ninja", ["..####..", ".######.", "#......#", "#.#..#.#", "########", ".######.", "..####..", ".##..##."]],
+  ["wizard", "Wizard", ["....#...", "...###..", "..#####.", ".#######", "########", "..#..#..", "..####..", "...##..."]],
+  ["rocket", "Rocket", ["...##...", "..####..", "..#..#..", "..####..", "..####..", ".######.", "##.##.##", "#..##..#"]],
+  ["dragon", "Dragon", ["##...##.", "###.###.", ".######.", "##.##.##", "########", ".##..##.", "..####..", "..#..#.."]],
+  ["crown", "Crown", ["#..##..#", "#..##..#", "##.##.##", "########", "########", "#.#..#.#", "########", "........"]],
+  ["heart", "Heart", [".##..##.", "########", "########", "########", ".######.", "..####..", "...##...", "........"]],
+  ["star", "Star", ["...##...", "...##...", "########", ".######.", "..####..", ".##..##.", "##....##", "........"]],
+  ["pad", "Game pad", ["........", "########", "#.#...##", "###.#..#", "#.#...##", "########", ".##..##.", "........"]]
+];
+var AV_COLORS = [["blue", "Cobalt", "#2C52C4"], ["green", "Leaf", "#2E9E5B"], ["red", "Cherry", "#D94848"], ["purple", "Grape", "#7A4FD8"], ["pink", "Bubblegum", "#E5539A"], ["teal", "Lagoon", "#17A2A2"], ["orange", "Tangerine", "#E8811A"], ["gold", "Gold", "#C9971A"], ["black", "Midnight", "#23262E"], ["silver", "Silver", "#8B95A3"], ["sunset", "Sunset", "linear-gradient(160deg,#FF8A3D,#FF4F7A 55%,#6A3FB5)"], ["galaxy", "Galaxy", "radial-gradient(circle at 30% 30%,#B58CFF,#3A1C7A 60%,#120A2E)"], ["rainbow", "Rainbow", "linear-gradient(135deg,#FF4F4F,#FFB21A,#3BC45B,#2E9BFF,#9B5CFF)"]];
+var FRAMES = [["none", "No frame", "Just the avatar"], ["line", "Outline", "A clean border"], ["double", "Double line", "Two thin borders"], ["dashed", "Dashed", "A sketchy border"], ["pixel", "Pixel", "A chunky 8-bit frame"], ["glow", "Glow", "Glows in your theme color"], ["fire", "Fire", "Flames all around"], ["gold", "Gold", "Shiny gold rings"], ["neon", "Neon", "Pink and teal neon tubes"], ["diamond", "Diamond", "Icy, sparkling rings"]];
+var BANNERS = [["plain", "Plain", "Matches your theme"], ["stripes", "Stripes", "Diagonal stripes"], ["dots", "Polka dots", "Little dots everywhere"], ["grid", "Graph paper", "Fine grid lines"], ["waves", "Waves", "Rolling scallops"], ["checker", "Checkers", "A soft checkerboard"], ["sunrise", "Sunrise", "Orange, pink and purple sky"], ["stars", "Night sky", "Stars on deep blue"], ["circuit", "Circuit board", "Green traces on black"], ["aurora", "Aurora", "Northern lights"], ["legend", "Legendary", "Molten gold"]];
+// titles: every rank you reach, plus a few medal titles
+var MEDAL_TITLES = [["squasher", "Bug Squasher"], ["whiz", "Quiz Whiz"], ["owl", "Night Owl"], ["bird", "Early Bird"], ["streaker", "Streak Master"], ["champ", "Arcade Champ"], ["webdes", "Web Designer"], ["gamedes", "Game Designer"], ["oracle", "Oracle"], ["pathfinder", "Pathfinder"], ["collector", "Collector"], ["comeback", "Comeback Kid"]];
+var TITLES = [["auto", "My rank (changes as I level up)"]].concat(RANKS.map(function (r) { return ["r" + r[0], r[1]]; }), MEDAL_TITLES);
+UNLOCK_LV.avatar = { bug: 2, frog: 4, fox: 6, owl: 8, alien: 10, knight: 13, ninja: 16, wizard: 19, rocket: 23, dragon: 27 };
+UNLOCK_LV.color = { purple: 3, pink: 5, teal: 7, orange: 9, gold: 12, black: 15, silver: 18, sunset: 24, rainbow: 32 };
+UNLOCK_LV.frame = { double: 4, dashed: 7, pixel: 11, glow: 15, gold: 21, neon: 29, diamond: 38 };
+UNLOCK_LV.banner = { stripes: 2, dots: 5, grid: 9, waves: 14, checker: 18, stars: 26, circuit: 34, aurora: 42, legend: 50 };
+UNLOCK_LV.title = {}; RANKS.forEach(function (r) { if (r[0] > 1) UNLOCK_LV.title["r" + r[0]] = r[0]; });
+UNLOCK_MEDAL.avatar = { crown: "lv20", heart: "streak7", star: "c100", pad: "arcade25" };
+UNLOCK_MEDAL.color = { galaxy: "daily10" };
+UNLOCK_MEDAL.frame = { fire: "streak14" };
+UNLOCK_MEDAL.banner = { sunrise: "c250" };
+UNLOCK_MEDAL.title = { squasher: "clean100", whiz: "ace10", owl: "night", bird: "early", streaker: "streak30", champ: "sec:arcade", webdes: "web5", gamedes: "game5", oracle: "predict10", pathfinder: "core", collector: "collector", comeback: "rv50" };
+var LOOK_DEF = { avatar: "robot", color: "blue", frame: "line", banner: "plain", title: "auto", motto: "", show: [] };
+var LOOK_KINDS = [["avatar", "avatar", AVATARS], ["color", "color", AV_COLORS], ["frame", "frame", FRAMES], ["banner", "banner", BANNERS], ["title", "title", TITLES]];
+// the player's look; anything still locked (say, after leaving dev mode) shows the default instead
+function look() {
+  var l = Object.assign({}, LOOK_DEF, (S.profile && S.profile.look) || {});
+  LOOK_KINDS.forEach(function (k) { if (!(k[2].some(function (x) { return x[0] === l[k[0]]; })) || isLocked(k[1], l[k[0]])) l[k[0]] = LOOK_DEF[k[0]]; });
+  l.show = (l.show || []).filter(function (id) { return S.medalsSeen[id] || devMode(); }).slice(0, 3);
+  return l;
+}
+function setLook(k, v) {
+  S.profile = S.profile || { name: "Player", created: Date.now() };
+  var l = Object.assign({}, LOOK_DEF, S.profile.look || {}); l[k] = v; S.profile.look = l; save("profile", S.profile); renderTop();
+}
+function lookPick(list, key) { return list.filter(function (x) { return x[0] === key; })[0] || list[0]; }
+function avSvg(grid) {
+  var r = ""; grid.forEach(function (row, y) { for (var x = 0; x < row.length; x++) if (row[x] === "#") r += "M" + x + " " + y + "h1v1h-1z"; });
+  return '<svg viewBox="0 0 8 8" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true"><path d="' + r + '"/></svg>';
+}
+function avatarHtml(l, cls) { return '<span class="avatar ' + (cls || "") + " fr-" + l.frame + '" style="--av:' + lookPick(AV_COLORS, l.color)[2] + '">' + avSvg(lookPick(AVATARS, l.avatar)[2]) + "</span>"; }
+function titleOf(l, lv) { return l.title === "auto" ? rankOf(lv) : lookPick(TITLES, l.title)[1]; }
+
+// ---------------- level tiers ----------------
+var TIERS = [[1, "Bronze", "#C98A4B"], [10, "Silver", "#B7C0CC"], [20, "Gold", "#F2C230"], [30, "Platinum", "#7FE0D8"], [40, "Diamond", "#9CC8FF"], [50, "Mythic", "#F08CFF"]];
+function tierOf(lv) { var t = TIERS[0]; TIERS.forEach(function (x) { if (lv >= x[0]) t = x; }); return t; }
+function lvChip(lv, cls) { var t = tierOf(lv); return '<span class="lvchip ' + (cls || "") + '" style="--tc:' + t[2] + '" title="' + t[1] + ' tier">LV ' + lv + "</span>"; }
+
+// ---------------- level-ups and bonus XP ----------------
+var MEDAL_XP = 25;
+function dailyBonus(streak) { return 15 + 5 * Math.min(Math.max(streak - 1, 0), 5); }
+// toast a level-up the player hasn't seen yet; true when the level went up
+function checkLevel(delay) {
+  var lv = levelOf(totalXp());
+  if (S.lvSeen == null || lv < S.lvSeen) { S.lvSeen = lv; save("level", lv); return false; }
+  if (lv === S.lvSeen) return false;
+  var newTier = tierOf(lv) !== tierOf(S.lvSeen);
+  S.lvSeen = lv; save("level", lv);
+  queueToast("Level up! You're now level " + lv + ": " + rankOf(lv) + "." + (newTier ? " Welcome to " + tierOf(lv)[1] + " tier!" : ""), delay);
+  return true;
+}
+// first run with the easier XP curve: start from the old level so the jump gets announced
+function seedLevel() {
+  S.lvSeen = load("level", null);
+  if (S.lvSeen != null) return;
+  var old = 0; Object.keys(S.done).forEach(function (k) { old += S.done[k].xp || 0; }); Object.keys(S.quiz).forEach(function (k) { old += S.quiz[k].xp || 0; });
+  S.lvSeen = Math.floor(Math.sqrt(old / 30)) + 1; save("level", S.lvSeen);
+  if (S.profile && old && levelOf(totalXp()) > S.lvSeen) queueToast("Leveling just got easier, and medals now give XP too!", 1000);
+  checkLevel(1100);
+}
 function unlockList() {
   var out = [], name = function (list, k) { var x = list.filter(function (e) { return e[0] === k; })[0]; return x ? x[1] : k; };
-  [["skin", SKINS], ["bg", BGFX], ["trail", TRAILS], ["sound", SOUNDS]].forEach(function (p) { Object.keys(UNLOCK_LV[p[0]]).forEach(function (k) { out.push({ id: p[0] + ":" + k, kind: p[0], key: k, name: name(p[1], k), lv: UNLOCK_LV[p[0]][k] }); }); });
+  [["skin", SKINS], ["bg", BGFX], ["trail", TRAILS], ["sound", SOUNDS], ["avatar", AVATARS], ["color", AV_COLORS], ["frame", FRAMES], ["banner", BANNERS]].forEach(function (p) { Object.keys(UNLOCK_LV[p[0]]).forEach(function (k) { out.push({ id: p[0] + ":" + k, kind: p[0], key: k, name: name(p[1], k), lv: UNLOCK_LV[p[0]][k] }); }); });
   SECS.forEach(function (s) { if (s.unlock) out.push({ id: "section:" + s.id, kind: "section", key: s.id, name: s.title, lv: s.unlock, secret: !!s.secret }); });
   return out.sort(function (a, b) { return a.lv - b.lv; });
 }
@@ -20367,7 +20513,8 @@ function checkUnlocks(delay, quiet) {
   fresh.forEach(function (u) { S.unl.seen[u.id] = Date.now(); }); save("unlocks", S.unl);
   if (quiet) return;
   var cos = fresh.filter(function (u) { return u.kind !== "section"; }), secs = fresh.filter(function (u) { return u.kind === "section"; });
-  if (cos.length) queueToast("Unlocked: " + andList(cos.map(unlockLabel)) + "! Try " + (cos.length === 1 ? "it" : "them") + " in Settings.", delay);
+  var names = cos.map(unlockLabel); if (names.length > 4) names = names.slice(0, 3).concat([names.length - 3 + " more"]);
+  if (cos.length) queueToast("Unlocked: " + andList(names) + "! Find " + (cos.length === 1 ? "it" : "them") + " on your player card.", delay);
   if (secs.length) queueToast("New module unlocked: " + andList(secs.map(function (u) { return u.name; })) + "! Find it on the Map.", delay);
 }
 function seedUnlocks() {
@@ -21113,7 +21260,7 @@ function dockHtml(lv, xp, pct) {
   var out = '<div class="dock" role="toolbar" aria-label="Quick actions">';
   if (S.set.showCont && c && !(route.v === "stage" && route.arg === c.id)) out += '<button class="dk cont" data-go="stage" data-arg="' + c.id + '" title="Continue: ' + h(c.sec.title) + " " + c.n + '" aria-label="Continue where you left off: ' + h(c.sec.title) + " stage " + c.n + '">' + glyph("play") + '<span class="ct">Continue<small>' + h(c.sec.title) + " · " + c.n + "</small></span></button>";
   out += '<button class="dk mute" data-mute aria-pressed="' + off + '" aria-label="Mute all sounds" title="' + (off ? "Sound is off. Click to turn it on" : "Mute all sounds") + '">' + glyph(off ? "mute" : "sound") + '<span class="fl">' + (off ? "Muted" : "Sound on") + "</span></button>";
-  if (S.set.showMe) out += '<button class="dk me" data-go="me" aria-label="Your profile, level ' + lv + '"><span class="lv">LV ' + lv + '</span><span class="nm">' + h(nameOf()) + '</span>' + (devMode() ? '<span class="devtag">DEV</span>' : "") + '<span class="xpmini" title="' + xp + ' XP"><i style="width:' + pct + '%"></i></span></button>';
+  if (S.set.showMe) out += '<button class="dk me" data-go="me" aria-label="Your profile, level ' + lv + '">' + avatarHtml(look(), "sm") + lvChip(lv, "lv") + '<span class="nm">' + h(nameOf()) + '</span>' + (devMode() ? '<span class="devtag">DEV</span>' : "") + '<span class="xpmini" title="' + xp + ' XP"><i style="width:' + pct + '%"></i></span></button>';
   out += '<button class="dk fold" data-hidebar aria-label="Hide the menu bar" title="Hide the menu bar">' + glyph({ top: "up", bottom: "down", left: "left", right: "right" }[S.set.barPos] || "up") + '<span class="fl">Hide</span></button>';
   return out + "</div>";
 }
@@ -21196,7 +21343,7 @@ function viewMap(V) {
   var totalStages = SECS.reduce(function (a, s) { return a + s.stages.length; }, 0);
   var html = '<div class="wrap">';
   if (!storageOk) html += '<div class="banner">This browser is blocking saved data, so progress lasts only until you close the tab. Copy your save code from <b>Settings → Save data</b> before leaving.</div>';
-  html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + (streakNow() > 1 ? " · " + streakNow() + "-DAY STREAK" : "") + "</p><h1>" + greet + '</h1><p class="muted nextunl"><button class="linkish" type="button" data-go="me">' + h(nextUnlockLine(lv, xp)) + "</button></p></div>" +
+  html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + (streakNow() > 1 ? " · " + streakNow() + "-DAY STREAK" : "") + "</p><h1>" + greet + '</h1><p class="muted nextunl"><button class="linkish" type="button" data-go="me" data-arg="unlocks">' + h(nextUnlockLine(lv, xp)) + "</button></p></div>" +
     '<div class="row">' + (cont ? '<button class="btn primary" data-go="stage" data-arg="' + cont.id + '">' + icon("play") + "Continue: " + h(cont.sec.title) + " " + cont.n + "</button>" : "") +
     (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="review">Review Deck: ' + (rvQs().length + rvStages().length) + " to review</button>" : "") + "</div></section>";
   html += '<section class="stats" aria-label="Your stats">' +
@@ -21583,8 +21730,7 @@ function viewStage(V, id) {
         (secDone(s) === s.stages.length && first ? "<div><b>You cleared every stage in " + h(s.title) + ", " + h(nameOf()) + "!</b></div>" : "") + "</div>" + (st.k === "vars" ? varBoxes(rows) : "") + resultsHtml(rows);
       if ($("play2")) $("play2").onclick = function () { openCabinet(st.game.engine, editor.get(), st); };
       SFX.pass(); if (first) confetti();
-      if (lvAfter > lvBefore) { setTimeout(function () { SFX.level(); toast("Level up! You're now level " + lvAfter + ": " + rankOf(lvAfter)); }, 500); }
-      var md = lvAfter > lvBefore ? 3200 : 700; markActive(md); checkMedals(md); checkUnlocks(md);
+      markActive(700); var md = checkLevel(500) ? 3200 : 700; checkMedals(md);
       renderTop();
       var dots = V.querySelectorAll(".dots i"); if (dots[st.n - 1]) dots[st.n - 1].className = "c d";
   }
@@ -22433,18 +22579,45 @@ function medalList(real) {
     var hi = ARC_HI[e], r = S.arc[e] || {}, v = hi.by === "wins" ? r.wins || 0 : r.best || 0;
     medals.push({ id: "hi:" + e, t: hi.t, got: v >= hi.need, sub: hi.by === "wins" ? Math.min(v, hi.need) + "/" + hi.need + " " + SQ_ENGINES[e].title + " win" + (hi.need > 1 ? "s" : "") : SQ_ENGINES[e].title + ": best " + hiFmt(Math.min(v, hi.need)) + "/" + hi.need + " " + hi.unit, sc: "s3", m: "♛" });
   });
+  // more medals across the game: levels, milestones, habits, step types, studios and your profile
+  var lvNow = levelOf(totalXp()), realDone = Object.keys(S.done).filter(function (k) { return !S.done[k].skip && STAGE[k]; });
+  var hrs = function (a, b) { return realDone.some(function (k) { var hr = new Date(S.done[k].at).getHours(); return a < b ? hr >= a && hr < b : hr >= a || hr < b; }); };
+  var steps = {}; realDone.forEach(function (k) { var s = stepOf(STAGE[k]); steps[s] = (steps[s] || 0) + 1; });
+  var groupDone = function (g) { var ss = SECS.filter(function (s) { return s.group === g; }); return ss.filter(function (s) { return secDone(s) === s.stages.length; }).length + "/" + ss.length; };
+  var gd = function (g) { var p = groupDone(g).split("/"); return p[0] === p[1]; };
+  var plays = 0; Object.keys(S.arc).forEach(function (e) { plays += S.arc[e].plays || 0; });
+  var owned = unlockList().concat(medalItems()).filter(function (u) { return !realLocked(u.kind, u.key); }).length;
+  var stored = (S.profile && S.profile.look) || null, passed = Object.keys(S.quiz).filter(function (k) { return S.quiz[k].best / S.quiz[k].total >= .7; }).length;
+  var cnt = function (id, t, n, have, unit, sc, m) { medals.push({ id: id, t: t, got: have >= n, sub: Math.min(have, n) + "/" + n + " " + unit, sc: sc, m: m }); };
+  [[5, "Warming up"], [10, "Double digits"], [20, "Twenty strong"], [30, "Thirty and thriving"], [40, "Forty fearless"], [50, "Half century"]].forEach(function (x) { cnt("lv" + x[0], x[1], x[0], lvNow, "levels", "s5", "LV"); });
+  cnt("c10", "Getting going", 10, cleared, "stages", "s3", "C"); cnt("c250", "Stage hopper", 250, cleared, "stages", "s5", "C"); cnt("c500", "Stage marathon", 500, cleared, "stages", "s5", "C"); cnt("c1000", "Thousand club", 1000, cleared, "stages", "s5", "M");
+  cnt("clean100", "Eagle eye", 100, clean, "without peeking", "s4", "◉");
+  cnt("ace1", "Perfect score", 1, aces, "perfect quizzes", "s1", "★"); cnt("pass10", "Quiz climber", 10, passed, "quizzes passed", "s1", "?"); cnt("ace25", "Quiz legend", 25, aces, "perfect quizzes", "s1", "★");
+  cnt("streak14", "Two-week streak", 14, stk, "days in a row", "s5", "≋");
+  cnt("rv1", "Learning from mistakes", 1, S.rvCleared, "cleared from the Review Deck", "s3", "↻"); cnt("rv50", "Comeback kid", 50, S.rvCleared, "cleared from the Review Deck", "s3", "↻");
+  cnt("daily10", "Regular", 10, S.bonus.days, "daily bonuses", "s2", "☀"); cnt("daily50", "Devoted", 50, S.bonus.days, "daily bonuses", "s2", "☀");
+  medals.push({ id: "night", t: "Night owl", got: hrs(21, 5), sub: "Clear a stage after 9 pm", sc: "s4", m: "☾" }, { id: "early", t: "Early bird", got: hrs(5, 8), sub: "Clear a stage before 8 am", sc: "s3", m: "☀" });
+  cnt("predict10", "Fortune teller", 10, steps.predict || 0, "Predict stages", "s1", "?!"); cnt("order10", "Puzzle sorter", 10, steps.order || 0, "Order stages", "s2", "≡");
+  cnt("bug5", "Exterminator", 5, steps.bug || 0, "Bug Hunts", "s4", "✗"); cnt("boss3", "Boss slayer", 3, steps.boss || 0, "Boss stages", "s5", "♚");
+  medals.push({ id: "core", t: "Pathfinder", got: gd("core"), sub: groupDone("core") + " Main Path sections", sc: "s1", m: "⌂" }, { id: "adv", t: "Deep diver", got: gd("adv"), sub: groupDone("adv") + " Advanced sections", sc: "s4", m: "▼" });
+  cnt("sbx50", "Mad scientist", 50, runs, "clean sandbox runs", "s2", "{}"); cnt("arcade25", "Arcade regular", 25, plays, "arcade plays", "s3", "▶");
+  medals.push({ id: "look", t: "Looking sharp", got: !!stored, sub: "Customize your profile", sc: "s1", m: "☺" }, { id: "show3", t: "Show-off", got: !!(stored && stored.show && stored.show.length >= 3), sub: "Pin 3 medals to your profile", sc: "s5", m: "✦" });
+  cnt("collector", "Collector", 25, owned, "unlocks", "s4", "◆"); cnt("hoarder", "Treasure hoarder", 75, owned, "unlocks", "s4", "◆");
   if (!real && devMode()) medals.forEach(function (m) { m.got = true; });
   return medals;
 }
 // toast medals the player hasn't seen yet; quiet just records them (first boot, loaded saves)
 function checkMedals(delay, quiet) {
   var fresh = medalList(true).filter(function (m) { return m.got && !S.medalsSeen[m.id]; });
-  if (!fresh.length) return;
-  fresh.forEach(function (m) { S.medalsSeen[m.id] = Date.now(); }); save("medals", S.medalsSeen);
+  if (fresh.length) {
+    fresh.forEach(function (m) { S.medalsSeen[m.id] = Date.now(); }); save("medals", S.medalsSeen);
+    if (quiet) return;
+    queueToast((fresh.length === 1 ? "Medal earned: " + fresh[0].t + "!" : fresh.length + " medals earned!") + " +" + fresh.length * MEDAL_XP + " XP", delay);
+    var rw = []; fresh.forEach(function (m) { rw = rw.concat(medalRewards(m.id)); });
+    if (rw.length) queueToast("Medal reward: you unlocked the " + andList(rw) + "! Find it on your player card.", delay);
+  }
   if (quiet) return;
-  queueToast(fresh.length === 1 ? "Medal earned: " + fresh[0].t + "! See it on your player card." : fresh.length + " medals earned! See them on your player card.", delay);
-  var rw = []; fresh.forEach(function (m) { rw = rw.concat(medalRewards(m.id)); });
-  if (rw.length) queueToast("Medal reward: you unlocked the " + andList(rw) + "! Try it in Settings.", delay);
+  if (checkLevel(delay)) checkMedals(delay); else checkUnlocks(delay);
 }
 // medal and streak toasts wait their turn so one never hides another
 var toastQ = [], toastBusy = false;
@@ -22458,14 +22631,15 @@ function markActive(delay) {
   var st = S.streak, today = dayKey();
   if (st.last === today) return;
   st.cur = st.last === yesterdayKey() ? st.cur + 1 : 1; st.last = today; st.best = Math.max(st.best || 0, st.cur); save("streak", st);
-  if (st.cur > 1) queueToast(st.cur + "-day streak! Come back tomorrow to keep it going.", delay);
+  var b = dailyBonus(st.cur); S.bonus.xp = (S.bonus.xp || 0) + b; S.bonus.days = (S.bonus.days || 0) + 1; save("bonus", S.bonus);
+  queueToast("Daily bonus: +" + b + " XP" + (st.cur > 1 ? " for your " + st.cur + "-day streak! Come back tomorrow to keep it going." : ". Come back tomorrow for more."), delay);
 }
 function medalTile(m) { var at = m.got && S.medalsSeen[m.id]; return '<div class="medal' + (m.got ? " got" : "") + '" style="--sc:var(--' + m.sc + ')"' + (at ? ' title="Earned ' + new Date(at).toLocaleDateString() + '"' : "") + '><span class="m">' + h(m.m) + "</span><b>" + h(m.t) + '</b><span class="muted">' + h(m.sub) + "</span>" + (medalRewards(m.id).length ? '<span class="mrw">Unlocks: ' + h(andList(medalRewards(m.id))) + "</span>" : "") + "</div>"; }
 // the six newest medals on the Map, so they're seen outside the player card
 function medalShelf() {
   var all = medalList(), got = all.filter(function (m) { return m.got; });
   got.sort(function (a, b) { return (S.medalsSeen[b.id] || 0) - (S.medalsSeen[a.id] || 0); });
-  return '<section class="card shelf" aria-label="Medals"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">MEDALS · ' + got.length + " / " + all.length + '</h2><button class="ghost" data-go="me">All medals ›</button></div>' +
+  return '<section class="card shelf" aria-label="Medals"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">MEDALS · ' + got.length + " / " + all.length + '</h2><button class="ghost" data-go="me" data-arg="medals">All medals ›</button></div>' +
     (got.length ? '<div class="medals">' + got.slice(0, 6).map(medalTile).join("") + "</div>" : '<p class="muted" style="margin:10px 0 0">Clear your first stage to earn your first medal.</p>') + "</section>";
 }
 function arcadeCard() {
@@ -22479,7 +22653,7 @@ function arcadeCard() {
 function unlockCard(lv, xp) {
   var all = unlockList(), got = all.filter(function (u) { return !isLocked(u.kind, u.key, lv); }).length, rows = {}, mi = medalItems(), mgot = mi.filter(function (u) { return !isLocked(u.kind, u.key); }).length;
   all.forEach(function (u) { (rows[u.lv] = rows[u.lv] || []).push(u); });
-  return '<section class="card" id="unlocks"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">UNLOCKS · ' + (got + mgot) + " / " + (all.length + mi.length) + '</h2><button class="ghost" data-go="settings">Settings ›</button></div>' +
+  return '<section class="card" id="unlocks"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">UNLOCKS · ' + (got + mgot) + " / " + (all.length + mi.length) + '</h2><button class="ghost" data-go="me" data-arg="style">Themes & sounds ›</button></div>' +
     '<p class="muted" style="margin:8px 0 12px">' + h(nextUnlockLine(lv, xp)) + '</p><div class="ranks">' + Object.keys(rows).sort(function (a, b) { return a - b; }).map(function (n) {
       var on = lv >= Number(n) || devMode();
       return '<div class="rank' + (on ? " got" : "") + '"><span class="lvn">LV ' + n + "</span><span>" + rows[n].map(function (u) { return u.secret && isLocked(u.kind, u.key, lv) ? "??? (a secret " + UNLOCK_KIND[u.kind] + ")" : h(u.name) + ' <span class="muted">' + UNLOCK_KIND[u.kind] + "</span>"; }).join(" · ") + "</span></div>";
@@ -22489,18 +22663,82 @@ function unlockCard(lv, xp) {
     }).join("") + "</div></section>";
 }
 function seedMedals() { if (load("medals", null) === null) { S.medalsSeen = {}; checkMedals(0, true); save("medals", S.medalsSeen); } }
-function viewMe(V) {
-  var xp = totalXp(), lv = levelOf(xp), into = xp - xpFor(lv), need = xpFor(lv + 1) - xpFor(lv);
+var ME_TABS = [["card", "Profile"], ["look", "Customize"], ["style", "Themes & sounds"], ["medals", "Medals"], ["unlocks", "Unlocks"]];
+// the banner at the top of the player card: avatar, name, title, tier, motto and pinned medals
+function profileBanner(lv, xp) {
+  var l = look(), t = tierOf(lv), all = medalList(), pins = l.show.map(function (id) { return all.filter(function (m) { return m.id === id; })[0]; }).filter(Boolean);
+  return '<section class="pbanner bn-' + l.banner + '" style="--tc:' + t[2] + '">' + avatarHtml(l, "big") +
+    '<div class="pinfo"><p class="eyebrow">' + h(titleOf(l, lv).toUpperCase()) + '</p><h1>' + h(nameOf()) + '</h1><div class="row ptags">' + lvChip(lv) + '<span class="tiertag">' + t[1].toUpperCase() + " TIER</span><span>" + xp.toLocaleString() + " XP</span>" + (S.streak.best ? "<span>" + streakNow() + "-day streak</span>" : "") + "</div>" +
+    (l.motto ? '<p class="motto" id="pMotto">“' + h(l.motto) + "”</p>" : '<p class="motto" id="pMotto" hidden></p>') + "</div>" +
+    (pins.length ? '<div class="pins" aria-label="Pinned medals">' + pins.map(function (m) { return '<span class="pin" style="--sc:var(--' + m.sc + ')" title="' + h(m.t) + '"><span class="m">' + h(m.m) + "</span><b>" + h(m.t) + "</b></span>"; }).join("") + "</div>" : "") + "</section>";
+}
+function lookBtn(kind, key, name, inner, on, cls) {
+  var n = lockReq(kind, key);
+  return '<button type="button" class="lookbtn ' + (cls || "") + (n ? " locked" : "") + '" data-look="' + kind + '" data-val="' + key + '" data-name="' + h(name) + '" aria-pressed="' + on + '"' + (n ? ' aria-disabled="true" aria-label="' + h(name) + ", locked until " + lockWords(n) + '"' : "") + ">" + inner + "<b>" + h(name) + "</b>" + (n ? lockTag(n) : "") + "</button>";
+}
+function lookTab(lv) {
+  var l = look(), seen = medalList().filter(function (m) { return m.got; }), pre = function (k, v) { var x = Object.assign({}, l); x[k] = v; return x; };
+  return '<section class="card"><h2 class="sub">AVATAR</h2><div class="lookgrid">' + AVATARS.map(function (a) { return lookBtn("avatar", a[0], a[1], avatarHtml(pre("avatar", a[0]), "mid"), l.avatar === a[0]); }).join("") + "</div></section>" +
+    '<section class="card"><h2 class="sub">AVATAR COLOR</h2><div class="lookgrid">' + AV_COLORS.map(function (c) { return lookBtn("color", c[0], c[1], '<span class="chip" style="--av:' + c[2] + '"></span>', l.color === c[0]); }).join("") + "</div></section>" +
+    '<section class="card"><h2 class="sub">FRAME</h2><div class="lookgrid">' + FRAMES.map(function (f) { return lookBtn("frame", f[0], f[1], avatarHtml(pre("frame", f[0]), "mid"), l.frame === f[0]); }).join("") + "</div></section>" +
+    '<section class="card"><h2 class="sub">BANNER</h2><div class="lookgrid wide">' + BANNERS.map(function (b) { return lookBtn("banner", b[0], b[1], '<span class="bnprev bn-' + b[0] + '"></span>', l.banner === b[0]); }).join("") + "</div></section>" +
+    '<section class="card"><h2 class="sub">TITLE</h2><p class="muted" style="margin-top:0">Shown above your name. Every rank you reach becomes a title, and some medals give special ones.</p><div class="lookgrid wide">' + TITLES.map(function (x) { return lookBtn("title", x[0], x[1], "", l.title === x[0], "ttl"); }).join("") + "</div></section>" +
+    '<section class="card"><h2 class="sub">MOTTO</h2><div class="field"><label for="lookMotto">A short line under your name</label><input type="text" id="lookMotto" maxlength="40" placeholder="Code, eat, sleep, repeat" value="' + h(l.motto) + '"></div></section>' +
+    '<section class="card"><h2 class="sub">PINNED MEDALS · ' + l.show.length + ' / 3</h2><p class="muted" style="margin-top:0">Tap up to three medals to show them on your banner.</p>' +
+    (seen.length ? '<div class="lookgrid wide">' + seen.map(function (m) { return '<button type="button" class="lookbtn ttl" data-pin="' + h(m.id) + '" aria-pressed="' + (l.show.indexOf(m.id) >= 0) + '"><b>' + h(m.m) + " " + h(m.t) + "</b></button>"; }).join("") + "</div>" : '<p class="muted">Earn a medal first, then pin it here.</p>') + "</section>";
+}
+function styleTab(st) {
+  var lk = function (kind, key) { return lockReq(kind, key); }, grp = function (kind, attr, list, cur) {
+    return list.map(function (f) { var n = lk(kind, f[0]); return '<button type="button" class="fxbtn' + (n ? " locked" : "") + '" data-' + attr + '="' + f[0] + '" aria-pressed="' + (cur === f[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(f[1]) + ', locked until ' + lockWords(n) + '"' : "") + "><b>" + h(f[1]) + "</b>" + (n ? lockTag(n) : f[2] ? '<span class="muted">' + h(f[2]) + "</span>" : "") + "</button>"; }).join("");
+  };
+  return '<section class="card" id="setTheme"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { var n = lk("skin", s[0]); return '<button type="button" class="swatch' + (n ? " locked" : "") + '" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(s[1]) + ', locked until ' + lockWords(n) + '"' : "") + '><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + "</b>" + (n ? lockTag(n) : '<span class="muted">' + s[2] + "</span>") + "</button>"; }).join("") + '</div><p class="hint2">Press T anywhere to flip through your themes.</p></section>' +
+    '<section class="card"><h2 class="sub">BACKGROUND</h2><div class="fxpick" role="group" aria-label="Background effect">' + grp("bg", "bgfx", BGFX, st.bgFx) + '</div><p class="hint2">Press X anywhere to flip through them. Speed, amount and brightness are in <button class="linkish" type="button" data-go="settings">Settings</button>.</p></section>' +
+    '<section class="card"><h2 class="sub">MOUSE TRAIL</h2><div class="fxpick" role="group" aria-label="Mouse trail">' + grp("trail", "trail", TRAILS, st.trail) + "</div></section>" +
+    '<section class="card"><h2 class="sub">SOUND THEME</h2><div class="fxpick" role="group" aria-label="Sound theme">' + grp("sound", "snd", SOUNDS, st.soundPack) + '</div><p class="hint2">Changes the click and typing sounds and gives the other game sounds a new flavor. Tap one to hear it.' + (st.sound ? "" : " Sound is off right now.") + "</p></section>";
+}
+function viewMe(V, tab) {
+  tab = ME_TABS.some(function (t) { return t[0] === tab; }) ? tab : "card";
+  var xp = totalXp(), lv = levelOf(xp), into = xp - xpFor(lv), need = xpFor(lv + 1) - xpFor(lv), st = S.set;
   var cleared = Object.keys(S.done).length, quizzes = Object.keys(S.quiz).length, aces = Object.keys(S.quiz).filter(function (k) { return S.quiz[k].best === S.quiz[k].total; }).length;
-  var medals = medalList();
-  V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">PLAYER CARD</p><h1>' + h(nameOf()) + '</h1><p class="muted" style="margin:6px 0 0">Level ' + lv + " · " + rankOf(lv) + " · " + xp.toLocaleString() + ' XP' + (S.streak.best ? " · " + streakNow() + "-day streak (best " + S.streak.best + ")" : "") + '</p></div><button class="btn" data-go="settings">Change name</button></section>' +
-    (devMode() ? '<section class="card devcard"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0"><span class="devtag">DEV MODE</span> Everything is unlocked</h2><button class="btn" id="devToasts" type="button">Preview toasts</button></div><p class="muted" style="margin:8px 0 0">Every theme, background, mouse trail, sound theme, module and medal is open for testing, including secret modules. None of it is saved as earned: change your name from Claude to go back to your real progress.</p></section>' : "") +
-    '<section class="card"><div class="row" style="justify-content:space-between"><b>Level ' + lv + '</b><span class="muted">' + into + " / " + need + " XP to level " + (lv + 1) + '</span></div><div class="bar" style="margin-top:8px;height:16px"><i style="width:' + (into / need * 100) + '%"></i></div></section>' +
-    '<section class="stats"><div class="stat"><b>' + cleared + '</b><span>stages cleared</span></div><div class="stat"><b>' + Object.keys(S.done).filter(function (k) { return !S.done[k].sol && !S.done[k].skip; }).length + '</b><span>solved without peeking</span></div><div class="stat"><b>' + quizzes + '</b><span>quizzes taken</span></div><div class="stat"><b>' + aces + '</b><span>perfect quiz scores</span></div></section>' +
-    '<div class="board"><section class="card"><h2 class="sub">SECTIONS</h2><div class="secbars">' + SECS.map(function (s) { var d = secDone(s); return '<div class="secbar" style="--sc:var(--' + s.color + ')"><span>' + h(s.title) + '</span><span class="bar"><i style="width:' + (d / s.stages.length * 100) + '%"></i></span><span>' + d + "/" + s.stages.length + "</span></div>"; }).join("") + "</div></section>" +
-    '<section class="card"><h2 class="sub">RANKS</h2><div class="ranks">' + RANKS.map(function (r) { return '<div class="rank' + (lv >= r[0] ? " got" : "") + '"><span class="lvn">LV ' + r[0] + "</span><span>" + r[1] + "</span></div>"; }).join("") + "</div></section></div>" +
-    unlockCard(lv, xp) + arcadeCard() + '<section class="card"><h2 class="sub">MEDALS</h2><div class="medals">' + medals.map(medalTile).join("") + "</div></section></div>";
+  var medals = medalList(), got = medals.filter(function (m) { return m.got; }).length;
+  var html = '<div class="wrap">' + profileBanner(lv, xp) +
+    '<nav class="setjump ptabs" aria-label="Player card">' + ME_TABS.map(function (t) { return '<button type="button" data-go="me" data-arg="' + t[0] + '"' + (t[0] === tab ? ' aria-current="page"' : "") + ">" + t[1] + "</button>"; }).join("") + "</nav>" +
+    (devMode() ? '<section class="card devcard"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0"><span class="devtag">DEV MODE</span> Everything is unlocked</h2><button class="btn" id="devToasts" type="button">Preview toasts</button></div><p class="muted" style="margin:8px 0 0">Every theme, background, mouse trail, sound theme, profile item, module and medal is open for testing, including secret modules. None of it is saved as earned: change your name from Claude to go back to your real progress.</p></section>' : "");
+  if (tab === "card") {
+    var t = tierOf(lv), nt = TIERS.filter(function (x) { return x[0] > lv; })[0];
+    html += '<section class="card"><div class="row" style="justify-content:space-between"><b>' + lvChip(lv) + " " + h(rankOf(lv)) + '</b><span class="muted">' + into + " / " + need + " XP to level " + (lv + 1) + '</span></div><div class="bar" style="margin-top:8px;height:16px"><i style="width:' + (into / need * 100) + '%"></i></div>' +
+      '<p class="muted" style="margin:10px 0 0">' + (nt ? t[1] + " tier · " + nt[1] + " tier at level " + nt[0] + ". " : "Top tier reached! ") + h(nextUnlockLine(lv, xp)) + ".</p>" +
+      '<p class="muted" style="margin:6px 0 0"><b>Ways to earn XP:</b> clear stages, pass quizzes, earn medals (+' + MEDAL_XP + " XP each) and come back each day for a daily bonus (+" + dailyBonus(1) + " XP, up to +" + dailyBonus(9) + " XP on a streak).</p></section>" +
+      '<section class="stats"><div class="stat"><b>' + cleared + '</b><span>stages cleared</span></div><div class="stat"><b>' + Object.keys(S.done).filter(function (k) { return !S.done[k].sol && !S.done[k].skip; }).length + '</b><span>solved without peeking</span></div><div class="stat"><b>' + quizzes + '</b><span>quizzes taken</span></div><div class="stat"><b>' + got + " / " + medals.length + '</b><span>medals</span></div></section>' +
+      '<div class="board"><section class="card"><h2 class="sub">SECTIONS</h2><div class="secbars">' + SECS.map(function (s) { var d = secDone(s); return '<div class="secbar" style="--sc:var(--' + s.color + ')"><span>' + h(s.title) + '</span><span class="bar"><i style="width:' + (d / s.stages.length * 100) + '%"></i></span><span>' + d + "/" + s.stages.length + "</span></div>"; }).join("") + "</div></section>" +
+      '<section class="card"><h2 class="sub">RANKS</h2><div class="ranks">' + RANKS.map(function (r) { return '<div class="rank' + (lv >= r[0] ? " got" : "") + '"><span class="lvn" style="--tc:' + tierOf(r[0])[2] + '">LV ' + r[0] + "</span><span>" + r[1] + "</span></div>"; }).join("") + "</div></section></div>" +
+      arcadeCard() + medalShelf();
+  } else if (tab === "look") html += lookTab(lv);
+  else if (tab === "style") html += styleTab(st);
+  else if (tab === "medals") html += '<section class="card"><h2 class="sub">MEDALS · ' + got + " / " + medals.length + '</h2><p class="muted" style="margin-top:0">Every medal is worth +' + MEDAL_XP + ' XP, and some unlock a theme, effect or profile item.</p><div class="medals">' + medals.map(medalTile).join("") + "</div></section>";
+  else html += unlockCard(lv, xp);
+  V.innerHTML = html + "</div>";
   if ($("devToasts")) $("devToasts").onclick = devToasts;
+  var redraw = function () { var y = window.scrollY; viewMe(V, tab); highlightAll(V); window.scrollTo(0, y); };
+  V.querySelectorAll("[data-look]").forEach(function (b) { b.onclick = function () {
+    var kind = b.getAttribute("data-look"), key = b.getAttribute("data-val");
+    if (b.classList.contains("locked")) return lockedMsg(kind, key, b.getAttribute("data-name"));
+    setLook(kind, key); SFX.click(); checkMedals(300); redraw();
+  }; });
+  V.querySelectorAll("[data-pin]").forEach(function (b) { b.onclick = function () {
+    var id = b.getAttribute("data-pin"), s = look().show.slice(), i = s.indexOf(id);
+    if (i >= 0) s.splice(i, 1); else if (s.length >= 3) return toast("You can pin 3 medals. Tap a pinned one to unpin it first."); else s.push(id);
+    setLook("show", s); checkMedals(300); redraw();
+  }; });
+  if ($("lookMotto")) $("lookMotto").oninput = function () { var v = this.value.slice(0, 40), m = $("pMotto"); setLook("motto", v); m.hidden = !v.trim(); m.textContent = "“" + v + "”"; };
+  if ($("lookMotto")) $("lookMotto").onchange = function () { checkMedals(300); };
+  var pickSet = function (attr, kind, key, after) {
+    V.querySelectorAll("button[data-" + attr + "]").forEach(function (b) { b.onclick = function () {
+      var v = b.getAttribute("data-" + attr); if (b.classList.contains("locked")) return lockedMsg(kind, v, b.querySelector("b").textContent);
+      st[key] = v; save("settings", st); applySettings(); V.querySelectorAll("button[data-" + attr + "]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); if (after) after();
+    }; });
+  };
+  pickSet("skin", "skin", "skin"); pickSet("bgfx", "bg", "bgFx"); pickSet("trail", "trail", "trail"); pickSet("snd", "sound", "soundPack", sndPreview);
 }
 
 // ---------------- SETTINGS ----------------
@@ -22511,13 +22749,11 @@ function viewSettings(V) {
   var myLv = levelOf(totalXp()), lk = function (kind, key) { return lockReq(kind, key, myLv); };
   var tog = function (id, label, on) { return '<label class="toggle"><span>' + label + '</span><input type="checkbox" class="switch" id="' + id + '"' + (on ? " checked" : "") + "></label>"; };
   V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">OPTIONS</p><h1>Settings</h1><p class="muted" style="margin:6px 0 0">Changes save as you make them.</p></div><button class="ghost" id="resetSet">Reset settings to defaults</button></section>' +
-    '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Theme"], ["setBg", "Background & effects"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setLayout", "Layout & look"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setKeys2", "Shortcuts"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" +
+    '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Themes & sounds"], ["setBg", "Background & effects"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setLayout", "Layout & look"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setKeys2", "Shortcuts"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" +
     '<div class="setgrid">' +
     '<section class="card" id="setPlayer"><h2 class="sub">PLAYER</h2><div class="field"><label for="setName">Your name</label><input type="text" id="setName" maxlength="24" value="' + h(nameOf()) + '"><span class="hint2">Lessons, greetings, and some starter code use this name.</span></div></section>' +
-    '<section class="card" id="setTheme"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { var n = lk("skin", s[0]); return '<button type="button" class="swatch' + (n ? " locked" : "") + '" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(s[1]) + ', locked until ' + lockWords(n) + '"' : "") + '><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + "</b>" + (n ? lockTag(n) : '<span class="muted">' + s[2] + "</span>") + "</button>"; }).join("") + "</div>" +
-    '<p class="hint2 unlhint">You are level ' + myLv + ". New themes, backgrounds, mouse trails and sound themes unlock as you level up, and some are medal rewards. " + '<button class="linkish" type="button" data-go="me">See what unlocks next</button></p></section>' +
-    '<section class="card" id="setBg"><h2 class="sub">BACKGROUND & EFFECTS</h2><p class="muted" style="margin-top:0;font-size:14px">A moving background behind everything. Tap one to try it. Press X anywhere to flip through them.</p><div class="fxpick" role="group" aria-label="Background effect">' +
-    BGFX.map(function (f) { var n = lk("bg", f[0]); return '<button type="button" class="fxbtn' + (n ? " locked" : "") + '" data-bgfx="' + f[0] + '" aria-pressed="' + (st.bgFx === f[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(f[1]) + ', locked until ' + lockWords(n) + '"' : "") + '><b>' + h(f[1]) + "</b>" + (n ? lockTag(n) : '<span class="muted">' + h(f[2]) + "</span>") + "</button>"; }).join("") + "</div>" +
+    '<section class="card" id="setTheme"><h2 class="sub">THEMES & SOUNDS</h2><p class="muted" style="margin-top:0">Themes, backgrounds, mouse trails and sound themes now live on your player card, next to your avatar and everything you have unlocked.</p><div class="row"><button class="btn primary" type="button" data-go="me" data-arg="style">Pick a theme or sound</button><button class="btn" type="button" data-go="me" data-arg="look">Customize your profile</button></div></section>' +
+    '<section class="card" id="setBg"><h2 class="sub">BACKGROUND & EFFECTS</h2><p class="muted" style="margin-top:0;font-size:14px">A moving background behind everything. Pick one on your <button class="linkish" type="button" data-go="me" data-arg="style">player card</button>, or press X anywhere to flip through them. These options tune it.</p>' +
     '<div class="field"><label for="setBgColor">Effect colors</label>' + sel("setBgColor", [["theme", "Theme colors"], ["rainbow", "Rainbow"], ["mono", "One color (matches the text)"]], st.bgColor) + "</div>" +
     '<div class="field"><label for="setBgAmount">How much</label>' + sel("setBgAmount", [["few", "A little"], ["normal", "Some"], ["lots", "Lots"]], st.bgDensity) + "</div>" +
     '<div class="field"><label for="setBgSpeed">Speed</label>' + sel("setBgSpeed", [["slow", "Slow"], ["normal", "Normal"], ["fast", "Fast"]], st.bgSpeed) + "</div>" +
@@ -22527,7 +22763,6 @@ function viewSettings(V) {
     '<h3 class="setsub">LAYERS</h3>' + tog("setBgGlow", "Ambient glow (soft moving color clouds)", st.bgGlow) + tog("setBgMove", "Move the theme's pattern", st.bgMove) + '<span class="hint2">For patterned themes: Neon \'80s, Girlypop, Toon Checker and Terminal.</span>' + tog("setBgScan", "Retro screen lines (old TV look)", st.bgScan) +
     '<h3 class="setsub">FLAIR</h3><div class="field"><label for="setPageAnim">Page change animation</label>' + sel("setPageAnim", [["off", "Off"], ["fade", "Fade"], ["rise", "Rise up"], ["slide", "Slide in"]], st.pageAnim) + "</div>" +
     '<div class="field"><label for="setHover">When you point at a card</label>' + sel("setHover", [["off", "Nothing"], ["lift", "It lifts up"], ["glow", "It glows"]], st.hoverFx) + "</div>" +
-    '<div class="field"><label for="setTrail">Mouse trail</label>' + sel("setTrail", TRAILS.map(function (t) { var n = lk("trail", t[0]); return n ? [t[0], t[1] + " (" + unlockWords(n) + ")"] : t; }), st.trail) + "</div>" +
     tog("setClickFx", "Sparkle burst when you click a button", st.clickFx) +
     '<span class="hint2">With Animations turned off (Sound & feel), backgrounds show a still picture and the flair stays off.</span></section>' +
     '<section class="card" id="setLayout"><h2 class="sub">LAYOUT & LOOK</h2>' +
@@ -22564,7 +22799,7 @@ function viewSettings(V) {
     tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + "</section>" +
     '<section class="card" id="setQuiz"><h2 class="sub">QUIZZES</h2>' + tog("setShuffle", "Shuffle answer choices", st.quizShuffle) + tog("setQAuto", "Go to the next question after a right answer", st.quizAuto) + "</section>" +
     '<section class="card" id="setFeel"><h2 class="sub">SOUND & FEEL</h2>' + tog("setSound", "Sound effects", st.sound) + tog("setClick", "Click sounds on buttons", st.clickSound) + tog("setTypeSnd", "Typing sounds in code and answer boxes", st.typeSound) +
-    '<div class="field" style="margin-top:10px"><label for="setSndPack">Sound theme</label>' + sel("setSndPack", SOUNDS.map(function (t) { var n = lk("sound", t[0]); return [t[0], t[1] + (n ? " (" + unlockWords(n) + ")" : ": " + t[2])]; }), st.soundPack) + '<span class="hint2">Changes the click and typing sounds, and gives the other game sounds a new flavor. You hear a preview when you pick one.</span></div>' + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
+    '<p class="hint2" style="margin-top:10px">Sound themes are on your <button class="linkish" type="button" data-go="me" data-arg="style">player card</button>.</p>' + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
     '<section class="card" id="setKeys2"><h2 class="sub">SHORTCUTS</h2>' + tog("setShortcuts", "Keyboard shortcuts", st.shortcuts) + '<span class="hint2">Single keys like M for Map and V for sound. Press ? anywhere to see them all.</span><div class="row" style="margin-top:10px"><button class="ghost" type="button" id="kbList">Show all shortcuts</button></div></section>' +
     '<section class="card" id="setSave"><h2 class="sub">SAVE DATA</h2><p class="muted" style="margin-top:0;font-size:14px">Progress saves in this browser automatically. To move it to another device or keep a backup, copy your save code and paste it in on the other device.</p>' +
     '<div class="row"><button class="btn" id="expBtn">Copy save code</button><button class="btn" id="impBtn">Load save code</button></div><div id="saveArea"></div>' +
@@ -22594,9 +22829,7 @@ function viewSettings(V) {
   bind("setIndent", "indent", function (e) { return Number(e.value); }); bind("setEdH", "edHeight");
   bind("setShuffle", "quizShuffle", function (e) { return e.checked; }); bind("setQAuto", "quizAuto", function (e) { return e.checked; });
   bind("setClick", "clickSound", function (e) { return e.checked; });
-  bind("setTypeSnd", "typeSound", function (e) { return e.checked; }); bind("setSndPack", "soundPack");
-  V.querySelectorAll("#setSndPack option").forEach(function (o) { if (lk("sound", o.value)) o.disabled = true; });
-  $("setSndPack").addEventListener("change", sndPreview);
+  bind("setTypeSnd", "typeSound", function (e) { return e.checked; });
   var chk = function (e) { return e.checked; };
   bind("setBtnSize", "btnSize"); bind("setDensity", "density"); bind("setPageW", "pageWidth"); bind("setBorders", "borders"); bind("setShadows", "shadows"); bind("setCorners", "corners");
   bind("setIcons", "icons", chk); bind("setDots", "dots", chk); bind("setLinks", "learnLinks", chk);
@@ -22607,8 +22840,7 @@ function viewSettings(V) {
   bind("setBgColor", "bgColor"); bind("setBgAmount", "bgDensity"); bind("setBgSpeed", "bgSpeed"); bind("setBgStrength", "bgStrength");
   bind("setBgMouse", "bgMouse", chk); bind("setBgCalm", "bgCalm", chk); bind("setBgFps", "bgFps", function (e) { return e.checked ? "saver" : "smooth"; });
   bind("setBgGlow", "bgGlow", chk); bind("setBgMove", "bgMove", chk); bind("setBgScan", "bgScan", chk);
-  bind("setPageAnim", "pageAnim"); bind("setHover", "hoverFx"); bind("setTrail", "trail");
-  V.querySelectorAll("#setTrail option").forEach(function (o) { if (lk("trail", o.value)) o.disabled = true; }); bind("setClickFx", "clickFx", chk);
+  bind("setPageAnim", "pageAnim"); bind("setHover", "hoverFx"); bind("setClickFx", "clickFx", chk);
   bind("setTop", "backTop", chk); bind("setToastPos", "toastPos");
   $("setToastPos").addEventListener("change", function () { toast("Messages will pop up here."); });
   $("kbList").onclick = showShortcuts;
@@ -22632,7 +22864,7 @@ function viewSettings(V) {
         var t = $("impTa").value.trim(); if (t.indexOf("SQ1:") !== 0) throw new Error("x");
         var dump = JSON.parse(decodeURIComponent(escape(atob(t.slice(4)))));
         allKeys().forEach(del); Object.keys(dump).forEach(function (k) { save(k, dump[k]); });
-        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.rvCleared = load("reviewCleared", 0); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.web = load("web", null); S.gs = load("gamestudio", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.medalsSeen = load("medals", {}); seedMedals(); seedUnlocks(); devSync(true);
+        S.profile = load("profile", S.profile); S.done = load("done", {}); S.quiz = load("quiz", {}); S.review = load("review", []); S.rvCleared = load("reviewCleared", 0); S.set = Object.assign({}, DEFAULTS, load("settings", {})); S.sbx = load("sandbox", null); S.web = load("web", null); S.gs = load("gamestudio", null); S.last = load("last", null); S.streak = load("streak", { last: "", cur: 0, best: 0 }); S.arc = load("arcade", {}); S.medalsSeen = load("medals", {}); S.bonus = load("bonus", { xp: 0, days: 0 }); seedMedals(); seedUnlocks(); seedLevel(); devSync(true);
         S.lastStage = load("lastStage", S.last && S.last.v === "stage" ? S.last.arg : null);
         applySettings(); toast("Save loaded. Welcome back, " + nameOf() + "!"); go("map");
       } catch (e) { $("impMsg").innerHTML = '<p style="color:var(--fail)">That code didn\'t work. Make sure you copied all of it, starting with SQ1:</p>'; }
@@ -22643,7 +22875,7 @@ function viewSettings(V) {
     if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to erase everything"; return; }
     var keepName = nameOf(), keepSet = S.set;
     allKeys().forEach(del);
-    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.web = null; S.gs = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.medalsSeen = {}; save("medals", {}); seedUnlocks();
+    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.web = null; S.gs = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.medalsSeen = {}; save("medals", {}); S.bonus = { xp: 0, days: 0 }; save("bonus", S.bonus); seedUnlocks(); seedLevel();
     toast("Progress erased."); go("map");
   };
 }
@@ -22665,6 +22897,7 @@ function onboard() {
 applySettings();
 seedMedals();
 seedUnlocks();
+seedLevel();
 devSync(true);
 // a share link (#sbx=SQS1:…) drops the shared code into the sandbox
 var shared = /^#sbx=/.test(location.hash || "") ? sbxDecode(location.hash) : null;
