@@ -634,6 +634,7 @@ pre.cb[data-k="txt"]{--kc:var(--k-pat);background:var(--panel2);color:var(--ink)
 .node:hover .disc{transform:translateY(-3px)}
 .node .disc .ring{position:absolute;inset:-3px;border:3px solid var(--sc);clip-path:inset(var(--clip) 0 0 0)}
 .node.full .disc{background:var(--sc);color:var(--panel)}
+.node:not(.full) .disc{color:var(--sc)}
 .node .nm{font-weight:700;font-size:15px;line-height:1.2}
 .node .ct{font-family:var(--f-display);font-size:11px;color:var(--muted)}
 .group-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:6px 0 -6px}
@@ -699,6 +700,54 @@ pre.cb[data-k="txt"]{--kc:var(--k-pat);background:var(--panel2);color:var(--ink)
 .hintbox .h{border-left:4px solid var(--gold);padding:6px 0 6px 12px;background:var(--panel2)}
 .hintbox .h p:last-child{margin:0}
 .reslinks{margin-top:16px;padding-top:12px;border-top:2px solid var(--line)}
+.reslinks>.group-h{margin:0 0 6px}.reslinks>.group-h h2{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--muted);margin:0}
+/* topic colors: one color per module, shared by the map, lessons, editor and Reference (readable on every theme) */
+:root{--tc-vars:#B01919;--tc-math:#8D4414;--tc-types:#6D5610;--tc-cond:#0F6716;--tc-loops:#0E6459;--tc-funcs:#1758A3;--tc-puzzles:#771FDB;--tc-arcade:#A5187B;--tc-arrays:#3920DF;--tc-objects:#901AB7;--tc-scope:#106272;--tc-es6:#AC1956;--tc-errors:#A32F17;--tc-async:#0F673B;--tc-dom:#2046DF;--tc-algo:#4B600E;--tc-hello:#135E84;--tc-bridge:#2B640E;--tc-regex:#9C169C;--tc-bits:#7D4F12;--tc-vecmath:#0E6264;--tc-procgen:#0F672C;--tc-web:#1C4FC7;--tc-gamedev:#AE193E}
+html[data-tone="dark"]{--tc-vars:#ED9999;--tc-math:#E6A172;--tc-types:#DDB43C;--tc-cond:#3CDD49;--tc-loops:#3CDDC7;--tc-funcs:#83B3E9;--tc-puzzles:#C4A0EE;--tc-arcade:#EC93D1;--tc-arrays:#B2A8F0;--tc-objects:#D899ED;--tc-scope:#3CC2DD;--tc-es6:#EC95B9;--tc-errors:#EB9C8C;--tc-async:#3CDD8C;--tc-dom:#9DAEEE;--tc-algo:#B4DD3C;--tc-hello:#65BAE4;--tc-bridge:#71DD3C;--tc-regex:#EB8EEB;--tc-bits:#E1A454;--tc-vecmath:#3CD7DD;--tc-procgen:#3CDD71;--tc-web:#95AFEC;--tc-gamedev:#ED97AC}
+html .board>.lesson,html .board>.console,html .sec-head>.card:first-child{border-top:6px solid var(--sc,var(--ink))}
+.lesson .eyebrow{color:var(--sc,var(--accent))}
+.console .cbar .file i{background:var(--sc,var(--gold))}
+.tchip{display:inline-flex;align-items:center;gap:6px;background:var(--panel);color:var(--sc);border:2px solid var(--sc);padding:3px 8px;font-family:var(--f-display);font-size:10px;letter-spacing:.06em;line-height:1.3;cursor:pointer;text-transform:uppercase}
+.tchip::before{content:"";width:8px;height:8px;background:var(--sc);flex:0 0 auto}
+.tchip:hover{background:var(--panel2)}
+.refitem{border-left:7px solid var(--sc,var(--ink))}
+.refitem .tchip{margin-top:10px}
+.refitem .tag{color:var(--muted)}
+.tpick{display:inline-flex;align-items:center;gap:6px}
+.tpick i{width:10px;height:10px;background:var(--sc,var(--ink));display:inline-block;flex:0 0 auto}
+.tpick small{color:var(--muted);font-size:12px}
+.tpick.on{border-color:var(--sc,var(--ink));box-shadow:inset 0 -3px 0 var(--sc,var(--ink))}
+.refview{gap:8px;align-items:center}
+.refview .foldall{margin-left:auto}
+.reflist>.fgrp{grid-column:1/-1}
+.reftopic>.group-h{border-bottom:4px solid var(--sc);padding-bottom:6px;margin:8px 0 12px;align-items:center}
+.reftopic>.group-h h2{color:var(--sc);font-size:18px}
+.reftopic>.group-h .ghost{margin-left:auto}
+.refcats>.group-h{margin:0 0 6px}
+.refcats>.group-h h2{font-size:11px;color:var(--muted)}
+.sidecol{display:grid;gap:var(--gap,20px);align-content:start;min-width:0}
+.refchips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.refchips button{background:var(--panel2);border:2px solid var(--line);color:var(--ink);font-family:var(--f-code);font-size:13px;padding:3px 8px;cursor:pointer}
+.refchips button:hover{border-color:var(--sc,var(--ink))}
+.reflook{margin:10px 0 0;font-size:14px}
+/* collapsing: tap a heading to fold its box away */
+.foldbtn{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;display:inline-flex;align-items:center;gap:10px;cursor:pointer;text-align:left;box-shadow:none;min-height:0}
+.foldbtn:hover{text-decoration:underline;text-underline-offset:4px}
+.foldbtn .chev{width:0;height:0;border:6px solid transparent;border-top:7px solid currentColor;border-bottom:0;flex:0 0 auto;transition:transform .15s}
+.folded>*>.foldbtn .chev,.folded>*>*>.foldbtn .chev,.folded>*>*>*>.foldbtn .chev{transform:rotate(-90deg)}
+.foldable.folded>.fold-body{display:none}
+section.card.foldable.folded>h2.sub,section.card.foldable.folded>.row,aside.card.foldable.folded>h2.sub{margin-bottom:0}
+.foldall{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.lfoldbtn{margin:0 0 10px}.readbtn+.lfoldbtn{margin-left:8px}
+.lesson.lfolded .lbody{display:none}
+.lesson.lfolded h1{margin-bottom:6px}
+/* daily streak counter in the menu */
+.dk.streak{gap:5px;padding:0 9px;color:var(--muted)}
+@media (min-width:1301px){.dock:has(.streak) .xpmini{width:40px}}
+@media (max-width:899px) and (min-width:761px){html:not([data-bar="left"]):not([data-bar="right"]) .logo{font-size:0;gap:0}}
+.dk.streak.lit{color:var(--warn)}
+.dk.streak .sn{font-family:var(--f-display);font-size:calc(13px * var(--scale));font-weight:400;color:var(--ink)}
+
 .reslinks b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px}
 .console{padding:0;display:flex;flex-direction:column;overflow:hidden;position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--bar-off,78px))}
 .cbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-bottom:2px solid var(--ink);flex-wrap:wrap;background:var(--panel)}
@@ -20119,7 +20168,8 @@ var DEFAULTS = {
   lineHeight: "normal", letterSpacing: "normal", measure: "normal", toastTime: "normal", focusStrong: false, cbColors: false,
   wrap: false, indent: 2, brackets: true, edHeight: "medium", readAloud: true, readRate: 1, quizShuffle: true, quizAuto: false, clickSound: true,
   soundPack: "retro", typeSound: false, bgFx: "off", bgColor: "theme", bgDensity: "normal", bgSpeed: "normal", bgStrength: "normal", bgMouse: true, bgCalm: true, bgFps: "smooth",
-  bgGlow: false, bgMove: false, bgScan: false, pageAnim: "off", hoverFx: "off", trail: "off", clickFx: false, backTop: true, toastPos: "bottom"
+  bgGlow: false, bgMove: false, bgScan: false, pageAnim: "off", hoverFx: "off", trail: "off", clickFx: false, backTop: true, toastPos: "bottom",
+  topicColors: true, showStreak: true
 };
 var S = {
   profile: load("profile", null),
@@ -20135,7 +20185,8 @@ var S = {
   medalsSeen: load("medals", {}),
   streak: load("streak", { last: "", cur: 0, best: 0 }),
   arc: load("arcade", {}),
-  bonus: load("bonus", { xp: 0, days: 0 })
+  bonus: load("bonus", { xp: 0, days: 0 }),
+  fold: load("fold", {})
 };
 S.lastStage = load("lastStage", S.last && S.last.v === "stage" ? S.last.arg : null);
 function lastStageObj() { return (S.lastStage && STAGE[S.lastStage]) || null; }
@@ -20155,6 +20206,33 @@ var GROUPS = [
   { id: "build", title: "Build Real Things", sub: "Put JavaScript to work on real projects, starting with websites that look good and work well." },
   { id: "bonus", title: "Bonus Modules", sub: "A first-timer tutorial, engine bridges, and extra topics to explore any time." }
 ];
+// every module has its own topic color (--tc-<id>); Settings can switch back to the old shared palette
+var TC_IDS = "vars math types cond loops funcs puzzles arcade arrays objects scope es6 errors async dom algo hello bridge regex bits vecmath procgen web gamedev".split(" ");
+function secColors() { SECS.forEach(function (s) { if (!s.color0) s.color0 = s.color; s.color = S.set.topicColors && TC_IDS.indexOf(s.id) >= 0 ? "tc-" + s.id : s.color0; }); }
+function secVar(s) { return "var(--" + s.color + ")"; }
+// each Reference word belongs to the module that teaches it: a default per category, then word by word
+var REF_CAT = { "Basic Words": "hello", "Concepts": "funcs", "Logic": "math", "Errors": "errors", "Built-ins": "hello", "Games": "gamedev", "Keywords": "hello", "Operators": "math", "Symbols": "hello", "Browser & DOM": "dom", "Math": "math", "Numbers": "types", "Strings": "types", "Arrays": "arrays", "Objects": "objects", "Functions": "funcs", "Async": "async", "Other Languages": "bridge" };
+var REF_TOPIC = {
+  vars: ["variable", "identifier", "value", "camelCase", "state", "let", "const", "var", "= (assign)", "_ (underscore)", "$ (dollar)"],
+  types: ["string", "number", "boolean", "null", "undefined", "NaN", "Infinity", "type", "primitive", "array", "index", "element", "concatenation", "string interpolation", "reference", "type coercion", "JSON", "typeof", "true / false", "\" ' (quotes)", "` (backtick)", "${ }", "[ ] square brackets", "JSON.stringify / JSON.parse", "Map", "Set", "WeakMap"],
+  math: ["operator", "operand"],
+  funcs: ["function", "parameter", "argument", "return value", "call", "function (keyword)", "return"],
+  objects: ["method", "property", "object", "mutate", "class", "constructor", "extends", "super", "new", "static", "get / set", "instanceof", "delete", "#"],
+  loops: ["loop", "break", "continue", "for", "for...of", "for...in", "while", "do...while"],
+  cond: ["condition", "block", "truthy", "falsy", "short-circuit", "if", "switch", "=== (strict equality)", "== (loose equality)", "!== (strict inequality)", "< > <= >=", "? : (ternary)"],
+  errors: ["bug", "debugging", "try / catch / finally", "throw"],
+  scope: ["scope", "hoisting", "temporal dead zone", "closure", "strict mode", "this", "bind / call / apply", "IIFE"],
+  algo: ["algorithm", "Big-O", "data structure", "stack", "queue"],
+  bits: ["XOR", "BigInt"],
+  dom: ["alert / prompt"],
+  web: ["localStorage"],
+  vecmath: ["vector", "lerp", "Math.PI / sin / cos / atan2", "Math.sign", "Math.sqrt / Math.hypot"],
+  gamedev: ["requestAnimationFrame"],
+  async: ["async", "await"],
+  es6: ["yield", "import / export", "?? (nullish coalescing)", "?. (optional chaining)", "... (spread / rest)", "=> (arrow)", "??= ||= &&=", "destructuring", "Symbol", "generator", "iterator"]
+};
+(function () { var by = {}; Object.keys(REF_TOPIC).forEach(function (k) { REF_TOPIC[k].forEach(function (t) { by[t] = k; }); }); D.ref.forEach(function (e) { e.topic = by[e.term] || REF_CAT[e.cat] || "hello"; if (!SEC[e.topic]) e.topic = "hello"; }); })();
+function refCount(id) { return D.ref.filter(function (e) { return e.topic === id; }).length; }
 function stageXp(st) { return st.xp || st.sec.xp || 10; }
 function secDone(s) { var n = 0; s.stages.forEach(function (st) { if (S.done[st.id]) n++; }); return n; }
 function totalXp() {
@@ -20587,7 +20665,7 @@ function applySettings() {
   r.style.setProperty("--bgfx-op", { faint: .35, normal: .65, bold: 1 }[st.bgStrength] || .65);
   setA("data-glow", st.bgGlow ? "on" : ""); setA("data-bgmove", st.bgMove ? "on" : ""); setA("data-scan", st.bgScan ? "on" : "");
   setA("data-pageanim", st.pageAnim !== "off" ? st.pageAnim : ""); setA("data-hover", st.hoverFx !== "off" ? st.hoverFx : ""); setA("data-toastpos", st.toastPos !== "bottom" ? st.toastPos : "");
-  bgCalmAttr(); bgStart(); toTopCheck(); sndPick();
+  bgCalmAttr(); bgStart(); toTopCheck(); sndPick(); secColors();
   if (editor && editor.cm) { editor.cm.setOption("lineNumbers", st.lineNumbers); editor.cm.setOption("autoCloseBrackets", st.autoClose); editor.cm.setOption("styleActiveLine", st.activeLine); editor.cm.setOption("lineWrapping", st.wrap); editor.cm.setOption("matchBrackets", st.brackets); editor.cm.setOption("indentUnit", Number(st.indent)); editor.cm.setOption("tabSize", Number(st.indent)); setGuides(editor.cm); editor.cm.refresh(); }
 }
 
@@ -20668,6 +20746,8 @@ function bgReadColors() {
   BG.ink = g("--ink") || "#222";
   var m = /^#([0-9a-f]{6})$/i.exec(g("--bg")), n = m ? parseInt(m[1], 16) : 0xffffff;
   BG.dark = 0.299 * (n >> 16) + 0.587 * (n >> 8 & 255) + 0.114 * (n & 255) < 128;
+  // topic colors come in a dark shade for light themes and a light shade for dark ones
+  document.documentElement.setAttribute("data-tone", BG.dark ? "dark" : "light");
 }
 // a particle's color: theme palette (or the effect's own), rainbow, or the text color
 function bgCol(p, a) {
@@ -21245,6 +21325,7 @@ var GLYPH = {
   sound: ["...#......", "..##.#..#.", "####..#..#", "####..#..#", "####..#..#", "..##.#..#.", "...#......"],
   mute: ["...#......", "..##.#...#", "####..#.#.", "####...#..", "####..#.#.", "..##.#...#", "...#......"],
   up: ["...#...", "..###..", ".##.##.", "##...##", "#.....#"],
+  flame: ["..#....", "..##...", ".####..", ".##.##.", "##..###", "##...##", ".#####."],
   down: ["#.....#", "##...##", ".##.##.", "..###..", "...#..."],
   left: ["...##", "..##.", ".##..", "##...", ".##..", "..##.", "...##"],
   right: ["##...", ".##..", "..##.", "...##", "..##.", ".##..", "##..."],
@@ -21259,6 +21340,10 @@ function dockHtml(lv, xp, pct) {
   var c = S.profile ? lastStageObj() : null, off = !S.set.sound;
   var out = '<div class="dock" role="toolbar" aria-label="Quick actions">';
   if (S.set.showCont && c && !(route.v === "stage" && route.arg === c.id)) out += '<button class="dk cont" data-go="stage" data-arg="' + c.id + '" title="Continue: ' + h(c.sec.title) + " " + c.n + '" aria-label="Continue where you left off: ' + h(c.sec.title) + " stage " + c.n + '">' + glyph("play") + '<span class="ct">Continue<small>' + h(c.sec.title) + " · " + c.n + "</small></span></button>";
+  if (S.set.showStreak) {
+    var sk = streakNow(), lit = S.streak.last === dayKey();
+    out += '<button class="dk streak' + (lit ? " lit" : "") + '" data-go="me" title="' + (sk ? sk + "-day streak. " + (lit ? "You've practised today!" : "Clear a stage or a quiz today to keep it going.") : "No streak yet. Clear a stage today to start one.") + (S.streak.best > 1 ? " Best: " + S.streak.best + " days." : "") + '" aria-label="Daily streak: ' + sk + " day" + (sk === 1 ? "" : "s") + ' in a row">' + glyph("flame") + '<b class="sn">' + sk + '</b><span class="fl">day streak</span></button>';
+  }
   out += '<button class="dk mute" data-mute aria-pressed="' + off + '" aria-label="Mute all sounds" title="' + (off ? "Sound is off. Click to turn it on" : "Mute all sounds") + '">' + glyph(off ? "mute" : "sound") + '<span class="fl">' + (off ? "Muted" : "Sound on") + "</span></button>";
   if (S.set.showMe) out += '<button class="dk me" data-go="me" aria-label="Your profile, level ' + lv + '">' + avatarHtml(look(), "sm") + lvChip(lv, "lv") + '<span class="nm">' + h(nameOf()) + '</span>' + (devMode() ? '<span class="devtag">DEV</span>' : "") + '<span class="xpmini" title="' + xp + ' XP"><i style="width:' + pct + '%"></i></span></button>';
   out += '<button class="dk fold" data-hidebar aria-label="Hide the menu bar" title="Hide the menu bar">' + glyph({ top: "up", bottom: "down", left: "left", right: "right" }[S.set.barPos] || "up") + '<span class="fl">Hide</span></button>';
@@ -21289,9 +21374,44 @@ document.addEventListener("click", function (e) {
   if (e.target.closest("[data-mute]")) { toggleMute(); return; }
   if (e.target.closest("[data-hidebar]")) { setBarHidden(true); return; }
   if (e.target.closest("[data-showbar]")) { setBarHidden(false); return; }
+  var fb = e.target.closest("[data-fold]");
+  if (fb) { var box = fb.closest(".foldable"); if (box) { SFX.click(); setFold(box, !box.classList.contains("folded"), true); } return; }
+  var fa = e.target.closest("[data-foldall]");
+  if (fa) { var all = fa.getAttribute("data-foldall") === "1"; SFX.click(); $("view").querySelectorAll(".foldable").forEach(function (b) { setFold(b, all, true); }); toast(all ? "Collapsed. Tap any heading to open it again." : "Everything is open again."); return; }
+  var lf = e.target.closest("[data-lfold]");
+  if (lf) { var art = lf.closest(".lesson"), k = "l:" + lf.getAttribute("data-lfold"), shut = !art.classList.contains("lfolded"); SFX.click(); art.classList.toggle("lfolded", shut); if (shut) S.fold[k] = 1; else delete S.fold[k]; save("fold", S.fold); lf.textContent = shut ? "Show the lesson" : "Hide the lesson"; lf.setAttribute("aria-expanded", String(!shut)); return; }
+  var rt = e.target.closest("[data-reft]");
+  if (rt) { e.preventDefault(); SFX.click(); refState.topic = rt.getAttribute("data-reft"); refState.q = rt.getAttribute("data-refq") || ""; refState.cat = "All"; go("ref"); return; }
   var g = e.target.closest("[data-go]");
   if (g) { e.preventDefault(); SFX.click(); go(g.getAttribute("data-go"), g.getAttribute("data-arg")); }
 });
+
+// ---------------- collapsing ----------------
+// any card with a small heading (and any .fgrp block) folds away when its heading is tapped; the choice is remembered
+function foldAllHtml() { return '<div class="foldall" role="group" aria-label="Collapse or expand sections"><button class="ghost small" type="button" data-foldall="1">Collapse all</button><button class="ghost small" type="button" data-foldall="0">Expand all</button></div>'; }
+function setFold(box, on, keep) {
+  box.classList.toggle("folded", on);
+  var b = box.querySelector(".foldbtn"); if (b) b.setAttribute("aria-expanded", String(!on));
+  if (keep) { var k = box.getAttribute("data-fk"); if (on) S.fold[k] = 1; else delete S.fold[k]; save("fold", S.fold); }
+}
+function foldify(root, scope) {
+  if (!root) return;
+  root.querySelectorAll("section.card, aside.card, .fgrp").forEach(function (box) {
+    if (box.classList.contains("foldable")) return;
+    var head = null;
+    for (var c = box.firstElementChild; c; c = c.nextElementSibling) if (c.matches("h2.sub, .group-h") || (c.matches(".row") && c.querySelector(":scope > h2.sub"))) { head = c; break; }
+    var h2 = head && (head.matches("h2") ? head : head.querySelector("h2"));
+    if (!h2 || !head.nextElementSibling || h2.querySelector("button")) return;
+    var key = scope + ":" + (box.getAttribute("data-fk") || box.id || h2.textContent.toLowerCase().replace(/[0-9]+/g, "").replace(/[^a-z]+/g, "-").replace(/^-|-$/g, "").slice(0, 32));
+    var body = document.createElement("div"); body.className = "fold-body";
+    while (head.nextSibling) body.appendChild(head.nextSibling);
+    box.appendChild(body);
+    h2.innerHTML = '<button type="button" class="foldbtn" data-fold aria-expanded="true">' + h2.innerHTML + '<span class="chev" aria-hidden="true"></span></button>';
+    box.classList.add("foldable"); box.setAttribute("data-fk", key);
+    if (S.fold[key]) setFold(box, true);
+  });
+}
+if (window.MutationObserver && $("view")) new MutationObserver(function () { foldify($("view"), route.v); }).observe($("view"), { childList: true });
 
 var cleanupView = null;
 function go(v, arg, opts) {
@@ -21346,18 +21466,18 @@ function viewMap(V) {
   html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + (streakNow() > 1 ? " · " + streakNow() + "-DAY STREAK" : "") + "</p><h1>" + greet + '</h1><p class="muted nextunl"><button class="linkish" type="button" data-go="me" data-arg="unlocks">' + h(nextUnlockLine(lv, xp)) + "</button></p></div>" +
     '<div class="row">' + (cont ? '<button class="btn primary" data-go="stage" data-arg="' + cont.id + '">' + icon("play") + "Continue: " + h(cont.sec.title) + " " + cont.n + "</button>" : "") +
     (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="review">Review Deck: ' + (rvQs().length + rvStages().length) + " to review</button>" : "") + "</div></section>";
-  html += '<section class="stats" aria-label="Your stats">' +
+  html += foldAllHtml() + '<section class="stats" aria-label="Your stats">' +
     '<div class="stat"><b>' + stagesDone + '</b><span>stages cleared of ' + totalStages + "</span></div>" +
     '<div class="stat"><b>' + puzzles + '</b><span>puzzles solved</span></div>' +
     '<div class="stat"><b>' + quizzesPassed + '</b><span>quizzes passed of ' + D.quizzes.length + "</span></div>" +
     '<div class="stat"><b>' + xp.toLocaleString() + '</b><span>XP · ' + arcade + " arcade stages</span></div></section>";
   html += medalShelf();
   var rvN = rvQs().length + rvStages().length;
-  if (rvN || S.rvCleared) html += '<div class="group-h"><h2>REVIEW DECK</h2><span class="muted">Mistakes collect here so you can come back and beat them.</span></div><section class="carts"><button class="cart" data-go="review" style="--sc:var(--fail)"><span class="band"><span>↻ ' + rvN + " TO REVIEW</span><span>" + S.rvCleared + ' CLEARED</span></span><span class="body"><h3>Review Deck</h3><p>' + (rvN ? rvQs().length + " quiz question" + (rvQs().length === 1 ? "" : "s") + " and " + rvStages().length + " stage" + (rvStages().length === 1 ? "" : "s") + " to try again." : "All clear. New mistakes will show up here.") + "</p></span></button></section>";
+  if (rvN || S.rvCleared) html += '<div class="fgrp" data-fk="review"><div class="group-h"><h2>REVIEW DECK</h2><span class="muted">Mistakes collect here so you can come back and beat them.</span></div><section class="carts"><button class="cart" data-go="review" style="--sc:var(--fail)"><span class="band"><span>↻ ' + rvN + " TO REVIEW</span><span>" + S.rvCleared + ' CLEARED</span></span><span class="body"><h3>Review Deck</h3><p>' + (rvN ? rvQs().length + " quiz question" + (rvQs().length === 1 ? "" : "s") + " and " + rvStages().length + " stage" + (rvStages().length === 1 ? "" : "s") + " to try again." : "All clear. New mistakes will show up here.") + "</p></span></button></section></div>";
   GROUPS.forEach(function (g) {
     var secs = SECS.filter(function (s) { return s.group === g.id && !(s.secret && isLocked("section", s.id, lv)); });
     if (!secs.length) return;
-    html += '<div class="group-h"><h2>' + g.title.toUpperCase() + '</h2><span class="muted">' + g.sub + "</span></div>";
+    html += '<div class="fgrp" data-fk="g-' + g.id + '"><div class="group-h"><h2>' + g.title.toUpperCase() + '</h2><span class="muted">' + g.sub + "</span></div>";
     if (g.id === "core") {
       html += '<section class="path card" aria-label="Main path">' + secs.map(function (s) {
         var d = secDone(s), pct = d / s.stages.length;
@@ -21366,6 +21486,7 @@ function viewMap(V) {
     } else {
       html += '<section class="carts">' + secs.map(cartHtml).join("") + "</section>";
     }
+    html += "</div>";
   });
   html += "</div>";
   V.innerHTML = html;
@@ -21378,6 +21499,11 @@ function cartHtml(s) {
 }
 
 // ---------------- SECTION ----------------
+// the Reference words for a module, in its color, so a word you meet in a lesson is one tap away
+function refWordsHtml(s) {
+  var w = D.ref.filter(function (e) { return e.topic === s.id; }); if (!w.length) return "";
+  return '<aside class="card refwords"><h2 class="sub">REFERENCE WORDS</h2><p class="muted" style="margin:0;font-size:14px">Plain-English meanings for the words in this module.</p><div class="refchips">' + w.slice(0, 16).map(function (e) { return '<button type="button" data-reft="' + s.id + '" data-refq="' + h(e.term) + '">' + h(e.term) + "</button>"; }).join("") + '</div><button class="tchip" type="button" data-reft="' + s.id + '">All ' + w.length + " " + h(s.title) + " words ›</button></aside>";
+}
 function viewSection(V, id) {
   var s = SEC[id]; if (!s) return viewMap(V);
   if (isLocked("section", s.id)) {
@@ -21396,7 +21522,7 @@ function viewSection(V, id) {
     (split ? '<p class="muted" style="margin:8px 0 0">Core stages: <b>' + cd + " / " + cs.length + "</b>. Clear the core to move on. Faded tiles are extra practice for whenever you want more.</p>" : "") +
     (s.stages.some(function (st) { return st.step; }) ? loopLine() : "") + skipHtml(s) +
     (secQuizzes(s).length ? '<div class="row sec-quiz" style="margin-top:12px"><span class="muted">Check your understanding:</span>' + secQuizzes(s).map(function (q) { var r = S.quiz[q.id], ok = r && r.best / r.total >= .7; return '<button class="btn small" data-go="quiz" data-arg="' + q.id + '">' + (ok ? "✓ " : "") + h(q.title) + "</button>"; }).join("") + "</div>" : "") + "</div>" +
-    '<aside class="card"><h2 class="sub">READ MORE</h2><ul class="links">' + s.links.map(function (l) { return '<li><a href="' + h(l[1]) + '" target="_blank" rel="noopener">' + h(l[0]) + "</a></li>"; }).join("") + "</ul></aside></section>" +
+    '<div class="sidecol"><aside class="card"><h2 class="sub">READ MORE</h2><ul class="links">' + s.links.map(function (l) { return '<li><a href="' + h(l[1]) + '" target="_blank" rel="noopener">' + h(l[0]) + "</a></li>"; }).join("") + "</ul></aside>" + refWordsHtml(s) + "</div></section>" +
     '<section class="grid50" aria-label="Stages">' + s.stages.map(function (st) {
       var dn = S.done[st.id];
       var ex = split && !isCore(st);
@@ -21620,13 +21746,14 @@ function viewStage(V, id) {
     '<div class="row"><div class="dots" aria-hidden="true">' + s.stages.map(function (x) { return "<i class=\"" + (x.id === st.id ? "c" : S.done[x.id] ? "d" : "") + '"></i>'; }).join("") + "</div>" +
     (prev ? '<button class="btn small" data-go="stage" data-arg="' + prev.id + '" aria-label="Previous stage">‹ Prev</button>' : "") +
     (next ? '<button class="btn small" data-go="stage" data-arg="' + next.id + '" aria-label="Next stage">Next ›</button>' : "") + "</div></div>" +
-    '<div class="board"><article class="card lesson"><p class="eyebrow">' + h(s.title.toUpperCase()) + " · STAGE " + st.n + (S.done[st.id] ? ' · <span style="color:var(--pass)">CLEARED</span>' : "") + stepChip(st) + "</p><h1>" + h(st.t) + "</h1>" + readBtnHtml() + hookHtml(st) +
-    (inDeck ? '<div class="callout"><b>REVIEW DECK</b><p>This stage tripped you up before. Clear it again to take it off your <button class="linkish" type="button" data-go="review">Review Deck</button>.</p></div>' : "") + lessonExtras(st) + (st.l ? '<div class="prose">' + personal(st.l) + "</div>" : recapHtml(st)) +
+    '<div class="board"><article class="card lesson' + (S.fold["l:" + st.id] ? " lfolded" : "") + '"><p class="eyebrow">' + h(s.title.toUpperCase()) + " · STAGE " + st.n + (S.done[st.id] ? ' · <span style="color:var(--pass)">CLEARED</span>' : "") + stepChip(st) + "</p><h1>" + h(st.t) + "</h1>" + readBtnHtml() + (st.l || st.hook ? '<button class="ghost small lfoldbtn" type="button" data-lfold="' + st.id + '" aria-expanded="' + !S.fold["l:" + st.id] + '">' + (S.fold["l:" + st.id] ? "Show the lesson" : "Hide the lesson") + "</button>" : "") + '<div class="lbody">' + hookHtml(st) +
+    (inDeck ? '<div class="callout"><b>REVIEW DECK</b><p>This stage tripped you up before. Clear it again to take it off your <button class="linkish" type="button" data-go="review">Review Deck</button>.</p></div>' : "") + lessonExtras(st) + (st.l ? '<div class="prose">' + personal(st.l) + "</div>" : recapHtml(st)) + "</div>" +
     '<div class="mission"><b>YOUR MISSION</b><div class="prose">' + personal(st.p) + "</div></div>" +
     (st.k !== "free" ? '<div class="row" style="margin-top:12px">' + (showHint && S.set.hints === "button" ? '<button class="ghost" type="button" id="hintBtn">Show hint</button>' : "") + (S.set.solutions && st.s && !noCode ? '<button class="ghost" type="button" id="solBtn" hidden>Show solution</button>' : "") + (isGame ? '<button class="btn gold small" type="button" id="playBtn">' + icon("play") + "Play " + h(SQ_ENGINES[st.game.engine].title) + "</button>" : "") + "</div>" : "") +
     '<div class="hintbox" id="hintBox"></div>' +
     (s.group !== "fun" && st.l ? '<button class="ghost small confbtn" type="button" id="confBtn">' + (inDeck ? "Saved to your Review Deck" : "This part confused me") + "</button>" : "") +
-    ((st.links || s.links).length ? '<div class="reslinks"><b>LEARN MORE</b><ul class="links">' + (st.links || s.links.slice(0, 3)).map(function (l) { return '<li><a href="' + h(l[1]) + '" target="_blank" rel="noopener">' + h(l[0]) + "</a></li>"; }).join("") + "</ul></div>" : "") +
+    ((st.links || s.links).length ? '<div class="reslinks fgrp" data-fk="learnmore"><div class="group-h"><h2>LEARN MORE</h2></div><ul class="links">' + (st.links || s.links.slice(0, 3)).map(function (l) { return '<li><a href="' + h(l[1]) + '" target="_blank" rel="noopener">' + h(l[0]) + "</a></li>"; }).join("") + "</ul></div>" : "") +
+    (refCount(s.id) ? '<p class="reflook"><button class="linkish" type="button" data-reft="' + s.id + '">Look up ' + h(s.title) + " words in the Reference ›</button></p>" : "") +
     "</article>" +
     '<section class="card console" aria-label="Code console"><div class="cbar"><span class="file"><i></i>' + s.id + "-" + st.n + '.js</span><div class="row">' + (isPredict || isPick ? "" : (isOrder ? "" : '<button class="ghost" type="button" id="copyBtn">Copy</button>') + '<button class="ghost" type="button" id="resetBtn">' + (isOrder ? "Start over" : "Reset") + '</button><button class="btn primary" type="button" id="runBtn">' + (isSteps ? "▶ GO, ROBOT" : "▶ RUN") + "</button>") + "</div></div>" +
     (isDom ? '<div class="preview"><div class="lbl"><span>PAGE PREVIEW</span></div><div class="stagebox" id="stagebox">' + (st.css ? "" : st.html || "") + "</div></div>" : "") +
@@ -22521,38 +22648,57 @@ function viewGames(V) {
 }
 
 // ---------------- REFERENCE ----------------
-var refState = { q: "", cat: "All" };
+var refState = { q: "", cat: "All", topic: "all", by: "az" };
 function viewRef(V) {
   var cats = ["All"]; D.ref.forEach(function (e) { if (cats.indexOf(e.cat) < 0) cats.push(e.cat); });
-  V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">' + D.ref.length + ' ENTRIES</p><h1>Reference Library</h1><p class="muted" style="margin:6px 0 0;max-width:62ch">Plain-English meanings for every word, symbol, and idea in the course. Search by name, symbol (try <code>=></code> or <code>%</code>), or what it does.</p></div></section>' +
+  var tops = SECS.filter(function (s) { return refCount(s.id); }).sort(function (a, b) { return mapRank(a) - mapRank(b); });
+  if (refState.topic !== "all" && !SEC[refState.topic]) refState.topic = "all";
+  V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">' + D.ref.length + ' ENTRIES</p><h1>Reference Library</h1><p class="muted" style="margin:6px 0 0;max-width:62ch">Plain-English meanings for every word, symbol, and idea in the course. Each word wears the color of the module that teaches it. Search by name, symbol (try <code>=></code> or <code>%</code>), or what it does.</p></div></section>' +
     '<div class="refbar"><div class="search"><input id="refQ" type="search" placeholder="Search: closure, ===, push, &&, print…" aria-label="Search the reference" value="' + h(refState.q) + '"></div>' +
-    '<div class="filters" role="group" aria-label="Category">' + cats.map(function (c) { return '<button class="ghost' + (refState.cat === c ? " on" : "") + '" data-rc="' + h(c) + '">' + h(c) + "</button>"; }).join("") + '</div><div class="letters" id="refLetters"></div></div><section class="reflist" id="refList"></section></div>';
+    '<div class="filters topics" role="group" aria-label="Topic"><button class="ghost tpick' + (refState.topic === "all" ? " on" : "") + '" data-rt="all">All topics</button>' + tops.map(function (s) { return '<button class="ghost tpick' + (refState.topic === s.id ? " on" : "") + '" data-rt="' + s.id + '" style="--sc:' + secVar(s) + '" aria-pressed="' + (refState.topic === s.id) + '"><i></i>' + h(s.title) + " <small>" + refCount(s.id) + "</small></button>"; }).join("") + "</div>" +
+    '<div class="fgrp refcats" data-fk="cats"><div class="group-h"><h2>KINDS OF WORDS</h2></div><div class="filters" role="group" aria-label="Category">' + cats.map(function (c) { return '<button class="ghost' + (refState.cat === c ? " on" : "") + '" data-rc="' + h(c) + '">' + h(c) + "</button>"; }).join("") + "</div></div>" +
+    '<div class="row refview" role="group" aria-label="Arrange words"><span class="muted">Arrange:</span><button class="ghost small' + (refState.by === "az" ? " on" : "") + '" data-rby="az" aria-pressed="' + (refState.by === "az") + '">A to Z</button><button class="ghost small' + (refState.by === "topic" ? " on" : "") + '" data-rby="topic" aria-pressed="' + (refState.by === "topic") + '">By topic</button>' + foldAllHtml() + "</div>" +
+    '<div class="letters" id="refLetters"></div></div><section class="reflist" id="refList"></section></div>';
+  var card = function (e) {
+    var T = SEC[e.topic];
+    return '<article class="refitem" style="--sc:' + secVar(T) + '"><header><h3>' + h(e.term) + '</h3><span class="tag">' + h(e.cat.toUpperCase()) + "</span></header>" + (e.syn ? '<div class="syn">' + h(e.syn) + "</div>" : "") + '<div class="prose">' + e.body + "</div>" + (e.links.length ? '<ul class="links">' + e.links.map(function (l) { return '<li><a href="' + h(l[1]) + '" target="_blank" rel="noopener">' + h(l[0]) + "</a></li>"; }).join("") + "</ul>" : "") +
+      '<button class="tchip" type="button" data-go="section" data-arg="' + T.id + '" title="Open the ' + h(T.title) + ' module">' + h(T.title) + "</button></article>";
+  };
   var draw = function () {
     var q = refState.q.trim().toLowerCase();
     var list = D.ref.filter(function (e) {
       if (refState.cat !== "All" && e.cat !== refState.cat) return false;
+      if (refState.topic !== "all" && e.topic !== refState.topic) return false;
       if (!q) return true;
-      return (e.term + " " + (e.alias || "") + " " + (e.syn || "") + " " + e.text + " " + e.cat).toLowerCase().indexOf(q) >= 0;
+      return (e.term + " " + (e.alias || "") + " " + (e.syn || "") + " " + e.text + " " + e.cat + " " + SEC[e.topic].title).toLowerCase().indexOf(q) >= 0;
     });
     if (q) list.sort(function (a, b) { var ta = a.term.toLowerCase() === q || (a.alias || "").toLowerCase().split(/,\s*/).indexOf(q) >= 0 ? 0 : a.term.toLowerCase().indexOf(q) === 0 ? 1 : 2; var tb = b.term.toLowerCase() === q || (b.alias || "").toLowerCase().split(/,\s*/).indexOf(q) >= 0 ? 0 : b.term.toLowerCase().indexOf(q) === 0 ? 1 : 2; return ta - tb || a.term.localeCompare(b.term); });
     else list.sort(function (a, b) { return keyOf(a).localeCompare(keyOf(b)); });
-    var letters = {}, html = "", lastL = null;
-    list.forEach(function (e) {
+    var letters = {}, html = "", lastL = null, byTopic = !q && refState.by === "topic";
+    if (byTopic) tops.forEach(function (s) {
+      var mine = list.filter(function (e) { return e.topic === s.id; }); if (!mine.length) return;
+      html += '<div class="fgrp reftopic" data-fk="t-' + s.id + '" style="--sc:' + secVar(s) + '"><div class="group-h"><h2>' + h(s.title.toUpperCase()) + '</h2><span class="muted">' + mine.length + " word" + (mine.length === 1 ? "" : "s") + '</span><button class="ghost small" type="button" data-go="section" data-arg="' + s.id + '">Open the module ›</button></div><div class="reflist">' + mine.map(card).join("") + "</div></div>";
+    });
+    else list.forEach(function (e) {
       var L = letterOf(e);
       if (!q && L !== lastL) { html += '<h2 class="refletter" id="rl-' + L + '">' + L + "</h2>"; lastL = L; }
       letters[L] = 1;
-      html += '<article class="refitem"><header><h3>' + h(e.term) + '</h3><span class="tag" style="color:var(--muted)">' + h(e.cat.toUpperCase()) + "</span></header>" + (e.syn ? '<div class="syn">' + h(e.syn) + "</div>" : "") + '<div class="prose">' + e.body + "</div>" + (e.links.length ? '<ul class="links">' + e.links.map(function (l) { return '<li><a href="' + h(l[1]) + '" target="_blank" rel="noopener">' + h(l[0]) + "</a></li>"; }).join("") + "</ul>" : "") + "</article>";
+      html += card(e);
     });
-    $("refList").innerHTML = html || '<p class="muted">Nothing matches "' + h(refState.q) + '". Try a shorter word.</p>';
-    $("refLetters").innerHTML = q ? "" : "#ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(function (L) { return '<button type="button" data-rl="' + L + '"' + (letters[L] ? "" : " disabled") + ">" + L + "</button>"; }).join("");
+    $("refList").innerHTML = html || '<p class="muted">Nothing matches' + (q ? ' "' + h(refState.q) + '"' : "") + (refState.topic !== "all" || refState.cat !== "All" ? " with these filters" : "") + ". Try a shorter word or <button class=\"linkish\" type=\"button\" data-rt=\"all\">show every topic</button>.</p>";
+    $("refLetters").innerHTML = q || byTopic ? "" : "#ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(function (L) { return '<button type="button" data-rl="' + L + '"' + (letters[L] ? "" : " disabled") + ">" + L + "</button>"; }).join("");
     $("refLetters").querySelectorAll("[data-rl]").forEach(function (b) { b.onclick = function () { var t = $("rl-" + b.getAttribute("data-rl")); if (t) t.scrollIntoView({ behavior: S.set.motion === "off" ? "auto" : "smooth", block: "start" }); }; });
+    foldify($("refList"), "ref"); if (!html) bindPick($("refList"));
     highlightAll($("refList"));
   };
   function keyOf(e) { return e.term.replace(/^[^A-Za-z]+/, "").toLowerCase() || "#" + e.term; }
   function letterOf(e) { var c = e.term.replace(/^[.\s]+/, "")[0] || "#"; return /[A-Za-z]/.test(c) ? c.toUpperCase() : "#"; }
   draw();
   var t; $("refQ").oninput = function () { refState.q = this.value; clearTimeout(t); t = setTimeout(draw, 80); };
-  V.querySelectorAll("[data-rc]").forEach(function (b) { b.onclick = function () { refState.cat = b.getAttribute("data-rc"); viewRef(V); highlightAll(V); }; });
+  var redo = function () { var y = window.scrollY; viewRef(V); highlightAll(V); window.scrollTo(0, y); };
+  V.querySelectorAll("[data-rc]").forEach(function (b) { b.onclick = function () { refState.cat = b.getAttribute("data-rc"); redo(); }; });
+  bindPick(V);
+  function bindPick(root) { root.querySelectorAll("[data-rt],[data-rby]").forEach(function (b) { b.onclick = function () { if (b.hasAttribute("data-rt")) refState.topic = b.getAttribute("data-rt"); else refState.by = b.getAttribute("data-rby"); SFX.click(); redo(); }; }); }
 }
 
 // ---------------- PROFILE ----------------
@@ -22702,7 +22848,7 @@ function viewMe(V, tab) {
   var cleared = Object.keys(S.done).length, quizzes = Object.keys(S.quiz).length, aces = Object.keys(S.quiz).filter(function (k) { return S.quiz[k].best === S.quiz[k].total; }).length;
   var medals = medalList(), got = medals.filter(function (m) { return m.got; }).length;
   var html = '<div class="wrap">' + profileBanner(lv, xp) +
-    '<nav class="setjump ptabs" aria-label="Player card">' + ME_TABS.map(function (t) { return '<button type="button" data-go="me" data-arg="' + t[0] + '"' + (t[0] === tab ? ' aria-current="page"' : "") + ">" + t[1] + "</button>"; }).join("") + "</nav>" +
+    '<nav class="setjump ptabs" aria-label="Player card">' + ME_TABS.map(function (t) { return '<button type="button" data-go="me" data-arg="' + t[0] + '"' + (t[0] === tab ? ' aria-current="page"' : "") + ">" + t[1] + "</button>"; }).join("") + "</nav>" + foldAllHtml() +
     (devMode() ? '<section class="card devcard"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0"><span class="devtag">DEV MODE</span> Everything is unlocked</h2><button class="btn" id="devToasts" type="button">Preview toasts</button></div><p class="muted" style="margin:8px 0 0">Every theme, background, mouse trail, sound theme, profile item, module and medal is open for testing, including secret modules. None of it is saved as earned: change your name from Claude to go back to your real progress.</p></section>' : "");
   if (tab === "card") {
     var t = tierOf(lv), nt = TIERS.filter(function (x) { return x[0] > lv; })[0];
@@ -22749,7 +22895,7 @@ function viewSettings(V) {
   var myLv = levelOf(totalXp()), lk = function (kind, key) { return lockReq(kind, key, myLv); };
   var tog = function (id, label, on) { return '<label class="toggle"><span>' + label + '</span><input type="checkbox" class="switch" id="' + id + '"' + (on ? " checked" : "") + "></label>"; };
   V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">OPTIONS</p><h1>Settings</h1><p class="muted" style="margin:6px 0 0">Changes save as you make them.</p></div><button class="ghost" id="resetSet">Reset settings to defaults</button></section>' +
-    '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Themes & sounds"], ["setBg", "Background & effects"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setLayout", "Layout & look"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setKeys2", "Shortcuts"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" +
+    '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Themes & sounds"], ["setBg", "Background & effects"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setLayout", "Layout & look"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setKeys2", "Shortcuts"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" + foldAllHtml() +
     '<div class="setgrid">' +
     '<section class="card" id="setPlayer"><h2 class="sub">PLAYER</h2><div class="field"><label for="setName">Your name</label><input type="text" id="setName" maxlength="24" value="' + h(nameOf()) + '"><span class="hint2">Lessons, greetings, and some starter code use this name.</span></div></section>' +
     '<section class="card" id="setTheme"><h2 class="sub">THEMES & SOUNDS</h2><p class="muted" style="margin-top:0">Themes, backgrounds, mouse trails and sound themes now live on your player card, next to your avatar and everything you have unlocked.</p><div class="row"><button class="btn primary" type="button" data-go="me" data-arg="style">Pick a theme or sound</button><button class="btn" type="button" data-go="me" data-arg="look">Customize your profile</button></div></section>' +
@@ -22772,10 +22918,10 @@ function viewSettings(V) {
     '<div class="field"><label for="setBorders">Box outlines</label>' + sel("setBorders", [["bold", "Bold"], ["soft", "Soft"], ["off", "Off"]], st.borders) + "</div>" +
     '<div class="field"><label for="setShadows">Shadows</label>' + sel("setShadows", [["hard", "Blocky (retro)"], ["soft", "Soft"], ["off", "Off"]], st.shadows) + "</div>" +
     '<div class="field"><label for="setCorners">Corners</label>' + sel("setCorners", [["square", "Square"], ["round", "Rounded"]], st.corners) + "</div>" +
-    tog("setIcons", "Show icons", st.icons) + tog("setTop", "Back to top button on long pages", st.backTop) + tog("setDots", "Show the stage progress dots", st.dots) + tog("setLinks", "Show \"Learn more\" links in lessons", st.learnLinks) + "</section>" +
+    tog("setIcons", "Show icons", st.icons) + tog("setTop", "Back to top button on long pages", st.backTop) + tog("setTopicColors", "Color-code modules by topic", st.topicColors) + tog("setDots", "Show the stage progress dots", st.dots) + tog("setLinks", "Show \"Learn more\" links in lessons", st.learnLinks) + "</section>" +
     '<section class="card" id="setMenu"><h2 class="sub">MENU BAR</h2><div class="field"><label for="setBarPos">Position</label>' + sel("setBarPos", [["top", "Top"], ["left", "Left side"], ["right", "Right side"], ["bottom", "Bottom"]], st.barPos) + '<span class="hint2">On phones, Left and Right stay at the top.</span></div>' +
     tog("setBarHide", "Hide the menu bar", st.barHidden) + '<span class="hint2">A small Menu button stays in the corner to bring it back.</span>' +
-    tog("setNavLabels", "Words on menu buttons", st.navLabels) + tog("setNavIcons", "Icons on menu buttons", st.navIcons) + tog("setShowCont", "Continue button", st.showCont) + tog("setShowMe", "Player card (level and XP)", st.showMe) + "</section>" +
+    tog("setNavLabels", "Words on menu buttons", st.navLabels) + tog("setNavIcons", "Icons on menu buttons", st.navIcons) + tog("setShowCont", "Continue button", st.showCont) + tog("setShowMe", "Player card (level and XP)", st.showMe) + tog("setShowStreak", "Daily streak counter", st.showStreak) + "</section>" +
     '<section class="card" id="setText"><h2 class="sub">TEXT & READING</h2>' +
     '<div class="field"><label for="setScale">Text size</label>' + sel("setScale", [[0.9, "Small"], [1, "Medium"], [1.12, "Large"], [1.25, "Extra large"]], st.scale) + "</div>" +
     '<div class="field"><label for="setBody">Reading font</label>' + sel("setBody", [["Atkinson Hyperlegible", "Atkinson Hyperlegible (made for readability)"], ["Lexend", "Lexend (wide letters)"], ["Nunito", "Nunito (rounded)"], ["System", "My device's font"]], st.body) + "</div>" +
@@ -22833,8 +22979,8 @@ function viewSettings(V) {
   var chk = function (e) { return e.checked; };
   bind("setBtnSize", "btnSize"); bind("setDensity", "density"); bind("setPageW", "pageWidth"); bind("setBorders", "borders"); bind("setShadows", "shadows"); bind("setCorners", "corners");
   bind("setIcons", "icons", chk); bind("setDots", "dots", chk); bind("setLinks", "learnLinks", chk);
-  bind("setNavLabels", "navLabels", chk); bind("setNavIcons", "navIcons", chk); bind("setShowCont", "showCont", chk); bind("setShowMe", "showMe", chk);
-  ["setShowCont", "setShowMe"].forEach(function (id) { $(id).addEventListener("change", renderTop); });
+  bind("setNavLabels", "navLabels", chk); bind("setNavIcons", "navIcons", chk); bind("setShowCont", "showCont", chk); bind("setShowMe", "showMe", chk); bind("setShowStreak", "showStreak", chk); bind("setTopicColors", "topicColors", chk);
+  ["setShowCont", "setShowMe", "setShowStreak"].forEach(function (id) { $(id).addEventListener("change", renderTop); });
   bind("setGuides", "guides", chk); bind("setKeySize", "keySize"); bind("setShortcuts", "shortcuts", chk);
   V.querySelectorAll("button[data-bgfx]").forEach(function (b) { b.onclick = function () { if (b.classList.contains("locked")) return lockedMsg("bg", b.getAttribute("data-bgfx"), b.querySelector("b").textContent); st.bgFx = b.getAttribute("data-bgfx"); save("settings", st); applySettings(); V.querySelectorAll("button[data-bgfx]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); }; });
   bind("setBgColor", "bgColor"); bind("setBgAmount", "bgDensity"); bind("setBgSpeed", "bgSpeed"); bind("setBgStrength", "bgStrength");
@@ -22845,7 +22991,7 @@ function viewSettings(V) {
   $("setToastPos").addEventListener("change", function () { toast("Messages will pop up here."); });
   $("kbList").onclick = showShortcuts;
   $("setToast").addEventListener("change", function () { toast("This is how long messages stay up."); });
-  V.querySelectorAll("[data-jump]").forEach(function (b) { b.onclick = function () { var c = $(b.getAttribute("data-jump")); if (c) { c.scrollIntoView({ behavior: S.set.motion === "on" ? "smooth" : "auto", block: "start" }); var hd = c.querySelector("h2"); if (hd) { hd.tabIndex = -1; hd.focus({ preventScroll: true }); } } }; });
+  V.querySelectorAll("[data-jump]").forEach(function (b) { b.onclick = function () { var c = $(b.getAttribute("data-jump")); if (c) { if (c.classList.contains("folded")) setFold(c, false, true); c.scrollIntoView({ behavior: S.set.motion === "on" ? "smooth" : "auto", block: "start" }); var hd = c.querySelector("h2"); if (hd) { hd.tabIndex = -1; hd.focus({ preventScroll: true }); } } }; });
   $("resetSet").onclick = function () {
     var b = this;
     if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to reset settings"; setTimeout(function () { if (b.isConnected) { delete b.dataset.armed; b.textContent = "Reset settings to defaults"; } }, 4000); return; }
