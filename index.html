@@ -860,7 +860,21 @@ html:root[data-skin="cyber"]{--bg:#0C0A10; --panel:#16131D; --panel2:#1C1826; --
 html[data-skin="cyber"] body{background-image:repeating-linear-gradient(-45deg,rgba(252,238,10,.05) 0 14px,transparent 14px 28px)}
 html:root[data-skin="legend"]{--bg:#121008; --panel:#1C180D; --panel2:#231E11; --ink:#FFF6DA; --muted:#D4C49A; --line:#4A3E1C; --chip:#2E2714; --accent:#FFC83D; --accent-ink:#121008; --gold-ink:#1C1500; --gold:#FFE7A0; --pass:#8FE07A; --fail:#FF8A6B; --warn:#FFB03D; --code-bg:#0B0904; --code-line:#17130A; --code-sel:#4A3E1C; --k-ex:#FFC83D; --k-try:#FFE7A0; --k-out:#8FE07A; --k-bug:#FF8A6B; --k-gml:#FFB03D; --k-gd:#E6A84A; --k-lua:#8FE07A; --k-pat:#D4C49A; --k-py:#FF9A7A; --s1:#FFC83D; --s2:#FFE7A0; --s3:#E6A84A; --s4:#8FE07A; --s5:#9CC8FF; --s6:#FF9A7A; --shadow:#000000; color-scheme:dark}
 html[data-skin="legend"] body{background-image:radial-gradient(ellipse at 50% -10%,rgba(255,200,61,.22),transparent 55%);background-attachment:fixed}
-html[data-cb="1"][data-skin="ocean"],html[data-cb="1"][data-skin="royal"],html[data-cb="1"][data-skin="galaxy"],html[data-cb="1"][data-skin="cyber"],html[data-cb="1"][data-skin="legend"],html[data-cb="1"][data-skin="night"],html[data-cb="1"][data-skin="blueprint"],html[data-cb="1"][data-skin="contrast"],html[data-cb="1"][data-skin="miami"],html[data-cb="1"][data-skin="eighties"],html[data-cb="1"][data-skin="sixtyfour"],html[data-cb="1"][data-skin="cube"],html[data-cb="1"][data-skin="terminal"],html[data-cb="1"][data-skin="mocha"],html[data-cb="1"][data-skin="forest"],html[data-cb="1"][data-skin="lava"]{--pass:#8DB8FF;--fail:#FFAA4D}
+html[data-cb="1"][data-skin="ocean"],html[data-cb="1"][data-skin="royal"],html[data-cb="1"][data-skin="galaxy"],html[data-cb="1"][data-skin="cyber"],html[data-cb="1"][data-skin="legend"],/* Medal-reward skins. Colors, corners, shadows and backgrounds only. */
+html:root[data-skin="sunset"]{--bg:#28142E; --panel:#341C3B; --panel2:#3D2244; --ink:#FFF1E8; --muted:#E0BFC9; --line:#5A3560; --chip:#45284D; --accent:#FF8A4C; --accent-ink:#28142E; --gold-ink:#2A1A00; --gold:#FFD166; --pass:#7FE0A0; --fail:#FF8A8A; --warn:#FFC46B; --code-bg:#1C0D21; --code-line:#28142E; --code-sel:#5A3560; --k-ex:#FF8A4C; --k-try:#FFD166; --k-out:#7FE0A0; --k-bug:#FF8A8A; --k-gml:#FFC46B; --k-gd:#FF6FA8; --k-lua:#B48CFF; --k-pat:#E0BFC9; --k-py:#9CC8FF; --s1:#FF8A4C; --s2:#FFD166; --s3:#FF6FA8; --s4:#B48CFF; --s5:#7FE0C8; --s6:#9CC8FF; --shadow:#12081A; color-scheme:dark}
+html[data-skin="sunset"] body{background-image:linear-gradient(180deg,#28142E 0%,#3A1838 55%,#5A2430 100%);background-attachment:fixed}
+html:root[data-skin="diamond"]{--bg:#EAF4F8; --panel:#FFFFFF; --panel2:#F3F9FB; --ink:#0D2230; --muted:#466272; --line:#BFD8E3; --chip:#DDEDF3; --accent:#0A6E8E; --accent-ink:#FFFFFF; --gold-ink:#0D2230; --gold:#8FDDEB; --pass:#1D7A55; --fail:#B73A3A; --warn:#975700; --code-bg:#0D2230; --code-line:#143044; --code-sel:#245066; --k-ex:#0A6E8E; --k-try:#5A5FD0; --k-out:#1D7A55; --k-bug:#B73A3A; --k-gml:#975700; --k-gd:#1D7A70; --k-lua:#B0367A; --k-pat:#466272; --k-py:#8A5A00; --s1:#0A6E8E; --s2:#5A5FD0; --s3:#1D7A70; --s4:#B0367A; --s5:#2F6EB0; --s6:#8A5A00; --shadow:rgba(13,34,48,.16); color-scheme:light}
+html[data-skin="diamond"] body{background-image:linear-gradient(135deg,rgba(143,221,235,.18) 25%,transparent 25% 50%,rgba(143,221,235,.18) 50% 75%,transparent 75%);background-size:80px 80px}
+html[data-skin="diamond"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="diamond"] .dock{overflow:hidden}
+html[data-skin="diamond"] :is(.card,.cart,.qcard,.dock,.btn,.btn.small,.swatch[aria-pressed="true"],.tile.next,.search input,.bar-tab){box-shadow:0 6px 18px var(--shadow)}
+html:root[data-skin="scholar"]{--bg:#EDE3CC; --panel:#FBF5E6; --panel2:#F4EAD3; --ink:#2A1F14; --muted:#5E4D38; --line:#D6C49E; --chip:#EADCBC; --accent:#7A2A2A; --accent-ink:#FFFFFF; --gold-ink:#2A1F14; --gold:#C49A3E; --pass:#2E6E2A; --fail:#A32A1E; --warn:#8A5200; --code-bg:#2A1F14; --code-line:#36291B; --code-sel:#54412C; --k-ex:#7A2A2A; --k-try:#2E5A8A; --k-out:#2E6E2A; --k-bug:#A32A1E; --k-gml:#8A5200; --k-gd:#2E6E2A; --k-lua:#8A4A00; --k-pat:#5E4D38; --k-py:#1F6E6E; --s1:#7A2A2A; --s2:#2E5A8A; --s3:#2E6E2A; --s4:#8A4A00; --s5:#5A3A8A; --s6:#1F6E6E; --shadow:#5E4D38; color-scheme:light}
+html:root[data-skin="hologram"]{--bg:#0C1220; --panel:#131B2E; --panel2:#18223A; --ink:#EAF7FF; --muted:#A9C3D6; --line:#2A3A5E; --chip:#1E2A46; --accent:#7DF9FF; --accent-ink:#0C1220; --gold-ink:#2A0A26; --gold:#FF9DF5; --pass:#7DFFB6; --fail:#FF8A9A; --warn:#FFD27D; --code-bg:#070C16; --code-line:#101828; --code-sel:#2A3A5E; --k-ex:#7DF9FF; --k-try:#FF9DF5; --k-out:#7DFFB6; --k-bug:#FF8A9A; --k-gml:#FFD27D; --k-gd:#B9A6FF; --k-lua:#7DFFB6; --k-pat:#A9C3D6; --k-py:#8FC2FF; --s1:#7DF9FF; --s2:#FF9DF5; --s3:#B9A6FF; --s4:#7DFFB6; --s5:#FFD27D; --s6:#8FC2FF; --shadow:#04070D; color-scheme:dark}
+html[data-skin="hologram"] body{background-image:linear-gradient(120deg,rgba(125,249,255,.08),rgba(255,157,245,.08) 40%,rgba(185,166,255,.08) 70%,rgba(125,255,182,.06));background-attachment:fixed}
+html:root[data-skin="cabinet"]{--bg:#0A0A0E; --panel:#15151C; --panel2:#1B1B24; --ink:#FFFFFF; --muted:#C2C2D0; --line:#34344A; --chip:#22222E; --accent:#FF5252; --accent-ink:#0A0A0E; --gold-ink:#00111F; --gold:#3DA5FF; --pass:#5CE65C; --fail:#FF6B6B; --warn:#FFC23D; --code-bg:#000000; --code-line:#101016; --code-sel:#34344A; --k-ex:#FF5252; --k-try:#3DA5FF; --k-out:#5CE65C; --k-bug:#FF6B6B; --k-gml:#FFC23D; --k-gd:#FFC23D; --k-lua:#5CE65C; --k-pat:#C2C2D0; --k-py:#FF8A3D; --s1:#FF5252; --s2:#3DA5FF; --s3:#FFC23D; --s4:#5CE65C; --s5:#C78CFF; --s6:#FF8A3D; --shadow:#FF5252; color-scheme:dark}
+html[data-skin="cabinet"] body{background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1.5px);background-size:6px 6px}
+.medal .mrw{font-size:11px;color:var(--accent);line-height:1.3}
+html[data-cb="1"][data-skin="sunset"],html[data-cb="1"][data-skin="hologram"],html[data-cb="1"][data-skin="cabinet"],html[data-cb="1"][data-skin="night"],html[data-cb="1"][data-skin="blueprint"],html[data-cb="1"][data-skin="contrast"],html[data-cb="1"][data-skin="miami"],html[data-cb="1"][data-skin="eighties"],html[data-cb="1"][data-skin="sixtyfour"],html[data-cb="1"][data-skin="cube"],html[data-cb="1"][data-skin="terminal"],html[data-cb="1"][data-skin="mocha"],html[data-cb="1"][data-skin="forest"],html[data-cb="1"][data-skin="lava"]{--pass:#8DB8FF;--fail:#FFAA4D}
 @media (prefers-color-scheme: dark){html[data-cb="1"]:not([data-skin]){--pass:#8DB8FF;--fail:#FFAA4D}}
 .setgrid>.card{break-inside:avoid;margin-bottom:16px;display:block}
 .field{display:grid;gap:6px;margin-bottom:14px}
@@ -20203,7 +20217,7 @@ function rankOf(lv) { var r = RANKS[0][1]; RANKS.forEach(function (x) { if (lv >
 // ---------------- level unlocks ----------------
 // Themes, backgrounds and trails open up as you level. Anything not listed in UNLOCK_LV is free from the start.
 // To gate something new, add it here, or give a section `unlock: <level>` in SQDATA (add `secret: true` to hide it from the Map until then).
-var TRAILS = [["off", "Off"], ["sparkle", "Sparkles"], ["pixels", "Pixels"], ["rainbow", "Rainbow"], ["bubbles", "Bubbles"], ["snow", "Snowflakes"], ["hearts", "Hearts"], ["fire", "Fire"], ["stars", "Shooting stars"]];
+var TRAILS = [["off", "Off"], ["sparkle", "Sparkles"], ["pixels", "Pixels"], ["rainbow", "Rainbow"], ["bubbles", "Bubbles"], ["snow", "Snowflakes"], ["hearts", "Hearts"], ["fire", "Fire"], ["stars", "Shooting stars"], ["confetti", "Confetti"], ["snake", "Snake"]];
 var UNLOCK_LV = {
   skin: { retro: 2, modern: 3, candy: 4, mocha: 5, arctic: 6, forest: 7, aero: 8, girlypop: 9, terminal: 10, toon: 11, sixtyfour: 12, cube: 13, miami: 14, eighties: 16, lava: 18 },
   bg: { fireflies: 2, comets: 3, waves: 4, confetti: 5, leaves: 6, petals: 7, constellation: 8, hearts: 9, rain: 10, shapes: 11, blocks: 12, aurora: 13, warp: 14, grid: 16, lava: 18 },
@@ -20214,6 +20228,23 @@ Object.assign(UNLOCK_LV.skin, { matcha: 3, desert: 5, sakura: 7, ocean: 15, roya
 Object.assign(UNLOCK_LV.bg, { ripples: 3, balloons: 4, glitter: 6, butterflies: 8, fish: 10, orbits: 17, fireworks: 20, tunnel: 22 });
 Object.assign(UNLOCK_LV.trail, { snow: 6, hearts: 11, fire: 15, stars: 19 });
 UNLOCK_LV.sound = { bubble: 3, typewriter: 5, clicky: 7, arcade: 10, space: 13, wood: 16, musicbox: 20, laser: 23 };
+// medal rewards: these are earned with a medal instead of a level
+var UNLOCK_MEDAL = {
+  skin: { sunset: "streak7", diamond: "streak30", scholar: "ace10", hologram: "c100", cabinet: "sec:arcade" },
+  bg: { embers: "streak3", gears: "sbx10", radar: "clean25", spiro: "sec:loops" },
+  trail: { confetti: "first", snake: "hi:snake" },
+  sound: { chimes: "rv10", gameshow: "qall", synth: "sec:funcs" }
+};
+var medalNames = { at: 0, map: {} };
+function medalReq(kind, key) { return (UNLOCK_MEDAL[kind] || {})[key] || ""; }
+function medalName(id) { if (Date.now() - medalNames.at > 2000) { medalNames.map = {}; medalList().forEach(function (m) { medalNames.map[m.id] = m.t; }); medalNames.at = Date.now(); } return medalNames.map[id] || id; }
+function itemName(kind, key) { var x = ({ skin: SKINS, bg: BGFX, trail: TRAILS, sound: SOUNDS }[kind] || []).filter(function (e) { return e[0] === key; })[0]; return x ? x[1] : key; }
+function medalItems() { var out = []; Object.keys(UNLOCK_MEDAL).forEach(function (k) { Object.keys(UNLOCK_MEDAL[k]).forEach(function (key) { out.push({ kind: k, key: key, medal: UNLOCK_MEDAL[k][key], name: itemName(k, key) }); }); }); return out; }
+function medalRewards(id) { return medalItems().filter(function (u) { return u.medal === id; }).map(function (u) { return u.name + " " + UNLOCK_KIND[u.kind]; }); }
+// a lock's requirement in words: a level number, or "<medal> medal"
+function lockReq(kind, key, lv) { var m = medalReq(kind, key); if (m) return S.medalsSeen[m] ? 0 : medalName(m) + " medal"; return isLocked(kind, key, lv) ? lockLv(kind, key) : 0; }
+function lockWords(n) { return typeof n === "number" ? "level " + n : "you earn the " + n; }
+function unlockWords(n) { return typeof n === "number" ? "unlocks at level " + n : "earn the " + n; }
 var UNLOCK_KIND = { skin: "theme", bg: "background", trail: "mouse trail", sound: "sound theme", section: "module" };
 function unlockList() {
   var out = [], name = function (list, k) { var x = list.filter(function (e) { return e[0] === k; })[0]; return x ? x[1] : k; };
@@ -20223,9 +20254,9 @@ function unlockList() {
 }
 // the level something needs, or 0 when it's free or the player kept it from before unlocks existed
 function lockLv(kind, key) { var n = kind === "section" ? (SEC[key] && SEC[key].unlock) || 0 : (UNLOCK_LV[kind] || {})[key] || 0; return n && !(S.unl && S.unl.keep[kind + ":" + key]) ? n : 0; }
-function isLocked(kind, key, lv) { var n = lockLv(kind, key); return n > 0 && (lv || levelOf(totalXp())) < n; }
-function lockTag(n) { return '<span class="lock">' + glyph("lock") + "LEVEL " + n + "</span>"; }
-function lockedMsg(kind, key, name) { SFX.fail(); toast("Reach level " + lockLv(kind, key) + " to unlock the " + name + " " + UNLOCK_KIND[kind] + "."); }
+function isLocked(kind, key, lv) { var m = medalReq(kind, key); if (m) return !S.medalsSeen[m]; var n = lockLv(kind, key); return n > 0 && (lv || levelOf(totalXp())) < n; }
+function lockTag(n) { return '<span class="lock">' + glyph("lock") + (typeof n === "number" ? "LEVEL " + n : h(n.toUpperCase())) + "</span>"; }
+function lockedMsg(kind, key, name) { var m = medalReq(kind, key); SFX.fail(); toast((m ? "Earn the " + medalName(m) + " medal" : "Reach level " + lockLv(kind, key)) + " to unlock the " + name + " " + UNLOCK_KIND[kind] + "."); }
 function unlockLabel(u) { return u.secret ? "a secret " + UNLOCK_KIND[u.kind] : u.name + " " + UNLOCK_KIND[u.kind]; }
 function andList(a) { return a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]; }
 // the next level that unlocks something, and what it unlocks
@@ -20351,10 +20382,11 @@ var BGFX = [
   ["balloons", "Balloons", "A bunch of balloons drifting up"], ["glitter", "Glitter", "Sparkles that flash and fade"],
   ["butterflies", "Butterflies", "Fluttering, colorful wings"], ["fish", "Aquarium", "Little fish swimming by"],
   ["orbits", "Solar system", "Planets circling a glowing sun"], ["fireworks", "Fireworks", "Rockets bursting into sparks"],
-  ["tunnel", "Tunnel", "Spinning squares zooming at you"]
+  ["tunnel", "Tunnel", "Spinning squares zooming at you"], ["embers", "Embers", "Glowing sparks rising from a fire"],
+  ["gears", "Gears", "Clockwork turning in the background"], ["radar", "Radar", "A sweeping scanner finding blips"], ["spiro", "Spirograph", "Looping patterns drawing themselves"]
 ];
 // "Match my theme" picks one of these
-var BG_THEME = { matcha: "leaves", desert: "glitter", sakura: "petals", ocean: "fish", royal: "glitter", galaxy: "orbits", cyber: "tunnel", legend: "fireworks", auto: "pixels", cartridge: "pixels", night: "stars", pocket: "pixels", blueprint: "constellation", contrast: "off", miami: "grid", eighties: "grid", retro: "blocks", sixtyfour: "shapes", cube: "shapes", modern: "constellation", girlypop: "hearts", candy: "confetti", terminal: "rain", aero: "bubbles", toon: "shapes", mocha: "leaves", arctic: "snow", forest: "fireflies", lava: "lava" };
+var BG_THEME = { sunset: "embers", diamond: "glitter", scholar: "spiro", hologram: "radar", cabinet: "pixels", matcha: "leaves", desert: "glitter", sakura: "petals", ocean: "fish", royal: "glitter", galaxy: "orbits", cyber: "tunnel", legend: "fireworks", auto: "pixels", cartridge: "pixels", night: "stars", pocket: "pixels", blueprint: "constellation", contrast: "off", miami: "grid", eighties: "grid", retro: "blocks", sixtyfour: "shapes", cube: "shapes", modern: "constellation", girlypop: "hearts", candy: "confetti", terminal: "rain", aero: "bubbles", toon: "shapes", mocha: "leaves", arctic: "snow", forest: "fireflies", lava: "lava" };
 var BG = { fwq: [], cv: null, c: null, w: 0, h: 0, ps: [], ex: [], fx: "off", key: "", t: 0, raf: 0, last: 0, mx: -9999, my: -9999, cols: ["#2C52C4"], ink: "#222", dark: false, pal: null, rt: 0 };
 var WHITES = ["#FFFFFF", "#DCE6FF", "#FFF2D6"];
 function stillMotion() { return S.set.motion === "off" || !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches); }
@@ -20653,6 +20685,54 @@ var BGE = {
         c.strokeStyle = bgCol(p, Math.min(.8, z * 1.2)); c.save(); c.translate(cx, cy); c.rotate(rot); c.strokeRect(-s, -s, s * 2, s * 2); c.restore();
       }
     } },
+  embers: { n: 50, push: true, pal: function () { return ["#FF9A3D", "#FFC23D", "#FF5A1F", "#FFE08A"]; },
+    make: function (p, first) { p.s = bgR(1.5, 3.5); rising(p, first, 10); p.vy = bgR(30, 70); },
+    step: function (p, dt) { p.y -= p.vy * dt; p.x += Math.sin(BG.t * 2 + p.ph) * 18 * dt; if (p.y < -10) BGE.embers.make(p, false); },
+    under: function (c) { if (BG.dark) c.globalCompositeOperation = "lighter"; },
+    draw: function (c, p) {
+      var f = (.5 + .5 * Math.abs(Math.sin(BG.t * 5 + p.ph))) * Math.min(1, p.y / BG.h * 1.4);
+      c.fillStyle = bgCol(p, .15 * f); c.beginPath(); c.arc(p.x, p.y, p.s * 4, 0, 6.283); c.fill();
+      c.fillStyle = bgCol(p, .9 * f); c.beginPath(); c.arc(p.x, p.y, p.s, 0, 6.283); c.fill();
+    } },
+  gears: { n: 9, fixed: true,
+    make: function (p) { p.r = bgR(26, 90); p.x = bgR(0, BG.w); p.y = bgR(0, BG.h); p.teeth = Math.max(8, Math.round(p.r / 6)); p.dir = Math.random() < .5 ? 1 : -1; p.a = bgR(0, 6.283); },
+    step: function (p, dt) { p.a += p.dir * 18 / p.r * dt; },
+    draw: function (c, p) {
+      var r = p.r, n = p.teeth, i; c.save(); c.translate(p.x, p.y); c.rotate(p.a); c.strokeStyle = bgCol(p, .45); c.lineWidth = 3; c.beginPath();
+      for (i = 0; i < n; i++) { var a0 = i / n * 6.283, w = 6.283 / n; c.lineTo(Math.cos(a0) * r, Math.sin(a0) * r); c.lineTo(Math.cos(a0 + w * .15) * r * 1.16, Math.sin(a0 + w * .15) * r * 1.16); c.lineTo(Math.cos(a0 + w * .45) * r * 1.16, Math.sin(a0 + w * .45) * r * 1.16); c.lineTo(Math.cos(a0 + w * .6) * r, Math.sin(a0 + w * .6) * r); }
+      c.closePath(); c.stroke(); c.beginPath(); c.arc(0, 0, r * .3, 0, 6.283); c.stroke();
+      for (i = 0; i < 4; i++) { c.beginPath(); c.moveTo(Math.cos(i * 1.571) * r * .3, Math.sin(i * 1.571) * r * .3); c.lineTo(Math.cos(i * 1.571) * r * .85, Math.sin(i * 1.571) * r * .85); c.stroke(); }
+      c.restore();
+    } },
+  radar: { n: 14, fixed: true,
+    make: function (p) { var a = bgR(0, 6.283), d = bgR(.15, .95); p.a = a; p.d = d; },
+    step: function () {},
+    under: function (c) {
+      var cx = BG.w / 2, cy = BG.h / 2, R = Math.hypot(BG.w, BG.h) * .5, sw = BG.t * 1.1 % 6.283, i, g = { ci: 6, hue: 140 };
+      BG.rcx = cx; BG.rcy = cy; BG.rR = R; BG.rsw = sw;
+      c.strokeStyle = bgCol(g, .25); c.lineWidth = 1.5;
+      for (i = 1; i <= 5; i++) { c.beginPath(); c.arc(cx, cy, R * i / 5, 0, 6.283); c.stroke(); }
+      c.beginPath(); c.moveTo(cx - R, cy); c.lineTo(cx + R, cy); c.moveTo(cx, cy - R); c.lineTo(cx, cy + R); c.stroke();
+      for (i = 0; i < 24; i++) { var a = sw - i * .03; c.strokeStyle = bgCol(g, .6 * (1 - i / 24)); c.lineWidth = 3; c.beginPath(); c.moveTo(cx, cy); c.lineTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R); c.stroke(); }
+    },
+    draw: function (c, p) {
+      var diff = (BG.rsw - p.a + 12.566) % 6.283, k = Math.max(0, 1 - diff / 3); if (k <= 0) return;
+      var x = BG.rcx + Math.cos(p.a) * p.d * BG.rR, y = BG.rcy + Math.sin(p.a) * p.d * BG.rR;
+      c.fillStyle = bgCol(p, k); c.beginPath(); c.arc(x, y, 3 + 3 * k, 0, 6.283); c.fill();
+    } },
+  spiro: { n: 0,
+    init: function () { BG.ex = [spiroNew(0), spiroNew(1)]; BG.ex[1].t = 30; },
+    frame: function (c, dt) {
+      c.lineWidth = 1.6;
+      BG.ex.forEach(function (sp, k) {
+        sp.t += dt * 6; var done = sp.t > sp.T, fade = done ? Math.max(0, 1 - (sp.t - sp.T) / 8) : 1;
+        if (done && fade <= 0) { BG.ex[k] = spiroNew(k); return; }
+        var end = Math.min(sp.t, sp.T), R = sp.R, r = sp.r, d = sp.d, q = (R - r) / r, rot = BG.t * .05 * (k ? -1 : 1);
+        c.strokeStyle = bgCol(sp, .55 * fade); c.beginPath();
+        for (var th = 0; th <= end; th += .04) { var x = (R - r) * Math.cos(th) + d * Math.cos(q * th), y = (R - r) * Math.sin(th) - d * Math.sin(q * th), xr = x * Math.cos(rot) - y * Math.sin(rot), yr = x * Math.sin(rot) + y * Math.cos(rot); if (th === 0) c.moveTo(sp.x + xr, sp.y + yr); else c.lineTo(sp.x + xr, sp.y + yr); }
+        c.stroke();
+      });
+    } },
   lava: { n: 7, fixed: true,
     make: function (p) { p.r = bgR(.14, .26) * Math.min(BG.w, BG.h) + 40; p.x = bgR(0, BG.w); p.y = bgR(0, BG.h); p.vx = bgR(-26, 26); p.vy = bgR(-26, 26); },
     step: function (p, dt) {
@@ -20670,6 +20750,11 @@ var BGE = {
 function fwBurst(x, y, age, src) {
   var ci = src ? src.ci : Math.floor(bgR(0, 7)), hue = src ? src.hue : bgR(0, 360), n = 34;
   for (var i = 0; i < n; i++) { var ang = i / n * 6.283 + bgR(-.1, .1), sp = bgR(60, 170); BG.fwq.push({ x: x + Math.cos(ang) * sp * age, y: y + Math.sin(ang) * sp * age, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp, life: age, max: bgR(1, 1.6), ci: i % 3 ? ci : ci + 1, hue: hue + (i % 3) * 20 }); }
+}
+// one spirograph curve; it closes after a turns when r/R = a/b
+function spiroNew(k) {
+  var f = rndOf([[3, 7], [2, 5], [5, 12], [3, 8], [4, 9], [5, 13]]), R = Math.min(BG.w, BG.h) * bgR(.24, .34), r = R * f[0] / f[1], T = 6.283 * f[0];
+  return { R: R, r: r, d: r * bgR(.6, 1.1), T: T, t: T * bgR(.2, .7), x: BG.w * (k ? .7 : .3) + bgR(-40, 40), y: BG.h * bgR(.4, .6), ci: Math.floor(bgR(0, 7)), hue: bgR(0, 360) };
 }
 function bgSize() {
   var dpr = Math.min(window.devicePixelRatio || 1, 1.5); BG.w = innerWidth; BG.h = innerHeight;
@@ -20723,7 +20808,7 @@ if (window.matchMedia) { try { matchMedia("(prefers-color-scheme: dark)").addEve
 
 // ---------------- sound themes ----------------
 // each theme has its own button click and typing sounds; wave/shift recolor the other game sounds
-var SOUNDS = [["retro", "Retro", "Classic square-wave beeps"], ["soft", "Soft", "Gentle, quiet pops"], ["bubble", "Bubbles", "Bloopy water pops"], ["typewriter", "Typewriter", "Clacks, and a bell on Enter"], ["clicky", "Clicky keys", "A crunchy mechanical keyboard"], ["arcade", "Arcade", "Bright coin-op chirps"], ["space", "Space", "Sci-fi zaps and pings"], ["wood", "Wood blocks", "Warm wooden knocks"], ["musicbox", "Music box", "Typing plays Twinkle Twinkle"], ["laser", "Laser", "Pew pew pew"]];
+var SOUNDS = [["retro", "Retro", "Classic square-wave beeps"], ["soft", "Soft", "Gentle, quiet pops"], ["bubble", "Bubbles", "Bloopy water pops"], ["typewriter", "Typewriter", "Clacks, and a bell on Enter"], ["clicky", "Clicky keys", "A crunchy mechanical keyboard"], ["arcade", "Arcade", "Bright coin-op chirps"], ["space", "Space", "Sci-fi zaps and pings"], ["wood", "Wood blocks", "Warm wooden knocks"], ["musicbox", "Music box", "Typing plays Twinkle Twinkle"], ["laser", "Laser", "Pew pew pew"], ["chimes", "Wind chimes", "Soft bells that ring out"], ["gameshow", "Game show", "Ding-dong buzzers and a winner chord"], ["synth", "Synthwave", "Fat retro synth notes"]];
 var TWINKLE = [523, 523, 784, 784, 880, 880, 784, 698, 698, 659, 659, 587, 587, 523, 784, 784, 698, 698, 659, 659, 587, 784, 784, 698, 698, 659, 659, 587];
 var SND = { pack: null, i: 0, last: 0, buf: null };
 function sndCtx() {
@@ -20763,6 +20848,9 @@ var SPACKS = {
   wood: { wave: "triangle", shift: .8, click: function () { tone(820, 620, .05, "triangle", .14); }, key: function (k) { var f = k === "enter" ? 330 : bgR(520, 980); tone(f, f * .8, .04, "triangle", .11); } },
   musicbox: { wave: "triangle", click: function () { tone(1047, 0, .3, "triangle", .07); tone(2094, 0, .15, "sine", .02); },
     key: function (k) { if (k === "back") { SND.i = Math.max(0, SND.i - 1); tone(392, 0, .12, "triangle", .05); return; } if (k === "enter") SND.i = 0; var f = TWINKLE[SND.i++ % TWINKLE.length]; tone(f, 0, .4, "triangle", .07); tone(f * 2, 0, .2, "sine", .02); } },
+  chimes: { wave: "sine", shift: 1.5, click: function () { tone(1568, 0, .45, "sine", .06); tone(2093, 0, .3, "sine", .03, .03); }, key: function (k) { var f = k === "enter" ? 1047 : rndOf([1047, 1175, 1319, 1568, 1760, 2093]); tone(f, 0, .35, "sine", .05); tone(f * 2.01, 0, .15, "sine", .015); } },
+  gameshow: { wave: "triangle", click: function () { tone(784, 0, .18, "triangle", .1); tone(622, 0, .3, "triangle", .1, .16); }, key: function (k) { if (k === "enter") { [523, 659, 784].forEach(function (f) { tone(f, 0, .3, "triangle", .06); }); return; } tone(k === "back" ? 300 : 1250, 0, .02, "triangle", .07); } },
+  synth: { wave: "sawtooth", shift: .9, click: function () { tone(440, 0, .1, "sawtooth", .035); tone(220, 0, .12, "square", .025); }, key: function (k) { var f = k === "back" ? 196 : k === "enter" ? 262 : rndOf([262, 311, 349, 392, 466, 523]); tone(f, 0, .12, "sawtooth", .03); tone(f / 2, 0, .12, "square", .02); } },
   laser: { wave: "sawtooth", shift: 1.3, click: function () { tone(1800, 200, .12, "sawtooth", .04); }, key: function (k) { tone(bgR(2000, 2800), k === "back" ? 120 : 400, .06, "sawtooth", .025); } }
 };
 // the player's pick, falling back to Retro if it isn't unlocked (say, from an old save code)
@@ -20794,6 +20882,8 @@ function trAdd(x, y, kind, i) {
   else if (kind === "snow") { p.col = BG.dark ? "#FFFFFF" : "#7FA8D6"; p.vx = bgR(-12, 12); p.vy = bgR(10, 35); p.g = 0; p.s = bgR(3, 6); p.max = bgR(.8, 1.3); }
   else if (kind === "hearts") { p.col = rndOf(["#FF4F7B", "#FF6FA8", "#E0457B"]); p.vx = bgR(-20, 20); p.vy = bgR(-60, -30); p.g = 0; p.s = bgR(4, 8); p.max = bgR(.6, 1); }
   else if (kind === "fire") { p.col = rndOf(["#FFD23F", "#FF9A1F", "#FF5A1F"]); p.vx = bgR(-18, 18); p.vy = bgR(-90, -50); p.g = 0; p.s = bgR(4, 9); p.max = bgR(.35, .6); }
+  else if (kind === "confetti") { p.vx = bgR(-50, 50); p.vy = bgR(-80, -20); p.g = 260; p.s = bgR(4, 8); p.max = bgR(.6, 1); }
+  else if (kind === "snake") { TR.sn = (TR.sn || 0) + 1; p.col = TR.sn % 2 ? "#4CD964" : "#2FB84E"; p.vx = p.vy = p.g = 0; p.s = 10; p.max = .45; }
   else if (kind === "stars") { p.col = rndOf(cols); p.vx = bgR(-60, -20); p.vy = bgR(20, 60); p.g = 0; p.s = bgR(3, 6); p.max = bgR(.5, .9); }
   else { p.vx = bgR(-25, 25); p.vy = bgR(-25, 15); p.g = kind === "pixels" ? 160 : 60; p.s = kind === "pixels" ? bgR(3, 6) : bgR(4, 8); p.max = bgR(.45, .8); }
   TR.ps.push(p);
@@ -20811,6 +20901,8 @@ function trLoop(now) {
     else if (p.kind === "snow") { c.lineWidth = 1.4; s = p.s; for (var j = 0; j < 3; j++) { var an = p.a + j * 1.047; c.beginPath(); c.moveTo(p.x - Math.cos(an) * s, p.y - Math.sin(an) * s); c.lineTo(p.x + Math.cos(an) * s, p.y + Math.sin(an) * s); c.stroke(); } p.a += dt; }
     else if (p.kind === "hearts") { c.save(); c.translate(p.x, p.y); heartPath(c, p.s * (.6 + .4 * k)); c.fill(); c.restore(); }
     else if (p.kind === "fire") { c.globalCompositeOperation = "lighter"; c.beginPath(); c.arc(p.x, p.y, p.s * k, 0, 6.283); c.fill(); c.globalCompositeOperation = "source-over"; }
+    else if (p.kind === "confetti") { c.save(); c.translate(p.x, p.y); c.rotate(p.a += dt * 8); c.scale(1, Math.cos(p.life * 14)); c.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); c.restore(); }
+    else if (p.kind === "snake") { s = p.s * (.45 + .55 * k); c.fillRect(p.x - s / 2, p.y - s / 2, s, s); }
     else if (p.kind === "stars") { c.lineWidth = 2; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * .12 * k, p.y - p.vy * .12 * k); c.stroke(); c.fillRect(p.x - 1.5, p.y - 1.5, 3, 3); }
     else { s = p.s * (.4 + .6 * k); c.beginPath(); c.moveTo(p.x, p.y - s); c.quadraticCurveTo(p.x, p.y, p.x + s, p.y); c.quadraticCurveTo(p.x, p.y, p.x, p.y + s); c.quadraticCurveTo(p.x, p.y, p.x - s, p.y); c.quadraticCurveTo(p.x, p.y, p.x, p.y - s); c.fill(); }
   });
@@ -21723,6 +21815,8 @@ function checkMedals(delay, quiet) {
   fresh.forEach(function (m) { S.medalsSeen[m.id] = Date.now(); }); save("medals", S.medalsSeen);
   if (quiet) return;
   queueToast(fresh.length === 1 ? "Medal earned: " + fresh[0].t + "! See it on your player card." : fresh.length + " medals earned! See them on your player card.", delay);
+  var rw = []; fresh.forEach(function (m) { rw = rw.concat(medalRewards(m.id)); });
+  if (rw.length) queueToast("Medal reward: you unlocked the " + andList(rw) + "! Try it in Settings.", delay);
 }
 // medal and streak toasts wait their turn so one never hides another
 var toastQ = [], toastBusy = false;
@@ -21738,7 +21832,7 @@ function markActive(delay) {
   st.cur = st.last === yesterdayKey() ? st.cur + 1 : 1; st.last = today; st.best = Math.max(st.best || 0, st.cur); save("streak", st);
   if (st.cur > 1) queueToast(st.cur + "-day streak! Come back tomorrow to keep it going.", delay);
 }
-function medalTile(m) { var at = m.got && S.medalsSeen[m.id]; return '<div class="medal' + (m.got ? " got" : "") + '" style="--sc:var(--' + m.sc + ')"' + (at ? ' title="Earned ' + new Date(at).toLocaleDateString() + '"' : "") + '><span class="m">' + h(m.m) + "</span><b>" + h(m.t) + '</b><span class="muted">' + h(m.sub) + "</span></div>"; }
+function medalTile(m) { var at = m.got && S.medalsSeen[m.id]; return '<div class="medal' + (m.got ? " got" : "") + '" style="--sc:var(--' + m.sc + ')"' + (at ? ' title="Earned ' + new Date(at).toLocaleDateString() + '"' : "") + '><span class="m">' + h(m.m) + "</span><b>" + h(m.t) + '</b><span class="muted">' + h(m.sub) + "</span>" + (medalRewards(m.id).length ? '<span class="mrw">Unlocks: ' + h(andList(medalRewards(m.id))) + "</span>" : "") + "</div>"; }
 // the six newest medals on the Map, so they're seen outside the player card
 function medalShelf() {
   var all = medalList(), got = all.filter(function (m) { return m.got; });
@@ -21755,12 +21849,15 @@ function arcadeCard() {
   }).join("") + "</div></section>";
 }
 function unlockCard(lv, xp) {
-  var all = unlockList(), got = all.filter(function (u) { return !isLocked(u.kind, u.key, lv); }).length, rows = {};
+  var all = unlockList(), got = all.filter(function (u) { return !isLocked(u.kind, u.key, lv); }).length, rows = {}, mi = medalItems(), mgot = mi.filter(function (u) { return S.medalsSeen[u.medal]; }).length;
   all.forEach(function (u) { (rows[u.lv] = rows[u.lv] || []).push(u); });
-  return '<section class="card" id="unlocks"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">UNLOCKS · ' + got + " / " + all.length + '</h2><button class="ghost" data-go="settings">Settings ›</button></div>' +
+  return '<section class="card" id="unlocks"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">UNLOCKS · ' + (got + mgot) + " / " + (all.length + mi.length) + '</h2><button class="ghost" data-go="settings">Settings ›</button></div>' +
     '<p class="muted" style="margin:8px 0 12px">' + h(nextUnlockLine(lv, xp)) + '</p><div class="ranks">' + Object.keys(rows).sort(function (a, b) { return a - b; }).map(function (n) {
       var on = lv >= Number(n);
       return '<div class="rank' + (on ? " got" : "") + '"><span class="lvn">LV ' + n + "</span><span>" + rows[n].map(function (u) { return u.secret && isLocked(u.kind, u.key, lv) ? "??? (a secret " + UNLOCK_KIND[u.kind] + ")" : h(u.name) + ' <span class="muted">' + UNLOCK_KIND[u.kind] + "</span>"; }).join(" · ") + "</span></div>";
+    }).join("") + '</div><h3 class="setsub">MEDAL REWARDS</h3><div class="ranks">' + mi.map(function (u) {
+      var on = !!S.medalsSeen[u.medal];
+      return '<div class="rank' + (on ? " got" : "") + '"><span class="lvn">' + (on ? "GOT" : "MEDAL") + "</span><span>" + h(u.name) + ' <span class="muted">' + UNLOCK_KIND[u.kind] + " · " + h(medalName(u.medal)) + " medal</span></span></div>";
     }).join("") + "</div></section>";
 }
 function seedMedals() { if (load("medals", null) === null) { S.medalsSeen = {}; checkMedals(0, true); save("medals", S.medalsSeen); } }
@@ -21777,20 +21874,20 @@ function viewMe(V) {
 }
 
 // ---------------- SETTINGS ----------------
-var SKINS = [["auto", "Auto", "Follows your device", ["#E8EBE3", "#2C52C4", "#13161D", "#EFB13A"]], ["cartridge", "Cartridge", "Light grey and cobalt", ["#E8EBE3", "#F8F9F4", "#2C52C4", "#D4900E"]], ["night", "Night Shift", "Dark, easy on the eyes", ["#13161D", "#1B1F28", "#7D9DFF", "#EFB13A"]], ["pocket", "Pocket", "Green handheld screen", ["#C4CFA1", "#D7E0B6", "#2F4A16", "#5B7A1E"]], ["blueprint", "Blueprint", "Navy drafting table", ["#13305E", "#183A70", "#FFD25C", "#9CC3FF"]], ["contrast", "High Contrast", "Maximum readability", ["#000000", "#FFFFFF", "#FFE500", "#5CFF8F"]], ["miami", "Miami Nights", "Neon pink and teal at sunset", ["#1A1033", "#24174A", "#FF4FB4", "#2EE6D6"]], ["eighties", "Neon '80s", "Laser grid and arcade neon", ["#0A0A14", "#13132A", "#00E5FF", "#FFE14D"]], ["retro", "Retro", "Warm '70s cream, orange and brown", ["#F3E6C8", "#FFF6E0", "#B8461B", "#E89A1E"]], ["sixtyfour", "64-Bit", "Charcoal console with primary-color buttons", ["#2B2D31", "#FF4A3D", "#3BA0FF", "#FFC21A"]], ["cube", "Indigo Cube", "Deep indigo with lavender and orange", ["#25204F", "#2F2963", "#B3A6FF", "#FF9F3D"]], ["modern", "Modern", "Clean white, soft shadows, round corners", ["#F4F5F8", "#FFFFFF", "#4F46E5", "#F59E0B"]], ["girlypop", "Girlypop", "Bubblegum pink, glitter and hearts", ["#FFE4F1", "#FFF5FA", "#C21C6E", "#FF8FC4"]], ["candy", "Candy", "Mint, bubblegum and lemon stripes", ["#E9FBF4", "#FFFFFF", "#C8246A", "#FFD23F"]], ["terminal", "Terminal", "Green phosphor on black", ["#050805", "#0A110A", "#7CFF7C", "#C8FF5C"]], ["aero", "Frutiger Aero", "Glossy sky, bubbles and fresh green", ["#CDEBFA", "#F4FBFF", "#0A6FC2", "#5BC236"]], ["toon", "Toon Checker", "Black-and-white checks, loud cartoon colors", ["#000000", "#FFFFFF", "#0057FF", "#FFD400"]], ["mocha", "Mocha", "Cozy coffee-shop browns", ["#241A15", "#2E221C", "#E6A15C", "#F2C46D"]], ["arctic", "Arctic", "Icy blues and crisp white", ["#E3EEF5", "#F8FCFF", "#0B6E99", "#3FB8C9"]], ["forest", "Forest", "Deep pine greens and campfire orange", ["#13201A", "#1A2B22", "#7FD39B", "#F29A4A"]], ["lava", "Lava", "Volcanic black with molten orange", ["#1A0F0C", "#251512", "#FF7A33", "#FFC23D"]], ["matcha", "Matcha", "Soft green tea and warm cream", ["#E6EEDA", "#FAFDF5", "#3F6E1A", "#C9A24A"]], ["desert", "Desert", "Sunbaked sand, clay and turquoise", ["#F1E1C2", "#FFF8EA", "#A8481A", "#2FA3A0"]], ["sakura", "Sakura", "Cherry blossom pink and ink", ["#FBEDF1", "#FFFAFB", "#B02D63", "#F4A9C4"]], ["ocean", "Deep Ocean", "Midnight water and glowing coral", ["#06202C", "#0B2C3B", "#3FD6E6", "#FF9A6B"]], ["royal", "Royal", "Navy velvet trimmed with gold", ["#0E1430", "#151D45", "#F2C94C", "#9DB6FF"]], ["galaxy", "Galaxy", "Deep space with purple nebulas", ["#0A0718", "#140F2C", "#A98BFF", "#FFD36E"]], ["cyber", "Cyberpunk", "Hazard yellow and electric cyan", ["#0C0A10", "#16131D", "#FCEE0A", "#00F0FF"]], ["legend", "Legendary", "Black and gold, for true legends", ["#121008", "#1C180D", "#FFC83D", "#FFE7A0"]]];
+var SKINS = [["auto", "Auto", "Follows your device", ["#E8EBE3", "#2C52C4", "#13161D", "#EFB13A"]], ["cartridge", "Cartridge", "Light grey and cobalt", ["#E8EBE3", "#F8F9F4", "#2C52C4", "#D4900E"]], ["night", "Night Shift", "Dark, easy on the eyes", ["#13161D", "#1B1F28", "#7D9DFF", "#EFB13A"]], ["pocket", "Pocket", "Green handheld screen", ["#C4CFA1", "#D7E0B6", "#2F4A16", "#5B7A1E"]], ["blueprint", "Blueprint", "Navy drafting table", ["#13305E", "#183A70", "#FFD25C", "#9CC3FF"]], ["contrast", "High Contrast", "Maximum readability", ["#000000", "#FFFFFF", "#FFE500", "#5CFF8F"]], ["miami", "Miami Nights", "Neon pink and teal at sunset", ["#1A1033", "#24174A", "#FF4FB4", "#2EE6D6"]], ["eighties", "Neon '80s", "Laser grid and arcade neon", ["#0A0A14", "#13132A", "#00E5FF", "#FFE14D"]], ["retro", "Retro", "Warm '70s cream, orange and brown", ["#F3E6C8", "#FFF6E0", "#B8461B", "#E89A1E"]], ["sixtyfour", "64-Bit", "Charcoal console with primary-color buttons", ["#2B2D31", "#FF4A3D", "#3BA0FF", "#FFC21A"]], ["cube", "Indigo Cube", "Deep indigo with lavender and orange", ["#25204F", "#2F2963", "#B3A6FF", "#FF9F3D"]], ["modern", "Modern", "Clean white, soft shadows, round corners", ["#F4F5F8", "#FFFFFF", "#4F46E5", "#F59E0B"]], ["girlypop", "Girlypop", "Bubblegum pink, glitter and hearts", ["#FFE4F1", "#FFF5FA", "#C21C6E", "#FF8FC4"]], ["candy", "Candy", "Mint, bubblegum and lemon stripes", ["#E9FBF4", "#FFFFFF", "#C8246A", "#FFD23F"]], ["terminal", "Terminal", "Green phosphor on black", ["#050805", "#0A110A", "#7CFF7C", "#C8FF5C"]], ["aero", "Frutiger Aero", "Glossy sky, bubbles and fresh green", ["#CDEBFA", "#F4FBFF", "#0A6FC2", "#5BC236"]], ["toon", "Toon Checker", "Black-and-white checks, loud cartoon colors", ["#000000", "#FFFFFF", "#0057FF", "#FFD400"]], ["mocha", "Mocha", "Cozy coffee-shop browns", ["#241A15", "#2E221C", "#E6A15C", "#F2C46D"]], ["arctic", "Arctic", "Icy blues and crisp white", ["#E3EEF5", "#F8FCFF", "#0B6E99", "#3FB8C9"]], ["forest", "Forest", "Deep pine greens and campfire orange", ["#13201A", "#1A2B22", "#7FD39B", "#F29A4A"]], ["lava", "Lava", "Volcanic black with molten orange", ["#1A0F0C", "#251512", "#FF7A33", "#FFC23D"]], ["matcha", "Matcha", "Soft green tea and warm cream", ["#E6EEDA", "#FAFDF5", "#3F6E1A", "#C9A24A"]], ["desert", "Desert", "Sunbaked sand, clay and turquoise", ["#F1E1C2", "#FFF8EA", "#A8481A", "#2FA3A0"]], ["sakura", "Sakura", "Cherry blossom pink and ink", ["#FBEDF1", "#FFFAFB", "#B02D63", "#F4A9C4"]], ["ocean", "Deep Ocean", "Midnight water and glowing coral", ["#06202C", "#0B2C3B", "#3FD6E6", "#FF9A6B"]], ["royal", "Royal", "Navy velvet trimmed with gold", ["#0E1430", "#151D45", "#F2C94C", "#9DB6FF"]], ["galaxy", "Galaxy", "Deep space with purple nebulas", ["#0A0718", "#140F2C", "#A98BFF", "#FFD36E"]], ["cyber", "Cyberpunk", "Hazard yellow and electric cyan", ["#0C0A10", "#16131D", "#FCEE0A", "#00F0FF"]], ["legend", "Legendary", "Black and gold, for true legends", ["#121008", "#1C180D", "#FFC83D", "#FFE7A0"]], ["sunset", "Sunset", "Purple dusk fading into orange", ["#28142E", "#341C3B", "#FF8A4C", "#FFD166"]], ["diamond", "Diamond", "Icy sparkle with crystal blues", ["#EAF4F8", "#FFFFFF", "#0A6E8E", "#8FDDEB"]], ["scholar", "Scholar", "Old parchment and library ink", ["#EDE3CC", "#FBF5E6", "#7A2A2A", "#C49A3E"]], ["hologram", "Hologram", "Shimmering see-through sci-fi glass", ["#0C1220", "#131B2E", "#7DF9FF", "#FF9DF5"]], ["cabinet", "Arcade Cabinet", "Black cabinet, red and blue buttons", ["#0A0A0E", "#15151C", "#FF5252", "#3DA5FF"]]];
 function viewSettings(V) {
   var st = S.set;
   var sel = function (id, opts, val) { return '<select class="sel" id="' + id + '">' + opts.map(function (o) { var v = Array.isArray(o) ? o[0] : o, l = Array.isArray(o) ? o[1] : o; return '<option value="' + h(v) + '"' + (String(v) === String(val) ? " selected" : "") + ">" + h(l) + "</option>"; }).join("") + "</select>"; };
-  var myLv = levelOf(totalXp()), lk = function (kind, key) { return isLocked(kind, key, myLv) ? lockLv(kind, key) : 0; };
+  var myLv = levelOf(totalXp()), lk = function (kind, key) { return lockReq(kind, key, myLv); };
   var tog = function (id, label, on) { return '<label class="toggle"><span>' + label + '</span><input type="checkbox" class="switch" id="' + id + '"' + (on ? " checked" : "") + "></label>"; };
   V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">OPTIONS</p><h1>Settings</h1><p class="muted" style="margin:6px 0 0">Changes save as you make them.</p></div><button class="ghost" id="resetSet">Reset settings to defaults</button></section>' +
     '<nav class="setjump" aria-label="Settings sections">' + [["setPlayer", "Player"], ["setTheme", "Theme"], ["setBg", "Background & effects"], ["setText", "Text & reading"], ["setA11y", "Accessibility"], ["setLayout", "Layout & look"], ["setMenu", "Menu bar"], ["setEditor", "Editor"], ["setLearn", "Learning"], ["setQuiz", "Quizzes"], ["setFeel", "Sound & feel"], ["setKeys2", "Shortcuts"], ["setSave", "Save data"]].map(function (j) { return '<button type="button" data-jump="' + j[0] + '">' + j[1] + "</button>"; }).join("") + "</nav>" +
     '<div class="setgrid">' +
     '<section class="card" id="setPlayer"><h2 class="sub">PLAYER</h2><div class="field"><label for="setName">Your name</label><input type="text" id="setName" maxlength="24" value="' + h(nameOf()) + '"><span class="hint2">Lessons, greetings, and some starter code use this name.</span></div></section>' +
-    '<section class="card" id="setTheme"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { var n = lk("skin", s[0]); return '<button type="button" class="swatch' + (n ? " locked" : "") + '" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(s[1]) + ', locked until level ' + n + '"' : "") + '><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + "</b>" + (n ? lockTag(n) : '<span class="muted">' + s[2] + "</span>") + "</button>"; }).join("") + "</div>" +
-    '<p class="hint2 unlhint">You are level ' + myLv + ". New themes, backgrounds, mouse trails and sound themes unlock as you level up. " + '<button class="linkish" type="button" data-go="me">See what unlocks next</button></p></section>' +
+    '<section class="card" id="setTheme"><h2 class="sub">THEME</h2><div class="swatches">' + SKINS.map(function (s) { var n = lk("skin", s[0]); return '<button type="button" class="swatch' + (n ? " locked" : "") + '" data-skin="' + s[0] + '" aria-pressed="' + (st.skin === s[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(s[1]) + ', locked until ' + lockWords(n) + '"' : "") + '><span class="sw">' + s[3].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("") + "</span><b>" + s[1] + "</b>" + (n ? lockTag(n) : '<span class="muted">' + s[2] + "</span>") + "</button>"; }).join("") + "</div>" +
+    '<p class="hint2 unlhint">You are level ' + myLv + ". New themes, backgrounds, mouse trails and sound themes unlock as you level up, and some are medal rewards. " + '<button class="linkish" type="button" data-go="me">See what unlocks next</button></p></section>' +
     '<section class="card" id="setBg"><h2 class="sub">BACKGROUND & EFFECTS</h2><p class="muted" style="margin-top:0;font-size:14px">A moving background behind everything. Tap one to try it. Press X anywhere to flip through them.</p><div class="fxpick" role="group" aria-label="Background effect">' +
-    BGFX.map(function (f) { var n = lk("bg", f[0]); return '<button type="button" class="fxbtn' + (n ? " locked" : "") + '" data-bgfx="' + f[0] + '" aria-pressed="' + (st.bgFx === f[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(f[1]) + ', locked until level ' + n + '"' : "") + '><b>' + h(f[1]) + "</b>" + (n ? lockTag(n) : '<span class="muted">' + h(f[2]) + "</span>") + "</button>"; }).join("") + "</div>" +
+    BGFX.map(function (f) { var n = lk("bg", f[0]); return '<button type="button" class="fxbtn' + (n ? " locked" : "") + '" data-bgfx="' + f[0] + '" aria-pressed="' + (st.bgFx === f[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(f[1]) + ', locked until ' + lockWords(n) + '"' : "") + '><b>' + h(f[1]) + "</b>" + (n ? lockTag(n) : '<span class="muted">' + h(f[2]) + "</span>") + "</button>"; }).join("") + "</div>" +
     '<div class="field"><label for="setBgColor">Effect colors</label>' + sel("setBgColor", [["theme", "Theme colors"], ["rainbow", "Rainbow"], ["mono", "One color (matches the text)"]], st.bgColor) + "</div>" +
     '<div class="field"><label for="setBgAmount">How much</label>' + sel("setBgAmount", [["few", "A little"], ["normal", "Some"], ["lots", "Lots"]], st.bgDensity) + "</div>" +
     '<div class="field"><label for="setBgSpeed">Speed</label>' + sel("setBgSpeed", [["slow", "Slow"], ["normal", "Normal"], ["fast", "Fast"]], st.bgSpeed) + "</div>" +
@@ -21800,7 +21897,7 @@ function viewSettings(V) {
     '<h3 class="setsub">LAYERS</h3>' + tog("setBgGlow", "Ambient glow (soft moving color clouds)", st.bgGlow) + tog("setBgMove", "Move the theme's pattern", st.bgMove) + '<span class="hint2">For patterned themes: Neon \'80s, Girlypop, Toon Checker and Terminal.</span>' + tog("setBgScan", "Retro screen lines (old TV look)", st.bgScan) +
     '<h3 class="setsub">FLAIR</h3><div class="field"><label for="setPageAnim">Page change animation</label>' + sel("setPageAnim", [["off", "Off"], ["fade", "Fade"], ["rise", "Rise up"], ["slide", "Slide in"]], st.pageAnim) + "</div>" +
     '<div class="field"><label for="setHover">When you point at a card</label>' + sel("setHover", [["off", "Nothing"], ["lift", "It lifts up"], ["glow", "It glows"]], st.hoverFx) + "</div>" +
-    '<div class="field"><label for="setTrail">Mouse trail</label>' + sel("setTrail", TRAILS.map(function (t) { var n = lk("trail", t[0]); return n ? [t[0], t[1] + " (unlocks at level " + n + ")"] : t; }), st.trail) + "</div>" +
+    '<div class="field"><label for="setTrail">Mouse trail</label>' + sel("setTrail", TRAILS.map(function (t) { var n = lk("trail", t[0]); return n ? [t[0], t[1] + " (" + unlockWords(n) + ")"] : t; }), st.trail) + "</div>" +
     tog("setClickFx", "Sparkle burst when you click a button", st.clickFx) +
     '<span class="hint2">With Animations turned off (Sound & feel), backgrounds show a still picture and the flair stays off.</span></section>' +
     '<section class="card" id="setLayout"><h2 class="sub">LAYOUT & LOOK</h2>' +
@@ -21837,7 +21934,7 @@ function viewSettings(V) {
     tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + "</section>" +
     '<section class="card" id="setQuiz"><h2 class="sub">QUIZZES</h2>' + tog("setShuffle", "Shuffle answer choices", st.quizShuffle) + tog("setQAuto", "Go to the next question after a right answer", st.quizAuto) + "</section>" +
     '<section class="card" id="setFeel"><h2 class="sub">SOUND & FEEL</h2>' + tog("setSound", "Sound effects", st.sound) + tog("setClick", "Click sounds on buttons", st.clickSound) + tog("setTypeSnd", "Typing sounds in code and answer boxes", st.typeSound) +
-    '<div class="field" style="margin-top:10px"><label for="setSndPack">Sound theme</label>' + sel("setSndPack", SOUNDS.map(function (t) { var n = lk("sound", t[0]); return [t[0], t[1] + (n ? " (unlocks at level " + n + ")" : ": " + t[2])]; }), st.soundPack) + '<span class="hint2">Changes the click and typing sounds, and gives the other game sounds a new flavor. You hear a preview when you pick one.</span></div>' + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
+    '<div class="field" style="margin-top:10px"><label for="setSndPack">Sound theme</label>' + sel("setSndPack", SOUNDS.map(function (t) { var n = lk("sound", t[0]); return [t[0], t[1] + (n ? " (" + unlockWords(n) + ")" : ": " + t[2])]; }), st.soundPack) + '<span class="hint2">Changes the click and typing sounds, and gives the other game sounds a new flavor. You hear a preview when you pick one.</span></div>' + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
     '<section class="card" id="setKeys2"><h2 class="sub">SHORTCUTS</h2>' + tog("setShortcuts", "Keyboard shortcuts", st.shortcuts) + '<span class="hint2">Single keys like M for Map and V for sound. Press ? anywhere to see them all.</span><div class="row" style="margin-top:10px"><button class="ghost" type="button" id="kbList">Show all shortcuts</button></div></section>' +
     '<section class="card" id="setSave"><h2 class="sub">SAVE DATA</h2><p class="muted" style="margin-top:0;font-size:14px">Progress saves in this browser automatically. To move it to another device or keep a backup, copy your save code and paste it in on the other device.</p>' +
     '<div class="row"><button class="btn" id="expBtn">Copy save code</button><button class="btn" id="impBtn">Load save code</button></div><div id="saveArea"></div>' +
