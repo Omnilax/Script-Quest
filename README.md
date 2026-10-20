@@ -8,11 +8,13 @@ It's a single self-contained page. Open `index.html` in a browser; no build step
 
 ## What's inside
 
-- **22 sections, 948 stages**
+- **22 sections, 1051 stages**
   - Main path: Variables, Arithmetic & Logic, Data Types & Structures, Conditionals, Loops, Functions.
   - Fun: Puzzle Vault, Arcade Builds.
   - Advanced: Array Mastery, Objects/Classes/Prototypes, Scope/Closures/`this`, Modern Syntax (ES6+), Errors & Debugging, Async, DOM & Events, Algorithms.
   - Bonus: Hello, World! Tutorial, Game Engine Bridge, Regular Expressions, Binary/Bits & Flags, Game Math (Vectors & Trig), Procedural Generation.
+- **A learning loop** on the Main Path: each core skill runs Predict (guess what code prints), Learn, Order (tap scrambled lines into place), Modify (change working code), Make and Prove it (a what-if question), with a bug hunt and a boss stage per section. Hello World opens with a no-code robot puzzle. Section pages split core stages from faded extra practice.
+- **Review Deck with spaced review**: missed questions, hard stages and lessons flagged "This part confused me" come back after 3 and 10 days before leaving the deck.
 - **50 quizzes** (302 questions), a **283-term reference glossary**, and a **snippet library**.
 - **Arcade games** driven by student-written functions: Snake, Pong, Breakout, Rain Dodge, Tic-Tac-Toe, Minesweeper, Game of Life, Space Miner, Dice Rogue.
 - A top-bar dock with Continue, mute and player chip; it collapses on phones.
