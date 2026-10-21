@@ -1,0 +1,1203 @@
+{
+ "vars": [
+  [
+   "Make a variable",
+   "let gold = 50;\nconst MAX_HP = 100;",
+   "let can change later. const can't be reassigned. Use const unless you know it will change."
+  ],
+  [
+   "Change it",
+   "gold = gold + 10;\ngold += 10;   // same thing\ngold++;       // add 1",
+   "+= -= *= /= are shortcuts. ++ and -- add or take 1."
+  ],
+  [
+   "Text (strings)",
+   "const name = \"Kit\";\nconst hi = `Hi ${name}!`;",
+   "Quotes make text. Backticks let you drop values in with ${ }."
+  ],
+  [
+   "Print to the console",
+   "console.log(gold);\nconsole.log(\"Gold:\", gold);",
+   "Your main tool for seeing what's inside a variable."
+  ],
+  [
+   "Types",
+   "typeof 5        // \"number\"\ntypeof \"5\"      // \"string\"\ntypeof true     // \"boolean\"",
+   "Numbers, strings and booleans are the basic types. undefined means no value yet; null means empty on purpose."
+  ],
+  [
+   "Text and numbers",
+   "Number(\"42\")     // 42\nString(42)       // \"42\"\n\"5\" + 1          // \"51\"",
+   "+ with text glues instead of adding. Convert first."
+  ],
+  [
+   "Good names",
+   "let playerScore = 0;   // camelCase\nconst MAX_LIVES = 3;   // fixed settings",
+   "Names say what's inside. Capitals matter: score and Score are different."
+  ],
+  [
+   "Copies vs shared",
+   "const a = [1, 2];\nconst b = a;        // same array!\nconst c = [...a];   // a real copy",
+   "Numbers and text copy. Arrays and objects are shared unless you copy them."
+  ]
+ ],
+ "math": [
+  [
+   "Operators",
+   "7 + 2   7 - 2   7 * 2   7 / 2\n7 % 2   // 1, the remainder\n2 ** 3  // 8, power",
+   "Order: () first, then ** then * / % then + -."
+  ],
+  [
+   "Rounding",
+   "Math.round(2.5)  // 3\nMath.floor(2.9)  // 2 (down)\nMath.ceil(2.1)   // 3 (up)",
+   "floor is the usual choice for whole slots and grid cells."
+  ],
+  [
+   "Random numbers",
+   "Math.random()                         // 0 up to (not) 1\nMath.floor(Math.random() * 6) + 1     // dice 1 to 6",
+   ""
+  ],
+  [
+   "Comparing",
+   "5 > 3   5 >= 5   5 === 5   5 !== 4",
+   "Always use === and !==. == converts types first and surprises people."
+  ],
+  [
+   "AND, OR, NOT",
+   "hasKey && doorShut   // both true\nisNight || isRaining // at least one\n!isAlive             // flips it",
+   ""
+  ],
+  [
+   "Even, odd, wrap",
+   "n % 2 === 0           // even\n(i + 1) % len         // wrap to the start",
+   "% is perfect for wrapping around lists and grids."
+  ],
+  [
+   "Defaults",
+   "const name = input || \"Guest\";\nconst lives = saved ?? 3;",
+   "|| falls back on any falsy value. ?? only on null or undefined."
+  ],
+  [
+   "Truthy and falsy",
+   "// falsy: false 0 \"\" null undefined NaN\nif (name) { ... }   // true if not empty",
+   "Everything else is truthy."
+  ],
+  [
+   "Floating point",
+   "0.1 + 0.2   // 0.30000000000000004\nMath.round(x * 100) / 100",
+   "Round money to cents at the end."
+  ]
+ ],
+ "types": [
+  [
+   "Arrays",
+   "const bag = [\"sword\", \"potion\"];\nbag[0]          // \"sword\"\nbag.length      // 2",
+   "Indexes start at 0. The last item is bag[bag.length - 1] or bag.at(-1)."
+  ],
+  [
+   "Add and remove",
+   "bag.push(\"key\");    // add to end\nbag.pop();          // remove from end\nbag.unshift(\"map\"); // add to front\nbag.shift();        // remove from front",
+   ""
+  ],
+  [
+   "Find and cut",
+   "bag.includes(\"key\")    // true/false\nbag.indexOf(\"key\")     // position or -1\nbag.slice(1, 3)        // copy part\nbag.splice(1, 1)       // cut out (changes bag)",
+   ""
+  ],
+  [
+   "Objects",
+   "const hero = { name: \"Kit\", hp: 30 };\nhero.hp            // 30\nhero[\"name\"]       // \"Kit\"\nhero.gold = 5;     // add a key",
+   ""
+  ],
+  [
+   "Keys and values",
+   "Object.keys(hero)      // [\"name\", \"hp\", ...]\nObject.entries(hero)   // [[\"name\", \"Kit\"], ...]\n\"hp\" in hero           // true",
+   ""
+  ],
+  [
+   "Text tools",
+   "s.trim()   s.toUpperCase()   s.includes(\"x\")\ns.split(\",\")   arr.join(\", \")   s.replaceAll(\"a\", \"b\")",
+   ""
+  ],
+  [
+   "Sets and Maps",
+   "const seen = new Set([1, 2, 2]);   // {1, 2}\nconst ages = new Map([[\"Kit\", 12]]);\nages.get(\"Kit\")                    // 12",
+   "Sets keep unique values. Maps are dictionaries with any kind of key."
+  ],
+  [
+   "JSON",
+   "const text = JSON.stringify(save);\nconst back = JSON.parse(text);",
+   "Turn data into text to store or send, then back again."
+  ],
+  [
+   "Unpacking",
+   "const { name, hp } = hero;\nconst [first, second] = bag;",
+   "Destructuring pulls values out into variables."
+  ]
+ ],
+ "cond": [
+  [
+   "if / else if / else",
+   "if (hp <= 0) {\n  console.log(\"Game over\");\n} else if (hp < 10) {\n  console.log(\"Low health!\");\n} else {\n  console.log(\"OK\");\n}",
+   "Checks run top to bottom; the first true one wins. Put the strictest check first."
+  ],
+  [
+   "Guard clauses",
+   "function attack(hero) {\n  if (!hero.alive) return;\n  // ...the real work\n}",
+   "Leave early on bad cases, so the main code isn't nested deep."
+  ],
+  [
+   "Ternary",
+   "const label = lives === 1 ? \"life\" : \"lives\";",
+   "condition ? if-true : if-false. Good for picking between two values."
+  ],
+  [
+   "switch",
+   "switch (key) {\n  case \"ArrowUp\": y--; break;\n  case \"ArrowDown\": y++; break;\n  default: break;\n}",
+   "Don't forget break, or it falls through to the next case."
+  ],
+  [
+   "Lookup instead of switch",
+   "const moves = { up: -1, down: 1 };\ny += moves[dir] ?? 0;",
+   "An object often replaces a long switch."
+  ],
+  [
+   "Combining checks",
+   "if (age >= 13 && hasPermission) { ... }\nif (day === \"Sat\" || day === \"Sun\") { ... }",
+   ""
+  ],
+  [
+   "Empty checks",
+   "if (list.length === 0) { ... }\nif (!name.trim()) { ... }",
+   "An empty array is truthy, so check its length."
+  ]
+ ],
+ "loops": [
+  [
+   "Counting loop",
+   "for (let i = 0; i < 5; i++) {\n  console.log(i);   // 0 1 2 3 4\n}",
+   "Start; keep going while; step."
+  ],
+  [
+   "Every item",
+   "for (const item of bag) {\n  console.log(item);\n}",
+   "for...of for arrays and strings. for...in gives an object's keys."
+  ],
+  [
+   "Add it all up",
+   "let total = 0;\nfor (const n of nums) total += n;",
+   "Start the total outside the loop."
+  ],
+  [
+   "Find the biggest",
+   "let best = nums[0];\nfor (const n of nums) if (n > best) best = n;",
+   "Start from the first item, not 0, in case everything is negative."
+  ],
+  [
+   "while",
+   "while (hp > 0) {\n  hp -= 3;\n}",
+   "Repeats while the condition is true. Make sure something changes, or it never stops."
+  ],
+  [
+   "break and continue",
+   "for (const x of list) {\n  if (x === \"stop\") break;     // leave the loop\n  if (x === \"\") continue;      // skip this one\n}",
+   ""
+  ],
+  [
+   "Loops in loops",
+   "for (let r = 0; r < rows; r++)\n  for (let c = 0; c < cols; c++)\n    grid[r][c] = 0;",
+   "Great for grids. Use different letters for each loop."
+  ],
+  [
+   "Tally",
+   "const count = {};\nfor (const w of words) count[w] = (count[w] || 0) + 1;",
+   "Counts how many times each thing appears."
+  ]
+ ],
+ "funcs": [
+  [
+   "Make and call",
+   "function greet(name) {\n  return \"Hi \" + name;\n}\ngreet(\"Kit\");   // \"Hi Kit\"",
+   "Parameters are the inputs; return sends a value back."
+  ],
+  [
+   "return vs console.log",
+   "function double(n) { return n * 2; }   // gives a value back\nfunction show(n) { console.log(n); }   // only prints",
+   "If you want to use the answer, return it."
+  ],
+  [
+   "Arrow functions",
+   "const double = n => n * 2;\nconst add = (a, b) => a + b;\nconst make = () => ({ hp: 10 });",
+   "Without braces, the value is returned automatically."
+  ],
+  [
+   "Default parameters",
+   "function heal(hp, amount = 10) { return hp + amount; }",
+   ""
+  ],
+  [
+   "Functions as values",
+   "[1, 2, 3].map(n => n * 2);\nbutton.addEventListener(\"click\", start);",
+   "Pass a function without () to hand it over, not run it."
+  ],
+  [
+   "Closures",
+   "function counter() {\n  let n = 0;\n  return () => ++n;\n}\nconst next = counter();\nnext(); next();   // 1, 2",
+   "Inner functions remember the variables around them."
+  ],
+  [
+   "Recursion",
+   "function fact(n) {\n  if (n <= 1) return 1;      // base case\n  return n * fact(n - 1);\n}",
+   "Always have a base case that stops it."
+  ],
+  [
+   "Rest and spread",
+   "function sum(...nums) { return nums.reduce((a, b) => a + b, 0); }\nMath.max(...scores);",
+   ""
+  ]
+ ],
+ "puzzles": [
+  [
+   "Read the puzzle twice",
+   "",
+   "Write down one small example by hand before coding. What goes in, what should come out?"
+  ],
+  [
+   "Loop and check",
+   "for (let i = 0; i < s.length; i++) {\n  if (s[i] === \"(\") depth++;\n}",
+   "Many puzzles are one loop with a counter."
+  ],
+  [
+   "Strings to arrays",
+   "s.split(\"\")   arr.join(\"\")   [...s].reverse()",
+   ""
+  ],
+  [
+   "Grids",
+   "grid[r][c]\nconst dirs = [[1,0],[-1,0],[0,1],[0,-1]];",
+   "Neighbours are row and column plus each direction."
+  ],
+  [
+   "Remainders",
+   "a % b\nfunction gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }",
+   "% shows up in ciphers, clocks and number puzzles."
+  ],
+  [
+   "Test tiny cases",
+   "console.log(solve(\"\"), solve(\"a\"));",
+   "Empty input and one item catch most bugs."
+  ]
+ ],
+ "arcade": [
+  [
+   "Grid movement",
+   "const next = { x: head.x + dir.x, y: head.y + dir.y };",
+   "Snake, Tetris-style and board games move one cell at a time."
+  ],
+  [
+   "Bounce",
+   "if (ball.x < 0 || ball.x > W) ball.vx = -ball.vx;",
+   "Flip the speed when you hit a wall."
+  ],
+  [
+   "Box collision",
+   "a.x < b.x + b.w && a.x + a.w > b.x &&\na.y < b.y + b.h && a.y + a.h > b.y",
+   ""
+  ],
+  [
+   "Wrap around",
+   "x = (x + W) % W;",
+   "Leave one side, come in the other."
+  ],
+  [
+   "Game of Life rule",
+   "alive ? (n === 2 || n === 3) : n === 3",
+   "Count the 8 neighbours, then apply the rule."
+  ],
+  [
+   "Random rolls",
+   "Math.floor(Math.random() * 6) + 1",
+   ""
+  ]
+ ],
+ "arrays": [
+  [
+   "map: change each",
+   "[1, 2, 3].map(n => n * 2)        // [2, 4, 6]",
+   "Same length, new values."
+  ],
+  [
+   "filter: keep some",
+   "nums.filter(n => n > 0)",
+   "Keeps the items where the test is true."
+  ],
+  [
+   "reduce: boil down",
+   "nums.reduce((sum, n) => sum + n, 0)",
+   "The last argument is the starting value."
+  ],
+  [
+   "find, some, every",
+   "users.find(u => u.id === 7)\nnums.some(n => n < 0)\nnums.every(n => n > 0)",
+   "find gives the item (or undefined). some/every give true or false."
+  ],
+  [
+   "Sorting",
+   "nums.sort((a, b) => a - b)      // small to big\nnames.sort()                    // A to Z",
+   "Without a compare function, numbers sort as text: 10 before 9!"
+  ],
+  [
+   "Pipelines",
+   "scores\n  .filter(s => s.done)\n  .map(s => s.points)\n  .reduce((a, b) => a + b, 0)",
+   "Chain small steps."
+  ],
+  [
+   "forEach",
+   "items.forEach((item, i) => console.log(i, item));",
+   "For doing something with each item. It returns nothing."
+  ],
+  [
+   "Copies",
+   "const sorted = [...nums].sort((a, b) => a - b);",
+   "sort and reverse change the array; copy first."
+  ]
+ ],
+ "objects": [
+  [
+   "Methods",
+   "const hero = {\n  hp: 10,\n  heal() { this.hp += 5; }\n};",
+   "this is the object the method was called on."
+  ],
+  [
+   "Classes",
+   "class Enemy {\n  constructor(name, hp) {\n    this.name = name;\n    this.hp = hp;\n  }\n  hit(n) { this.hp -= n; }\n}\nconst e = new Enemy(\"Slime\", 8);",
+   ""
+  ],
+  [
+   "Inheritance",
+   "class Boss extends Enemy {\n  constructor(name) {\n    super(name, 100);\n  }\n}",
+   "super() calls the parent's constructor first."
+  ],
+  [
+   "Static and private",
+   "class Counter {\n  static made = 0;\n  #count = 0;\n  add() { this.#count++; }\n}",
+   "static lives on the class. # fields can't be read from outside."
+  ],
+  [
+   "Getters",
+   "get alive() { return this.hp > 0; }",
+   "Looks like a property, runs like a method."
+  ],
+  [
+   "instanceof",
+   "e instanceof Enemy   // true",
+   ""
+  ],
+  [
+   "Prototypes",
+   "Object.getPrototypeOf(e) === Enemy.prototype",
+   "Methods live on the prototype and are shared by every instance."
+  ],
+  [
+   "Composition",
+   "const duck = { ...canSwim, ...canFly };",
+   "Build objects from small pieces instead of deep class trees."
+  ]
+ ],
+ "scope": [
+  [
+   "Block scope",
+   "if (true) { let x = 1; }\n// x doesn't exist here",
+   "let and const live inside the nearest { }."
+  ],
+  [
+   "Closures",
+   "function makeId() {\n  let id = 0;\n  return () => ++id;\n}",
+   "The inner function keeps its own private id."
+  ],
+  [
+   "The loop bug",
+   "for (let i = 0; i < 3; i++)\n  setTimeout(() => console.log(i));   // 0 1 2 with let",
+   "With var, every timer sees 3."
+  ],
+  [
+   "this in methods",
+   "obj.method()        // this = obj\nconst f = obj.method;\nf()                 // this lost!",
+   ""
+  ],
+  [
+   "Fixing this",
+   "const f = obj.method.bind(obj);\nsetTimeout(() => obj.method());",
+   "bind makes a copy with this fixed. Arrows keep the outer this."
+  ],
+  [
+   "call and apply",
+   "greet.call(hero, \"Hi\");\ngreet.apply(hero, [\"Hi\"]);",
+   "Run a function with a chosen this."
+  ],
+  [
+   "Debounce",
+   "let t;\nbox.oninput = () => {\n  clearTimeout(t);\n  t = setTimeout(search, 300);\n};",
+   "Wait until typing stops."
+  ],
+  [
+   "Module pattern",
+   "const bank = (() => {\n  let money = 0;\n  return { add: n => money += n };\n})();",
+   "Private data, public functions."
+  ]
+ ],
+ "es6": [
+  [
+   "let and const",
+   "const settings = { sound: true };\nsettings.sound = false;   // OK: changing inside\n// settings = {};         // error: reassigning",
+   "Avoid var."
+  ],
+  [
+   "Template literals",
+   "`HP: ${hp}/${max}`\n`Line one\nLine two`",
+   ""
+  ],
+  [
+   "Destructuring",
+   "const { name, hp: health = 10 } = hero;\nconst [a, , c] = list;",
+   "Rename with :, default with =, skip with an empty slot."
+  ],
+  [
+   "Spread and rest",
+   "const copy = { ...hero, hp: 20 };\nconst all = [...a, ...b];\nfunction f(first, ...rest) {}",
+   ""
+  ],
+  [
+   "Optional chaining",
+   "user?.address?.city\nonDone?.()",
+   "Stops with undefined instead of crashing."
+  ],
+  [
+   "Nullish",
+   "count ?? 0\nscore ??= 0",
+   "Only replaces null or undefined, so 0 and \"\" stay."
+  ],
+  [
+   "Newer array tools",
+   "arr.at(-1)\narr.toSorted()\nObject.fromEntries(pairs)\nArray.from({ length: 3 }, (_, i) => i)",
+   ""
+  ],
+  [
+   "Generators",
+   "function* ids() {\n  let n = 1;\n  while (true) yield n++;\n}",
+   "Pause and resume. Great for endless sequences."
+  ]
+ ],
+ "errors": [
+  [
+   "try / catch",
+   "try {\n  JSON.parse(text);\n} catch (err) {\n  console.log(\"Bad save:\", err.message);\n}",
+   "Code in try that throws jumps straight to catch."
+  ],
+  [
+   "finally",
+   "try { load(); } finally { spinner.hidden = true; }",
+   "Runs whether it worked or not."
+  ],
+  [
+   "Throw your own",
+   "if (amount < 0) throw new Error(\"Amount can't be negative\");",
+   ""
+  ],
+  [
+   "Error kinds",
+   "TypeError        // wrong type, like calling undefined\nReferenceError   // name doesn't exist\nSyntaxError      // typo in the code",
+   ""
+  ],
+  [
+   "Custom errors",
+   "class SaveError extends Error {}\nif (err instanceof SaveError) { ... }",
+   ""
+  ],
+  [
+   "Reading errors",
+   "",
+   "Read the message, then the line number. \"x is not defined\" means a typo or a missing let; \"Cannot read properties of undefined\" means something before the dot is undefined."
+  ],
+  [
+   "Debugging",
+   "console.log({ x, y, hp });",
+   "Print with labels. Check your guesses one at a time."
+  ]
+ ],
+ "async": [
+  [
+   "Timers",
+   "setTimeout(() => console.log(\"later\"), 1000);\nconst id = setInterval(tick, 100);\nclearInterval(id);",
+   "Even 0 ms waits until the current code finishes."
+  ],
+  [
+   "Promises",
+   "new Promise((resolve, reject) => {\n  setTimeout(() => resolve(\"done\"), 500);\n});",
+   ""
+  ],
+  [
+   "then / catch",
+   "load().then(data => show(data)).catch(err => oops(err));",
+   ""
+  ],
+  [
+   "async / await",
+   "async function start() {\n  try {\n    const data = await load();\n  } catch (err) { ... }\n}",
+   "await pauses the async function, not the whole page."
+  ],
+  [
+   "Many at once",
+   "const [a, b] = await Promise.all([loadA(), loadB()]);",
+   "allSettled waits for all, even failures. race takes the first."
+  ],
+  [
+   "fetch",
+   "const res = await fetch(url);\nif (!res.ok) throw new Error(res.status);\nconst json = await res.json();",
+   ""
+  ],
+  [
+   "The event loop",
+   "",
+   "Sync code runs first, then promise callbacks (microtasks), then timers."
+  ]
+ ],
+ "dom": [
+  [
+   "Find elements",
+   "document.querySelector(\"#score\")\ndocument.querySelectorAll(\".card\")",
+   "Use CSS selectors: #id, .class, tag."
+  ],
+  [
+   "Change them",
+   "el.textContent = \"Hi\";\nel.classList.add(\"done\");\nel.style.color = \"red\";\nel.hidden = true;",
+   "Prefer textContent over innerHTML for user text."
+  ],
+  [
+   "Create elements",
+   "const li = document.createElement(\"li\");\nli.textContent = \"New\";\nlist.append(li);",
+   ""
+  ],
+  [
+   "Events",
+   "btn.addEventListener(\"click\", e => {\n  console.log(e.target);\n});",
+   "click, input, submit, keydown are the common ones."
+  ],
+  [
+   "Forms",
+   "form.addEventListener(\"submit\", e => {\n  e.preventDefault();\n  const v = box.value.trim();\n});",
+   "preventDefault stops the page reloading."
+  ],
+  [
+   "Event delegation",
+   "list.addEventListener(\"click\", e => {\n  const li = e.target.closest(\"li\");\n  if (li) select(li.dataset.id);\n});",
+   "One listener for many children."
+  ],
+  [
+   "data- attributes",
+   "<li data-id=\"7\">  →  li.dataset.id   // \"7\"",
+   "dataset values are always text."
+  ],
+  [
+   "Render from state",
+   "function render() {\n  list.innerHTML = \"\";\n  for (const t of tasks) list.append(row(t));\n}",
+   "Change the data, then redraw."
+  ]
+ ],
+ "algo": [
+  [
+   "Big-O",
+   "",
+   "O(1) instant, O(log n) halving, O(n) one pass, O(n²) loop in a loop. Aim for the smallest that works."
+  ],
+  [
+   "Binary search",
+   "while (lo <= hi) {\n  const mid = (lo + hi) >> 1;\n  if (a[mid] === x) return mid;\n  if (a[mid] < x) lo = mid + 1; else hi = mid - 1;\n}",
+   "Only on sorted arrays."
+  ],
+  [
+   "Sorting",
+   "",
+   "Bubble, selection and insertion are O(n²). Merge sort and quicksort are O(n log n). In real code, use arr.sort."
+  ],
+  [
+   "Hash lookups",
+   "const seen = new Set();\nfor (const n of nums) { if (seen.has(target - n)) return true; seen.add(n); }",
+   "Trade memory for speed."
+  ],
+  [
+   "Stacks and queues",
+   "stack.push(x); stack.pop();\nqueue.push(x); queue.shift();",
+   "Last in first out vs first in first out."
+  ],
+  [
+   "Breadth-first search",
+   "const q = [start], seen = new Set([start]);\nwhile (q.length) { const n = q.shift(); /* visit neighbours */ }",
+   "Finds the fewest steps on a grid or graph."
+  ],
+  [
+   "Dynamic programming",
+   "const memo = {};\nfunction f(n) { if (n in memo) return memo[n]; ... }",
+   "Save answers to small problems and reuse them."
+  ]
+ ],
+ "hello": [
+  [
+   "Print a message",
+   "console.log(\"Hello, world!\");",
+   "Text goes in quotes."
+  ],
+  [
+   "Comments",
+   "// Notes for humans. The computer skips them.",
+   ""
+  ],
+  [
+   "Variables",
+   "let name = \"Kit\";\nname = \"Robin\";",
+   "A labelled box that holds a value."
+  ],
+  [
+   "Math",
+   "console.log(3 + 4 * 2);",
+   "* and / happen before + and -."
+  ],
+  [
+   "Join text",
+   "console.log(\"Hi \" + name + \"!\");",
+   ""
+  ],
+  [
+   "Choices",
+   "if (age >= 13) {\n  console.log(\"Welcome!\");\n}",
+   ""
+  ],
+  [
+   "Repeat",
+   "for (let i = 1; i <= 3; i++) console.log(i);",
+   ""
+  ],
+  [
+   "Functions",
+   "function wave(who) { console.log(\"👋 \" + who); }\nwave(\"Kit\");",
+   "Write it once, use it many times."
+  ]
+ ],
+ "bridge": [
+  [
+   "Printing",
+   "print(\"hi\")                // Lua / GDScript\nshow_debug_message(\"hi\")   // GML\nconsole.log(\"hi\");         // JavaScript",
+   ""
+  ],
+  [
+   "Variables",
+   "local hp = 10     -- Lua\nvar hp = 10       # GDScript\nlet hp = 10;      // JavaScript",
+   ""
+  ],
+  [
+   "Conditions",
+   "elif → else if     and/or/not → && || !\n~= (Lua) → !==",
+   ""
+  ],
+  [
+   "Loops",
+   "for i in range(5):        # GDScript\nfor i = 1, 5 do ... end   -- Lua\nfor (let i = 0; i < 5; i++) {}",
+   "Lua counts from 1; JavaScript from 0."
+  ],
+  [
+   "Tables and dictionaries",
+   "{ hp = 10 }        -- Lua table\n{\"hp\": 10}        # GDScript dict\n{ hp: 10 }         // JS object",
+   ""
+  ],
+  [
+   "Classes and self",
+   "self.hp → this.hp\nextends Node → class X extends Y",
+   ""
+  ],
+  [
+   "Game loop",
+   "_process(delta) / Step event → requestAnimationFrame(frame)",
+   "Multiply speeds by delta time so speed doesn't depend on frame rate."
+  ],
+  [
+   "Signals and alarms",
+   "signal → addEventListener / dispatchEvent\nalarm[0] = 30 → setTimeout(fn, 500)",
+   ""
+  ]
+ ],
+ "regex": [
+  [
+   "Test a pattern",
+   "/cat/.test(\"concatenate\")   // true",
+   ""
+  ],
+  [
+   "Classes",
+   "\\d digit   \\w letter/digit/_   \\s space   [aeiou]   [^0-9]",
+   ""
+  ],
+  [
+   "How many",
+   "+ one or more   * zero or more   ? maybe   {3} exactly 3   {2,5}",
+   ""
+  ],
+  [
+   "Anchors and flags",
+   "/^\\w{3,12}$/      // the whole string\n/hello/i          // ignore case\n/a/g              // find all",
+   ""
+  ],
+  [
+   "Groups",
+   "const m = \"2d6\".match(/(\\d+)d(\\d+)/);\nm[1]   // \"2\"",
+   "( ) captures parts. (?<name>...) names them."
+  ],
+  [
+   "Replace and split",
+   "s.replace(/\\s+/g, \" \")\ns.split(/[,;]/)",
+   "$1 in the replacement means group 1."
+  ],
+  [
+   "Every match",
+   "for (const m of s.matchAll(/#(\\w+)/g)) console.log(m[1]);",
+   ""
+  ]
+ ],
+ "bits": [
+  [
+   "Binary and hex",
+   "(10).toString(2)      // \"1010\"\nparseInt(\"ff\", 16)    // 255\n0b1010  0xff",
+   ""
+  ],
+  [
+   "Bitwise operators",
+   "a & b    // AND\na | b    // OR\na ^ b    // XOR\n~a       // NOT\n1 << 3   // 8",
+   ""
+  ],
+  [
+   "Flags",
+   "const POISON = 1, STUN = 2, FIRE = 4;\nlet fx = POISON | FIRE;",
+   "Each flag is its own bit."
+  ],
+  [
+   "Check, set, clear, toggle",
+   "(fx & STUN) !== 0     // has it?\nfx |= STUN            // set\nfx &= ~STUN           // clear\nfx ^= STUN            // toggle",
+   ""
+  ],
+  [
+   "Colors",
+   "const r = (c >> 16) & 255;\nconst packed = (r << 16) | (g << 8) | b;",
+   "#RRGGBB is three bytes."
+  ],
+  [
+   "Power of two",
+   "n > 0 && (n & (n - 1)) === 0",
+   ""
+  ]
+ ],
+ "vecmath": [
+  [
+   "Vectors",
+   "{ x: 3, y: 4 }\nadd: { x: a.x + b.x, y: a.y + b.y }",
+   "A vector is a direction and an amount."
+  ],
+  [
+   "Length and distance",
+   "Math.hypot(v.x, v.y)          // 5 for (3, 4)\nMath.hypot(b.x - a.x, b.y - a.y)",
+   ""
+  ],
+  [
+   "Normalize",
+   "const len = Math.hypot(v.x, v.y);\n{ x: v.x / len, y: v.y / len }",
+   "Length 1: pure direction."
+  ],
+  [
+   "Angles",
+   "Math.atan2(dy, dx)          // angle to a target\ndeg * Math.PI / 180         // to radians",
+   ""
+  ],
+  [
+   "Move at an angle",
+   "x += Math.cos(a) * speed;\ny += Math.sin(a) * speed;",
+   ""
+  ],
+  [
+   "Dot product",
+   "a.x * b.x + a.y * b.y",
+   "Above 0: roughly the same way. Below 0: behind."
+  ],
+  [
+   "Lerp",
+   "a + (b - a) * t",
+   "t = 0 gives a, t = 1 gives b."
+  ],
+  [
+   "Physics tick",
+   "vel.x += acc.x;\npos.x += vel.x;",
+   "Acceleration changes velocity; velocity changes position."
+  ]
+ ],
+ "procgen": [
+  [
+   "Seeds",
+   "",
+   "A seeded random number generator gives the same \"random\" sequence every time for the same seed."
+  ],
+  [
+   "Ranges and picks",
+   "lo + Math.floor(rand() * (hi - lo + 1))\nlist[Math.floor(rand() * list.length)]",
+   ""
+  ],
+  [
+   "Weighted loot",
+   "let r = rand() * total;\nfor (const it of table) { r -= it.weight; if (r < 0) return it; }",
+   ""
+  ],
+  [
+   "Shuffle",
+   "for (let i = a.length - 1; i > 0; i--) {\n  const j = Math.floor(rand() * (i + 1));\n  [a[i], a[j]] = [a[j], a[i]];\n}",
+   "Fisher-Yates: fair and fast."
+  ],
+  [
+   "Caves",
+   "",
+   "Random walk or noise, then smooth with cellular automata: a cell becomes wall if 5 or more neighbours are walls."
+  ],
+  [
+   "Rooms",
+   "",
+   "Place random rectangles, skip ones that overlap, then join them with L-shaped corridors."
+  ],
+  [
+   "Noise",
+   "",
+   "Value noise: random numbers at grid points, blended smoothly in between. Good for terrain heights."
+  ]
+ ],
+ "web": [
+  [
+   "Page anatomy",
+   "",
+   "Header (logo, nav) · hero (headline, one main button) · main content · sidebar · footer (contact, legal)."
+  ],
+  [
+   "Layout rules",
+   "",
+   "One main call to action. Group what belongs together. Space in multiples of 8px. Design for phones first."
+  ],
+  [
+   "Color",
+   "",
+   "60-30-10: calm main, supporting, rare accent. Text contrast at least 4.5:1. Never use color alone to carry meaning."
+  ],
+  [
+   "Buttons and links",
+   "btn.addEventListener(\"click\", () => { ... });",
+   "A button does something; a link goes somewhere."
+  ],
+  [
+   "Pages in one site",
+   "window.addEventListener(\"hashchange\", show);",
+   "Show one section, hide the others, based on location.hash."
+  ],
+  [
+   "Scrolling",
+   "el.scrollIntoView({ behavior: \"smooth\" });\nwindow.scrollTo({ top: 0, behavior: \"smooth\" });",
+   ""
+  ],
+  [
+   "Theme variables",
+   "document.documentElement.style.setProperty(\"--bg\", \"#111\");",
+   "Change one CSS variable, recolor the whole page."
+  ],
+  [
+   "Forms",
+   "form.addEventListener(\"submit\", e => { e.preventDefault(); ... });",
+   "Explain errors in words next to the form."
+  ]
+ ],
+ "gamedev": [
+  [
+   "Design basics",
+   "",
+   "Goal, rules, choices, feedback. MDA: mechanics (rules) → dynamics (what players do) → aesthetics (feelings). Find a fun core loop first."
+  ],
+  [
+   "Drawing",
+   "ctx.fillStyle = \"#4cc9f0\";\nctx.fillRect(x, y, w, h);",
+   "y goes down. Draw the background first."
+  ],
+  [
+   "Movement and gravity",
+   "p.vy += 0.5;   // gravity\np.y += p.vy;\np.x += keys.right ? 3 : 0;",
+   ""
+  ],
+  [
+   "Box collision",
+   "a.x < b.x + b.w && a.x + a.w > b.x &&\na.y < b.y + b.h && a.y + a.h > b.y",
+   "Touching edges don't count."
+  ],
+  [
+   "Circles",
+   "Math.hypot(a.x - b.x, a.y - b.y) < a.r + b.r",
+   ""
+  ],
+  [
+   "Hitboxes and hurtboxes",
+   "",
+   "An attack lands when an active hitbox overlaps a hurtbox. Give a few invincibility frames after a hit."
+  ],
+  [
+   "Levels",
+   "const map = [\"#####\", \"#..C#\", \"#####\"];\nconst tile = map[Math.floor(y / 20)][Math.floor(x / 20)];",
+   "Teach, test, twist. Raise difficulty gently."
+  ],
+  [
+   "Game states",
+   "if (state === \"play\") update();\nelse if (state === \"over\") showScore();",
+   ""
+  ]
+ ],
+ "apps": [
+  [
+   "Data, then render",
+   "let tasks = [{ id: 1, text: \"Feed the cat\", done: false }];\nfunction render() { /* clear, build, update totals */ }",
+   "Something happens → change the data → render."
+  ],
+  [
+   "CRUD",
+   "tasks.push(t)                              // create\ntasks.find(t => t.id === id)               // read\ntask.done = !task.done                     // update\ntasks = tasks.filter(t => t.id !== id)     // delete",
+   ""
+  ],
+  [
+   "Search and sort",
+   "items.filter(i => i.name.toLowerCase().includes(q))\nrows.slice().sort((a, b) => a.score - b.score)",
+   ""
+  ],
+  [
+   "Totals and groups",
+   "items.reduce((s, i) => s + i.amount, 0)\ntotals[i.cat] = (totals[i.cat] || 0) + i.amount;",
+   ""
+  ],
+  [
+   "Formats",
+   "new Intl.NumberFormat(\"en-US\", { style: \"currency\", currency: \"USD\" }).format(n)\nString(s).padStart(2, \"0\")",
+   ""
+  ],
+  [
+   "Save and undo",
+   "localStorage.setItem(\"tasks\", JSON.stringify(tasks));\nhistory.push(items.slice());   // before every change",
+   ""
+  ],
+  [
+   "Charts",
+   "const h = Math.round(value / max * height);\nctx.fillRect(x, base - h, w, h);",
+   "Bars compare, lines show change over time, pies show parts of a whole."
+  ],
+  [
+   "Sound",
+   "const osc = audio.createOscillator();\nosc.frequency.value = 440;\nosc.connect(audio.destination);\nosc.start(); osc.stop(audio.currentTime + 0.3);",
+   "Each octave doubles the frequency."
+  ],
+  [
+   "Good app manners",
+   "",
+   "Show what's happening, let people undo, prevent mistakes, speak human, design the empty state. Tap targets 44 to 48 points."
+  ]
+ ],
+ "qstrings": [
+  [
+   "Clean input",
+   "s.trim().toLowerCase()",
+   "Methods return new strings; the original stays the same."
+  ],
+  [
+   "Cut a piece",
+   "s.slice(0, 4)   s.slice(-3)",
+   "Stops just before the end index. Negative counts from the end."
+  ],
+  [
+   "Search",
+   "s.includes(\"x\")   s.startsWith(\"a\")   s.endsWith(\".png\")",
+   ""
+  ],
+  [
+   "Split and join",
+   "\"a,b\".split(\",\")   [\"a\", \"b\"].join(\" + \")",
+   ""
+  ],
+  [
+   "Line up text",
+   "\"7\".padStart(3, \"0\")   // \"007\"\nname.padEnd(10, \".\")",
+   ""
+  ]
+ ],
+ "qarrays": [
+  [
+   "map",
+   "items.map(it => it.price)",
+   "Change every item; same length."
+  ],
+  [
+   "filter",
+   "scores.filter(s => s >= 50)",
+   "Keep some items."
+  ],
+  [
+   "find",
+   "users.find(u => u.id === id)?.name ?? \"Unknown\"",
+   "First match or undefined."
+  ],
+  [
+   "some / every",
+   "players.some(p => p.hp > 0)",
+   "Yes or no answers."
+  ],
+  [
+   "reduce",
+   "nums.reduce((a, b) => a + b, 0)",
+   "Boil down to one value. Chain: filter → map → reduce."
+  ]
+ ],
+ "qrandom": [
+  [
+   "Whole number in a range",
+   "Math.floor(Math.random() * (max - min + 1)) + min",
+   ""
+  ],
+  [
+   "Dice",
+   "Math.floor(Math.random() * 6) + 1",
+   "Forget the + 1 and you get 0 to 5."
+  ],
+  [
+   "Pick from a list",
+   "list[Math.floor(Math.random() * list.length)]",
+   ""
+  ],
+  [
+   "Percent chance",
+   "if (Math.random() < 0.3) { /* 30% */ }",
+   ""
+  ]
+ ],
+ "qdates": [
+  [
+   "Make and read",
+   "const d = new Date(2030, 0, 15);\nd.getFullYear()  d.getMonth() + 1  d.getDate()  d.getDay()",
+   "Months start at 0. getDay: 0 is Sunday."
+  ],
+  [
+   "Days between",
+   "Math.round((new Date(to) - new Date(from)) / (1000 * 60 * 60 * 24))",
+   "Dates subtract as milliseconds. new Date(\"2030-01-31\") reads year-month-day text."
+  ],
+  [
+   "ISO format",
+   "y + \"-\" + String(m).padStart(2, \"0\") + \"-\" + String(d).padStart(2, \"0\")",
+   "YYYY-MM-DD sorts correctly as text."
+  ],
+  [
+   "Overflow",
+   "new Date(2030, 0, 32)   // 1 February",
+   "Extra days roll into the next month or year."
+  ]
+ ],
+ "qobjects": [
+  [
+   "Shorthand",
+   "{ name, age }",
+   "Same as { name: name, age: age }."
+  ],
+  [
+   "Copy and change",
+   "{ ...base, speed: 5 }",
+   "Later properties win."
+  ],
+  [
+   "Defaults",
+   "{ sound: true, volume: 50, ...options }",
+   ""
+  ],
+  [
+   "Destructuring",
+   "const { name, qty = 1 } = item;",
+   ""
+  ],
+  [
+   "Loop over keys",
+   "for (const [k, v] of Object.entries(obj)) { ... }",
+   ""
+  ]
+ ],
+ "qsets": [
+  [
+   "Remove duplicates",
+   "[...new Set(list)]",
+   ""
+  ],
+  [
+   "Methods",
+   "s.add(x)  s.has(x)  s.delete(x)  s.size",
+   "Adding a value twice does nothing."
+  ],
+  [
+   "Seen before?",
+   "if (seen.has(x)) return x;\nseen.add(x);",
+   "has is fast even for huge Sets."
+  ],
+  [
+   "Compare lists",
+   "a.filter(x => setB.has(x))     // in both\nroster.filter(x => !here.has(x)) // missing",
+   ""
+  ]
+ ],
+ "qround": [
+  [
+   "Round, floor, ceil",
+   "Math.round(2.5)  Math.floor(2.9)  Math.ceil(2.1)",
+   "ceil for \"how many pages / cars / boxes\"."
+  ],
+  [
+   "Decimals as a number",
+   "Math.round(n * 100) / 100",
+   ""
+  ],
+  [
+   "Decimals as text",
+   "(4.5).toFixed(2)   // \"4.50\" (a string!)",
+   "Only for display."
+  ],
+  [
+   "Clamp",
+   "Math.min(Math.max(n, min), max)",
+   ""
+  ],
+  [
+   "Percent",
+   "Math.round(part / whole * 100) + \"%\"",
+   "Guard against whole === 0."
+  ]
+ ],
+ "qcount": [
+  [
+   "Tally",
+   "const count = {};\nfor (const x of list) count[x] = (count[x] || 0) + 1;",
+   "|| 0 starts missing keys at 0 instead of NaN."
+  ],
+  [
+   "Letters",
+   "for (const ch of word.toLowerCase()) ...",
+   ""
+  ],
+  [
+   "Most common",
+   "let best = null;\nfor (const k in count) if (best === null || count[k] > count[best]) best = k;",
+   "> keeps the first one on a tie."
+  ],
+  [
+   "Words",
+   "text.toLowerCase().split(\" \")",
+   ""
+  ]
+ ]
+}

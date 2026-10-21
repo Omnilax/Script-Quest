@@ -1,0 +1,1627 @@
+[
+ {
+  "id": "qstrings",
+  "title": "String Tricks",
+  "group": "quick",
+  "xp": 10,
+  "icon": "Ab",
+  "color": "s1",
+  "blurb": "The handful of text methods you'll use every day: trim, case, includes, slice, split and padStart.",
+  "intro": "<p>Names, messages, search boxes, file names: most data is text. These five stages cover the string tools that do 90% of the work.</p><p class=\"muted\">Five quick stages, about five minutes.</p>",
+  "links": [
+   [
+    "MDN: String",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String"
+   ]
+  ],
+  "stages": [
+   {
+    "uid": "qs1",
+    "t": "Clean it up",
+    "k": "fn",
+    "fn": "clean",
+    "a": "s",
+    "step": "learn",
+    "l": "<p>Text typed by people is messy: extra spaces, random capitals. Two methods fix most of it:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;  Hello  &quot;.trim());\nconsole.log(&quot;Hello&quot;.toUpperCase());\nconsole.log(&quot;Hello&quot;.toLowerCase());</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>Hello\nHELLO\nhello</code></pre><p>String methods never change the original text. They give you a new string back. You can also chain them: <code>s.trim().toUpperCase()</code>.</p>",
+    "p": "<p>Write <code>clean(s)</code> that returns <code>s</code> with the spaces cut off both ends and every letter in lowercase.</p>",
+    "h": "<p>Chain two of the methods from the example and return the result.</p>",
+    "c": [
+     [
+      [
+       "  Kit  "
+      ],
+      "kit"
+     ],
+     [
+      [
+       "HELLO"
+      ],
+      "hello"
+     ],
+     [
+      [
+       "  MiXeD Case "
+      ],
+      "mixed case"
+     ],
+     [
+      [
+       ""
+      ],
+      ""
+     ]
+    ],
+    "s": "function clean(s) {\n  return s.trim().toLowerCase();\n}\n",
+    "st": "function clean(s) {\n}\n"
+   },
+   {
+    "uid": "qs2",
+    "t": "Cut out a piece",
+    "k": "predict",
+    "l": "<p><code>slice(start, end)</code> copies part of a string. It starts at <code>start</code> and stops <b>just before</b> <code>end</code>. Negative numbers count from the end.</p>",
+    "p": "<p>What does this print?</p>",
+    "code": "const word = \"JavaScript\";\nconsole.log(word.slice(0, 4));\nconsole.log(word.slice(-6));",
+    "opts": [
+     "Java\nScript",
+     "Java\nscript",
+     "JavaS\nScript",
+     "Jav\nript"
+    ],
+    "miss": [
+     "",
+     "slice copies letters exactly as they are, capital S included.",
+     "slice stops just before index 4, so it's only 4 letters.",
+     "slice(0, 4) takes indexes 0, 1, 2 and 3: four letters. And -6 means the last six."
+    ],
+    "why": "<p>Indexes 0 to 3 are <code>Java</code>. <code>slice(-6)</code> starts 6 from the end and goes to the end: <code>Script</code>.</p>",
+    "h": "<p>Count the letters: J is 0, a is 1, v is 2, a is 3, S is 4.</p>"
+   },
+   {
+    "uid": "qs3",
+    "t": "Does it contain?",
+    "k": "fn",
+    "fn": "hasBadWord",
+    "a": "message, bad",
+    "step": "make",
+    "l": "<p><code>includes</code> checks whether one string is inside another. <code>startsWith</code> and <code>endsWith</code> check the ends.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;photo.png&quot;.endsWith(&quot;.png&quot;));\nconsole.log(&quot;Hello world&quot;.includes(&quot;lo w&quot;));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>true\ntrue</code></pre>",
+    "p": "<p>Write <code>hasBadWord(message, bad)</code>. <code>bad</code> is an array of words. Return <code>true</code> if the message contains any of them, ignoring capitals.</p>",
+    "h": "<p>Lowercase the message once, then use <code>bad.some(w =&gt; ...)</code> with <code>includes</code>.</p>",
+    "c": [
+     [
+      [
+       "You are a NOOB",
+       [
+        "noob"
+       ]
+      ],
+      true
+     ],
+     [
+      [
+       "good game!",
+       [
+        "noob",
+        "bad"
+       ]
+      ],
+      false
+     ],
+     [
+      [
+       "Bad luck",
+       [
+        "noob",
+        "bad"
+       ]
+      ],
+      true
+     ],
+     [
+      [
+       "hi",
+       []
+      ],
+      false
+     ]
+    ],
+    "s": "function hasBadWord(message, bad) {\n  const m = message.toLowerCase();\n  return bad.some(w => m.includes(w));\n}\n",
+    "st": "function hasBadWord(message, bad) {\n}\n"
+   },
+   {
+    "uid": "qs4",
+    "t": "Split and join",
+    "k": "fn",
+    "fn": "initials",
+    "a": "fullName",
+    "step": "make",
+    "l": "<p><code>split</code> breaks text into an array at a separator. <code>join</code> glues an array back into text.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const parts = &quot;red,green,blue&quot;.split(&quot;,&quot;);\nconsole.log(parts);\nconsole.log(parts.join(&quot; + &quot;));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>[&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;]\nred + green + blue</code></pre>",
+    "p": "<p>Write <code>initials(fullName)</code> that returns the first letter of each word, in capitals, with no spaces. <code>\"ada lovelace\"</code> gives <code>\"AL\"</code>.</p>",
+    "h": "<p>Split on <code>\" \"</code>, <code>map</code> each word to <code>w[0].toUpperCase()</code>, then <code>join(\"\")</code>.</p>",
+    "c": [
+     [
+      [
+       "ada lovelace"
+      ],
+      "AL"
+     ],
+     [
+      [
+       "Grace Brewster Hopper"
+      ],
+      "GBH"
+     ],
+     [
+      [
+       "kit"
+      ],
+      "K"
+     ]
+    ],
+    "s": "function initials(fullName) {\n  return fullName.split(\" \").map(w => w[0].toUpperCase()).join(\"\");\n}\n",
+    "st": "function initials(fullName) {\n}\n"
+   },
+   {
+    "uid": "qs5",
+    "t": "Quick challenge: line them up",
+    "k": "fn",
+    "fn": "row",
+    "a": "name, score",
+    "l": "<p><code>padStart(length, fill)</code> and <code>padEnd(length, fill)</code> add characters until a string is long enough. They're how scoreboards line up.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;7&quot;.padStart(3, &quot;0&quot;));\nconsole.log(&quot;ab&quot;.padEnd(5, &quot;.&quot;) + &quot;|&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>007\nab...|</code></pre>",
+    "p": "<p>Write <code>row(name, score)</code> for a scoreboard: the name padded with dots on the right to 10 characters, then the score padded with spaces on the left to 5 characters.</p>",
+    "h": "<p><code>name.padEnd(10, \".\") + String(score).padStart(5, \" \")</code>.</p>",
+    "c": [
+     [
+      [
+       "Kit",
+       120
+      ],
+      "Kit.......  120"
+     ],
+     [
+      [
+       "Robin",
+       9
+      ],
+      "Robin.....    9"
+     ],
+     [
+      [
+       "Alexandra",
+       12345
+      ],
+      "Alexandra.12345"
+     ]
+    ],
+    "s": "function row(name, score) {\n  return name.padEnd(10, \".\") + String(score).padStart(5, \" \");\n}\n",
+    "st": "function row(name, score) {\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "qarrays",
+  "title": "Array One-Liners",
+  "group": "quick",
+  "xp": 10,
+  "icon": "[]",
+  "color": "s3",
+  "blurb": "Do in one line what used to take a whole loop: map, filter, find, some and reduce.",
+  "intro": "<p>Arrays come with built-in tools that each do one common loop job. Learn to spot which one you need and your code gets much shorter.</p><p class=\"muted\">Five quick stages, about five minutes.</p>",
+  "links": [
+   [
+    "MDN: Array",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"
+   ]
+  ],
+  "stages": [
+   {
+    "uid": "qa1",
+    "t": "map changes each item",
+    "k": "fn",
+    "fn": "prices",
+    "a": "items",
+    "step": "learn",
+    "l": "<p><code>map</code> runs a function on every item and gives back a <b>new array</b> of the results, the same length as before.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const names = [&quot;kit&quot;, &quot;robin&quot;];\nconsole.log(names.map(n =&gt; n.toUpperCase()));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>[&quot;KIT&quot;, &quot;ROBIN&quot;]</code></pre>",
+    "p": "<p>Write <code>prices(items)</code>. Each item is <code>{ name, price }</code>. Return an array of just the prices.</p>",
+    "h": "<p><code>items.map(it =&gt; it.price)</code>.</p>",
+    "c": [
+     [
+      [
+       [
+        {
+         "name": "pen",
+         "price": 2
+        },
+        {
+         "name": "book",
+         "price": 9
+        }
+       ]
+      ],
+      [
+       2,
+       9
+      ]
+     ],
+     [
+      [
+       []
+      ],
+      []
+     ]
+    ],
+    "s": "function prices(items) {\n  return items.map(it => it.price);\n}\n",
+    "st": "function prices(items) {\n}\n"
+   },
+   {
+    "uid": "qa2",
+    "t": "Which one fits?",
+    "k": "pick",
+    "step": "predict",
+    "l": "<div class=\"callout\"><b>Pick the right tool</b><p><b>map</b>: change every item. <b>filter</b>: keep some items. <b>find</b>: get the first match. <b>some</b> / <b>every</b>: yes-or-no questions. <b>reduce</b>: boil everything down to one value.</p></div>",
+    "p": "<p>You have an array of players and want to know: <i>is anyone still alive?</i></p>",
+    "q": "Which method answers that in one line?",
+    "opts": [
+     "<code>players.map(...)</code>",
+     "<code>players.some(p =&gt; p.hp &gt; 0)</code>",
+     "<code>players.filter(...)</code>",
+     "<code>players.reduce(...)</code>"
+    ],
+    "ans": 1,
+    "miss": [
+     "map gives back a whole new array, not a yes or no.",
+     "",
+     "filter gives a list of the alive players. That works, but you'd still need .length > 0.",
+     "reduce could do it, but it's the long way round."
+    ],
+    "why": "<p><code>some</code> returns <code>true</code> as soon as one item passes the test. It's the direct answer to \"is anyone...?\"</p>",
+    "h": "<p>The question has a yes or no answer.</p>"
+   },
+   {
+    "uid": "qa3",
+    "t": "filter keeps some",
+    "k": "fn",
+    "fn": "passed",
+    "a": "scores",
+    "step": "make",
+    "l": "<p><code>filter</code> keeps the items where your test returns <code>true</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log([3, -1, 8, 0].filter(n =&gt; n &gt; 0));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>[3, 8]</code></pre>",
+    "p": "<p>Write <code>passed(scores)</code> that returns only the scores of 50 or more.</p>",
+    "h": "<p>Test with <code>s &gt;= 50</code>.</p>",
+    "c": [
+     [
+      [
+       [
+        40,
+        50,
+        90,
+        12
+       ]
+      ],
+      [
+       50,
+       90
+      ]
+     ],
+     [
+      [
+       [
+        1,
+        2
+       ]
+      ],
+      []
+     ],
+     [
+      [
+       []
+      ],
+      []
+     ]
+    ],
+    "s": "function passed(scores) {\n  return scores.filter(s => s >= 50);\n}\n",
+    "st": "function passed(scores) {\n}\n"
+   },
+   {
+    "uid": "qa4",
+    "t": "find gets one",
+    "k": "fn",
+    "fn": "byId",
+    "a": "users, id",
+    "step": "make",
+    "l": "<p><code>find</code> returns the <b>first</b> item that passes the test, or <code>undefined</code> if none do. Use <code>??</code> to give a fallback.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const pets = [{ kind: &quot;cat&quot; }, { kind: &quot;dog&quot; }];\nconsole.log(pets.find(p =&gt; p.kind === &quot;fish&quot;) ?? &quot;no fish&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>no fish</code></pre>",
+    "p": "<p>Write <code>byId(users, id)</code> that returns the user's <code>name</code>, or <code>\"Unknown\"</code> if no user has that id.</p>",
+    "h": "<p>Find the user, then use <code>?.name ?? \"Unknown\"</code>.</p>",
+    "c": [
+     [
+      [
+       [
+        {
+         "id": 1,
+         "name": "Ava"
+        },
+        {
+         "id": 2,
+         "name": "Ben"
+        }
+       ],
+       2
+      ],
+      "Ben"
+     ],
+     [
+      [
+       [
+        {
+         "id": 1,
+         "name": "Ava"
+        }
+       ],
+       9
+      ],
+      "Unknown"
+     ]
+    ],
+    "s": "function byId(users, id) {\n  return users.find(u => u.id === id)?.name ?? \"Unknown\";\n}\n",
+    "st": "function byId(users, id) {\n}\n"
+   },
+   {
+    "uid": "qa5",
+    "t": "Quick challenge: one pipeline",
+    "k": "fn",
+    "fn": "bestTotal",
+    "a": "orders",
+    "l": "<p>The tools chain together. Each step's result flows into the next.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const words = [&quot;hi&quot;, &quot;hello&quot;, &quot;hey&quot;];\nconsole.log(words.filter(w =&gt; w.length &gt; 2).map(w =&gt; w.length).reduce((a, b) =&gt; a + b, 0));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>8</code></pre>",
+    "p": "<p>Write <code>bestTotal(orders)</code>. Each order is <code>{ paid, amount }</code>. Add up the <code>amount</code> of only the paid orders.</p>",
+    "h": "<p>filter by <code>o.paid</code>, map to <code>o.amount</code>, reduce with a start of 0.</p>",
+    "c": [
+     [
+      [
+       [
+        {
+         "paid": true,
+         "amount": 5
+        },
+        {
+         "paid": false,
+         "amount": 9
+        },
+        {
+         "paid": true,
+         "amount": 2
+        }
+       ]
+      ],
+      7
+     ],
+     [
+      [
+       []
+      ],
+      0
+     ]
+    ],
+    "s": "function bestTotal(orders) {\n  return orders.filter(o => o.paid).map(o => o.amount).reduce((a, b) => a + b, 0);\n}\n",
+    "st": "function bestTotal(orders) {\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "qrandom",
+  "title": "Random Picks",
+  "group": "quick",
+  "xp": 10,
+  "icon": "?!",
+  "color": "s2",
+  "blurb": "Dice rolls, coin flips, random picks from a list and chance-based events with Math.random.",
+  "intro": "<p>Games, quizzes and name pickers all need randomness. It all comes from one function, <code>Math.random()</code>, plus a little maths.</p><p class=\"muted\">Five quick stages, about five minutes.</p>",
+  "links": [
+   [
+    "MDN: Math.random",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random"
+   ]
+  ],
+  "stages": [
+   {
+    "uid": "qr1",
+    "t": "A whole number in a range",
+    "k": "fn",
+    "fn": "between",
+    "a": "min, max, r",
+    "step": "learn",
+    "l": "<p><code>Math.random()</code> gives a decimal from 0 up to (but never) 1. To get a whole number from <code>min</code> to <code>max</code>:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>// a dice roll: 1 to 6\nconst roll = Math.floor(Math.random() * 6) + 1;</code></pre><p>Times 6 gives 0 to 5.99…, <code>floor</code> gives 0 to 5, and + 1 shifts it to 1 to 6. In general it's <i>times how many numbers there are</i>, then <i>plus the smallest</i>.</p><div class=\"callout\"><b>Testing random code</b><p>Here, the random number is passed in as <code>r</code>, so the checker can test exact values. In real code you'd use <code>Math.random()</code> in its place.</p></div>",
+    "p": "<p>Write <code>between(min, max, r)</code> that turns <code>r</code> (from 0 up to 1) into a whole number from <code>min</code> to <code>max</code>, including both.</p>",
+    "h": "<p>There are <code>max - min + 1</code> numbers. <code>Math.floor(r * (max - min + 1)) + min</code>.</p>",
+    "c": [
+     [
+      [
+       1,
+       6,
+       0
+      ],
+      1
+     ],
+     [
+      [
+       1,
+       6,
+       0.999
+      ],
+      6
+     ],
+     [
+      [
+       10,
+       20,
+       0.5
+      ],
+      15
+     ],
+     [
+      [
+       -3,
+       3,
+       0.3
+      ],
+      -1
+     ]
+    ],
+    "s": "function between(min, max, r) {\n  return Math.floor(r * (max - min + 1)) + min;\n}\n",
+    "st": "function between(min, max, r) {\n}\n"
+   },
+   {
+    "uid": "qr2",
+    "t": "Off by one",
+    "k": "pick",
+    "step": "predict",
+    "l": "<p>The most common random bug is forgetting the <code>+ 1</code> or putting it in the wrong place.</p>",
+    "p": "<p>This is meant to roll a dice:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Code\"><code>const roll = Math.floor(Math.random() * 6);</code></pre>",
+    "q": "Which numbers can it actually produce?",
+    "opts": [
+     "0 to 5",
+     "1 to 6",
+     "0 to 6",
+     "1 to 5"
+    ],
+    "ans": 0,
+    "miss": [
+     "",
+     "There's no + 1, so it never shifts up to start at 1.",
+     "Math.random() never reaches 1, so times 6 never reaches 6.",
+     "Without + 1 it starts at 0, and it can reach 5."
+    ],
+    "why": "<p>Without <code>+ 1</code> you get 0 to 5: a 0 instead of a 6. The fix is <code>Math.floor(Math.random() * 6) + 1</code>.</p>",
+    "h": "<p>What's the smallest and largest value of <code>Math.random() * 6</code>, rounded down?</p>"
+   },
+   {
+    "uid": "qr3",
+    "t": "Pick from a list",
+    "k": "fn",
+    "fn": "pick",
+    "a": "list, r",
+    "step": "make",
+    "l": "<p>To pick a random item, pick a random <b>index</b> from 0 to <code>length - 1</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];\nconst i = Math.floor(Math.random() * colors.length);</code></pre>",
+    "p": "<p>Write <code>pick(list, r)</code> that uses <code>r</code> to choose and return a random item from <code>list</code>.</p>",
+    "h": "<p><code>list[Math.floor(r * list.length)]</code>.</p>",
+    "c": [
+     [
+      [
+       [
+        "a",
+        "b",
+        "c"
+       ],
+       0
+      ],
+      "a"
+     ],
+     [
+      [
+       [
+        "a",
+        "b",
+        "c"
+       ],
+       0.5
+      ],
+      "b"
+     ],
+     [
+      [
+       [
+        "a",
+        "b",
+        "c"
+       ],
+       0.99
+      ],
+      "c"
+     ]
+    ],
+    "s": "function pick(list, r) {\n  return list[Math.floor(r * list.length)];\n}\n",
+    "st": "function pick(list, r) {\n}\n"
+   },
+   {
+    "uid": "qr4",
+    "t": "Percent chance",
+    "k": "fn",
+    "fn": "chance",
+    "a": "percent, r",
+    "step": "make",
+    "l": "<p>Something that should happen 30% of the time: check whether the random number is below 0.3.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>if (Math.random() &lt; 0.5) console.log(&quot;Heads&quot;);\nelse console.log(&quot;Tails&quot;);</code></pre>",
+    "p": "<p>Write <code>chance(percent, r)</code> that returns <code>true</code> when <code>r</code> falls inside the chance. <code>chance(30, 0.2)</code> is true and <code>chance(30, 0.5)</code> is false.</p>",
+    "h": "<p>Turn the percent into a decimal by dividing by 100, then compare with <code>&lt;</code>.</p>",
+    "c": [
+     [
+      [
+       30,
+       0.2
+      ],
+      true
+     ],
+     [
+      [
+       30,
+       0.5
+      ],
+      false
+     ],
+     [
+      [
+       30,
+       0.3
+      ],
+      false
+     ],
+     [
+      [
+       100,
+       0.999
+      ],
+      true
+     ],
+     [
+      [
+       0,
+       0
+      ],
+      false
+     ]
+    ],
+    "s": "function chance(percent, r) {\n  return r < percent / 100;\n}\n",
+    "st": "function chance(percent, r) {\n}\n"
+   },
+   {
+    "uid": "qr5",
+    "t": "Quick challenge: roll a team",
+    "k": "fn",
+    "fn": "teams",
+    "a": "names, rolls",
+    "l": "<p>Putting it together: random choices can drive any decision.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const coin = r =&gt; (r &lt; 0.5 ? &quot;heads&quot; : &quot;tails&quot;);\nconsole.log([0.1, 0.7].map(coin));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>[&quot;heads&quot;, &quot;tails&quot;]</code></pre>",
+    "p": "<p>Write <code>teams(names, rolls)</code>. <code>rolls[i]</code> is the random number for <code>names[i]</code>. Below 0.5 goes to team <code>red</code>, otherwise <code>blue</code>. Return <code>{ red: [...], blue: [...] }</code>.</p>",
+    "h": "<p>Start with <code>{ red: [], blue: [] }</code> and loop with <code>forEach((n, i) =&gt; ...)</code>, pushing into the right team.</p>",
+    "c": [
+     [
+      [
+       [
+        "Ava",
+        "Ben",
+        "Cara"
+       ],
+       [
+        0.1,
+        0.9,
+        0.4
+       ]
+      ],
+      {
+       "red": [
+        "Ava",
+        "Cara"
+       ],
+       "blue": [
+        "Ben"
+       ]
+      }
+     ],
+     [
+      [
+       [],
+       []
+      ],
+      {
+       "red": [],
+       "blue": []
+      }
+     ]
+    ],
+    "s": "function teams(names, rolls) {\n  const t = { red: [], blue: [] };\n  names.forEach((n, i) => {\n    if (rolls[i] < 0.5) t.red.push(n);\n    else t.blue.push(n);\n  });\n  return t;\n}\n",
+    "st": "function teams(names, rolls) {\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "qdates",
+  "title": "Dates and Times",
+  "group": "quick",
+  "xp": 10,
+  "icon": "D",
+  "color": "s4",
+  "blurb": "Make dates, read the parts, count days between them and write them out neatly.",
+  "intro": "<p>Birthdays, deadlines, streaks and timers all need dates. JavaScript's <code>Date</code> has a few odd habits, and this module covers the ones that trip everyone up.</p><p class=\"muted\">Five quick stages, about five minutes.</p>",
+  "links": [
+   [
+    "MDN: Date",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date"
+   ]
+  ],
+  "stages": [
+   {
+    "uid": "qd1",
+    "t": "Reading a date",
+    "k": "fn",
+    "fn": "weekday",
+    "a": "year, month, day",
+    "step": "learn",
+    "l": "<p>A <code>Date</code> holds one moment in time. Make one from numbers, then read the pieces with <code>get</code> methods:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const d = new Date(2030, 0, 15);   // 15 January 2030\nconsole.log(d.getFullYear(), d.getMonth(), d.getDate(), d.getDay());</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>2030 0 15 2</code></pre><p>The odd one: <b>months count from 0</b>, so January is 0 and December is 11. <code>getDay()</code> is the day of the week, where 0 is Sunday, 1 is Monday and so on.</p>",
+    "p": "<p>Write <code>weekday(year, month, day)</code>, where <code>month</code> is a normal month number (January is 1). Return the day of the week as a word, like <code>\"Tuesday\"</code>.</p>",
+    "h": "<p>Make the date with <code>month - 1</code>. Keep a list of day names starting with <code>\"Sunday\"</code> and use <code>getDay()</code> as the index.</p>",
+    "c": [
+     [
+      [
+       2030,
+       1,
+       15
+      ],
+      "Tuesday"
+     ],
+     [
+      [
+       2030,
+       12,
+       25
+      ],
+      "Wednesday"
+     ],
+     [
+      [
+       2000,
+       1,
+       1
+      ],
+      "Saturday"
+     ]
+    ],
+    "s": "function weekday(year, month, day) {\n  const names = [\"Sunday\", \"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\"];\n  return names[new Date(year, month - 1, day).getDay()];\n}\n",
+    "st": "function weekday(year, month, day) {\n}\n"
+   },
+   {
+    "uid": "qd2",
+    "t": "The month trap",
+    "k": "predict",
+    "l": "<p>Because months start at 0, the month number you type is one more than you might think.</p>",
+    "p": "<p>What does this print?</p>",
+    "code": "const d = new Date(2030, 3, 1);\nconsole.log([\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\"][d.getMonth()]);",
+    "opts": [
+     "Apr",
+     "Mar",
+     "May",
+     "undefined"
+    ],
+    "miss": [
+     "",
+     "3 isn't March here: months count from 0, so 0 is January.",
+     "getMonth() gives back exactly the 3 that was put in.",
+     "Index 3 exists in the list."
+    ],
+    "why": "<p>Month 3 is the fourth month, April. <code>getMonth()</code> returns 3, and index 3 in the list is <code>\"Apr\"</code>, because the list counts from 0 too.</p>",
+    "h": "<p>0 is January, 1 is February...</p>"
+   },
+   {
+    "uid": "qd3",
+    "t": "Days between",
+    "k": "fn",
+    "fn": "daysBetween",
+    "a": "from, to",
+    "step": "make",
+    "l": "<p>Inside, a date is a count of <b>milliseconds</b> since 1 January 1970. Subtracting two dates gives the milliseconds between them. Dates can also be made from text written year-month-day:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const ms = new Date(&quot;2030-01-02&quot;) - new Date(&quot;2030-01-01&quot;);\nconsole.log(ms);              // milliseconds in one day\nconsole.log(ms / 1000 / 60);  // in minutes</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>86400000\n1440</code></pre>",
+    "p": "<p>Write <code>daysBetween(from, to)</code>. Both are text like <code>\"2030-01-31\"</code>. Return how many days it is from <code>from</code> to <code>to</code>, rounded to the nearest day.</p>",
+    "h": "<p>A day is <code>1000 * 60 * 60 * 24</code> milliseconds. Turn both into dates, subtract, divide by a day and <code>Math.round</code>.</p>",
+    "c": [
+     [
+      [
+       "2030-01-01",
+       "2030-01-31"
+      ],
+      30
+     ],
+     [
+      [
+       "2030-01-01",
+       "2031-01-01"
+      ],
+      365
+     ],
+     [
+      [
+       "2030-06-10",
+       "2030-06-03"
+      ],
+      -7
+     ]
+    ],
+    "s": "function daysBetween(from, to) {\n  const day = 1000 * 60 * 60 * 24;\n  return Math.round((new Date(to) - new Date(from)) / day);\n}\n",
+    "st": "function daysBetween(from, to) {\n}\n"
+   },
+   {
+    "uid": "qd4",
+    "t": "Write it neatly",
+    "k": "fn",
+    "fn": "isoDate",
+    "a": "year, month, day",
+    "step": "make",
+    "l": "<p>Computers like dates written <b>year-month-day</b> (called ISO format), like <code>2030-01-05</code>, because they sort correctly as text. Pad single digits with a 0:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const n = 7;\nconsole.log(String(n).padStart(2, &quot;0&quot;));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>07</code></pre>",
+    "p": "<p>Write <code>isoDate(year, month, day)</code> that returns the date as <code>YYYY-MM-DD</code>, with the month and day always 2 digits.</p>",
+    "h": "<p>Pad month and day to 2 characters, then join the three parts with <code>\"-\"</code>.</p>",
+    "c": [
+     [
+      [
+       2030,
+       1,
+       5
+      ],
+      "2030-01-05"
+     ],
+     [
+      [
+       2031,
+       11,
+       23
+      ],
+      "2031-11-23"
+     ]
+    ],
+    "s": "function isoDate(year, month, day) {\n  const m = String(month).padStart(2, \"0\");\n  const d = String(day).padStart(2, \"0\");\n  return year + \"-\" + m + \"-\" + d;\n}\n",
+    "st": "function isoDate(year, month, day) {\n}\n"
+   },
+   {
+    "uid": "qd5",
+    "t": "Quick challenge: birthday countdown",
+    "k": "fn",
+    "fn": "untilBirthday",
+    "a": "today, month, day",
+    "l": "<p>Dates compare with <code>&lt;</code> and <code>&gt;</code>, and JavaScript fixes overflow for you: day 32 of January becomes 1 February.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const d = new Date(2030, 0, 32);\nconsole.log(d.getMonth() + 1, d.getDate());</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>2 1</code></pre>",
+    "p": "<p>Write <code>untilBirthday(today, month, day)</code>. <code>today</code> is text like <code>\"2030-05-20\"</code> and the birthday month is 1 to 12. Return how many days until the next birthday: 0 if it's today, and next year's if it already passed this year.</p>",
+    "h": "<p>Make <code>now = new Date(today)</code>, then <code>new Date(isoText)</code> for this year's birthday using the <code>isoDate</code> idea, so both dates are made the same way. If it's before <code>now</code>, use next year. Then use the days-between maths.</p>",
+    "c": [
+     [
+      [
+       "2030-01-01",
+       1,
+       11
+      ],
+      10
+     ],
+     [
+      [
+       "2030-05-20",
+       5,
+       20
+      ],
+      0
+     ],
+     [
+      [
+       "2030-12-30",
+       1,
+       1
+      ],
+      2
+     ]
+    ],
+    "s": "function untilBirthday(today, month, day) {\n  const now = new Date(today);\n  const iso = y => y + \"-\" + String(month).padStart(2, \"0\") + \"-\" + String(day).padStart(2, \"0\");\n  let next = new Date(iso(now.getUTCFullYear()));\n  if (next < now) next = new Date(iso(now.getUTCFullYear() + 1));\n  return Math.round((next - now) / (1000 * 60 * 60 * 24));\n}\n",
+    "st": "function untilBirthday(today, month, day) {\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "qobjects",
+  "title": "Object Shortcuts",
+  "group": "quick",
+  "xp": 10,
+  "icon": "{}",
+  "color": "s5",
+  "blurb": "Modern ways to build, copy, merge and unpack objects in less code.",
+  "intro": "<p>Objects are everywhere in JavaScript. A few modern shortcuts make working with them faster and safer.</p><p class=\"muted\">Five quick stages, about five minutes.</p>",
+  "links": [
+   [
+    "MDN: Destructuring",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment"
+   ]
+  ],
+  "stages": [
+   {
+    "uid": "qo1",
+    "t": "Shorthand properties",
+    "k": "fn",
+    "fn": "makeUser",
+    "a": "name, age",
+    "step": "learn",
+    "l": "<p>When a property has the same name as the variable holding its value, you can write it once:</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const x = 3, y = 4;\nconst point = { x, y };   // same as { x: x, y: y }\nconsole.log(point);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>{ x: 3, y: 4 }</code></pre>",
+    "p": "<p>Write <code>makeUser(name, age)</code> that returns an object with <code>name</code>, <code>age</code> and <code>active: true</code>, using shorthand for name and age.</p>",
+    "h": "<p><code>return { name, age, active: true };</code></p>",
+    "c": [
+     [
+      [
+       "Ava",
+       12
+      ],
+      {
+       "name": "Ava",
+       "age": 12,
+       "active": true
+      }
+     ]
+    ],
+    "s": "function makeUser(name, age) {\n  return { name, age, active: true };\n}\n",
+    "st": "function makeUser(name, age) {\n}\n"
+   },
+   {
+    "uid": "qo2",
+    "t": "Copy, then change",
+    "k": "predict",
+    "l": "<p>The spread <code>...</code> copies all of an object's properties into a new one. Properties written <b>after</b> it win.</p>",
+    "p": "<p>What does this print?</p>",
+    "code": "const base = { hp: 10, speed: 2 };\nconst fast = { ...base, speed: 5 };\nconsole.log(base.speed, fast.speed, fast.hp);",
+    "opts": [
+     "2 5 10",
+     "5 5 10",
+     "2 2 10",
+     "2 5 undefined"
+    ],
+    "miss": [
+     "",
+     "The spread made a copy, so base wasn't changed.",
+     "speed: 5 comes after the spread, so it replaces the copied 2.",
+     "hp was copied over by the spread."
+    ],
+    "why": "<p><code>fast</code> is a brand new object: it copies <code>hp: 10</code> and <code>speed: 2</code>, then <code>speed: 5</code> overwrites the copy. <code>base</code> is untouched.</p>",
+    "h": "<p>Spread first copies, then later properties overwrite.</p>"
+   },
+   {
+    "uid": "qo3",
+    "t": "Settings with defaults",
+    "k": "fn",
+    "fn": "withDefaults",
+    "a": "options",
+    "step": "make",
+    "l": "<p>Spread is the classic way to fill in default settings: spread the defaults first, then the user's choices on top.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const merged = { ...{ a: 1, b: 2 }, ...{ b: 9 } };\nconsole.log(merged);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>{ a: 1, b: 9 }</code></pre>",
+    "p": "<p>Write <code>withDefaults(options)</code> that returns the defaults <code>{ sound: true, volume: 50, theme: \"light\" }</code> with anything in <code>options</code> replacing them.</p>",
+    "h": "<p><code>return { sound: true, volume: 50, theme: \"light\", ...options };</code></p>",
+    "c": [
+     [
+      [
+       {
+        "volume": 80
+       }
+      ],
+      {
+       "sound": true,
+       "volume": 80,
+       "theme": "light"
+      }
+     ],
+     [
+      [
+       {}
+      ],
+      {
+       "sound": true,
+       "volume": 50,
+       "theme": "light"
+      }
+     ],
+     [
+      [
+       {
+        "theme": "dark",
+        "sound": false
+       }
+      ],
+      {
+       "sound": false,
+       "volume": 50,
+       "theme": "dark"
+      }
+     ]
+    ],
+    "s": "function withDefaults(options) {\n  return { sound: true, volume: 50, theme: \"light\", ...options };\n}\n",
+    "st": "function withDefaults(options) {\n}\n"
+   },
+   {
+    "uid": "qo4",
+    "t": "Unpack what you need",
+    "k": "fn",
+    "fn": "label",
+    "a": "item",
+    "step": "make",
+    "l": "<p><b>Destructuring</b> pulls properties out into variables in one line. You can give defaults too.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const pet = { kind: &quot;cat&quot;, name: &quot;Tom&quot; };\nconst { kind, legs = 4 } = pet;\nconsole.log(kind, legs);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>cat 4</code></pre>",
+    "p": "<p>Write <code>label(item)</code> using destructuring to get <code>name</code> and <code>qty</code> (default 1), and return <code>\"3 × apples\"</code> style text.</p>",
+    "h": "<p><code>const { name, qty = 1 } = item;</code> then return <code>qty + \" × \" + name</code>.</p>",
+    "c": [
+     [
+      [
+       {
+        "name": "apples",
+        "qty": 3
+       }
+      ],
+      "3 × apples"
+     ],
+     [
+      [
+       {
+        "name": "pear"
+       }
+      ],
+      "1 × pear"
+     ]
+    ],
+    "s": "function label(item) {\n  const { name, qty = 1 } = item;\n  return qty + \" × \" + name;\n}\n",
+    "st": "function label(item) {\n}\n"
+   },
+   {
+    "uid": "qo5",
+    "t": "Quick challenge: loop over an object",
+    "k": "fn",
+    "fn": "describe",
+    "a": "stats",
+    "l": "<p><code>Object.entries</code> turns an object into <code>[key, value]</code> pairs you can loop over and destructure.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>for (const [k, v] of Object.entries({ a: 1, b: 2 })) console.log(k + &quot;=&quot; + v);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>a=1\nb=2</code></pre>",
+    "p": "<p>Write <code>describe(stats)</code> that returns text like <code>\"hp: 10, mp: 4\"</code>, one <code>key: value</code> per property, joined with <code>\", \"</code>.</p>",
+    "h": "<p><code>Object.entries(stats).map(([k, v]) =&gt; k + \": \" + v).join(\", \")</code>.</p>",
+    "c": [
+     [
+      [
+       {
+        "hp": 10,
+        "mp": 4
+       }
+      ],
+      "hp: 10, mp: 4"
+     ],
+     [
+      [
+       {}
+      ],
+      ""
+     ]
+    ],
+    "s": "function describe(stats) {\n  return Object.entries(stats).map(([k, v]) => k + \": \" + v).join(\", \");\n}\n",
+    "st": "function describe(stats) {\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "qsets",
+  "title": "Unique Values with Sets",
+  "group": "quick",
+  "xp": 10,
+  "icon": "∪",
+  "color": "s6",
+  "blurb": "Remove duplicates, check membership fast and compare lists with Set.",
+  "intro": "<p>A <code>Set</code> is a collection where every value appears at most once. That one rule makes a lot of jobs easy.</p><p class=\"muted\">Five quick stages, about five minutes.</p>",
+  "links": [
+   [
+    "MDN: Set",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set"
+   ]
+  ],
+  "stages": [
+   {
+    "uid": "qe1",
+    "t": "Remove duplicates",
+    "k": "fn",
+    "fn": "unique",
+    "a": "list",
+    "step": "learn",
+    "l": "<p>Put a list into a Set and the duplicates disappear. Spread it back into an array with <code>[...set]</code>.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const s = new Set([&quot;a&quot;, &quot;b&quot;, &quot;a&quot;]);\nconsole.log(s.size);\nconsole.log([...s]);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>2\n[&quot;a&quot;, &quot;b&quot;]</code></pre>",
+    "p": "<p>Write <code>unique(list)</code> that returns a new array with duplicates removed, in the order they first appeared.</p>",
+    "h": "<p>One line: spread a new Set made from the list.</p>",
+    "c": [
+     [
+      [
+       [
+        1,
+        2,
+        2,
+        3,
+        1
+       ]
+      ],
+      [
+       1,
+       2,
+       3
+      ]
+     ],
+     [
+      [
+       [
+        "x",
+        "x"
+       ]
+      ],
+      [
+       "x"
+      ]
+     ],
+     [
+      [
+       []
+      ],
+      []
+     ]
+    ],
+    "s": "function unique(list) {\n  return [...new Set(list)];\n}\n",
+    "st": "function unique(list) {\n}\n"
+   },
+   {
+    "uid": "qe2",
+    "t": "add, has, delete",
+    "k": "predict",
+    "l": "<p>Sets have their own methods: <code>add</code>, <code>has</code>, <code>delete</code> and the <code>size</code> property. Adding something that's already there does nothing.</p>",
+    "p": "<p>What does this print?</p>",
+    "code": "const seen = new Set();\nseen.add(\"cat\"); seen.add(\"dog\"); seen.add(\"cat\");\nseen.delete(\"dog\");\nconsole.log(seen.size, seen.has(\"cat\"), seen.has(\"dog\"));",
+    "opts": [
+     "1 true false",
+     "2 true false",
+     "3 true true",
+     "1 false false"
+    ],
+    "miss": [
+     "",
+     "The second \"cat\" wasn't added again, and dog was deleted.",
+     "Sets never hold the same value twice.",
+     "cat was added and never deleted."
+    ],
+    "why": "<p>The Set holds cat and dog (the second cat is ignored), then dog is deleted. One item is left: cat.</p>",
+    "h": "<p>Track the Set after each line.</p>"
+   },
+   {
+    "uid": "qe3",
+    "t": "Have we met?",
+    "k": "fn",
+    "fn": "firstRepeat",
+    "a": "list",
+    "step": "make",
+    "l": "<p><code>has</code> on a Set is very fast, even with millions of items. That makes it perfect for \"have I seen this before?\" questions.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const visited = new Set();\nvisited.add(&quot;room1&quot;);\nif (!visited.has(&quot;room2&quot;)) console.log(&quot;New room!&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>New room!</code></pre>",
+    "p": "<p>Write <code>firstRepeat(list)</code> that returns the first value that appears for a second time, or <code>null</code> if nothing repeats.</p>",
+    "h": "<p>Loop through the list. If the Set already <code>has</code> the value, return it. Otherwise <code>add</code> it. After the loop, return <code>null</code>.</p>",
+    "c": [
+     [
+      [
+       [
+        "a",
+        "b",
+        "c",
+        "b",
+        "a"
+       ]
+      ],
+      "b"
+     ],
+     [
+      [
+       [
+        1,
+        2,
+        3
+       ]
+      ],
+      null
+     ],
+     [
+      [
+       [
+        5,
+        5
+       ]
+      ],
+      5
+     ]
+    ],
+    "s": "function firstRepeat(list) {\n  const seen = new Set();\n  for (const x of list) {\n    if (seen.has(x)) return x;\n    seen.add(x);\n  }\n  return null;\n}\n",
+    "st": "function firstRepeat(list) {\n}\n"
+   },
+   {
+    "uid": "qe4",
+    "t": "In both lists",
+    "k": "fn",
+    "fn": "common",
+    "a": "a, b",
+    "step": "make",
+    "l": "<p>To find what two lists share, turn one into a Set, then filter the other.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const vowels = new Set(&quot;aeiou&quot;);\nconsole.log([...&quot;hello&quot;].filter(ch =&gt; vowels.has(ch)));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>[&quot;e&quot;, &quot;o&quot;]</code></pre>",
+    "p": "<p>Write <code>common(a, b)</code> that returns the items of <code>a</code> that are also in <code>b</code>, without duplicates, in <code>a</code>'s order.</p>",
+    "h": "<p>Make <code>new Set(b)</code>, filter <code>a</code> with <code>has</code>, then remove duplicates like the first stage.</p>",
+    "c": [
+     [
+      [
+       [
+        "Ava",
+        "Ben",
+        "Cara"
+       ],
+       [
+        "Cara",
+        "Ava",
+        "Dev"
+       ]
+      ],
+      [
+       "Ava",
+       "Cara"
+      ]
+     ],
+     [
+      [
+       [
+        1,
+        1,
+        2
+       ],
+       [
+        1
+       ]
+      ],
+      [
+       1
+      ]
+     ],
+     [
+      [
+       [
+        1
+       ],
+       []
+      ],
+      []
+     ]
+    ],
+    "s": "function common(a, b) {\n  const inB = new Set(b);\n  return [...new Set(a.filter(x => inB.has(x)))];\n}\n",
+    "st": "function common(a, b) {\n}\n"
+   },
+   {
+    "uid": "qe5",
+    "t": "Quick challenge: missing students",
+    "k": "fn",
+    "fn": "absent",
+    "a": "roster, present",
+    "l": "<p>Sets answer \"who's missing?\" just as easily: keep the items that the Set does <b>not</b> have.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const done = new Set([&quot;maths&quot;]);\nconsole.log([&quot;maths&quot;, &quot;art&quot;].filter(s =&gt; !done.has(s)));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>[&quot;art&quot;]</code></pre>",
+    "p": "<p>Write <code>absent(roster, present)</code> that returns everyone on the roster who isn't in the <code>present</code> list.</p>",
+    "h": "<p>Make a Set of <code>present</code>, then filter the roster with <code>!here.has(name)</code>.</p>",
+    "c": [
+     [
+      [
+       [
+        "Ava",
+        "Ben",
+        "Cara"
+       ],
+       [
+        "Ben"
+       ]
+      ],
+      [
+       "Ava",
+       "Cara"
+      ]
+     ],
+     [
+      [
+       [
+        "Ava"
+       ],
+       [
+        "Ava"
+       ]
+      ],
+      []
+     ]
+    ],
+    "s": "function absent(roster, present) {\n  const here = new Set(present);\n  return roster.filter(name => !here.has(name));\n}\n",
+    "st": "function absent(roster, present) {\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "qround",
+  "title": "Rounding Numbers",
+  "group": "quick",
+  "xp": 10,
+  "icon": "≈",
+  "color": "s1",
+  "blurb": "Round, floor, ceil, decimals, percents and keeping numbers inside limits.",
+  "intro": "<p>Numbers that look right matter: 33% not 33.33333%, $4.50 not $4.5, and a volume that never goes past 100.</p><p class=\"muted\">Five quick stages, about five minutes.</p>",
+  "links": [
+   [
+    "MDN: Math",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math"
+   ]
+  ],
+  "stages": [
+   {
+    "uid": "qn1",
+    "t": "Three ways to round",
+    "k": "fn",
+    "fn": "pages",
+    "a": "items, perPage",
+    "step": "learn",
+    "l": "<p><code>Math.round</code> goes to the nearest whole number, <code>Math.floor</code> always goes down and <code>Math.ceil</code> always goes up.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(Math.round(2.5), Math.floor(2.9), Math.ceil(2.1));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>3 2 3</code></pre><p>Use <code>ceil</code> when a part still needs a whole thing: 21 people in 4-seat cars still need 6 cars.</p>",
+    "p": "<p>Write <code>pages(items, perPage)</code> that returns how many pages you need to show all the items.</p>",
+    "h": "<p>Divide and round <b>up</b>.</p>",
+    "c": [
+     [
+      [
+       21,
+       10
+      ],
+      3
+     ],
+     [
+      [
+       20,
+       10
+      ],
+      2
+     ],
+     [
+      [
+       1,
+       10
+      ],
+      1
+     ],
+     [
+      [
+       0,
+       10
+      ],
+      0
+     ]
+    ],
+    "s": "function pages(items, perPage) {\n  return Math.ceil(items / perPage);\n}\n",
+    "st": "function pages(items, perPage) {\n}\n"
+   },
+   {
+    "uid": "qn2",
+    "t": "toFixed gives text",
+    "k": "predict",
+    "l": "<p><code>toFixed(n)</code> rounds to <code>n</code> decimal places, but it returns a <b>string</b>, not a number.</p>",
+    "p": "<p>What does this print?</p>",
+    "code": "const price = (4.5).toFixed(2);\nconsole.log(price, typeof price);\nconsole.log(price + 1);",
+    "opts": [
+     "4.50 string\n4.501",
+     "4.50 number\n5.5",
+     "4.5 string\n5.5",
+     "4.50 string\n5.50"
+    ],
+    "miss": [
+     "",
+     "toFixed always returns a string.",
+     "toFixed(2) keeps two decimals: 4.50.",
+     "+ with a string glues text on instead of adding."
+    ],
+    "why": "<p><code>\"4.50\" + 1</code> is string gluing, so you get <code>\"4.501\"</code>. Use <code>toFixed</code> only at the very end, for display.</p>",
+    "h": "<p>What type does toFixed return, and what does + do with text?</p>"
+   },
+   {
+    "uid": "qn3",
+    "t": "Round to decimals",
+    "k": "fn",
+    "fn": "roundTo",
+    "a": "n, places",
+    "step": "make",
+    "l": "<p>To round to decimal places and keep a <b>number</b>, multiply, round, then divide.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(Math.round(3.14159 * 10) / 10);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>3.1</code></pre>",
+    "p": "<p>Write <code>roundTo(n, places)</code> that rounds <code>n</code> to <code>places</code> decimal places and returns a number.</p>",
+    "h": "<p>The multiplier is <code>10 ** places</code>.</p>",
+    "c": [
+     [
+      [
+       3.14159,
+       2
+      ],
+      3.14
+     ],
+     [
+      [
+       2.5,
+       0
+      ],
+      3
+     ],
+     [
+      [
+       1.005,
+       1
+      ],
+      1
+     ],
+     [
+      [
+       123.456,
+       1
+      ],
+      123.5
+     ]
+    ],
+    "s": "function roundTo(n, places) {\n  const m = 10 ** places;\n  return Math.round(n * m) / m;\n}\n",
+    "st": "function roundTo(n, places) {\n}\n"
+   },
+   {
+    "uid": "qn4",
+    "t": "Keep it in range",
+    "k": "fn",
+    "fn": "clamp",
+    "a": "n, min, max",
+    "step": "make",
+    "l": "<p><b>Clamping</b> keeps a number between a minimum and a maximum: volume from 0 to 100, health from 0 to max.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(Math.min(120, 100));   // the smaller one\nconsole.log(Math.max(-5, 0));      // the bigger one</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>100\n0</code></pre>",
+    "p": "<p>Write <code>clamp(n, min, max)</code> that returns <code>n</code>, but never less than <code>min</code> or more than <code>max</code>.</p>",
+    "h": "<p>Combine both: <code>Math.min(Math.max(n, min), max)</code>.</p>",
+    "c": [
+     [
+      [
+       50,
+       0,
+       100
+      ],
+      50
+     ],
+     [
+      [
+       120,
+       0,
+       100
+      ],
+      100
+     ],
+     [
+      [
+       -5,
+       0,
+       100
+      ],
+      0
+     ]
+    ],
+    "s": "function clamp(n, min, max) {\n  return Math.min(Math.max(n, min), max);\n}\n",
+    "st": "function clamp(n, min, max) {\n}\n"
+   },
+   {
+    "uid": "qn5",
+    "t": "Quick challenge: percent label",
+    "k": "fn",
+    "fn": "percent",
+    "a": "part, whole",
+    "l": "<p>Percent is part divided by whole, times 100. Always guard against dividing by 0.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(Math.round(1 / 3 * 100) + &quot;%&quot;);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>33%</code></pre>",
+    "p": "<p>Write <code>percent(part, whole)</code> that returns a label like <code>\"33%\"</code>, rounded to a whole number. If <code>whole</code> is 0, return <code>\"0%\"</code>.</p>",
+    "h": "<p>Check for 0 first, then <code>Math.round(part / whole * 100) + \"%\"</code>.</p>",
+    "c": [
+     [
+      [
+       1,
+       3
+      ],
+      "33%"
+     ],
+     [
+      [
+       2,
+       3
+      ],
+      "67%"
+     ],
+     [
+      [
+       5,
+       5
+      ],
+      "100%"
+     ],
+     [
+      [
+       3,
+       0
+      ],
+      "0%"
+     ]
+    ],
+    "s": "function percent(part, whole) {\n  if (whole === 0) return \"0%\";\n  return Math.round(part / whole * 100) + \"%\";\n}\n",
+    "st": "function percent(part, whole) {\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "qcount",
+  "title": "Counting Things",
+  "group": "quick",
+  "xp": 10,
+  "icon": "#",
+  "color": "s3",
+  "blurb": "Tally votes, letters and words with an object, then find the most common one.",
+  "intro": "<p>\"How many of each?\" is one of the most useful questions in programming: votes, inventory, word counts, high scores. One small pattern answers it.</p><p class=\"muted\">Five quick stages, about five minutes.</p>",
+  "links": [
+   [
+    "MDN: Working with objects",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_objects"
+   ]
+  ],
+  "stages": [
+   {
+    "uid": "qc1",
+    "t": "The tally pattern",
+    "k": "fn",
+    "fn": "tally",
+    "a": "votes",
+    "step": "learn",
+    "l": "<p>Keep an object with one key per thing. For each item, add 1 to its key, starting from 0 the first time.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>const count = {};\nfor (const fruit of [&quot;apple&quot;, &quot;pear&quot;, &quot;apple&quot;]) {\n  count[fruit] = (count[fruit] || 0) + 1;\n}\nconsole.log(count);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>{ apple: 2, pear: 1 }</code></pre>",
+    "p": "<p>Write <code>tally(votes)</code> that returns an object counting how many votes each option got.</p>",
+    "h": "<p>The same loop as the example, with <code>votes</code>.</p>",
+    "c": [
+     [
+      [
+       [
+        "red",
+        "blue",
+        "red",
+        "red"
+       ]
+      ],
+      {
+       "red": 3,
+       "blue": 1
+      }
+     ],
+     [
+      [
+       []
+      ],
+      {}
+     ]
+    ],
+    "s": "function tally(votes) {\n  const count = {};\n  for (const v of votes) count[v] = (count[v] || 0) + 1;\n  return count;\n}\n",
+    "st": "function tally(votes) {\n}\n"
+   },
+   {
+    "uid": "qc2",
+    "t": "Why the || 0?",
+    "k": "predict",
+    "l": "<p>Reading a key that doesn't exist yet gives <code>undefined</code>. And <code>undefined + 1</code> is not a number.</p>",
+    "p": "<p>What does this print?</p>",
+    "code": "const count = {};\ncount.cat = count.cat + 1;\ncount.dog = (count.dog || 0) + 1;\nconsole.log(count.cat, count.dog);",
+    "opts": [
+     "NaN 1",
+     "1 1",
+     "undefined 1",
+     "0 1"
+    ],
+    "miss": [
+     "",
+     "count.cat starts as undefined, not 0.",
+     "undefined + 1 is a number, but a broken one.",
+     "Nothing set count.cat to 0 first."
+    ],
+    "why": "<p><code>undefined + 1</code> is <code>NaN</code> (Not a Number). <code>|| 0</code> swaps the missing <code>undefined</code> for 0, so the count starts properly.</p>",
+    "h": "<p>What is <code>undefined + 1</code>?</p>"
+   },
+   {
+    "uid": "qc3",
+    "t": "Count the letters",
+    "k": "fn",
+    "fn": "letters",
+    "a": "word",
+    "step": "make",
+    "l": "<p>Strings can be looped over letter by letter with <code>for...of</code>, so the tally pattern works on text too.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>for (const ch of &quot;hey&quot;) console.log(ch);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>h\ne\ny</code></pre>",
+    "p": "<p>Write <code>letters(word)</code> that counts each letter in <code>word</code>, ignoring capitals.</p>",
+    "h": "<p>Lowercase the word first, then tally each <code>ch</code>.</p>",
+    "c": [
+     [
+      [
+       "Banana"
+      ],
+      {
+       "b": 1,
+       "a": 3,
+       "n": 2
+      }
+     ],
+     [
+      [
+       "Aa"
+      ],
+      {
+       "a": 2
+      }
+     ],
+     [
+      [
+       ""
+      ],
+      {}
+     ]
+    ],
+    "s": "function letters(word) {\n  const count = {};\n  for (const ch of word.toLowerCase()) count[ch] = (count[ch] || 0) + 1;\n  return count;\n}\n",
+    "st": "function letters(word) {\n}\n"
+   },
+   {
+    "uid": "qc4",
+    "t": "The winner",
+    "k": "fn",
+    "fn": "winner",
+    "a": "count",
+    "step": "make",
+    "l": "<p>To find the most common, loop over the tally and keep the best so far.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>let best = null;\nfor (const [k, v] of Object.entries({ a: 2, b: 5 })) {\n  if (best === null || v &gt; best[1]) best = [k, v];\n}\nconsole.log(best);</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>[&quot;b&quot;, 5]</code></pre>",
+    "p": "<p>Write <code>winner(count)</code> that returns the <b>key</b> with the biggest number. If two tie, the one that comes first wins. If the object is empty, return <code>null</code>.</p>",
+    "h": "<p>Loop over <code>Object.entries(count)</code>, keeping the best key and value. Use <code>&gt;</code>, not <code>&gt;=</code>, so the first one keeps a tie.</p>",
+    "c": [
+     [
+      [
+       {
+        "red": 3,
+        "blue": 1
+       }
+      ],
+      "red"
+     ],
+     [
+      [
+       {
+        "a": 2,
+        "b": 5,
+        "c": 5
+       }
+      ],
+      "b"
+     ],
+     [
+      [
+       {}
+      ],
+      null
+     ]
+    ],
+    "s": "function winner(count) {\n  let bestKey = null, bestVal = -1;\n  for (const [k, v] of Object.entries(count)) {\n    if (v > bestVal) { bestKey = k; bestVal = v; }\n  }\n  return bestKey;\n}\n",
+    "st": "function winner(count) {\n}\n"
+   },
+   {
+    "uid": "qc5",
+    "t": "Quick challenge: most used word",
+    "k": "fn",
+    "fn": "topWord",
+    "a": "text",
+    "l": "<p>Now put it all together: split text into words, tally them, pick the winner.</p><pre class=\"cb\" data-k=\"ex\" data-label=\"Example\"><code>console.log(&quot;the cat the end&quot;.split(&quot; &quot;));</code></pre><pre class=\"cb\" data-k=\"out\" data-label=\"Output\"><code>[&quot;the&quot;, &quot;cat&quot;, &quot;the&quot;, &quot;end&quot;]</code></pre>",
+    "p": "<p>Write <code>topWord(text)</code> that returns the word used most often (lowercased). Words are separated by single spaces. Ties go to the word seen first.</p>",
+    "h": "<p>Lowercase, split on <code>\" \"</code>, tally into an object, then find the key with the biggest count using <code>&gt;</code>.</p>",
+    "c": [
+     [
+      [
+       "The cat saw the dog"
+      ],
+      "the"
+     ],
+     [
+      [
+       "a b b a"
+      ],
+      "a"
+     ],
+     [
+      [
+       "Hi"
+      ],
+      "hi"
+     ]
+    ],
+    "s": "function topWord(text) {\n  const count = {};\n  for (const w of text.toLowerCase().split(\" \")) count[w] = (count[w] || 0) + 1;\n  let best = null;\n  for (const w in count) if (best === null || count[w] > count[best]) best = w;\n  return best;\n}\n",
+    "st": "function topWord(text) {\n}\n"
+   }
+  ]
+ }
+]
