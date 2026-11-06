@@ -262,6 +262,10 @@
   },
   {
    "uid": "g11",
+   "alts": [
+    "function move(p, keys) {\n  const dx = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);\n  const dy = (keys.down ? 1 : 0) - (keys.up ? 1 : 0);\n  p.x += dx * p.speed;\n  p.y += dy * p.speed;\n  return p;\n}"
+   ],
+   "altNote": "Working out the direction first (-1, 0 or 1) and multiplying by speed does the same thing.",
    "t": "Arrow-key movement",
    "k": "fn",
    "fn": "move",
@@ -356,6 +360,10 @@
   },
   {
    "uid": "g12",
+   "alts": [
+    "function clamp(value, min, max) {\n  if (value < min) return min;\n  if (value > max) return max;\n  return value;\n}"
+   ],
+   "altNote": "Two <code>if</code> checks work as well as <code>Math.min</code> and <code>Math.max</code>.",
    "t": "Stay on the screen",
    "k": "fn",
    "fn": "clamp",
@@ -410,6 +418,10 @@
   },
   {
    "uid": "g13",
+   "alts": [
+    "function fall(p) {\n  p.vy = p.vy + 0.5;\n  p.y = p.y + p.vy;\n  if (p.y >= 300) {\n    p.y = 300;\n    p.vy = 0;\n  }\n  return p;\n}"
+   ],
+   "altNote": "<code>Math.min</code> can keep y above the floor, but you still need the <code>if</code> to stop the falling speed.",
    "t": "Gravity",
    "k": "fn",
    "fn": "fall",
@@ -472,6 +484,10 @@
   },
   {
    "uid": "g14",
+   "alts": [
+    "function canJump(p) {\n  if (p.onGround) return true;\n  if (p.airFrames < 6) return true;\n  return false;\n}"
+   ],
+   "altNote": "Spelling it out with <code>if</code> works too.",
    "t": "Jump and coyote time",
    "k": "fn",
    "fn": "canJump",
@@ -549,6 +565,10 @@
   },
   {
    "uid": "g16",
+   "alts": [
+    "function pointIn(px, py, r) {\n  if (px < r.x || px > r.x + r.w) return false;\n  if (py < r.y || py > r.y + r.h) return false;\n  return true;\n}"
+   ],
+   "altNote": "Checking the ways the point could be <i>outside</i> and flipping the answer works too.",
    "t": "Is the point inside?",
    "k": "fn",
    "fn": "pointIn",
@@ -652,6 +672,10 @@
   },
   {
    "uid": "g18",
+   "alts": [
+    "function overlaps(a, b) {\n  const apart = a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y;\n  return !apart;\n}"
+   ],
+   "altNote": "You can also check the four ways the boxes can be apart, and say they overlap when none is true.",
    "t": "Box collision",
    "k": "fn",
    "fn": "overlaps",
@@ -832,6 +856,10 @@
   },
   {
    "uid": "g20",
+   "alts": [
+    "function overlaps(a, b) {\n  return !(a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y);\n}"
+   ],
+   "altNote": "The fix is to use <code>&lt;</code> and <code>&gt;</code> instead of <code>&lt;=</code> and <code>&gt;=</code>. Writing it as \"not apart\" with <code>&lt;=</code> works too.",
    "t": "Bug hunt: stuck in the floor",
    "k": "fn",
    "fn": "overlaps",
@@ -915,6 +943,10 @@
   },
   {
    "uid": "g21",
+   "alts": [
+    "function circlesHit(a, b) {\n  const dx = b.x - a.x, dy = b.y - a.y;\n  const rr = a.r + b.r;\n  return dx * dx + dy * dy < rr * rr;\n}"
+   ],
+   "altNote": "Comparing squared distances skips the square root and gives the same answer.",
    "t": "Round things",
    "k": "fn",
    "fn": "circlesHit",
@@ -989,6 +1021,10 @@
   },
   {
    "uid": "g22",
+   "alts": [
+    "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n\nfunction moveX(p, dx, walls) {\n  p.x += dx;\n  for (const wall of walls) {\n    if (!overlaps(p, wall)) continue;\n    if (dx > 0) p.x = wall.x - p.w;\n    else p.x = wall.x + wall.w;\n  }\n  return p.x;\n}"
+   ],
+   "altNote": "Checking the direction with <code>if</code> works as well as a ternary.",
    "t": "Walls stop you",
    "k": "fn",
    "fn": "moveX",
@@ -1107,6 +1143,10 @@
   },
   {
    "uid": "g24",
+   "alts": [
+    "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n\nfunction attackLands(attack, target) {\n  if (!attack.active) return false;\n  return overlaps(attack.hitbox, target.hurtbox);\n}"
+   ],
+   "altNote": "An early <code>return false</code> when the attack isn't active works too.",
    "t": "Did the attack land?",
    "k": "fn",
    "fn": "attackLands",
@@ -1187,6 +1227,10 @@
   },
   {
    "uid": "g25",
+   "alts": [
+    "function takeHit(p) {\n  if (p.iframes > 0) return p;\n  p.hp--;\n  p.iframes = 60;\n  return p;\n}"
+   ],
+   "altNote": "Returning early when the player is still flashing reads nicely.",
    "t": "Invincibility frames",
    "k": "fn",
    "fn": "takeHit",
@@ -1237,6 +1281,10 @@
   },
   {
    "uid": "g26",
+   "alts": [
+    "function stompOrHurt(p, enemy) {\n  const falling = p.vy > 0;\n  const wasAbove = p.y + p.h - p.vy <= enemy.y;\n  return falling && wasAbove ? \"stomp\" : \"hurt\";\n}"
+   ],
+   "altNote": "A ternary does the same job in one line.",
    "t": "Stomp or ouch?",
    "k": "fn",
    "fn": "stompOrHurt",
@@ -1391,6 +1439,10 @@
   },
   {
    "uid": "g31",
+   "alts": [
+    "function findTiles(map, ch) {\n  const found = [];\n  map.forEach((row, y) => {\n    [...row].forEach((c, x) => {\n      if (c === ch) found.push([x, y]);\n    });\n  });\n  return found;\n}"
+   ],
+   "altNote": "<code>forEach</code> with indexes, or splitting each row into characters, works too.",
    "t": "Levels made of letters",
    "k": "fn",
    "fn": "findTiles",
@@ -1454,6 +1506,10 @@
   },
   {
    "uid": "g32",
+   "alts": [
+    "function tileAt(map, px, py, size) {\n  const tx = Math.floor(px / size), ty = Math.floor(py / size);\n  return map[ty]?.[tx] ?? \"#\";\n}"
+   ],
+   "altNote": "<code>?.</code> and <code>??</code> handle the edges in one line: a missing row or column gives <code>undefined</code>.",
    "t": "What tile am I standing on?",
    "k": "fn",
    "fn": "tileAt",
@@ -1546,6 +1602,10 @@
   },
   {
    "uid": "g33",
+   "alts": [
+    "function spawnDelay(frame) {\n  const steps = Math.floor(frame / 300);\n  const delay = 60 - steps * 5;\n  if (delay < 15) return 15;\n  return delay;\n}"
+   ],
+   "altNote": "Working out the number of steps first, then using an <code>if</code> for the minimum, works too.",
    "t": "Ramp up the challenge",
    "k": "fn",
    "fn": "spawnDelay",
@@ -1596,6 +1656,11 @@
   },
   {
    "uid": "g34",
+   "alts": [
+    "const TABLE = {\n  title: { start: \"play\" },\n  play: { pause: \"paused\", die: \"over\" },\n  paused: { pause: \"play\" },\n  over: { start: \"play\" }\n};\n\nfunction nextState(state, event) {\n  return TABLE[state]?.[event] ?? state;\n}",
+    "function nextState(state, event) {\n  switch (state + \">\" + event) {\n    case \"title>start\": return \"play\";\n    case \"play>pause\": return \"paused\";\n    case \"paused>pause\": return \"play\";\n    case \"play>die\": return \"over\";\n    case \"over>start\": return \"play\";\n    default: return state;\n  }\n}"
+   ],
+   "altNote": "A lookup table keyed by state and event is easy to extend.",
    "t": "Game states",
    "k": "fn",
    "fn": "nextState",
@@ -1659,6 +1724,10 @@
   },
   {
    "uid": "g35",
+   "alts": [
+    "function comboPoints(combo) {\n  let mult = 1 + Math.floor(combo / 5);\n  if (mult > 4) mult = 4;\n  return mult * 10;\n}"
+   ],
+   "altNote": "An <code>if</code> can cap the multiplier too.",
    "t": "Combos",
    "k": "fn",
    "fn": "comboPoints",
@@ -1709,6 +1778,10 @@
   },
   {
    "uid": "g36",
+   "alts": [
+    "function canUse(now, lastUsed, cooldown) {\n  return now >= lastUsed + cooldown;\n}"
+   ],
+   "altNote": "Moving <code>lastUsed</code> to the other side gives the same test.",
    "t": "Cooldowns",
    "k": "fn",
    "fn": "canUse",
@@ -1786,6 +1859,10 @@
   },
   {
    "uid": "g38",
+   "alts": [
+    "function overlaps(a, b) {\n  return a.x < b.x + b.w && a.x + a.w > b.x &&\n         a.y < b.y + b.h && a.y + a.h > b.y;\n}\n\nfunction tick(g) {\n  const p = g.p;\n  if (g.keys.left) p.x -= 3;\n  if (g.keys.right) p.x += 3;\n  p.vy += 0.5;\n  p.y += p.vy;\n  if (p.y + p.h > 300) {\n    p.y = 300 - p.h;\n    p.vy = 0;\n  }\n  if (p.iframes > 0) p.iframes -= 1;\n  for (let i = g.coins.length - 1; i >= 0; i--) {\n    if (overlaps(p, g.coins[i])) {\n      g.coins.splice(i, 1);\n      g.score += 1;\n    }\n  }\n  if (p.iframes === 0) {\n    for (const e of g.enemies) {\n      if (overlaps(p, e)) {\n        g.lives -= 1;\n        p.iframes = 60;\n        break;\n      }\n    }\n  }\n  return g;\n}"
+   ],
+   "altNote": "A loop that goes backwards and uses <code>splice</code> removes the coins too. The order of the steps is what matters.",
    "t": "Boss: one frame of a platformer",
    "k": "fn",
    "fn": "tick",

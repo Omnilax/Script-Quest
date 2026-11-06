@@ -27,6 +27,10 @@
  ],
  "stages": [
   {
+   "alts": [
+    "function hasSword(text) {\n  return new RegExp(\"sword\").test(text);\n}"
+   ],
+   "altNote": "<code>new RegExp(\"sword\")</code> builds the same pattern from text.",
    "t": "Does it match?",
    "k": "fn",
    "fn": "hasSword",
@@ -72,6 +76,11 @@
    "st": "function hasSword(text) {\n  // your code here\n}\n\nconsole.log(hasSword(\"You found a sword!\")); // should be true\n"
   },
   {
+   "alts": [
+    "function isSaveFile(name) {\n  return /[.]sav/.test(name);\n}",
+    "function isSaveFile(name) {\n  return /\\.sav$/.test(name);\n}"
+   ],
+   "altNote": "A dot inside a character class is a real dot, so <code>[.]</code> works as well as <code>\\.</code>. If the name has to <i>end</i> with .sav, add <code>$</code>.",
    "t": "Special characters",
    "k": "fn",
    "fn": "isSaveFile",
@@ -115,6 +124,10 @@
    "st": "function isSaveFile(name) {\n  // your code here\n}\n\nconsole.log(isSaveFile(\"game.sav\")); // should be true\n"
   },
   {
+   "alts": [
+    "function hasBadChar(name) {\n  return !/^[a-z0-9]*$/i.test(name);\n}"
+   ],
+   "altNote": "You can also say \"the whole name is letters and digits\" and flip the answer.",
    "t": "Character classes",
    "k": "fn",
    "fn": "hasBadChar",
@@ -164,6 +177,10 @@
    "st": "function hasBadChar(name) {\n  // your code here\n}\n\nconsole.log(hasBadChar(\"Robin\")); // should be false\n"
   },
   {
+   "alts": [
+    "function classify(ch) {\n  if (/\\d/.test(ch)) return \"digit\";\n  if (/\\s/.test(ch)) return \"space\";\n  if (/\\w/.test(ch)) return \"word\";\n  return \"other\";\n}"
+   ],
+   "altNote": "<code>[0-9]</code> means the same as <code>\\d</code>, and the space check can go before the word check because the two never overlap.",
    "t": "Shortcut classes",
    "k": "fn",
    "fn": "classify",
@@ -215,6 +232,10 @@
    "st": "function classify(ch) {\n  // your code here\n}\n\nconsole.log(classify(\"7\")); // should be \"digit\"\n"
   },
   {
+   "alts": [
+    "function hasCombo(text) {\n  return /x[0-9]+/.test(text);\n}"
+   ],
+   "altNote": "<code>[0-9]+</code> or <code>x\\d{1,}</code> mean the same thing.",
    "t": "One or more",
    "k": "fn",
    "fn": "hasCombo",
@@ -258,6 +279,11 @@
    "st": "function hasCombo(text) {\n  // your code here\n}\n\nconsole.log(hasCombo(\"Combo x12!\")); // should be true\n"
   },
   {
+   "alts": [
+    "function saysColor(text) {\n  return /color|colour/.test(text);\n}",
+    "function saysColor(text) {\n  return /col(o|ou)r/.test(text);\n}"
+   ],
+   "altNote": "An \"or\" with <code>|</code> spells out both words.",
    "t": "Maybe it's there",
    "k": "fn",
    "fn": "saysColor",
@@ -301,6 +327,10 @@
    "st": "function saysColor(text) {\n  // your code here\n}\n\nconsole.log(saysColor(\"Pick a color\")); // should be true\n"
   },
   {
+   "alts": [
+    "function isShouting(text) {\n  return /!!!/.test(text);\n}"
+   ],
+   "altNote": "Three escaped marks in a row, <code>/!!!/</code>, also match \"3 or more\", because a longer run contains three.",
    "t": "Exact counts",
    "k": "fn",
    "fn": "isShouting",
@@ -344,6 +374,11 @@
    "st": "function isShouting(text) {\n  // your code here\n}\n\nconsole.log(isShouting(\"Run!!!\")); // should be true\n"
   },
   {
+   "alts": [
+    "function isPin(code) {\n  return /^[0-9]{4}$/.test(code);\n}",
+    "function isPin(code) {\n  return code.length === 4 && /^\\d+$/.test(code);\n}"
+   ],
+   "altNote": "<code>[0-9]{4}</code> works too, or you can check the length and the digits separately.",
    "t": "Start and end",
    "k": "fn",
    "fn": "isPin",
@@ -393,6 +428,10 @@
    "st": "function isPin(code) {\n  // your code here\n}\n\nconsole.log(isPin(\"1234\")); // should be true\n"
   },
   {
+   "alts": [
+    "function mentionsDragon(text) {\n  return /DRAGON/i.test(text);\n}"
+   ],
+   "altNote": "<code>new RegExp(\"dragon\", \"i\")</code> makes the same pattern, and so does <code>/DRAGON/i</code>.",
    "t": "Ignore case",
    "k": "fn",
    "fn": "mentionsDragon",
@@ -438,6 +477,11 @@
    "st": "function mentionsDragon(text) {\n  // your code here\n}\n\nconsole.log(mentionsDragon(\"A dragon!\")); // should be true\n"
   },
   {
+   "alts": [
+    "function getLevel(text) {\n  return Number(text.match(/Level (\\d+)/)?.[1] ?? 0);\n}",
+    "function getLevel(text) {\n  const m = text.match(/Level ([0-9]+)/);\n  if (m === null) return 0;\n  return parseInt(m[1], 10);\n}"
+   ],
+   "altNote": "<code>?.</code> and <code>??</code> handle a missed match in one line.",
    "t": "Capture with groups",
    "k": "fn",
    "fn": "getLevel",
@@ -483,6 +527,10 @@
    "st": "function getLevel(text) {\n  // your code here\n}\n\nconsole.log(getLevel(\"Level 12 reached\")); // should be 12\n"
   },
   {
+   "alts": [
+    "function allNumbers(text) {\n  return (text.match(/[0-9]+/g) ?? []).map(n => parseInt(n, 10));\n}"
+   ],
+   "altNote": "<code>?? []</code> covers no matches as well as <code>|| []</code>.",
    "t": "Find them all",
    "k": "fn",
    "fn": "allNumbers",
@@ -532,6 +580,10 @@
    "st": "function allNumbers(text) {\n  // your code here\n}\n\nconsole.log(allNumbers(\"3 orcs and 12 bats\")); // should be [3, 12]\n"
   },
   {
+   "alts": [
+    "function censor(text) {\n  return text.replaceAll(/darn/gi, \"****\");\n}"
+   ],
+   "altNote": "<code>replaceAll</code> works with a <code>/g</code> pattern too.",
    "t": "Replace with a pattern",
    "k": "fn",
    "fn": "censor",
@@ -569,6 +621,10 @@
    "st": "function censor(text) {\n  // your code here\n}\n\nconsole.log(censor(\"darn it\")); // should be \"**** it\"\n"
   },
   {
+   "alts": [
+    "function prettyStats(text) {\n  return text.replace(/([a-z]+)=([0-9]+)/gi, \"$1: $2\");\n}"
+   ],
+   "altNote": "<code>[a-z]+</code> works for the name if all stats are lowercase letters, and <code>\\S</code> works for any value.",
    "t": "Reuse what you caught",
    "k": "fn",
    "fn": "prettyStats",
@@ -608,6 +664,10 @@
    "st": "function prettyStats(text) {\n  // your code here\n}\n\nconsole.log(prettyStats(\"hp=10 mp=5\")); // should be \"hp: 10 mp: 5\"\n"
   },
   {
+   "alts": [
+    "function items(text) {\n  return text.split(/[ ,]+/).filter(Boolean);\n}"
+   ],
+   "altNote": "<code>[ ,]+</code> works when the only separators are spaces and commas, and <code>filter(Boolean)</code> drops any empty piece.",
    "t": "Split on a pattern",
    "k": "fn",
    "fn": "items",
@@ -660,6 +720,10 @@
    "st": "function items(text) {\n  // your code here\n}\n\nconsole.log(items(\"sword, shield  bow\")); // should be [\"sword\", \"shield\", \"bow\"]\n"
   },
   {
+   "alts": [
+    "function findCoords(text) {\n  return [...text.matchAll(/\\((\\d+),(\\d+)\\)/g)].map(m => [+m[1], +m[2]]);\n}"
+   ],
+   "altNote": "Spreading <code>matchAll</code> into <code>map</code> gives the same pairs.",
    "t": "Loop over every match",
    "k": "fn",
    "fn": "findCoords",
@@ -726,6 +790,10 @@
    "st": "function findCoords(text) {\n  // your code here\n}\n\nconsole.log(findCoords(\"(1,2) and (3,4)\")); // should be [[1, 2], [3, 4]]\n"
   },
   {
+   "alts": [
+    "function parseTime(text) {\n  const m = /(?<min>\\d+):(?<sec>\\d+)/.exec(text);\n  if (!m) return null;\n  const { min, sec } = m.groups;\n  return { min: +min, sec: +sec };\n}"
+   ],
+   "altNote": "Destructuring the groups keeps the return line short.",
    "t": "Named groups",
    "k": "fn",
    "fn": "parseTime",
@@ -774,6 +842,10 @@
    "st": "function parseTime(text) {\n  // your code here\n}\n\nconsole.log(parseTime(\"12:05\")); // should be { min: 12, sec: 5 }\n"
   },
   {
+   "alts": [
+    "function isValidName(name) {\n  return name.length >= 3 && name.length <= 12 && /^[a-z][a-z0-9_]*$/i.test(name);\n}"
+   ],
+   "altNote": "You can check the length and the pattern separately too.",
    "t": "Valid player names",
    "k": "fn",
    "fn": "isValidName",
@@ -835,6 +907,10 @@
    "st": "function isValidName(name) {\n  // your code here\n}\n\nconsole.log(isValidName(\"Robin\")); // should be true\n"
   },
   {
+   "alts": [
+    "function parseCommand(text) {\n  if (!text.startsWith(\"/\")) return null;\n  const [cmd, ...args] = text.slice(1).trim().split(/\\s+/);\n  return { cmd, args };\n}"
+   ],
+   "altNote": "Splitting on spaces first and taking the first word as the command works too.",
    "t": "Chat commands",
    "k": "fn",
    "fn": "parseCommand",
@@ -896,6 +972,10 @@
    "st": "function parseCommand(text) {\n  // your code here\n}\n\nconsole.log(parseCommand(\"/give sword 3\")); // should be { cmd: \"give\", args: [\"sword\", \"3\"] }\n"
   },
   {
+   "alts": [
+    "function parseDice(text) {\n  const m = /^(?<count>\\d*)d(?<sides>\\d+)(?<bonus>[+-]\\d+)?$/.exec(text);\n  if (!m) return null;\n  const { count, sides, bonus } = m.groups;\n  return { count: count ? +count : 1, sides: +sides, bonus: bonus ? +bonus : 0 };\n}"
+   ],
+   "altNote": "Named groups make the three parts easier to read.",
    "t": "Dice notation",
    "k": "fn",
    "fn": "parseDice",
@@ -961,6 +1041,10 @@
    "st": "function parseDice(text) {\n  // your code here\n}\n\nconsole.log(parseDice(\"2d6+3\")); // should be { count: 2, sides: 6, bonus: 3 }\n"
   },
   {
+   "alts": [
+    "function parseLog(log) {\n  return log\n    .split(\"\\n\")\n    .map(line => line.match(/^\\[(\\d\\d:\\d\\d)\\] (INFO|WARN|ERROR) (.+)$/))\n    .filter(m => m)\n    .map(m => ({ time: m[1], level: m[2], msg: m[3] }));\n}"
+   ],
+   "altNote": "Numbered groups work as well as named ones.",
    "t": "Capstone: log parser",
    "k": "fn",
    "fn": "parseLog",

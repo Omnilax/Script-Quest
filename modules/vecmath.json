@@ -27,6 +27,11 @@
  ],
  "stages": [
   {
+   "alts": [
+    "function makePoint(x, y) {\n  return { x: x, y: y };\n}",
+    "const makePoint = (x, y) => ({ x, y });"
+   ],
+   "altNote": "Writing <code>{ x: x, y: y }</code> is the long form of the shorthand <code>{ x, y }</code>.",
    "t": "Points as objects",
    "k": "fn",
    "fn": "makePoint",
@@ -70,6 +75,10 @@
    "st": "function makePoint(x, y) {\n  // your code here\n}\n\nconsole.log(makePoint(3, 4)); // should be { x: 3, y: 4 }\n"
   },
   {
+   "alts": [
+    "const add = (a, b) => ({ x: a.x + b.x, y: a.y + b.y });"
+   ],
+   "altNote": "An arrow function works too. Remember the parentheses around the object.",
    "t": "Adding vectors",
    "k": "fn",
    "fn": "add",
@@ -131,6 +140,10 @@
    "st": "function add(a, b) {\n  // your code here\n}\n\nconsole.log(add({ x: 1, y: 2 }, { x: 3, y: 4 })); // should be { x: 4, y: 6 }\n"
   },
   {
+   "alts": [
+    "function sub(a, b) {\n  return { x: a.x + -b.x, y: a.y + -b.y };\n}"
+   ],
+   "altNote": "You can also add a flipped b: <code>a + (-1 × b)</code>.",
    "t": "Subtracting vectors",
    "k": "fn",
    "fn": "sub",
@@ -192,6 +205,10 @@
    "st": "function sub(a, b) {\n  // your code here\n}\n\nconsole.log(sub({ x: 5, y: 5 }, { x: 2, y: 1 })); // should be { x: 3, y: 4 }\n"
   },
   {
+   "alts": [
+    "function scale({ x, y }, k) {\n  return { x: x * k, y: y * k };\n}"
+   ],
+   "altNote": "Destructuring the vector first works too.",
    "t": "Scaling",
    "k": "fn",
    "fn": "scale",
@@ -257,6 +274,11 @@
    "st": "function scale(v, k) {\n  // your code here\n}\n\nconsole.log(scale({ x: 1, y: 2 }, 3)); // should be { x: 3, y: 6 }\n"
   },
   {
+   "alts": [
+    "function length(v) {\n  return Math.sqrt(v.x * v.x + v.y * v.y);\n}",
+    "function length(v) {\n  return Math.sqrt(v.x ** 2 + v.y ** 2);\n}"
+   ],
+   "altNote": "<code>Math.sqrt(x² + y²)</code> is the Pythagoras formula that <code>Math.hypot</code> uses.",
    "t": "Length",
    "k": "fn",
    "fn": "length",
@@ -307,6 +329,10 @@
    "st": "function length(v) {\n  // your code here\n}\n\nconsole.log(length({ x: 3, y: 4 })); // should be 5\n"
   },
   {
+   "alts": [
+    "function normalize(v) {\n  const len = Math.sqrt(v.x * v.x + v.y * v.y);\n  if (!len) return { x: 0, y: 0 };\n  const k = 1 / len;\n  return { x: v.x * k, y: v.y * k };\n}"
+   ],
+   "altNote": "You can reuse a length helper and scale by <code>1 / len</code>.",
    "t": "Normalize",
    "k": "fn",
    "fn": "normalize",
@@ -369,6 +395,10 @@
    "st": "function normalize(v) {\n  // your code here\n}\n\nconsole.log(normalize({ x: 3, y: 4 })); // should be { x: 0.6, y: 0.8 }\n"
   },
   {
+   "alts": [
+    "function distance(a, b) {\n  const dx = a.x - b.x, dy = a.y - b.y;\n  return Math.sqrt(dx * dx + dy * dy);\n}"
+   ],
+   "altNote": "The difference can go either way (a - b or b - a), because the length comes out the same.",
    "t": "Distance",
    "k": "fn",
    "fn": "distance",
@@ -435,6 +465,10 @@
    "st": "function distance(a, b) {\n  // your code here\n}\n\nconsole.log(distance({ x: 0, y: 0 }, { x: 3, y: 4 })); // should be 5\n"
   },
   {
+   "alts": [
+    "const dot = (a, b) => a.y * b.y + a.x * b.x;"
+   ],
+   "altNote": "The order of the two products doesn't matter.",
    "t": "Dot product",
    "k": "fn",
    "fn": "dot",
@@ -500,6 +534,10 @@
    "st": "function dot(a, b) {\n  // your code here\n}\n\nconsole.log(dot({ x: 1, y: 2 }, { x: 3, y: 4 })); // should be 11\n"
   },
   {
+   "alts": [
+    "function isInFront(pos, facing, target) {\n  const toTarget = { x: target.x - pos.x, y: target.y - pos.y };\n  const d = toTarget.x * facing.x + toTarget.y * facing.y;\n  return d > 0;\n}"
+   ],
+   "altNote": "Building the \"to target\" vector as an object first reads clearly.",
    "t": "Is it in front?",
    "k": "fn",
    "fn": "isInFront",
@@ -598,6 +636,10 @@
    "st": "function isInFront(pos, facing, target) {\n  // your code here\n}\n\nconsole.log(isInFront({ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 5, y: 2 })); // should be true\n"
   },
   {
+   "alts": [
+    "function angleTo(from, to) {\n  const dx = to.x - from.x;\n  const dy = to.y - from.y;\n  return Math.atan2(dy, dx);\n}"
+   ],
+   "altNote": "Saving the two differences first works too. <code>atan2</code> takes y first.",
    "t": "Angle to a target",
    "k": "fn",
    "fn": "angleTo",
@@ -677,6 +719,10 @@
    "st": "function angleTo(from, to) {\n  // your code here\n}\n\nconsole.log(angleTo({ x: 0, y: 0 }, { x: 1, y: 0 })); // should be 0\n"
   },
   {
+   "alts": [
+    "const toDegrees = rad => (180 / Math.PI) * rad;"
+   ],
+   "altNote": "<code>(180 / Math.PI) * rad</code> is the same math in a different order.",
    "t": "Degrees and radians",
    "k": "fn",
    "fn": "toDegrees",
@@ -721,6 +767,10 @@
    "st": "function toDegrees(rad) {\n  // your code here\n}\n\nconsole.log(toDegrees(3.141592653589793)); // should be 180\n"
   },
   {
+   "alts": [
+    "function moveAtAngle(pos, deg, dist) {\n  const rad = (deg / 180) * Math.PI;\n  const dx = dist * Math.cos(rad);\n  const dy = dist * Math.sin(rad);\n  return { x: pos.x + dx, y: pos.y + dy };\n}"
+   ],
+   "altNote": "Working out the step first, then adding it, works too.",
    "t": "Moving at an angle",
    "k": "fn",
    "fn": "moveAtAngle",
@@ -805,6 +855,10 @@
    "st": "function moveAtAngle(pos, deg, dist) {\n  // your code here\n}\n\nconsole.log(moveAtAngle({ x: 0, y: 0 }, 0, 10)); // should be { x: 10, y: 0 }\n"
   },
   {
+   "alts": [
+    "function rotate(p, deg) {\n  const r = (deg * Math.PI) / 180;\n  return {\n    x: p.x * Math.cos(r) - p.y * Math.sin(r),\n    y: p.x * Math.sin(r) + p.y * Math.cos(r)\n  };\n}"
+   ],
+   "altNote": "Writing the cos and sin inline works too.",
    "t": "Rotating a point",
    "k": "fn",
    "fn": "rotate",
@@ -884,6 +938,10 @@
    "st": "function rotate(p, deg) {\n  // your code here\n}\n\nconsole.log(rotate({ x: 1, y: 0 }, 90)); // should be { x: 0, y: 1 }\n"
   },
   {
+   "alts": [
+    "function lerpPoint(a, b, t) {\n  return { x: a.x * (1 - t) + b.x * t, y: a.y * (1 - t) + b.y * t };\n}"
+   ],
+   "altNote": "The other lerp formula, <code>a × (1 - t) + b × t</code>, gives the same point.",
    "t": "Lerp",
    "k": "fn",
    "fn": "lerpPoint",
@@ -966,6 +1024,10 @@
    "st": "function lerpPoint(a, b, t) {\n  // your code here\n}\n\nconsole.log(lerpPoint({ x: 0, y: 0 }, { x: 10, y: 20 }, 0.5)); // should be { x: 5, y: 10 }\n"
   },
   {
+   "alts": [
+    "function step(body, dt) {\n  const next = { ...body };\n  next.vx += body.ax * dt;\n  next.vy += body.ay * dt;\n  next.x += next.vx * dt;\n  next.y += next.vy * dt;\n  return next;\n}"
+   ],
+   "altNote": "A copy with spread keeps <code>ax</code> and <code>ay</code> automatically.",
    "t": "Velocity and acceleration",
    "k": "fn",
    "fn": "step",
@@ -1064,6 +1126,10 @@
    "st": "function step(body, dt) {\n  // your code here\n}\n\nconsole.log(step({ x: 0, y: 0, vx: 1, vy: 0, ax: 0, ay: 10 }, 0.5)); // should be { x: 0.5, y: 2.5, vx: 1, vy: 5, ax: 0, ay: 10 }\n"
   },
   {
+   "alts": [
+    "function circlesHit(a, b) {\n  return Math.hypot(b.x - a.x, b.y - a.y) <= a.r + b.r;\n}"
+   ],
+   "altNote": "<code>Math.hypot</code> works too. Comparing squared distances just skips the square root.",
    "t": "Circle collision",
    "k": "fn",
    "fn": "circlesHit",
@@ -1152,6 +1218,10 @@
    "st": "function circlesHit(a, b) {\n  // your code here\n}\n\nconsole.log(circlesHit({ x: 0, y: 0, r: 5 }, { x: 8, y: 0, r: 4 })); // should be true\n"
   },
   {
+   "alts": [
+    "function reflect(v, n) {\n  const k = 2 * (v.x * n.x + v.y * n.y);\n  return { x: v.x - k * n.x, y: v.y - k * n.y };\n}"
+   ],
+   "altNote": "Working out <code>2 × dot</code> once reads clearly.",
    "t": "Bouncing off a wall",
    "k": "fn",
    "fn": "reflect",
@@ -1230,6 +1300,10 @@
    "st": "function reflect(v, n) {\n  // your code here\n}\n\nconsole.log(reflect({ x: 3, y: -2 }, { x: 0, y: 1 })); // should be { x: 3, y: 2 }\n"
   },
   {
+   "alts": [
+    "function turnToward(angle, target, maxTurn) {\n  let diff = target - angle;\n  while (diff > 180) diff -= 360;\n  while (diff < -180) diff += 360;\n  if (diff > maxTurn) diff = maxTurn;\n  if (diff < -maxTurn) diff = -maxTurn;\n  let result = angle + diff;\n  if (result < 0) result += 360;\n  if (result >= 360) result -= 360;\n  return result;\n}"
+   ],
+   "altNote": "Fixing the difference with <code>if</code> checks works as well as the modulo trick.",
    "t": "Homing missile",
    "k": "fn",
    "fn": "turnToward",
@@ -1292,6 +1366,10 @@
    "st": "function turnToward(angle, target, maxTurn) {\n  // your code here\n}\n\nconsole.log(turnToward(0, 90, 10)); // should be 10\n"
   },
   {
+   "alts": [
+    "function canSee(guard, target) {\n  const dx = target.x - guard.x, dy = target.y - guard.y;\n  const dist = Math.hypot(dx, dy);\n  if (dist > guard.range) return false;\n  if (dist === 0) return true;\n  const f = (guard.facing * Math.PI) / 180;\n  const cosAngle = (dx * Math.cos(f) + dy * Math.sin(f)) / dist;\n  return cosAngle >= Math.cos(((guard.fov / 2) * Math.PI) / 180) - 1e-9;\n}"
+   ],
+   "altNote": "A dot product against the facing direction also tests the cone: compare it with <code>cos(fov / 2)</code>.",
    "t": "Field of view",
    "k": "fn",
    "fn": "canSee",
@@ -1417,6 +1495,10 @@
    "st": "function canSee(guard, target) {\n  // your code here\n}\n\nconsole.log(canSee({ x: 0, y: 0, facing: 0, fov: 90, range: 10 }, { x: 5, y: 0 })); // should be true\n"
   },
   {
+   "alts": [
+    "const TURN_SPEED = 180, THRUST = 100, MAX_SPEED = 200;\nfunction shipTick(ship, input, dt) {\n  let angle = (ship.angle + input.turn * TURN_SPEED * dt) % 360;\n  if (angle < 0) angle += 360;\n  let { vx, vy } = ship;\n  if (input.thrust) {\n    const rad = (angle / 180) * Math.PI;\n    vx += THRUST * dt * Math.cos(rad);\n    vy += THRUST * dt * Math.sin(rad);\n  }\n  const speed = Math.hypot(vx, vy);\n  if (speed > MAX_SPEED) {\n    vx = (vx / speed) * MAX_SPEED;\n    vy = (vy / speed) * MAX_SPEED;\n  }\n  return { x: ship.x + vx * dt, y: ship.y + vy * dt, vx, vy, angle };\n}"
+   ],
+   "altNote": "Capping the speed by normalizing and scaling works the same as multiplying by <code>MAX_SPEED / speed</code>.",
    "t": "Capstone: ship physics",
    "k": "fn",
    "fn": "shipTick",

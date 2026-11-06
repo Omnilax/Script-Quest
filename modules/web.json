@@ -360,6 +360,11 @@
   },
   {
    "uid": "w15",
+   "alts": [
+    "function hexToRgb(hex) {\n  const n = parseInt(hex.slice(1), 16);\n  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];\n}",
+    "function hexToRgb(hex) {\n  return hex.slice(1).match(/../g).map(pair => parseInt(pair, 16));\n}"
+   ],
+   "altNote": "You can turn the whole colour into one number and shift the parts out, or use a regex to split it into pairs.",
    "t": "Hex to RGB",
    "k": "fn",
    "fn": "hexToRgb",
@@ -414,6 +419,10 @@
   },
   {
    "uid": "w16",
+   "alts": [
+    "// how bright a color looks to people, from 0 (black) to 1 (white)\nfunction luminance(hex) {\n  const parts = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);\n  const lin = parts.map(c => c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);\n  return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];\n}\n\nfunction contrast(a, b) {\n  const [dark, light] = [luminance(a), luminance(b)].sort((x, y) => x - y);\n  const ratio = (light + 0.05) / (dark + 0.05);\n  return Number(ratio.toFixed(2));\n}"
+   ],
+   "altNote": "Sorting the two brightness values first works as well as <code>Math.max</code> and <code>Math.min</code>.",
    "t": "Build a contrast checker",
    "k": "fn",
    "fn": "contrast",
