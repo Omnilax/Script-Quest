@@ -685,6 +685,83 @@ pre.cb[data-k="txt"]{--kc:var(--k-pat);background:var(--panel2);color:var(--ink)
 .mixup{border:2px solid var(--warn);background:var(--panel2);padding:8px 12px;margin-top:10px;max-width:66ch}
 .mixup b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--warn);display:block}
 .mixup p{margin:4px 0 0}
+/* learning tools */
+.ltools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 12px 12px}
+.ltools .lbl{font-family:var(--f-display);font-size:10px;letter-spacing:.08em;color:var(--muted);margin-right:4px}
+.modal.trace,.modal.wide{width:min(980px,100%)}
+.trx input{flex:1;min-width:0;font-family:var(--f-code);font-size:14px}
+.trx .row{flex-wrap:nowrap}
+.trbar{margin:8px 0 6px;min-height:1.4em}
+#trR{width:100%;margin:2px 0 8px}
+.trbtns{flex-wrap:wrap;gap:6px}
+.trgrid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:12px;margin-top:10px}
+@media (max-width:720px){.trgrid{grid-template-columns:1fr}}
+.trcode{border:2px solid var(--line);background:var(--panel2);max-height:340px;overflow:auto;font-family:var(--f-code);font-size:13px;position:relative}
+.trcode .tl{display:flex;gap:10px;padding:1px 8px;white-space:pre}
+.trcode code{background:none;padding:0;border:0;font:inherit;color:inherit}
+.trcode .tl .n{color:var(--muted);min-width:2ch;text-align:right;user-select:none}
+.trcode .tl.cur{background:color-mix(in srgb,var(--gold) 30%,transparent);box-shadow:inset 4px 0 0 var(--gold)}
+.trside .lbl{display:block;font-family:var(--f-display);font-weight:400;font-size:10px;letter-spacing:.08em;color:var(--muted);margin:2px 0 4px}
+.trside .out{border:2px solid var(--line);max-height:160px;min-height:48px}
+.trv{border-collapse:collapse;width:100%;font-family:var(--f-code);font-size:13px;margin-bottom:10px}
+.trv th,.trv td{border:1px solid var(--line);padding:3px 6px;text-align:left;vertical-align:top;word-break:break-word}
+.trv th{width:35%;font-weight:600}
+.trv tr.chg td{background:color-mix(in srgb,var(--pass) 16%,transparent)}
+.chgt{font-family:var(--f-body);font-size:11px;color:var(--pass);margin-left:4px}
+.xpl{display:grid;gap:2px;max-height:60vh;overflow:auto;border:2px solid var(--line)}
+.xr{display:grid;grid-template-columns:2.5ch minmax(0,1fr) minmax(0,1.3fr);gap:10px;padding:5px 8px;border-bottom:1px solid var(--line);align-items:start}
+.xr .n{color:var(--muted);font-family:var(--f-code);font-size:12px;text-align:right}
+.xr .xc{font-family:var(--f-code);font-size:13px;white-space:pre-wrap;word-break:break-word;background:none}
+.xr .xt{font-size:14px}
+@media (max-width:620px){.xr{grid-template-columns:2.5ch minmax(0,1fr)}.xr .xt{grid-column:2}}
+.cmpbox{margin:10px 12px 0;border:2px solid var(--line);background:var(--panel2);padding:6px 10px;max-width:66ch}
+.cmpbox summary{cursor:pointer;font-weight:600}
+.diff{font-family:var(--f-code);font-size:13px;margin-top:6px;border:1px solid var(--line);overflow:auto}
+.diff .dl{display:flex;gap:8px;padding:1px 6px;white-space:pre}
+.diff .dl.y{background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.diff .dl.m{background:color-mix(in srgb,var(--gold) 20%,transparent)}
+.diff .dm{color:var(--muted);user-select:none}
+.tag{font-family:var(--f-display);font-size:10px;padding:1px 4px;border:1px solid var(--line)}
+.tag.y{background:color-mix(in srgb,var(--accent) 16%,transparent)}.tag.m{background:color-mix(in srgb,var(--gold) 20%,transparent)}
+.duckrow{margin:8px 12px 0}
+.duck{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.duck .dk{font-size:44px;line-height:1}
+.duck textarea,.mynotes textarea,.reflect textarea{width:100%;font:inherit;padding:8px;border:2px solid var(--line);background:var(--panel);color:var(--ink);resize:vertical}
+.duck .field span{display:block;margin-bottom:4px}
+.gl{text-decoration:underline dotted;text-underline-offset:3px;cursor:help}
+.gl:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.glpop{position:absolute;z-index:60;background:var(--panel);color:var(--ink);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--shadow);padding:10px 12px;font-size:14px}
+.glpop .eyebrow{margin:0 0 2px}.glpop p{margin:4px 0 8px}.glpop pre.cb{margin:4px 0 8px}
+.mynotes{margin-top:14px;border-top:2px dashed var(--line);padding-top:8px}
+.mynotes summary{cursor:pointer;font-weight:600}
+.mynotes textarea{margin-top:6px}
+.reflect{border:2px solid var(--accent);background:var(--panel2);padding:8px 12px;margin:10px 12px 0;max-width:66ch}
+.reflect b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--accent)}
+.reflect p{margin:4px 0 6px}.reflect .row{margin-top:6px}
+.rwban{border-color:var(--gold)}
+.ntools{margin:10px 0 14px}.ntools input{flex:1;min-width:180px;font:inherit;padding:8px;border:2px solid var(--line);background:var(--panel);color:var(--ink)}
+.nlist{display:grid;gap:10px}
+.note{border-left:6px solid var(--sc)}
+.note .nh{gap:10px;align-items:center;flex-wrap:wrap}.note .nh .linkish{text-align:left;flex:1;min-width:0}
+.note .nt{white-space:pre-wrap;margin:8px 0 0}
+.fcbox{margin-top:14px;max-width:640px}
+.fc{border:3px solid var(--ink);background:var(--panel);box-shadow:6px 6px 0 var(--shadow);padding:22px;min-height:180px;display:grid;align-content:center;gap:8px}
+.fcterm{font-family:var(--f-code);font-size:calc(28px * var(--scale));font-weight:700;word-break:break-word}
+.fcback{border-top:2px dashed var(--line);padding-top:10px}
+.fcact{margin-top:14px}
+.fcprog{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;margin-bottom:10px;font-family:var(--f-display);font-size:11px}
+.fcprog i{display:block;height:8px;background:var(--accent);border:2px solid var(--ink);max-width:100%}
+.drgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+.drbtn{text-align:left;border:2px solid var(--ink);background:var(--panel);color:var(--ink);padding:10px 12px;display:grid;gap:4px;box-shadow:3px 3px 0 var(--shadow)}
+.drbtn span{font-size:13px;color:var(--muted)}
+.drill{padding:14px;display:grid;gap:10px}
+.drtarget{font-family:var(--f-code);font-size:calc(var(--code-size, 15px));background:var(--panel2);border:2px solid var(--line);padding:10px 12px;margin:0;white-space:pre-wrap;word-break:break-word;color:var(--muted)}
+.drtarget .ok{color:var(--pass)}
+.drtarget .bad{color:#fff;background:var(--fail)}
+.drtarget .cur{background:color-mix(in srgb,var(--gold) 45%,transparent);color:var(--ink)}
+.drtarget .nl{opacity:.5}.drtarget .nl.cur,.drtarget .nl.bad{opacity:1}
+#drIn{width:100%;font-family:var(--f-code);font-size:15px;padding:10px;border:2px solid var(--ink);background:var(--panel);color:var(--ink);resize:vertical}
+.okc{color:var(--pass)}
 .alts{border:2px solid var(--pass);background:var(--panel2);padding:8px 12px;margin-top:10px;max-width:66ch}
 .alts b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--pass);display:block}
 .alts p{margin:4px 0 6px}.alts pre.cb{margin:6px 0 0}
@@ -20296,7 +20373,7 @@ var DEFAULTS = {
   wrap: false, indent: 2, brackets: true, edHeight: "medium", readAloud: true, readRate: 1, quizShuffle: true, quizAuto: false, clickSound: true,
   soundPack: "retro", typeSound: false, bgFx: "off", bgColor: "theme", bgDensity: "normal", bgSpeed: "normal", bgStrength: "normal", bgMouse: true, bgCalm: true, bgFps: "smooth",
   bgGlow: false, bgMove: false, bgScan: false, pageAnim: "off", hoverFx: "off", trail: "off", clickFx: false, backTop: true, toastPos: "bottom",
-  topicColors: true, showStreak: true, splash: true, fastTrack: false
+  topicColors: true, showStreak: true, splash: true, fastTrack: false, gloss: true, reflect: true
 };
 var S = {
   profile: load("profile", null),
@@ -21504,7 +21581,7 @@ function routeHash(v, arg) { return "#" + v + (arg ? "/" + encodeURIComponent(ar
 function parseRoute(hash) {
   var m = /^#([a-z]+)(?:\/(.+))?$/.exec(hash || ""); if (!m) return null;
   var v = m[1], arg = null; try { arg = m[2] ? decodeURIComponent(m[2]) : null; } catch (e) { return null; }
-  if (!/^(map|section|stage|quizzes|quiz|review|sandbox|studio|games|cheat|weekly|ref|settings|me)$/.test(v)) return null;
+  if (!/^(map|section|stage|quizzes|quiz|review|sandbox|studio|games|cheat|weekly|ref|settings|me|notes|cards|drills)$/.test(v)) return null;
   if (v === "weekly" && arg && !/^-?\d+$/.test(arg)) return null;
   if (((v === "section" || v === "cheat") && !SEC[arg]) || (v === "stage" && !STAGE[arg]) || (v === "quiz" && !D.quizzes.some(function (q) { return q.id === arg; }) && !XQUIZ[arg])) return null;
   return { v: v, arg: arg };
@@ -21518,7 +21595,7 @@ function histPush(prev, v, arg, replace) {
 }
 function pageTitle(v, arg) {
   var st = v === "stage" && STAGE[arg], sec = (v === "section" || v === "cheat") && SEC[arg], q = v === "quiz" && (D.quizzes.filter(function (x) { return x.id === arg; })[0] || XQUIZ[arg]);
-  var t = st ? st.sec.title + " " + st.n + ": " + st.t : sec ? sec.title : q ? q.title : { map: "Map", quizzes: "Quiz Hall", sandbox: "Sandbox", studio: "Web Studio", weekly: "Weekly challenge", games: "Game Studio", ref: arg === "links" ? "Learning Links" : arg === "videos" ? "Video Library" : "Reference", settings: "Settings", me: "Player card", review: "Review" }[v];
+  var t = st ? st.sec.title + " " + st.n + ": " + st.t : sec ? sec.title : q ? q.title : { map: "Map", quizzes: "Quiz Hall", sandbox: "Sandbox", studio: "Web Studio", weekly: "Weekly challenge", games: "Game Studio", ref: arg === "links" ? "Learning Links" : arg === "videos" ? "Video Library" : "Reference", settings: "Settings", me: "Player card", review: "Review", notes: "My notes", cards: "Flashcards", drills: "Typing drills" }[v];
   return (t ? t + " · " : "") + "Script Quest";
 }
 function toTopCheck() { var b = $("toTop"); if (!b) return; var show = !!S.set.backTop && window.scrollY > 500; if (b.hidden === show) b.hidden = !show; }
@@ -21615,6 +21692,8 @@ document.addEventListener("click", function (e) {
   if (lf) { var art = lf.closest(".lesson"), k = "l:" + lf.getAttribute("data-lfold"), shut = !art.classList.contains("lfolded"); SFX.click(); art.classList.toggle("lfolded", shut); if (shut) S.fold[k] = 1; else delete S.fold[k]; save("fold", S.fold); lf.textContent = shut ? "Show the lesson" : "Hide the lesson"; lf.setAttribute("aria-expanded", String(!shut)); return; }
   var rt = e.target.closest("[data-reft]");
   if (rt) { e.preventDefault(); SFX.click(); refState.topic = rt.getAttribute("data-reft"); refState.q = rt.getAttribute("data-refq") || ""; refState.cat = "All"; refState.show = "all"; go("ref"); return; }
+  var rwb = e.target.closest("[data-rw]");
+  if (rwb) { e.preventDefault(); SFX.click(); startRewrite(rwb.getAttribute("data-rw")); return; }
   var g = e.target.closest("[data-go]");
   if (g) { e.preventDefault(); SFX.click(); go(g.getAttribute("data-go"), g.getAttribute("data-arg")); }
 });
@@ -21649,7 +21728,7 @@ if (window.MutationObserver && $("view")) new MutationObserver(function () { fol
 var cleanupView = null;
 function go(v, arg, opts) {
   opts = opts || {};
-  stopSpeaking();
+  stopSpeaking(); glossHide();
   if (cleanupView) { try { cleanupView(); } catch (e) {} cleanupView = null; }
   var same = route.v === v && (route.arg || null) === (arg || null);
   if (!opts.fromHistory) histPush(route, v, arg, same || !histReady);
@@ -21657,7 +21736,7 @@ function go(v, arg, opts) {
   if (v !== "stage" || !opts.keepScroll) window.scrollTo(0, 0);
   renderTop();
   var V = $("view");
-  ({ weekly: viewWeekly, studio: viewStudio, games: viewGames, cheat: viewCheat, map: viewMap, section: viewSection, stage: viewStage, quizzes: viewQuizzes, quiz: viewQuiz, review: viewReview, sandbox: viewSandbox, ref: viewRef, settings: viewSettings, me: viewMe }[v] || viewMap)(V, arg);
+  ({ weekly: viewWeekly, studio: viewStudio, games: viewGames, cheat: viewCheat, map: viewMap, section: viewSection, stage: viewStage, quizzes: viewQuizzes, quiz: viewQuiz, review: viewReview, sandbox: viewSandbox, ref: viewRef, settings: viewSettings, me: viewMe, notes: viewNotes, cards: viewCards, drills: viewDrills }[v] || viewMap)(V, arg);
   highlightAll(V);
   document.title = pageTitle(v, arg); bgCalmAttr(); toTopCheck();
   if (!same && S.set.pageAnim !== "off") { V.classList.remove("enter"); void V.offsetWidth; V.classList.add("enter"); }
@@ -21677,6 +21756,689 @@ function highlightAll(root) {
   });
 }
 function codeBlock(txt, kind) { return '<pre class="cb" data-k="' + (kind || "ex") + '"' + ({ ex: ' data-label="Example"', bug: ' data-label="Bug"', gml: ' data-label="GML"', gd: ' data-label="GDScript"', out: ' data-label="Output"', try: ' data-label="Try it"' }[kind || "ex"] || "") + "><code>" + h(txt) + "</code></pre>"; }
+
+// ---------------- LEARNING TOOLS ----------------
+// Watch it run, Explain my code, Compare with the model answer, the rubber duck (stage tools),
+// and word pop-ups, notes, flashcards, typing drills and rewrite from memory (study tools).
+function ltModal(inner, cls) {
+  var ov = $("overlay");
+  ov.innerHTML = '<div class="modal ' + (cls || "") + '" role="dialog" aria-modal="true">' + inner + "</div>";
+  ov.hidden = false;
+  var close = function () { ov.hidden = true; ov.innerHTML = ""; if (ov.__stop) { ov.__stop(); ov.__stop = null; } };
+  if ($("cabX")) { $("cabX").onclick = close; setTimeout(function () { if ($("cabX")) $("cabX").focus(); }, 30); }
+  return { el: ov.firstChild, close: close };
+}
+function ltParse(code) { try { return { ast: acorn.parse(code, Object.assign({}, SQ_PARSE_OPTS, { ranges: false })) }; } catch (e) { return { err: e }; } }
+function ltKids(n) {
+  var out = [];
+  for (var k in n) {
+    if (k === "loc" || k.charAt(0) === "_") continue;
+    var v = n[k];
+    if (Array.isArray(v)) v.forEach(function (x) { if (x && typeof x.type === "string") out.push(x); });
+    else if (v && typeof v.type === "string") out.push(v);
+  }
+  return out;
+}
+function ltNames(p, out) {
+  if (!p) return out;
+  if (p.type === "Identifier") out.push(p.name);
+  else if (p.type === "ObjectPattern") p.properties.forEach(function (q) { ltNames(q.type === "RestElement" ? q.argument : q.value, out); });
+  else if (p.type === "ArrayPattern") p.elements.forEach(function (q) { ltNames(q, out); });
+  else if (p.type === "AssignmentPattern") ltNames(p.left, out);
+  else if (p.type === "RestElement") ltNames(p.argument, out);
+  return out;
+}
+function ltIsFn(n) { return n && (n.type === "FunctionDeclaration" || n.type === "FunctionExpression" || n.type === "ArrowFunctionExpression"); }
+
+// ---- 1. Watch it run: a step-by-step tracer ----
+// Acorn finds every statement, and a small __T() call goes in front of each one. It reports the
+// line that is about to run and the variables in scope, then the code runs as usual in the worker.
+var TRACE_MAX = 600;
+var TRACE_PRE = 'var __n=0;function __T(l,f,g){if(++__n>' + TRACE_MAX + ')throw new Error("SQ_STEPS");var v=g(),o=[];for(var k in v){var x=v[k];if(typeof x==="function")continue;var s=sqInspect(x,1);if(s.length>90)s=s.slice(0,87)+"\\u2026";o.push([k,s])}console.log("\\u0001SQT"+JSON.stringify([l,f,o]))}\n';
+function traceInstrument(code) {
+  var p = ltParse(code); if (p.err) return { err: p.err };
+  var ins = [], seq = 0;
+  var add = function (pos, txt, ord) { ins.push({ pos: pos, txt: txt, ord: ord, n: seq++ }); };
+  var uniq = function (a) { return a.filter(function (x, i) { return a.indexOf(x) === i && !/^__/.test(x); }); };
+  function hoisted(node) {
+    var out = [];
+    (function w(n) {
+      if (!n || typeof n.type !== "string" || ltIsFn(n)) return;
+      if (n.type === "VariableDeclaration" && n.kind === "var") n.declarations.forEach(function (d) { ltNames(d.id, out); });
+      ltKids(n).forEach(w);
+    })(node);
+    return out;
+  }
+  function lexical(list, out) {
+    list.forEach(function (s) {
+      if (s.type === "VariableDeclaration" && s.kind !== "var") s.declarations.forEach(function (d) { ltNames(d.id, out); });
+      else if ((s.type === "FunctionDeclaration" || s.type === "ClassDeclaration") && s.id) out.push(s.id.name);
+    });
+    return out;
+  }
+  function getter(vis) { return "function(){var __o={};" + vis.map(function (v) { return "try{__o[" + JSON.stringify(v) + "]=" + v + "}catch(__e){}"; }).join("") + "return __o}"; }
+  function call(line, vis, fname) { return "__T(" + line + "," + JSON.stringify(fname) + "," + getter(vis) + ");"; }
+  function list(stmts, vis, fname) { stmts.forEach(function (s) { if (s.type !== "EmptyStatement") add(s.start, call(s.loc.start.line, vis, fname), 1); walk(s, vis, fname); }); }
+  function body(b, vis, fname) {
+    if (!b) return;
+    if (b.type === "BlockStatement") return walk(b, vis, fname);
+    add(b.start, "{" + call(b.loc.start.line, vis, fname), 1); walk(b, vis, fname); add(b.end, "}", 0);
+  }
+  function nameFn(fn, nm) { if (ltIsFn(fn) && !fn.id) fn._nm = nm; if (fn && fn.type === "ClassExpression" && !fn.id) fn._nm = nm; }
+  function walk(n, vis, fname) {
+    if (!n || typeof n.type !== "string") return;
+    var t = n.type;
+    if (t === "Program") return list(n.body, uniq(vis.concat(hoisted(n), lexical(n.body, []))), fname);
+    if (ltIsFn(n)) {
+      var nm = n.id ? n.id.name : n._nm || "a function", own = [];
+      n.params.forEach(function (q) { ltNames(q, own); });
+      if (n.body.type === "BlockStatement") return list(n.body.body, uniq(vis.concat(own, hoisted(n.body), lexical(n.body.body, []))), nm);
+      return walk(n.body, uniq(vis.concat(own)), nm);
+    }
+    if (t === "BlockStatement" || t === "StaticBlock") return list(n.body, uniq(vis.concat(lexical(n.body, []))), fname);
+    if (t === "IfStatement") { walk(n.test, vis, fname); body(n.consequent, vis, fname); if (n.alternate) body(n.alternate, vis, fname); return; }
+    if (t === "ForStatement" || t === "ForInStatement" || t === "ForOfStatement") {
+      var d = n.init || n.left, v3 = vis;
+      if (d && d.type === "VariableDeclaration" && d.kind !== "var") v3 = uniq(vis.concat(d.declarations.reduce(function (a, x) { return ltNames(x.id, a); }, [])));
+      [n.init, n.test, n.update, n.left, n.right].forEach(function (x) { walk(x, v3, fname); });
+      return body(n.body, v3, fname);
+    }
+    if (t === "WhileStatement" || t === "DoWhileStatement") { walk(n.test, vis, fname); return body(n.body, vis, fname); }
+    if (t === "SwitchStatement") {
+      walk(n.discriminant, vis, fname);
+      var lx = []; n.cases.forEach(function (c) { lexical(c.consequent, lx); });
+      var v4 = uniq(vis.concat(lx));
+      n.cases.forEach(function (c) { if (c.test) walk(c.test, v4, fname); list(c.consequent, v4, fname); });
+      return;
+    }
+    if (t === "CatchClause") return walk(n.body, uniq(vis.concat(ltNames(n.param, []))), fname);
+    if (t === "VariableDeclarator" && n.id.type === "Identifier") nameFn(n.init, n.id.name);
+    if ((t === "Property" || t === "MethodDefinition" || t === "PropertyDefinition") && n.key) nameFn(n.value, n.key.name || String(n.key.value));
+    if (t === "AssignmentExpression" && n.left.type === "Identifier") nameFn(n.right, n.left.name);
+    ltKids(n).forEach(function (k) { walk(k, vis, fname); });
+  }
+  var top = uniq(hoisted(p.ast).concat(lexical(p.ast.body, [])));
+  walk(p.ast, [], "");
+  ins.sort(function (a, b) { return a.pos - b.pos || a.ord - b.ord || a.n - b.n; });
+  var out = "", at = 0;
+  ins.forEach(function (i) { out += code.slice(at, i.pos) + i.txt; at = i.pos; });
+  out += code.slice(at) + "\n;" + call(0, top, "");
+  return { code: out };
+}
+async function traceRun(code) {
+  var t = traceInstrument(code);
+  if (t.err) return { parseErr: t.err };
+  var r = await runWorker({ code: TRACE_PRE + t.code, kind: "free", exports: [], timeLimit: 3500, timerCap: 1500 }, 6000);
+  var steps = [], out = [];
+  (r.logs || []).forEach(function (l) {
+    if (l.txt.charAt(0) === "\u0001" && l.txt.slice(1, 4) === "SQT") { try { var d = JSON.parse(l.txt.slice(4)); steps.push({ line: d[0], fn: d[1], vars: d[2], out: out.length }); } catch (e) {} }
+    else out.push(l);
+  });
+  var capped = r.err && /SQ_STEPS/.test(r.err.message);
+  return { steps: steps, out: out, err: capped ? null : r.err, capped: capped };
+}
+// st is optional: on a function stage we offer one line that calls the function, so there is something to watch
+function traceCallLine(st, code) {
+  if (!st || st.k !== "fn" || !st.fn || !st.c || !st.c.length) return "";
+  var calls = (code.match(new RegExp("\\b" + st.fn + "\\s*\\(", "g")) || []).length;
+  if (calls >= 2) return "";
+  return "console.log(" + st.fn + "(" + st.c[0][0].map(function (a) { return sqInspect(a, 1); }).join(", ") + "));";
+}
+function openTrace(code, st) {
+  var extra = traceCallLine(st, code), stop = null;
+  var m = ltModal('<p class="eyebrow">WATCH IT RUN</p><h2>Step through your code</h2>' +
+    '<p class="muted" style="margin-top:0">The computer runs one line at a time. Step through and watch the variables change. The highlighted line is the one about to run.</p>' +
+    (st && st.k === "fn" ? '<div class="field trx"><label for="trX">Also run this line at the end (it calls your function)</label><div class="row"><input type="text" id="trX" spellcheck="false" value="' + h(extra) + '"><button class="btn small" type="button" id="trGo">Run again</button></div></div>' : "") +
+    '<div id="trBody"><p class="dim">Running…</p></div><div class="row" style="margin-top:12px"><button class="btn primary" type="button" id="cabX">Close</button></div>', "trace");
+  $("overlay").__stop = function () { if (stop) stop(); };
+  async function start() {
+    if (stop) stop();
+    var add = $("trX") ? $("trX").value.trim() : "", full = add ? code.replace(/\s*$/, "") + "\n" + add : code;
+    var R = await traceRun(full), box = $("trBody"); if (!box) return;
+    if (R.parseErr) { box.innerHTML = '<div class="why no"><b>I can\'t read this code yet.</b> ' + h(R.parseErr.message.replace(/\s*\(\d+:\d+\)$/, "")) + ". Fix the mistake first (RUN explains it), then watch it run.</div>"; return; }
+    var lines = full.split("\n"), S2 = R.steps, i = 0, timer = null;
+    if (!S2.length) { box.innerHTML = '<p class="muted">Nothing to step through. Add some code first.</p>'; return; }
+    var lastI = S2.length - 1;
+    box.innerHTML = '<div class="trbar" id="trBar" aria-live="polite"></div><input type="range" id="trR" min="0" max="' + lastI + '" value="0" aria-label="Step">' +
+      '<div class="row trbtns"><button class="ghost small" type="button" data-tr="first">⏮ Start</button><button class="ghost small" type="button" data-tr="back">‹ Back</button><button class="btn small primary" type="button" data-tr="next">Step ›</button><button class="ghost small" type="button" data-tr="play">▶ Play</button><button class="ghost small" type="button" data-tr="last">End ⏭</button></div>' +
+      '<div class="trgrid"><div class="trcode" id="trCode">' + lines.map(function (l, k) { return '<div class="tl" data-l="' + (k + 1) + '"><span class="n">' + (k + 1) + "</span><code>" + (h(l) || " ") + "</code></div>"; }).join("") + "</div>" +
+      '<div class="trside"><b class="lbl">VARIABLES</b><div id="trVars"></div><b class="lbl">OUTPUT SO FAR</b><div class="out" id="trOut"></div></div></div>' +
+      (R.capped ? '<p class="hint2">I stopped after ' + TRACE_MAX + " steps. If that's a loop that never ends, check that something changes each round so the condition can become false.</p>" : "") +
+      (R.err ? '<div class="why no"><b>It crashed:</b> ' + h(R.err.name + ": " + R.err.message) + ". Step to the end to see the last line that ran.</div>" : "");
+    function show(k) {
+      i = Math.max(0, Math.min(lastI, k));
+      var s = S2[i], prev = S2[i - 1], pv = {};
+      (prev ? prev.vars : []).forEach(function (v) { pv[v[0]] = v[1]; });
+      var end = s.line === 0;
+      $("trBar").innerHTML = "<b>Step " + (i + 1) + " of " + S2.length + "</b> · " + (end ? (R.err ? "Crashed." : "Finished. These are the values at the end.") : "About to run line " + s.line + (s.fn ? " (inside " + h(s.fn) + ")" : ""));
+      $("trR").value = i;
+      $("trCode").querySelectorAll(".tl").forEach(function (el) { el.classList.toggle("cur", !end && Number(el.getAttribute("data-l")) === s.line); });
+      var cur = $("trCode").querySelector(".tl.cur"); if (cur) { var c = $("trCode"); var y = cur.offsetTop - c.clientHeight / 2; c.scrollTop = Math.max(0, y); }
+      $("trVars").innerHTML = s.vars.length ? '<table class="trv"><tbody>' + s.vars.map(function (v) { var ch = prev && pv[v[0]] !== v[1]; return "<tr" + (ch ? ' class="chg"' : "") + "><th>" + h(v[0]) + "</th><td>" + h(v[1]) + (ch ? ' <span class="chgt">' + (v[0] in pv ? "changed" : "new") + "</span>" : "") + "</td></tr>"; }).join("") + "</tbody></table>" : '<p class="dim">' + (end ? "No variables outside your functions. Values inside a function only exist while it runs." : "No variables yet.") + "</p>";
+      var o = R.out.slice(0, end ? R.out.length : s.out);
+      $("trOut").innerHTML = o.length ? o.map(function (l) { return '<div class="ln ' + l.t + '">' + h(l.txt) + "</div>"; }).join("") : '<span class="dim">(nothing printed yet)</span>';
+      $("trOut").scrollTop = $("trOut").scrollHeight;
+    }
+    function pause() { if (timer) { clearInterval(timer); timer = null; } var pb = box.querySelector('[data-tr="play"]'); if (pb) pb.textContent = "▶ Play"; }
+    stop = pause;
+    box.querySelectorAll("[data-tr]").forEach(function (b) {
+      b.onclick = function () {
+        var a = b.getAttribute("data-tr");
+        if (a === "play") {
+          if (timer) return pause();
+          if (i >= lastI) show(0);
+          b.textContent = "❚❚ Pause";
+          timer = setInterval(function () { if (!$("trR")) return pause(); if (i >= lastI) return pause(); show(i + 1); }, stillMotion() ? 900 : 600);
+          return;
+        }
+        pause(); show(a === "first" ? 0 : a === "last" ? lastI : a === "back" ? i - 1 : i + 1);
+      };
+    });
+    $("trR").oninput = function () { pause(); show(Number(this.value)); };
+    m.el.onkeydown = function (e) { if (e.target.tagName === "INPUT" && e.target.type === "text") return; if (e.key === "ArrowRight") { e.preventDefault(); pause(); show(i + 1); } else if (e.key === "ArrowLeft") { e.preventDefault(); pause(); show(i - 1); } };
+    show(0);
+  }
+  if ($("trGo")) $("trGo").onclick = start;
+  if ($("trX")) $("trX").onkeydown = function (e) { if (e.key === "Enter") { e.preventDefault(); start(); } };
+  start();
+}
+
+// ---- 2. Explain my code: plain-English notes, one per line ----
+function explainCode(code) {
+  var p = ltParse(code); if (p.err) return { err: p.err };
+  var notes = {}, src = function (n, max) { var t = code.slice(n.start, n.end).replace(/\s+/g, " "); max = max || 40; return t.length > max ? t.slice(0, max - 1) + "…" : t; };
+  var cq = function (n, max) { return "<code>" + h(src(n, max)) + "</code>"; };
+  var say = function (n, txt) { var l = n.loc.start.line; (notes[l] = notes[l] || []).push(txt); };
+  var METH = {
+    push: "adds {a} to the end of the array {o}", pop: "takes the last item off the array {o}", shift: "takes the first item off the array {o}", unshift: "adds {a} to the start of the array {o}",
+    splice: "removes or inserts items in the middle of the array {o}", sort: "sorts the array {o} in place", reverse: "flips the order of the array {o}", forEach: "runs a function once for each item in {o}",
+    map: "makes a new array by changing each item of {o}", filter: "makes a new array with only the items of {o} that pass a test", reduce: "boils all the items of {o} down to one value",
+    find: "gives the first item of {o} that passes a test", findIndex: "gives the position of the first item of {o} that passes a test", some: "checks if at least one item of {o} passes a test", every: "checks if every item of {o} passes a test",
+    includes: "checks (true or false) whether {o} contains {a}", indexOf: "gives the position of {a} in {o} (or -1 if it isn't there)", join: "glues the items of {o} together into one piece of text", split: "cuts the text {o} into an array of pieces",
+    slice: "copies a part of {o}", concat: "joins {o} with {a} into a new one", toUpperCase: "makes a CAPITAL LETTERS copy of {o}", toLowerCase: "makes a lowercase copy of {o}", trim: "makes a copy of {o} without spaces at the ends",
+    replace: "makes a copy of {o} with the first match swapped out", replaceAll: "makes a copy of {o} with every match swapped out", repeat: "repeats the text {o}", padStart: "pads {o} at the start", toFixed: "turns {o} into text with a fixed number of decimals",
+    set: "stores {a} in {o}", get: "looks up {a} in {o}", has: "checks whether {o} has {a}", add: "adds {a} to the set {o}", delete: "removes {a} from {o}", keys: "gives the keys of {o}", values: "gives the values of {o}", entries: "gives the [key, value] pairs of {o}",
+    then: "says what to do once the promise {o} finishes", addEventListener: "tells {o} which function to run when that event happens", querySelector: "finds the first element on the page that matches {a}", fill: "fills {o} with {a}", flat: "flattens nested arrays in {o}", at: "gives the item of {o} at position {a}"
+  };
+  var MATH = { floor: "rounded down", ceil: "rounded up", round: "rounded to the nearest whole number", trunc: "with the decimals cut off", abs: "without its minus sign", sqrt: "square root", max: "the biggest of", min: "the smallest of", random: "a random number from 0 up to (not including) 1", pow: "a power" };
+  function args(c) { return c.arguments.map(function (a) { return val(a); }).join(" and ") || "nothing"; }
+  function val(e) {
+    if (!e) return "nothing";
+    switch (e.type) {
+      case "Literal":
+        if (typeof e.value === "string") return 'the text "' + h(e.value.length > 30 ? e.value.slice(0, 29) + "…" : e.value) + '"';
+        if (typeof e.value === "number") return "the number " + e.raw;
+        if (typeof e.value === "boolean") return "<code>" + e.raw + "</code> (a yes/no value)";
+        if (e.value === null) return "<code>null</code> (nothing, on purpose)";
+        if (e.regex) return "the pattern " + cq(e);
+        return cq(e);
+      case "Identifier": return e.name === "undefined" ? "<code>undefined</code>" : "the value of " + cq(e);
+      case "TemplateLiteral": return "a piece of text with values filled in (" + cq(e, 34) + ")";
+      case "ArrayExpression": return e.elements.length ? "a list (array) of " + e.elements.length + " item" + (e.elements.length === 1 ? "" : "s") : "an empty list (array)";
+      case "ObjectExpression": return e.properties.length ? "an object with " + e.properties.filter(function (q) { return q.key; }).map(function (q) { return "<code>" + h(q.key.name || String(q.key.value)) + "</code>"; }).slice(0, 5).join(", ") : "an empty object";
+      case "ArrowFunctionExpression": case "FunctionExpression": return "a function" + (e.params.length ? " that takes " + e.params.map(function (q) { return cq(q); }).join(", ") : "");
+      case "BinaryExpression":
+        if (/^(===|!==|==|!=|<|>|<=|>=)$/.test(e.operator)) return "true or false: " + cond(e);
+        if (e.operator === "+" && (isText(e.left) || isText(e.right))) return "the text you get by joining " + cq(e);
+        return "the result of " + cq(e) + ({ "%": " (the remainder after dividing)", "**": " (a power)" }[e.operator] || "");
+      case "LogicalExpression": return e.operator === "??" ? cq(e.left) + ", or " + cq(e.right) + " if that's null or undefined" : "true or false: " + cond(e);
+      case "UnaryExpression": return e.operator === "typeof" ? "the type of " + cq(e.argument) + ' as text, like "number"' : e.operator === "!" ? "the opposite of " + cq(e.argument) : cq(e);
+      case "ConditionalExpression": return "one of two values: " + cq(e.consequent, 20) + " if " + cond(e.test) + ", otherwise " + cq(e.alternate, 20);
+      case "NewExpression": return "a new " + cq(e.callee) + " object";
+      case "AwaitExpression": return "the result of " + cq(e.argument) + ", once it is ready";
+      case "MemberExpression": if (!e.computed && e.property.name === "length") return "how many items (or letters) " + cq(e.object) + " has"; return e.computed ? "the item of " + cq(e.object) + " at " + cq(e.property) : "the " + cq(e.property) + " of " + cq(e.object);
+      case "CallExpression": return callDesc(e, true);
+    }
+    return cq(e);
+  }
+  function isText(e) { return (e.type === "Literal" && typeof e.value === "string") || e.type === "TemplateLiteral"; }
+  function cond(e) {
+    if (e.type === "BinaryExpression") {
+      var w = { "===": "is exactly", "==": "is equal to", "!==": "is not", "!=": "is not equal to", "<": "is less than", ">": "is more than", "<=": "is at most", ">=": "is at least" }[e.operator];
+      if (w) return cq(e.left, 24) + " " + w + " " + cq(e.right, 24);
+    }
+    if (e.type === "LogicalExpression" && e.operator === "&&") return "both " + cond(e.left) + " and " + cond(e.right);
+    if (e.type === "LogicalExpression" && e.operator === "||") return "either " + cond(e.left) + " or " + cond(e.right);
+    if (e.type === "UnaryExpression" && e.operator === "!") return cq(e.argument) + " is false (or empty)";
+    return cq(e) + " is true (or not empty)";
+  }
+  function callDesc(c, asValue) {
+    var cal = c.callee;
+    if (cal.type === "MemberExpression" && !cal.computed) {
+      var o = cal.object, m = cal.property.name;
+      if (o.type === "Identifier" && o.name === "console") return m === "log" || m === "info" ? (asValue ? "nothing" : "prints " + args(c) + " in the output") : "prints " + args(c) + " as a " + m + " message";
+      if (o.type === "Identifier" && o.name === "Math" && MATH[m]) return m === "random" ? MATH.random : m === "max" || m === "min" ? MATH[m] + " " + args(c) : args(c) + " " + MATH[m] + (m === "sqrt" || m === "pow" ? " (" + cq(c) + ")" : "");
+      if (o.type === "Identifier" && o.name === "JSON") return m === "stringify" ? (asValue ? args(c) + " turned into JSON text" : "turns " + args(c) + " into JSON text") : (asValue ? "the data read from the JSON text " : "reads the JSON text ") + cq(c.arguments[0] || c) + (asValue ? "" : " back into data");
+      if (o.type === "Identifier" && o.name === "Object" && /^(keys|values|entries)$/.test(m)) return "a list of the " + m + " of " + args(c);
+      if (METH[m]) { var vp = METH[m].replace("{o}", cq(o, 24)).replace("{a}", c.arguments.length ? args(c) : "it"); return asValue ? "the result of " + cq(c, 30) + " (it " + vp + ")" : vp; }
+      return asValue ? "the result of " + cq(c, 30) : "calls the method " + cq(cal.property) + " on " + cq(o, 24) + (c.arguments.length ? " with " + args(c) : "");
+    }
+    if (cal.type === "Identifier") {
+      var conv = { Number: "turned into a number", String: "turned into text", parseInt: "read as a whole number", parseFloat: "read as a number", Boolean: "turned into true or false" }[cal.name];
+      if (conv) return args(c) + " " + conv;
+      return (asValue ? "the answer from calling " : "calls the function ") + "<code>" + h(cal.name) + "</code>" + (c.arguments.length ? " with " + args(c) : "");
+    }
+    return (asValue ? "the result of " : "calls ") + cq(c);
+  }
+  function stmt(n) {
+    switch (n.type) {
+      case "VariableDeclaration":
+        n.declarations.forEach(function (d) {
+          var nm = d.id.type === "Identifier" ? cq(d.id) : "the names in " + cq(d.id);
+          var k = n.kind === "const" ? "a constant (it can't be reassigned)" : n.kind === "let" ? "a variable" : "an old-style var variable";
+          if (d.init && ltIsFn(d.init)) say(n, "Makes a function called " + nm + (d.init.params.length ? " that takes " + d.init.params.map(function (q) { return cq(q); }).join(", ") : "") + ". It only runs when something calls it.");
+          else if (d.id.type !== "Identifier") say(n, "Unpacks " + val(d.init) + " into " + d.id.type.replace("Pattern", "").toLowerCase() + " parts, making " + ltNames(d.id, []).map(function (x) { return "<code>" + h(x) + "</code>"; }).join(", ") + ".");
+          else say(n, "Makes " + k + " named " + nm + (d.init ? " and stores " + val(d.init) + " in it." : " with nothing in it yet (undefined)."));
+        });
+        return;
+      case "FunctionDeclaration": say(n, "Defines a function called " + cq(n.id) + (n.params.length ? " that takes " + n.params.map(function (q) { return cq(q); }).join(", ") : " with no inputs") + (n.async ? ". It is async, so it can await" : "") + ". The code inside only runs when something calls " + h(n.id.name) + "()."); return;
+      case "ClassDeclaration": say(n, "Defines a class (a blueprint for objects) called " + cq(n.id) + (n.superClass ? ", based on " + cq(n.superClass) : "") + "."); return;
+      case "ReturnStatement": say(n, n.argument ? "Sends back " + val(n.argument) + " as the answer, and leaves the function right away." : "Leaves the function right away, without an answer."); return;
+      case "IfStatement": say(n, "Checks whether " + cond(n.test) + ". If so, it runs the next block" + (n.alternate ? "; if not, it runs the <code>else</code> part." : ". If not, it skips it.")); return;
+      case "ForStatement": say(n, "A counting loop. " + (n.init ? "It starts with " + cq(n.init, 30) + ", " : "") + (n.test ? "keeps going while " + cond(n.test) : "keeps going forever") + (n.update ? ", and does " + cq(n.update, 20) + " after each round." : ".")); return;
+      case "ForOfStatement": say(n, "Goes through each item of " + cq(n.right) + " in order, calling the current one " + cq(n.left.declarations ? n.left.declarations[0].id : n.left) + "."); return;
+      case "ForInStatement": say(n, "Goes through each key (property name) of " + cq(n.right) + ", calling it " + cq(n.left.declarations ? n.left.declarations[0].id : n.left) + "."); return;
+      case "WhileStatement": say(n, "Repeats the block below as long as " + cond(n.test) + ". Something inside must change, or it never stops."); return;
+      case "DoWhileStatement": say(n, "Runs the block once, then repeats it while " + cond(n.test) + "."); return;
+      case "SwitchStatement": say(n, "Compares " + cq(n.discriminant) + " with each <code>case</code> below and jumps to the one that matches."); return;
+      case "BreakStatement": say(n, "Stops the loop (or switch) right here and carries on after it."); return;
+      case "ContinueStatement": say(n, "Skips the rest of this round of the loop and starts the next round."); return;
+      case "TryStatement": say(n, "Tries the code in the block. If anything in it throws an error, the <code>catch</code> part runs instead of crashing" + (n.finalizer ? ", and <code>finally</code> runs either way." : ".")); return;
+      case "ThrowStatement": say(n, "Throws an error. Everything stops here unless a <code>catch</code> catches it."); return;
+      case "ExpressionStatement": {
+        var e = n.expression;
+        if (e.type === "Literal" && typeof e.value === "string") return say(n, "A directive (a note for the JavaScript engine).");
+        if (e.type === "AwaitExpression") return say(n, "Waits for " + cq(e.argument) + " to finish before moving on.");
+        if (e.type === "CallExpression") { var d2 = callDesc(e, false); return say(n, d2.charAt(0).toUpperCase() + d2.slice(1) + "."); }
+        if (e.type === "UpdateExpression") return say(n, (e.operator === "++" ? "Adds 1 to " : "Takes 1 away from ") + cq(e.argument) + ".");
+        if (e.type === "AssignmentExpression") {
+          var L = cq(e.left), R = val(e.right);
+          var w = { "=": "Changes " + L + " to " + R, "+=": "Adds " + R + " to " + L, "-=": "Takes " + R + " away from " + L, "*=": "Multiplies " + L + " by " + R, "/=": "Divides " + L + " by " + R, "%=": "Sets " + L + " to its remainder after dividing by " + R, "??=": "Sets " + L + " to " + R + " only if it is null or undefined", "||=": "Sets " + L + " to " + R + " if it is falsy" }[e.operator] || "Updates " + L;
+          if (e.operator === "=" && e.left.type === "MemberExpression") w = "Stores " + R + " in " + L;
+          return say(n, w + ".");
+        }
+        return say(n, "Works out " + cq(e) + ".");
+      }
+    }
+  }
+  (function w(n) {
+    if (!n || typeof n.type !== "string") return;
+    if (/Statement$|Declaration$/.test(n.type) && n.type !== "BlockStatement" && n.type !== "EmptyStatement") stmt(n);
+    if (/^For(In|Of)?Statement$/.test(n.type)) { [n.init, n.test, n.update, n.left, n.right].forEach(function (x) { if (x && x.type !== "VariableDeclaration") w(x); }); w(n.body); return; }
+    if (n.type === "MethodDefinition") say(n, n.kind === "constructor" ? "The constructor: it runs when you make a new object with <code>new</code>, and sets it up." : "Defines the method " + cq(n.key) + (n.static ? " on the class itself" : ", which every object made from this class can use") + ".");
+    if (n.type === "SwitchCase") say(n, n.test ? "If it matches " + cq(n.test) + ", the code from here runs (until a <code>break</code>)." : "<code>default</code>: runs when no case matched.");
+    if (n.type === "CatchClause") say(n, "If an error was thrown above, this part runs" + (n.param ? ", with the error in " + cq(n.param) : "") + ".");
+    ltKids(n).forEach(w);
+  })(p.ast);
+  var cm = [], lines = code.split("\n");
+  try { acorn.parse(code, Object.assign({}, SQ_PARSE_OPTS, { onComment: cm })); } catch (e) {}
+  cm.forEach(function (c) { var l = c.loc.start.line; if (!notes[l]) notes[l] = ["A comment for humans. JavaScript skips it."]; });
+  lines.forEach(function (l, i) { if (!notes[i + 1] && /^\s*[})\]]+[;,)]*\s*$/.test(l)) notes[i + 1] = ['<span class="dim">Closes the block that started above.</span>']; });
+  return { lines: lines, notes: notes };
+}
+function openExplain(code) {
+  var x = explainCode(code);
+  var body = x.err ? '<div class="why no"><b>I can\'t read this code yet.</b> ' + h(x.err.message.replace(/\s*\(\d+:\d+\)$/, "")) + ". Fix that first, then ask again.</div>"
+    : '<div class="xpl">' + x.lines.map(function (l, i) {
+      var n = x.notes[i + 1]; if (!l.trim()) return "";
+      return '<div class="xr"><span class="n">' + (i + 1) + '</span><code class="xc">' + h(l) + '</code><span class="xt">' + (n ? n.join(" ") : "") + "</span></div>";
+    }).join("") + "</div>";
+  ltModal('<p class="eyebrow">EXPLAIN MY CODE</p><h2>Your code, line by line</h2><p class="muted" style="margin-top:0">This reads your code and says what each line asks the computer to do. It tells you what the code does, not whether that\'s what you meant. Spotting the difference is how bugs get found.</p>' + body + '<div class="row" style="margin-top:12px"><button class="btn primary" type="button" id="cabX">Close</button></div>', "wide");
+}
+
+// ---- 4. Compare with the model answer (after a pass) ----
+function cmpNorm(l) { return l.replace(/\/\/.*$/, "").trim().replace(/\s+/g, " ").replace(/['`]/g, '"').replace(/;$/, "").replace(/\b(const|var)\b/g, "let"); }
+function cmpHtml(mine, model) {
+  var A = mine.split("\n").filter(function (l) { return cmpNorm(l); }), B = model.split("\n").filter(function (l) { return cmpNorm(l); });
+  var a = A.map(cmpNorm), b = B.map(cmpNorm);
+  if (a.join("\n") === b.join("\n") || A.length > 120 || B.length > 120) return "";
+  var T = [], i, j;
+  for (i = 0; i <= a.length; i++) { T.push([]); for (j = 0; j <= b.length; j++) T[i].push(0); }
+  for (i = a.length - 1; i >= 0; i--) for (j = b.length - 1; j >= 0; j--) T[i][j] = a[i] === b[j] ? T[i + 1][j + 1] + 1 : Math.max(T[i + 1][j], T[i][j + 1]);
+  var rows = [], same = 0; i = 0; j = 0;
+  while (i < a.length || j < b.length) {
+    if (i < a.length && j < b.length && a[i] === b[j]) { rows.push(["s", A[i]]); i++; j++; same++; }
+    else if (j < b.length && (i >= a.length || T[i][j + 1] >= T[i + 1][j])) { rows.push(["m", B[j]]); j++; }
+    else { rows.push(["y", A[i]]); i++; }
+  }
+  return '<details class="cmpbox"><summary>Compare with the model answer</summary><p class="hint2">Both work. Lines only in yours are marked <span class="tag y">YOURS</span>, lines only in the model answer <span class="tag m">MODEL</span>. ' + (same ? "You share " + same + " line" + (same === 1 ? "" : "s") + ". " : "") + "Different isn't wrong. Look for an idea you'd like to borrow, or a reason you like yours better.</p>" +
+    '<div class="diff">' + rows.map(function (r) { return '<div class="dl ' + r[0] + '"><span class="dm">' + (r[0] === "s" ? " " : r[0] === "y" ? "+" : "−") + "</span><code>" + h(r[1]) + "</code></div>"; }).join("") + "</div></details>";
+}
+
+// ---- 5. Rubber duck: talk a failed run through, one step at a time ----
+function duckTip(err, result, code, st) {
+  var r = (result && result.rows || []).filter(function (x) { return !x.ok; })[0], msg = err ? err.name + ": " + err.message : result && result.msg || "";
+  if (err && err.name === "SyntaxError") return ["JavaScript can't read the code, so nothing ran.", "Read line " + (err.line || "by line") + " out loud, one symbol at a time. Does every ( have a ), every { a }, and every quote a partner?"];
+  if (err && /is not defined/.test(err.message)) { var nm = (err.message.match(/^(\S+) is not defined/) || [])[1]; return ["A name was used that JavaScript doesn't know" + (nm ? ": " + nm : "") + ".", "Is it spelled the same everywhere, capitals too? Was it made with let or const before this line, and in a block that's still open here?"]; }
+  if (err && /is not a function/.test(err.message)) return ["Something was called like a function, but it isn't one.", "Check the spelling of the method, and add a console.log just before that line to see what the value really is."];
+  if (err && /Cannot read|undefined|null/.test(err.message)) return ["The code reached into something that was empty (undefined or null).", "Which value is undefined? Print it just before the line that crashed, then work backwards to where it should have been set."];
+  if (err && err.name === "Timeout") return ["The code never finished. That's usually a loop that never stops.", "Look at the loop's condition. What changes each round so it can become false?"];
+  if (err) return ["The code crashed: " + msg + ".", "Read the line the error points at, and say what each value on it is right then."];
+  if (r && r.got === "undefined" && st && st.k === "fn") return ["Your function gave back undefined.", "Does every path through it reach a return? A console.log shows a value, but only return gives it back."];
+  if (r && r.want && r.got && r.want.replace(/"/g, "") === r.got.replace(/"/g, "") && r.want !== r.got) return ["The value looks right, but it's the wrong type: text vs number.", "\"5\" (text) and 5 (a number) are different things. Number(x) turns text into a number, String(x) the other way."];
+  if (r && /^-?\d+(\.\d+)?$/.test(r.want) && /^-?\d+(\.\d+)?$/.test(r.got) && Math.abs(Number(r.want) - Number(r.got)) === 1) return ["You are off by one. That's one of the most common bugs there is.", "Check < vs <=, whether you start at 0 or 1, and whether the last item is included."];
+  if (r && r.want && r.got && r.want.toLowerCase() === r.got.toLowerCase()) return ["Almost: only the capital letters differ.", "Computers treat A and a as different letters. Compare them one by one."];
+  if (r && r.want && r.got && r.want.replace(/\s+/g, "") === r.got.replace(/\s+/g, "")) return ["Almost: only the spaces differ.", "Count the spaces in EXPECTED and YOU GOT, especially around commas and at the ends."];
+  if (result && /extra line|printed \d+ line/.test(result.msg || "")) return ["The number of printed lines doesn't match.", "Count how many times console.log runs. Is one inside a loop by accident, or missing?"];
+  if (result && /technique|use/.test(result.msg || "") && !r) return ["The answer is right, but the task asks for a particular way of getting there.", "Reread the mission and look for the word it wants you to use."];
+  return ["The code ran, but one check didn't match.", r ? "Take the first failed check (" + r.input + "). Work out by hand what your code does with it, step by step, and where it stops matching " + r.want + "." : "Reread the mission. What exactly does it ask for, and what does your code do instead?"];
+}
+function duckProbe(code, st) {
+  if (!st || st.k !== "fn") return null;
+  var p = ltParse(code); if (p.err) return null;
+  var hit = null;
+  (function w(n) { if (hit || !n || typeof n.type !== "string") return; if (ltIsFn(n) && n.body.type === "BlockStatement" && ((n.id && n.id.name === st.fn) || n._probe)) { hit = n; return; } if (n.type === "VariableDeclarator" && n.id.name === st.fn && ltIsFn(n.init)) n.init._probe = 1; ltKids(n).forEach(w); })(p.ast);
+  if (!hit) return null;
+  var names = []; hit.params.forEach(function (q) { ltNames(q, names); });
+  var line = 'console.log("' + st.fn + ' got:"' + names.map(function (n) { return ", " + n; }).join("") + ");";
+  var at = hit.body.start + 1, indent = (code.slice(hit.body.start).match(/\n([ \t]*)\S/) || [, "  "])[1] || "  ";
+  return code.slice(0, at) + "\n" + indent + line + code.slice(at);
+}
+function openDuck(ctx) {
+  var tip = duckTip(ctx.err, ctx.result, ctx.code, ctx.st), probe = duckProbe(ctx.code, ctx.st), step = 0;
+  var steps = [
+    '<p>Hi, I\'m the duck. I don\'t know any JavaScript, so explain it to me slowly. Programmers really do this: saying it out loud makes the bug show itself.</p><label class="field"><span>First: what should your code do? One sentence is enough.</span><textarea id="dkA" rows="2" placeholder="It should…"></textarea></label>',
+    "<p><b>Here's what I noticed:</b> " + h(tip[0]) + "</p><p>" + h(tip[1]) + "</p>",
+    "<p>Now go through your code line by line and tell me what each line does. When what you say and what the line really does don't match, that's the bug.</p><p>Two helpers can read along with you:</p><div class=\"row\">" + (ctx.trace ? '<button class="btn small" type="button" id="dkW">Watch it run</button>' : "") + '<button class="btn small" type="button" id="dkE">Explain my code</button>' + (probe ? '<button class="btn small" type="button" id="dkP">Add a console.log probe</button>' : "") + "</div>" + (probe ? '<p class="hint2">The probe prints what your function receives each time it runs. Delete it when you\'re done.</p>' : ""),
+    "<p>Did you find it?</p>"
+  ];
+  var m = ltModal('<p class="eyebrow">RUBBER DUCK</p><div class="duck"><span class="dk" aria-hidden="true">🦆</span><div id="dkBody"></div></div><div class="row" style="margin-top:12px" id="dkNav"></div><div class="row" style="margin-top:6px"><button class="ghost small" type="button" id="cabX">Close</button></div>', "duckm");
+  function draw() {
+    $("dkBody").innerHTML = '<p class="eyebrow">STEP ' + (step + 1) + " OF " + steps.length + "</p>" + steps[step];
+    $("dkNav").innerHTML = step < steps.length - 1 ? (step ? '<button class="ghost small" type="button" id="dkB">‹ Back</button>' : "") + '<button class="btn small primary" type="button" id="dkN">' + (step ? "Next ›" : "I said it. Next ›") + "</button>"
+      : '<button class="btn small primary" type="button" id="dkY">Found it!</button><button class="btn small" type="button" id="dkS">Still stuck: show a hint</button>';
+    if ($("dkN")) $("dkN").onclick = function () { step++; draw(); };
+    if ($("dkB")) $("dkB").onclick = function () { step--; draw(); };
+    if ($("dkY")) $("dkY").onclick = function () { m.close(); toast("Nice debugging. Fix it and press RUN."); };
+    if ($("dkS")) $("dkS").onclick = function () { m.close(); var hb = $("hintBtn"); if (hb) hb.click(); else toast(S.set.hints === "off" ? "Hints are off in Settings." : "Reread the lesson above the mission, then try one small change at a time."); };
+    if ($("dkW")) $("dkW").onclick = function () { m.close(); ctx.trace(); };
+    if ($("dkE")) $("dkE").onclick = function () { m.close(); openExplain(ctx.code); };
+    if ($("dkP")) $("dkP").onclick = function () { m.close(); ctx.setCode(probe); toast("Probe added. Press RUN and read the output."); };
+    if ($("dkA")) setTimeout(function () { if ($("dkA")) $("dkA").focus(); }, 30);
+  }
+  draw();
+}
+
+// ---- 6. Word pop-ups: tap a word in a lesson to see what it means ----
+var GLOSS = null;
+function glossIndex() {
+  if (GLOSS) return GLOSS;
+  GLOSS = {};
+  var key = function (x, i) { x = x.trim().replace(/\(\)$/, "").toLowerCase(); if (x.length < 2 && !/[%!=<>+*\/-]/.test(x)) return; if (!(x in GLOSS)) GLOSS[x] = i; };
+  D.ref.forEach(function (e, i) {
+    if (e.cat === "Other Languages") return;
+    var t = e.term.replace(/\s+\([^)]*\)$/, ""), pre = "";
+    t.split(/ \/ /).forEach(function (x, k) {
+      x = x.trim(); var m = x.match(/^([A-Za-z]+\.)/);
+      if (k === 0 && m) pre = m[1]; else if (k > 0 && pre && x.indexOf(".") < 0) x = pre + x;
+      key(x, i);
+    });
+  });
+  return GLOSS;
+}
+function glossFind(txt, isCode) {
+  var G = glossIndex(), t = String(txt).trim().toLowerCase();
+  if (!t || t.length > 40) return -1;
+  var c = t.replace(/;$/, ""), c2 = c.replace(/\(.*\)$/, "");
+  if (c in G) return G[c];
+  if (c2 in G) return G[c2];
+  if (isCode) { var m = c2.match(/\.([a-z]+)$/i); if (m && m[1] in G && m[1].length > 2) return G[m[1]]; }
+  else if (/s$/.test(c) && c.slice(0, -1) in G) return G[c.slice(0, -1)];
+  return -1;
+}
+function glossWire(root) {
+  if (!root || !S.set.gloss) return;
+  root.querySelectorAll(".prose code, .prose b").forEach(function (el) {
+    if (el.closest("pre, button, a, .gl")) return;
+    var i = glossFind(el.textContent, el.tagName === "CODE"); if (i < 0) return;
+    el.classList.add("gl"); el.setAttribute("data-gl", i); el.setAttribute("tabindex", "0"); el.setAttribute("role", "button"); el.setAttribute("aria-label", el.textContent + ": what does this mean?");
+  });
+}
+var glT = 0;
+function glossHide() { clearTimeout(glT); var p = $("glPop"); if (p) p.hidden = true; }
+function glossShow(el) {
+  clearTimeout(glT);
+  var e = D.ref[Number(el.getAttribute("data-gl"))]; if (!e) return;
+  var p = $("glPop");
+  if (!p) { p = document.createElement("div"); p.id = "glPop"; p.className = "glpop"; p.setAttribute("role", "tooltip"); document.body.appendChild(p); p.onmouseenter = function () { clearTimeout(glT); }; p.onmouseleave = function () { glT = setTimeout(glossHide, 250); }; }
+  var txt = e.text.length > 260 ? e.text.slice(0, 257).replace(/\s+\S*$/, "") + "…" : e.text;
+  p.innerHTML = '<p class="eyebrow">' + h(e.cat.toUpperCase()) + "</p><b>" + h(e.term) + "</b><p>" + h(txt) + "</p>" + (e.syn ? codeBlock(e.syn, "ex") : "") + '<button class="linkish" type="button" data-reft="all" data-refq="' + h(e.term) + '">More in the Reference ›</button>';
+  highlightAll(p);
+  p.hidden = false;
+  var r = el.getBoundingClientRect(), w = Math.min(320, window.innerWidth - 24);
+  p.style.width = w + "px";
+  var x = Math.max(12, Math.min(window.innerWidth - w - 12, r.left + r.width / 2 - w / 2)), y = r.bottom + 8;
+  if (y + p.offsetHeight > window.innerHeight - 8 && r.top - p.offsetHeight - 8 > 8) y = r.top - p.offsetHeight - 8;
+  p.style.left = x + window.scrollX + "px"; p.style.top = y + window.scrollY + "px";
+}
+document.addEventListener("click", function (e) {
+  var g = e.target.closest && e.target.closest(".gl");
+  if (g) { var p = $("glPop"); if (p && !p.hidden && p.__for === g) glossHide(); else { glossShow(g); $("glPop").__for = g; } return; }
+  if (!e.target.closest || !e.target.closest("#glPop") || e.target.closest("[data-reft]")) glossHide();
+}, true);
+document.addEventListener("keydown", function (e) {
+  var g = e.target.closest && e.target.closest(".gl");
+  if (g && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); glossShow(g); $("glPop").__for = g; }
+  else if (e.key === "Escape") glossHide();
+});
+document.addEventListener("mouseover", function (e) {
+  var g = e.target.closest && e.target.closest(".gl"); if (!g || !window.matchMedia("(hover:hover)").matches) return;
+  clearTimeout(glT); glT = setTimeout(function () { glossShow(g); $("glPop").__for = g; }, 350);
+});
+document.addEventListener("mouseout", function (e) { var g = e.target.closest && e.target.closest(".gl"); if (g) { clearTimeout(glT); glT = setTimeout(glossHide, 300); } });
+window.addEventListener("scroll", function () { var p = $("glPop"); if (p && !p.hidden && !p.matches(":hover")) glossHide(); }, { passive: true });
+
+// ---- 7. Notes: my notes on each stage, an "in your own words" prompt, and a page with all of them ----
+function notesAll() { if (!S.notes) S.notes = load("notes", {}); return S.notes; }
+function noteGet(id) { var n = notesAll()[id]; return n ? n.t : ""; }
+function noteSet(id, t) { var N = notesAll(); if (String(t).trim()) N[id] = { t: String(t).slice(0, 4000), at: Date.now() }; else delete N[id]; save("notes", N); }
+function notesBox(st) {
+  var t = noteGet(st.id);
+  return '<details class="mynotes"' + (t ? " open" : "") + '><summary>My notes' + (t ? " ✎" : "") + '</summary><textarea id="noteTa" rows="3" maxlength="4000" placeholder="Anything you want to remember about this stage. Only you can see it.">' + h(t) + '</textarea><p class="hint2">Saved as you type. All your notes are on the <button class="linkish" type="button" data-go="notes">My notes</button> page.</p></details>';
+}
+function wireNotes(st) {
+  var ta = $("noteTa"); if (!ta) return;
+  var tm = 0; ta.oninput = function () { clearTimeout(tm); tm = setTimeout(function () { noteSet(st.id, ta.value); }, 300); };
+  ta.onblur = function () { clearTimeout(tm); noteSet(st.id, ta.value); };
+}
+function reflectHtml() {
+  return '<div class="reflect" id="rfBox"><b>IN YOUR OWN WORDS</b><p>What did this stage teach you? One sentence is enough. Putting it in your own words makes it stick.</p><textarea id="rfTa" rows="2" maxlength="600" placeholder="Today I learned…"></textarea><div class="row"><button class="btn small" type="button" id="rfSave">Save to my notes</button><button class="ghost small" type="button" id="rfNo">Not now</button></div></div>';
+}
+function wireReflect(st) {
+  if (!$("rfBox")) return;
+  $("rfNo").onclick = function () { $("rfBox").remove(); };
+  $("rfSave").onclick = function () {
+    var v = $("rfTa").value.trim(); if (!v) { $("rfTa").focus(); return; }
+    var old = noteGet(st.id); noteSet(st.id, (old ? old.replace(/\s*$/, "") + "\n" : "") + v);
+    if ($("noteTa")) { $("noteTa").value = noteGet(st.id); $("noteTa").closest("details").open = true; }
+    $("rfBox").innerHTML = "<b>IN YOUR OWN WORDS</b><p>Saved to your notes. ✎</p>";
+  };
+}
+function viewNotes(V) {
+  var N = notesAll(), q = "";
+  function rows() {
+    var ids = Object.keys(N).filter(function (id) { return STAGE[id]; });
+    ids.sort(function (a, b) { return N[b].at - N[a].at; });
+    if (q) ids = ids.filter(function (id) { var st = STAGE[id]; return (N[id].t + " " + st.t + " " + st.sec.title).toLowerCase().indexOf(q) >= 0; });
+    return ids;
+  }
+  function draw() {
+    var ids = rows();
+    $("nList").innerHTML = ids.length ? ids.map(function (id) {
+      var st = STAGE[id];
+      return '<article class="card note" style="--sc:' + secVar(st.sec) + '"><div class="row nh"><button class="linkish" type="button" data-go="stage" data-arg="' + id + '"><b>' + h(st.sec.title) + " " + st.n + ":</b> " + h(st.t) + '</button><span class="muted">' + new Date(N[id].at).toLocaleDateString() + '</span><button class="ghost small" type="button" data-ndel="' + id + '">Delete</button></div><p class="nt">' + h(N[id].t) + "</p></article>";
+    }).join("") : '<p class="muted">' + (q ? "No notes match that." : "No notes yet. Open any stage and use <b>My notes</b> under the lesson, or write a line in your own words after you clear one.") + "</p>";
+    $("nList").querySelectorAll("[data-ndel]").forEach(function (b) {
+      b.onclick = function () {
+        if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to delete"; return; }
+        noteSet(b.getAttribute("data-ndel"), ""); draw();
+      };
+    });
+  }
+  var n = Object.keys(N).filter(function (id) { return STAGE[id]; }).length;
+  V.innerHTML = '<div class="wrap"><p class="eyebrow">STUDY TOOLS</p><h1>My notes</h1><p class="muted">Everything you wrote down while learning, newest first. ' + n + " note" + (n === 1 ? "" : "s") + '.</p><div class="row ntools"><input type="search" id="nQ" placeholder="Search your notes" aria-label="Search your notes"><button class="btn small" type="button" id="nDl"' + (n ? "" : " disabled") + '>Download as a text file</button></div><div id="nList" class="nlist"></div></div>';
+  $("nQ").oninput = function () { q = this.value.trim().toLowerCase(); draw(); };
+  $("nDl").onclick = function () {
+    var ids = Object.keys(N).filter(function (id) { return STAGE[id]; }).sort(function (a, b) { return mapRank(STAGE[a].sec) - mapRank(STAGE[b].sec) || STAGE[a].n - STAGE[b].n; });
+    var txt = "Script Quest notes: " + nameOf() + "\n\n" + ids.map(function (id) { var st = STAGE[id]; return st.sec.title + " " + st.n + ": " + st.t + "\n" + N[id].t + "\n"; }).join("\n");
+    var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([txt], { type: "text/plain" })); a.download = "script-quest-notes.txt"; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  };
+  draw();
+}
+
+// ---- 8. Flashcards: the Reference words, with spaced repetition ----
+var CARD_GAPS = [1, 2, 4, 8, 16], DAY = 864e5;
+function cardsState() { if (!S.cards) S.cards = load("cards", {}); return S.cards; }
+function cardDeck(kind) {
+  if (kind === "star") { var st = S.refStar || load("refstar", {}); return D.ref.filter(function (e) { return Object.prototype.hasOwnProperty.call(st, e.term); }); }
+  if (kind === "all") return D.ref.slice();
+  var started = {}; Object.keys(S.done).forEach(function (id) { if (STAGE[id]) started[STAGE[id].sec.id] = 1; });
+  started.hello = 1;
+  return D.ref.filter(function (e) { return started[e.topic] && e.cat !== "Other Languages"; });
+}
+function cardsDue(list) { var C = cardsState(), now = Date.now(); return list.filter(function (e) { return C[e.term] && C[e.term].due <= now; }); }
+function viewCards(V, arg) {
+  var C = cardsState(), kind = arg === "star" || arg === "all" ? arg : "mine";
+  var deck = cardDeck(kind), due = cardsDue(deck), fresh = deck.filter(function (e) { return !C[e.term]; });
+  var learned = deck.filter(function (e) { return C[e.term] && C[e.term].b >= 3; }).length;
+  var tabs = [["mine", "Words I've met"], ["star", "Starred words"], ["all", "Every word"]];
+  V.innerHTML = '<div class="wrap"><p class="eyebrow">STUDY TOOLS</p><h1>Flashcards</h1><p class="muted">See a word, say what it means, then flip the card. Cards you know come back less often (1, 2, 4, 8, then 16 days later). Cards you miss come back tomorrow.</p>' +
+    '<div class="filters" role="group" aria-label="Deck">' + tabs.map(function (t) { return '<button class="ghost' + (t[0] === kind ? " on" : "") + '" type="button" data-go="cards" data-arg="' + t[0] + '" aria-pressed="' + (t[0] === kind) + '">' + t[1] + "</button>"; }).join("") + "</div>" +
+    '<div id="fcBox" class="fcbox"></div></div>';
+  var box = $("fcBox");
+  function intro() {
+    if (!deck.length) { box.innerHTML = '<p class="muted">' + (kind === "star" ? "No starred words yet. Tap ☆ on any word in the Reference to add it here." : "No words here yet.") + "</p>"; return; }
+    box.innerHTML = '<section class="stats"><div class="stat"><b>' + due.length + '</b><span>due today</span></div><div class="stat"><b>' + fresh.length + '</b><span>new cards</span></div><div class="stat"><b>' + learned + '</b><span>well learned</span></div><div class="stat"><b>' + deck.length + '</b><span>cards in this deck</span></div></section>' +
+      '<div class="row" style="margin-top:14px"><button class="btn primary" type="button" id="fcGo">' + (due.length || fresh.length ? "Start a round of " + Math.min(10, due.length + fresh.length) : "Practice anyway") + "</button></div>" + (!due.length && !fresh.length ? '<p class="hint2">Nothing is due. Come back tomorrow, or practice anyway (that won\'t change when cards come back).</p>' : "");
+    $("fcGo").onclick = function () { start(!due.length && !fresh.length); };
+  }
+  function start(extra) {
+    var q = extra ? shuffle(deck.slice()).slice(0, 10) : due.sort(function (a, b) { return C[a.term].due - C[b.term].due; }).concat(fresh).slice(0, 10);
+    var i = 0, knew = 0, total = q.length, again = {};
+    function card() {
+      if (i >= q.length) return finish();
+      var e = q[i];
+      box.innerHTML = '<div class="fcprog"><span>' + Math.min(i + 1, total) + " / " + total + '</span><i style="width:' + Math.round(100 * i / q.length) + '%"></i></div><div class="fc" id="fcCard"><p class="eyebrow">' + h(e.cat.toUpperCase()) + '</p><div class="fcterm">' + h(e.term) + '</div><p class="muted">What does it mean? Say it out loud or in your head, then flip.</p></div><div class="row fcact"><button class="btn primary" type="button" id="fcFlip">Show the answer</button></div>';
+      $("fcFlip").onclick = flip; $("fcFlip").focus();
+    }
+    function flip() {
+      var e = q[i];
+      $("fcCard").insertAdjacentHTML("beforeend", '<div class="fcback"><p>' + h(e.text) + "</p>" + (e.syn ? codeBlock(e.syn, "ex") : "") + "</div>");
+      $("fcCard").querySelector(".muted").remove(); highlightAll($("fcCard"));
+      box.querySelector(".fcact").innerHTML = '<button class="btn" type="button" id="fcNo">Not yet</button><button class="btn primary" type="button" id="fcYes">I knew it</button>';
+      $("fcYes").onclick = function () { grade(true); }; $("fcNo").onclick = function () { grade(false); }; $("fcYes").focus();
+    }
+    function grade(ok) {
+      var e = q[i], c = C[e.term] || { b: 0, due: 0 };
+      if (!extra && !again[e.term]) {
+        if (ok) { c.b = Math.min(CARD_GAPS.length, (c.b || 0) + 1); c.due = Date.now() + CARD_GAPS[c.b - 1] * DAY - 36e5; }
+        else { c.b = 0; c.due = Date.now() + DAY - 36e5; }
+        C[e.term] = c; save("cards", C);
+      }
+      if (ok && !again[e.term]) knew++;
+      if (!ok && !again[e.term]) { again[e.term] = 1; q.push(e); }
+      ok ? SFX.right() : SFX.click();
+      i++; card();
+    }
+    function finish() {
+      markActive(300);
+      box.innerHTML = '<div class="fc done"><p class="eyebrow">ROUND DONE</p><div class="fcterm">' + knew + " of " + total + '</div><p>' + (knew === total ? "Every one. Nice, " + h(nameOf()) + "." : "The ones you missed came round again, and they'll be back tomorrow too.") + '</p></div><div class="row fcact"><button class="btn primary" type="button" data-go="cards" data-arg="' + kind + '">Back to the deck</button><button class="btn" type="button" data-go="map">Map</button></div>';
+    }
+    card();
+  }
+  intro();
+}
+
+// ---- 9. Typing drills: type real snippets to get the symbols into your fingers ----
+function drillsState() { if (!S.drills) S.drills = load("drills", {}); return S.drills; }
+function viewDrills(V, arg) {
+  var B = drillsState(), all = [];
+  D.snippets.forEach(function (g, gi) { g.items.forEach(function (it, ii) { all.push({ g: g.name, it: it, key: g.name + "/" + it.title, gi: gi, ii: ii }); }); });
+  var pick = arg ? all.filter(function (x) { return x.gi + "-" + x.ii === arg; })[0] : null;
+  if (!pick) {
+    V.innerHTML = '<div class="wrap"><p class="eyebrow">STUDY TOOLS</p><h1>Typing drills</h1><p class="muted">Type a real snippet exactly. Brackets, quotes and semicolons are where beginners slow down, and typing them for real builds the habit. Indentation doesn\'t count, so don\'t worry about spaces at the start of a line.</p>' +
+      D.snippets.map(function (g, gi) {
+        return '<div class="fgrp"><div class="group-h"><h2>' + h(g.name.toUpperCase()) + '</h2></div><div class="drgrid">' + g.items.map(function (it, ii) {
+          var b = B[g.name + "/" + it.title];
+          return '<button class="drbtn" type="button" data-go="drills" data-arg="' + gi + "-" + ii + '"><b>' + h(it.title) + "</b><span>" + (b ? "Best " + b.wpm + " wpm · " + b.acc + "%" : it.code.split("\n").length + " line" + (it.code.split("\n").length === 1 ? "" : "s")) + "</span></button>";
+        }).join("") + "</div></div>";
+      }).join("") + "</div>";
+    return;
+  }
+  var raw = personalCode(pick.it.code).replace(/\t/g, "  ").replace(/\s+$/, ""), lines = raw.split("\n");
+  var T = lines.map(function (l) { return l.replace(/^\s+/, "").replace(/\s+$/, ""); }).join("\n");
+  var idx = all.indexOf(pick), nxt = all[(idx + 1) % all.length];
+  V.innerHTML = '<div class="wrap"><div class="crumbs"><button data-go="drills">Typing drills</button><span>›</span><span>' + h(pick.g) + "</span></div><h1>" + h(pick.it.title) + '</h1><p class="muted">' + pick.it.explain + '</p>' +
+    '<div class="card drill"><div class="drstat" id="drStat" aria-live="polite">Start typing. The clock starts on your first key.</div><pre class="drtarget" id="drT" aria-hidden="true"></pre><textarea id="drIn" rows="' + Math.min(12, lines.length + 1) + '" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off" aria-label="Type the code shown above"></textarea></div>' +
+    '<div class="row" style="margin-top:12px"><button class="btn" type="button" id="drAgain">Start over</button><button class="btn" type="button" data-go="drills" data-arg="' + nxt.gi + "-" + nxt.ii + '">Next snippet ›</button></div></div>';
+  var ta = $("drIn"), t0 = 0, good = 0, bad = 0, prev = "", done = false;
+  function norm(s) { return s.split("\n").map(function (l) { return l.replace(/^\s+/, ""); }).join("\n"); }
+  function draw(U) {
+    var k = 0, out = "";
+    lines.forEach(function (l, li) {
+      var ind = l.match(/^\s*/)[0], rest = l.slice(ind.length).replace(/\s+$/, "");
+      out += h(ind);
+      for (var c = 0; c < rest.length; c++, k++) out += '<span class="' + (k < U.length ? (U[k] === rest[c] ? "ok" : "bad") : k === U.length ? "cur" : "") + '">' + h(rest[c]) + "</span>";
+      if (li < lines.length - 1) { out += '<span class="nl ' + (k < U.length ? (U[k] === "\n" ? "ok" : "bad") : k === U.length ? "cur" : "") + '">↵</span>\n'; k++; }
+    });
+    $("drT").innerHTML = out;
+  }
+  ta.oninput = function () {
+    if (done) return;
+    if (!t0) t0 = Date.now();
+    var U = norm(ta.value);
+    if (U.length > prev.length && U.indexOf(prev) === 0) for (var j = prev.length; j < U.length; j++) { if (U[j] === T[j]) good++; else bad++; }
+    prev = U; draw(U);
+    var right = 0; while (right < U.length && U[right] === T[right]) right++;
+    var acc = good + bad ? Math.round(100 * good / (good + bad)) : 100;
+    if (U.replace(/\s+$/, "") === T) {
+      done = true;
+      var mins = Math.max((Date.now() - t0) / 60000, 1 / 600), wpm = Math.round(T.length / 5 / mins), b = B[pick.key], best = !b || wpm > b.wpm;
+      if (best) { B[pick.key] = { wpm: wpm, acc: acc, at: Date.now() }; save("drills", B); }
+      SFX.pass(); markActive(300);
+      $("drStat").innerHTML = '<b class="okc">Done!</b> ' + wpm + " words a minute, " + acc + "% accurate." + (best && b ? " New best!" : b ? " Your best is " + b.wpm + " wpm." : "");
+      ta.readOnly = true;
+      return;
+    }
+    $("drStat").textContent = Math.round(100 * right / T.length) + "% typed · " + acc + "% accurate" + (U.length > right ? " · fix the red part first" : "");
+  };
+  ta.onkeydown = function (e) { if (e.key === "Tab") { e.preventDefault(); ta.setRangeText("  ", ta.selectionStart, ta.selectionEnd, "end"); ta.oninput(); } };
+  $("drAgain").onclick = function () { ta.value = ""; ta.readOnly = false; t0 = 0; good = 0; bad = 0; prev = ""; done = false; draw(""); $("drStat").textContent = "Start typing. The clock starts on your first key."; ta.focus(); };
+  draw(""); setTimeout(function () { ta.focus(); }, 30);
+}
+
+// ---- 10. Rewrite from memory: once a day, write an old stage again from a blank start ----
+var rewriteMode = null;
+function rwState() { if (!S.rw) S.rw = load("rewrite", { at: {} }); S.rw.at = S.rw.at || {}; return S.rw; }
+function rwOk(st) { return !!st && !st.game && st.k !== "dom" && !st.css && st.mode !== "order" && /^(fn|out|vars|chk)$/.test(st.k) && !!st.s && st.st != null; }
+function rwPick() {
+  var R = rwState(), now = Date.now(), c = [];
+  Object.keys(S.done).forEach(function (id) {
+    var d = S.done[id], st = STAGE[id];
+    if (!d || d.skip || !rwOk(st) || now - (d.at || 0) < 2 * DAY || (R.at[id] && now - R.at[id] < 21 * DAY)) return;
+    c.push(id);
+  });
+  if (!c.length) return null;
+  c.sort();
+  var k = dayKey(), x = 0; for (var i = 0; i < k.length; i++) x = (x * 31 + k.charCodeAt(i)) >>> 0;
+  return STAGE[c[x % c.length]];
+}
+function startRewrite(id) {
+  var R = rwState(), d = draft(id);
+  R.bak = d !== null ? { id: id, code: d } : null; save("rewrite", R);
+  rewriteMode = id; go("stage", id);
+}
+function studyToolsHtml() {
+  var due = cardsDue(cardDeck("mine")).length, nn = Object.keys(notesAll()).filter(function (id) { return STAGE[id]; }).length, rw = rwPick(), drills = Object.keys(drillsState()).length;
+  var cart = function (attrs, color, l, r, t, p) { return '<button class="cart" type="button" ' + attrs + ' style="--sc:var(--' + color + ')"><span class="band"><span>' + l + "</span><span>" + r + '</span></span><span class="body"><h3>' + t + "</h3><p>" + p + "</p></span></button>"; };
+  return '<div class="fgrp mapgrp" data-fk="study" style="--accent:var(--accent)"><div class="group-h"><h2>STUDY TOOLS</h2><span class="muted">Small habits that make it stick.</span></div><section class="carts">' +
+    cart('data-go="cards"', "accent", due ? due + " DUE TODAY" : "FLASHCARDS", "", "Flashcards", "Quick cards for the words you've met. A few minutes a day keeps them fresh.") +
+    (rw ? cart('data-rw="' + rw.id + '"', "gold", "TODAY", "FROM MEMORY", "Rewrite: " + h(rw.t), "You cleared " + h(rw.sec.title) + " " + rw.n + " a while ago. Write it again from a blank start, no peeking.")
+      : cart('disabled aria-disabled="true"', "gold", "REWRITE", "FROM MEMORY", "Rewrite from memory", "Once you've cleared some stages, one comes back here each day for you to write again from scratch.")) +
+    cart('data-go="drills"', "pass", "TYPING", drills ? drills + " DONE" : "", "Typing drills", "Type real snippets to get brackets, quotes and semicolons into your fingers.") +
+    cart('data-go="notes"', "warn", "MY NOTES", nn ? nn + " SAVED" : "", "My notes", nn ? "Everything you wrote down while learning, in one place." : "Write notes on any stage. They all collect here.") +
+    "</section></div>";
+}
 
 // ---------------- MAP ----------------
 function nextStageGlobal() {
@@ -21707,6 +22469,7 @@ function viewMap(V) {
   html += weeklyCard() + medalShelf();
   var rvN = rvQs().length + rvStages().length;
   if (rvN || S.rvCleared) html += '<div class="fgrp mapgrp" data-fk="review" style="--accent:var(--fail)"><div class="group-h"><h2>REVIEW DECK</h2><span class="muted">Mistakes collect here so you can come back and beat them.</span></div><section class="carts"><button class="cart" data-go="review" style="--sc:var(--fail)"><span class="band"><span>↻ ' + rvN + " TO REVIEW</span><span>" + S.rvCleared + ' CLEARED</span></span><span class="body"><h3>Review Deck</h3><p>' + (rvN ? rvQs().length + " quiz question" + (rvQs().length === 1 ? "" : "s") + " and " + rvStages().length + " stage" + (rvStages().length === 1 ? "" : "s") + " to try again." : "All clear. New mistakes will show up here.") + "</p></span></button></section></div>";
+  if (stagesDone) html += studyToolsHtml();
   GROUPS.forEach(function (g) {
     var secs = SECS.filter(function (s) { return s.group === g.id && !(s.secret && isLocked("section", s.id, lv)); });
     if (!secs.length) return;
@@ -22042,6 +22805,8 @@ function viewStage(V, id) {
   var showHint = S.set.hints !== "off" && st.h;
   fails[st.id] = 0;
   var visit = Date.now() + ":" + Math.random(), inDeck = rvFind(function (r) { return r.s === st.id; }) >= 0;
+  var rw = rewriteMode === st.id && rwOk(st); rewriteMode = null;
+  var toolsRow = '<div class="ltools"><span class="lbl">LEARN FROM IT</span>' + (!isDom && !isGame ? '<button class="ghost small" type="button" id="trBtn">Watch it run</button>' : "") + '<button class="ghost small" type="button" id="xpBtn">Explain my code</button>' + (!isDom && !isGame ? '<button class="ghost small" type="button" id="sbBtn">Try it in the Sandbox</button>' : "") + "</div>";
   var html = '<div class="wrap" style="--sc:var(--' + s.color + ')">' +
     '<div class="stage-top"><div class="crumbs"><button data-go="map">Map</button><span>›</span><button data-go="section" data-arg="' + s.id + '">' + h(s.title) + "</button><span>›</span><span>Stage " + st.n + " of " + s.stages.length + "</span></div>" +
     '<div class="row"><div class="dots" aria-hidden="true">' + s.stages.map(function (x) { return "<i class=\"" + (x.id === st.id ? "c" : S.done[x.id] ? "d" : "") + '"></i>'; }).join("") + "</div>" +
@@ -22049,29 +22814,41 @@ function viewStage(V, id) {
     (next ? '<button class="btn small" data-go="stage" data-arg="' + next.id + '" aria-label="Next stage">Next ›</button>' : "") + "</div></div>" +
     '<div class="board"><article class="card lesson' + (S.fold["l:" + st.id] ? " lfolded" : "") + '"><p class="eyebrow">' + h(s.title.toUpperCase()) + " · STAGE " + st.n + (S.done[st.id] ? (S.done[st.id].skip ? ' · <span class="muted">SKIPPED</span>' : ' · <span style="color:var(--pass)">CLEARED</span>') : "") + stepChip(st) + "</p><h1>" + h(st.t) + "</h1>" + readBtnHtml() + (st.l || st.hook ? '<button class="ghost small lfoldbtn" type="button" data-lfold="' + st.id + '" aria-expanded="' + !S.fold["l:" + st.id] + '">' + (S.fold["l:" + st.id] ? "Show the lesson" : "Hide the lesson") + "</button>" : "") + '<div class="lbody">' + hookHtml(st) +
     (inDeck ? '<div class="callout"><b>REVIEW DECK</b><p>This stage tripped you up before. Clear it again to take it off your <button class="linkish" type="button" data-go="review">Review Deck</button>.</p></div>' : "") + lessonExtras(st) + (st.l ? '<div class="prose">' + personal(st.l) + "</div>" : recapHtml(st)) + "</div>" +
+    (rw ? '<div class="callout rwban"><b>REWRITE FROM MEMORY</b><p>You cleared this a while ago. Write it again from a blank start, without peeking. Pulling it back out of your head is what makes it stick.</p>' + (rwState().bak && rwState().bak.id === st.id ? '<button class="ghost small" type="button" id="rwRestore">Restore my old code</button>' : "") + "</div>" : "") +
     '<div class="mission"><b>YOUR MISSION</b><div class="prose">' + personal(st.p) + "</div></div>" +
     (st.k !== "free" ? '<div class="row" style="margin-top:12px">' + (showHint && S.set.hints === "button" ? '<button class="ghost" type="button" id="hintBtn">Show hint</button>' : "") + (S.set.solutions && st.s && !noCode ? '<button class="ghost" type="button" id="solBtn" hidden>Show solution</button>' : "") + (!isPredict && !isPick && (!S.done[st.id] || S.done[st.id].skip) ? '<button class="ghost" type="button" id="skipBtn" hidden title="It goes to your Review Deck, so you can come back to it later">Skip for now</button>' : "") + (isGame ? '<button class="btn gold small" type="button" id="playBtn">' + icon("play") + "Play " + h(SQ_ENGINES[st.game.engine].title) + "</button>" : "") + "</div>" : "") +
     '<div class="hintbox" id="hintBox"></div>' +
     (s.group !== "fun" && st.l ? '<button class="ghost small confbtn" type="button" id="confBtn">' + (inDeck ? "Saved to your Review Deck" : "This part confused me") + "</button>" : "") +
     ((st.links || s.links).length ? '<div class="reslinks fgrp" data-fk="learnmore"><div class="group-h"><h2>LEARN MORE</h2></div><ul class="links">' + (st.links || s.links.slice(0, 3)).map(function (l) { return '<li><a href="' + h(l[1]) + '" target="_blank" rel="noopener">' + h(l[0]) + "</a></li>"; }).join("") + "</ul></div>" : "") +
     (refCount(s.id) ? '<p class="reflook"><button class="linkish" type="button" data-reft="' + s.id + '">Look up ' + h(s.title) + " words in the Reference ›</button></p>" : "") +
-    "</article>" +
+    notesBox(st) + "</article>" +
     '<section class="card console" aria-label="Code console"><div class="cbar"><span class="file"><i></i>' + s.id + "-" + st.n + '.js</span><div class="row">' + (isPredict || isPick ? "" : (isOrder ? "" : '<button class="ghost" type="button" id="copyBtn">Copy</button>') + '<button class="ghost" type="button" id="resetBtn">' + (isOrder ? "Start over" : "Reset") + '</button><button class="btn primary" type="button" id="runBtn">' + (isSteps ? "▶ GO, ROBOT" : "▶ RUN") + "</button>") + "</div></div>" +
     (isDom ? '<div class="preview"><div class="lbl"><span>PAGE PREVIEW</span></div><div class="stagebox" id="stagebox">' + (st.css ? "" : st.html || "") + "</div></div>" : "") +
     (isPredict ? '<div class="pq"><span class="lbl">READ THE CODE</span>' + codeBlock(personalCode(st.code), "ex") + '<span class="lbl">WHAT WILL IT PRINT?</span><div class="opts" id="popts">' + st.opts.map(function (o, i) { return '<button class="opt" type="button" data-o="' + i + '"><span class="k">' + "ABCD"[i] + '</span><span><code class="outopt">' + h(personal(o)) + "</code></span></button>"; }).join("") + "</div></div>" :
       isPick ? '<div class="pq">' + (st.html ? '<span class="lbl">LOOK AT THIS PAGE</span><div class="stagebox site" id="mockbox"></div>' : "") + '<span class="lbl q">' + personal(st.q || "Pick the best answer.") + '</span><div class="opts" id="popts">' + st.opts.map(function (o, i) { return '<button class="opt" type="button" data-o="' + i + '"><span class="k">' + "ABCDEF"[i] + "</span><span>" + personal(o) + "</span></button>"; }).join("") + '</div></div><div id="res"></div></section></div></div>' :
       isOrder ? '<div class="order sorder"><div><span class="lbl">' + (isSteps ? "YOUR ORDERS (tap one to take it back)" : "YOUR PROGRAM (tap a line to take it back)") + '</span><div class="ans" id="oa"></div></div><div><span class="lbl">' + (isSteps ? "TAP THE ORDERS IN SEQUENCE" : "TAP LINES IN ORDER") + '</span><div class="pool" id="op"></div></div></div>' :
       '<div class="edwrap" id="edhost"></div>' + keysHtml()) + (isPick ? "" :
-    '<div class="outh"><span>OUTPUT</span>' + (noCode || isOrder ? "" : '<span class="muted" style="font-family:var(--f-body);letter-spacing:0">Ctrl+Enter runs</span>') + '</div><div class="out" id="out"><span class="dim">' + (isPredict ? "Pick an answer and the code runs, so you can see if you were right." : isSteps ? "Press GO to watch the robot follow your orders." : "Press RUN to see what your code prints.") + '</span></div><div id="res"></div></section></div></div>');
+    '<div class="outh"><span>OUTPUT</span>' + (noCode || isOrder ? "" : '<span class="muted" style="font-family:var(--f-body);letter-spacing:0">Ctrl+Enter runs</span>') + '</div><div class="out" id="out"><span class="dim">' + (isPredict ? "Pick an answer and the code runs, so you can see if you were right." : isSteps ? "Press GO to watch the robot follow your orders." : "Press RUN to see what your code prints.") + '</span></div>' + (noCode || isOrder ? "" : toolsRow) + '<div id="res"></div></section></div></div>');
   V.innerHTML = html;
   if (isDom && st.css) stageRoot($("stagebox"), st);
   if (isPick && st.html) stageRoot($("mockbox"), { css: (st.css || "") + ".page{max-height:none}", html: st.html });
   if (noCode || isOrder) editor = orderBoard(st, V);
   else {
-    editor = makeEditor($("edhost"), starterFor(st), function (c) { setDraft(st.id, c); }, run);
+    editor = makeEditor($("edhost"), rw ? personalCode(st.st) : starterFor(st), function (c) { setDraft(st.id, c); }, run);
     wireKeys(V, editor);
   }
   editor.refresh();
+  glossWire(V.querySelector(".lesson")); wireNotes(st);
+  if ($("trBtn")) $("trBtn").onclick = function () { openTrace(editor.get(), st); };
+  if ($("xpBtn")) $("xpBtn").onclick = function () { openExplain(editor.get()); };
+  if ($("sbBtn")) $("sbBtn").onclick = function () { if (sbxAdd(s.title + " " + st.n, editor.get(), "console")) { toast("Copied to the Sandbox. Change anything you like, nothing is checked there."); go("sandbox"); } else toast("Your sandbox is full (8 slots). Delete one first."); };
+  if ($("rwRestore")) $("rwRestore").onclick = function () { var b = rwState().bak; if (b && b.id === st.id) { editor.set(b.code); setDraft(st.id, b.code); toast("Your old code is back."); } $("rwRestore").remove(); };
+  if (rw) setTimeout(function () { toast("Rewrite from memory: start from scratch, no peeking."); }, 300);
+  function addDuck(err, result, code) {
+    if (!$("res") || isGame) return;
+    $("res").insertAdjacentHTML("beforeend", '<div class="duckrow"><button class="ghost small" type="button" id="duckBtn"><span aria-hidden="true">🦆</span> Talk it through with the duck</button></div>');
+    $("duckBtn").onclick = function () { openDuck({ err: err, result: result, code: code, st: st, trace: isDom ? null : function () { openTrace(editor.get(), st); }, setCode: function (c) { editor.set(c); setDraft(st.id, c); } }); };
+  }
   var hintLevel = 0, nudge = nudgeFor(st);
   maybeAutoHint();
   function showHintNow() {
@@ -22139,7 +22916,7 @@ function viewStage(V, id) {
     renderOutput(out, r.logs || [], r.err);
     if (r.err) {
       var x = explainHtml(r.err, code); res.innerHTML = x.html + lintHtml(code); if (x.line) editor.markErr(x.line);
-      fails[st.id] = (fails[st.id] || 0) + 1; trackStage(st, false, visit); SFX.fail(); maybeAutoHint(); gateSol(); return;
+      fails[st.id] = (fails[st.id] || 0) + 1; trackStage(st, false, visit); SFX.fail(); maybeAutoHint(); gateSol(); addDuck(r.err, null, code); return;
     }
     if (st.k === "free" || !r.result) return;
     if (r.result.pass) passStage(r.result.rows);
@@ -22148,7 +22925,7 @@ function viewStage(V, id) {
       var crash = r.result.crash ? explainHtml(r.result.crash, code) : null;
       res.innerHTML = '<div class="verdict no" role="status"><div class="vt">✗ Not yet</div><div>' + h(r.result.msg) + "</div></div>" + mixupFor(st, code, r.result) + (st.k === "vars" ? varBoxes(r.result.rows) : "") + resultsHtml(r.result.rows) + (crash ? crash.html : "") + lintHtml(code);
       if (crash && crash.line) editor.markErr(crash.line);
-      SFX.fail(); maybeAutoHint(); gateSol();
+      SFX.fail(); maybeAutoHint(); gateSol(); addDuck(r.result.crash || null, r.result, code);
     }
   }
   function passStage(rows) {
@@ -22165,6 +22942,9 @@ function viewStage(V, id) {
         (isGame ? '<button class="btn small gold" type="button" id="play2">' + icon("play") + "Play it</button>" : "") +
         ckptAfter(st) + (next ? '<button class="btn small primary" type="button" data-go="stage" data-arg="' + next.id + '">Next stage ›</button>' : (nextSection(s) ? '<button class="btn small primary" type="button" data-go="section" data-arg="' + nextSection(s).id + '">Next section ›</button>' : "") + '<button class="btn small" type="button" data-go="section" data-arg="' + s.id + '">Back to section</button>') + "</div>" +
         (secDone(s) === s.stages.length && first ? "<div><b>You cleared every stage in " + h(s.title) + ", " + h(nameOf()) + "!</b> <button class=\"btn small\" type=\"button\" data-go=\"cheat\" data-arg=\"" + s.id + "\">Open the cheat sheet</button></div>" : "") + "</div>" + (st.k === "vars" ? varBoxes(rows) : "") + resultsHtml(rows) + altsHtml(st);
+      if (!noCode && !isOrder && !isGame && st.s) { var cmp = cmpHtml(editor.get(), personalCode(st.s)); if (cmp) res.insertAdjacentHTML("beforeend", cmp); }
+      if (first && S.set.reflect && st.l && !noteGet(st.id)) { res.insertAdjacentHTML("beforeend", reflectHtml()); wireReflect(st); }
+      if (rw) { var R = rwState(); R.at[st.id] = Date.now(); R.bak = null; save("rewrite", R); rw = false; queueToast("Rewritten from memory. That one is really yours now.", 1200); }
       highlightAll(res);
       if ($("play2")) $("play2").onclick = function () { openCabinet(st.game.engine, editor.get(), st); };
       SFX.pass(); if (first) confetti();
@@ -22506,9 +23286,10 @@ function viewSandbox(V) {
     '<select class="sel" id="slotSel" aria-label="Save slot">' + sb.slots.map(function (s, i) { return '<option value="' + i + '"' + (i === sb.cur ? " selected" : "") + ">" + h(s.name) + "</option>"; }).join("") + '</select><button class="ghost" id="renSlot">Rename</button><button class="ghost" id="newSlot" title="New empty slot">+ New</button><button class="ghost" id="delSlot"' + (sb.slots.length > 1 ? "" : " disabled") + '>Delete</button><button class="ghost" id="tplBtn">Templates</button><button class="ghost" id="openShare">Open shared</button></div></div><div id="sbPanel"></div>' +
     '<div class="sbx"><section class="card console" aria-label="Sandbox console"><div class="cbar"><span class="file"><i></i><span id="slotName">' + h(slot.name) + '.js</span></span><div class="row"><button class="ghost" id="sbCopy">Copy</button><button class="ghost" id="sbSave" title="Download this slot as a .js file">Download</button><button class="ghost" id="sbShare">Share</button><button class="ghost" id="sbClear">Clear</button><button class="ghost" id="sbStop"' + (sb.mode === "page" ? "" : " hidden") + '>Stop</button><button class="btn primary" id="sbRun">▶ RUN</button></div></div>' +
     '<div class="preview" id="sbPrev"' + (sb.mode === "page" ? "" : " hidden") + '><div class="lbl"><span>PAGE · root</span><span>canvas 320×200</span></div><div class="stagebox" id="sbRoot"></div><canvas id="sbCv" width="320" height="200"></canvas></div>' +
-    '<div class="edwrap" id="sbHost"></div>' + keysHtml() + '<div class="outh"><span>OUTPUT</span></div><div class="out" id="sbOut"><span class="dim">Press RUN.</span></div><div id="sbRes"></div></section>' +
+    '<div class="edwrap" id="sbHost"></div>' + keysHtml() + '<div class="outh"><span>OUTPUT</span></div><div class="out" id="sbOut"><span class="dim">Press RUN.</span></div><div class="ltools"><span class="lbl">LEARN FROM IT</span><button class="ghost small" type="button" id="trBtn"' + (sb.mode === "page" ? " hidden" : "") + '>Watch it run</button><button class="ghost small" type="button" id="xpBtn">Explain my code</button></div><div id="sbRes"></div></section>' +
     '<aside class="card drawer" aria-label="Snippets"><div class="dh"><h2 class="sub" style="margin:0">SNIPPET DRAWER</h2><input id="snipQ" placeholder="Search snippets (loop, array, fetch…)" aria-label="Search snippets"><span class="muted" style="font-size:13px">Tap Insert to drop code at your cursor.</span></div><div class="dl" id="snipList"></div></aside></div></div>';
   editor = makeEditor($("sbHost"), slot.code, function (c) { sb.slots[sb.cur].code = c; save("sandbox", sb); }, run);
+  $("trBtn").onclick = function () { openTrace(editor.get(), null); }; $("xpBtn").onclick = function () { openExplain(editor.get()); };
   wireKeys(V, editor); editor.refresh();
   var pageCleanup = null;
   cleanupView = function () { if (pageCleanup) pageCleanup(); };
@@ -23634,7 +24415,7 @@ function viewSettings(V) {
     '<div class="field"><label for="setEdH">Editor height</label>' + sel("setEdH", [["short", "Short"], ["medium", "Medium"], ["tall", "Tall"]], st.edHeight) + "</div>" +  tog("setGuides", "Indent guide lines", st.guides) +
     '<div class="field" style="margin-top:12px"><label for="setKeySize">Symbol key size</label>' + sel("setKeySize", [["small", "Small"], ["normal", "Normal"], ["large", "Large"]], st.keySize) + "</div>" + "</section>" +
     '<section class="card" id="setLearn"><h2 class="sub">LEARNING</h2><div class="field"><label for="setHints">Hints</label>' + sel("setHints", [["button", "Show a hint button"], ["auto", "Show hints automatically after 2 misses"], ["off", "No hints (hard mode)"]], st.hints) + "</div>" +
-    tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + tog("setFast", "Fast track: core stages only", st.fastTrack) + '<span class="hint2">Hides the extra-practice stages in every module (about 4 in 10 stages), so you get through the essentials faster. Lessons, the learning loop and boss stages stay.</span>' + '<div class="row" style="margin-top:10px"><button class="btn" type="button" data-go="quiz" data-arg="' + placementQuiz() + '">' + (placement() && !placement().skipped ? "Retake" : "Take") + " the placement test</button></div>" + "</section>" +
+    tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + tog("setFast", "Fast track: core stages only", st.fastTrack) + tog("setGloss", "Word pop-ups: tap a word in a lesson to see what it means", st.gloss) + tog("setReflect", "After a lesson, ask me to sum it up in my own words", st.reflect) + '<span class="hint2">Hides the extra-practice stages in every module (about 4 in 10 stages), so you get through the essentials faster. Lessons, the learning loop and boss stages stay.</span>' + '<div class="row" style="margin-top:10px"><button class="btn" type="button" data-go="quiz" data-arg="' + placementQuiz() + '">' + (placement() && !placement().skipped ? "Retake" : "Take") + " the placement test</button></div>" + "</section>" +
     '<section class="card" id="setQuiz"><h2 class="sub">QUIZZES</h2>' + tog("setShuffle", "Shuffle answer choices", st.quizShuffle) + tog("setQAuto", "Go to the next question after a right answer", st.quizAuto) + "</section>" +
     '<section class="card" id="setFeel"><h2 class="sub">SOUND & FEEL</h2>' + tog("setSound", "Sound effects", st.sound) + tog("setClick", "Click sounds on buttons", st.clickSound) + tog("setTypeSnd", "Typing sounds in code and answer boxes", st.typeSound) +
     '<p class="hint2" style="margin-top:10px">Sound themes are on your <button class="linkish" type="button" data-go="me" data-arg="style">player card</button>.</p>' + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
@@ -23652,7 +24433,7 @@ function viewSettings(V) {
   bind("setCodeSize", "codeSize", function (e) { $("csv").textContent = e.value + "px"; return Number(e.value); });
   bind("setLines", "lineNumbers", function (e) { return e.checked; }); bind("setClose", "autoClose", function (e) { return e.checked; }); bind("setKeys", "keys", function (e) { return e.checked; });
   bind("setActive", "activeLine", function (e) { return e.checked; }); bind("setRunKey", "runKey", function (e) { return e.checked; });
-  bind("setHints", "hints"); bind("setSol", "solutions", function (e) { return e.checked; }); bind("setDetails", "details", function (e) { return e.checked; }); bind("setLint", "lint", function (e) { return e.checked; }); bind("setFast", "fastTrack", function (e) { return e.checked; });
+  bind("setHints", "hints"); bind("setSol", "solutions", function (e) { return e.checked; }); bind("setDetails", "details", function (e) { return e.checked; }); bind("setLint", "lint", function (e) { return e.checked; }); bind("setFast", "fastTrack", function (e) { return e.checked; }); bind("setGloss", "gloss", function (e) { return e.checked; }); bind("setReflect", "reflect", function (e) { return e.checked; });
   bind("setSound", "sound", function (e) { return e.checked; }); bind("setVol", "volume", function (e) { return Number(e.value); }); bind("setCele", "celebrate", function (e) { return e.checked; });
   bind("setMotion", "motion", function (e) { return e.checked ? "on" : "off"; });
   bind("setBarPos", "barPos"); bind("setBarHide", "barHidden", function (e) { return e.checked; });
@@ -23713,7 +24494,7 @@ function viewSettings(V) {
     if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to erase everything"; return; }
     var keepName = nameOf(), keepSet = S.set;
     allKeys().forEach(del);
-    S.done = {}; S.quiz = {}; S.review = []; S.sbx = null; S.web = null; S.gs = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.weekly = null; S.medalsSeen = {}; save("medals", {}); S.bonus = { xp: 0, days: 0 }; save("bonus", S.bonus); seedUnlocks(); seedLevel();
+    S.done = {}; S.quiz = {}; S.review = []; S.notes = null; S.cards = null; S.drills = null; S.rw = null; S.sbx = null; S.web = null; S.gs = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.weekly = null; S.medalsSeen = {}; save("medals", {}); S.bonus = { xp: 0, days: 0 }; save("bonus", S.bonus); seedUnlocks(); seedLevel();
     toast("Progress erased."); go("map");
   };
 }
