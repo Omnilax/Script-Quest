@@ -21,6 +21,7 @@ It's a single self-contained page. Open `index.html` in a browser; no build step
 - **Arcade games** driven by student-written functions: Snake, Pong, Breakout, Rain Dodge, Tic-Tac-Toe, Minesweeper, Game of Life, Space Miner, Dice Rogue.
 - A top-bar dock with Continue, mute and player chip; it collapses on phones.
 - **Sandbox** with Web Studio (build a website) and Game Studio (build a canvas game from one-click features like gravity, coins, enemies, shooting, a hitbox view and a level map, then download or share it), profile, and settings (skins: cartridge, pocket, blueprint, night, contrast).
+- **Flexible checking**: stages check what your code does, and "use this technique" checks accept equivalent styles ('single', "double" or `backtick` quotes, `let`/`const`/`var`, `x++` / `x += 1` / `x = x + 1`). One `console.log` with `\n` counts as several lines, and words inside comments or strings never trip a "don't use" rule. Stages can list `alts` (other correct answers, shown after a clear) and order quizzes can list `alts` (other valid orders). The robot stage accepts any order where each step is possible (`need` lists what each order depends on).
 - Student code runs in a Web Worker (or a loop-guarded main-thread runner for DOM/canvas/game code), with plain-English error explanations.
 - Progress is saved in `localStorage` (keys prefixed `sq3_`).
 
