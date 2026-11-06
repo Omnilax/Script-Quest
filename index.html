@@ -685,6 +685,142 @@ pre.cb[data-k="txt"]{--kc:var(--k-pat);background:var(--panel2);color:var(--ink)
 .mixup{border:2px solid var(--warn);background:var(--panel2);padding:8px 12px;margin-top:10px;max-width:66ch}
 .mixup b{font-family:var(--f-display);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--warn);display:block}
 .mixup p{margin:4px 0 0}
+/* themes added with the profile update */
+html:root[data-skin="notebook"]{--bg:#F4F1E6; --panel:#FFFDF5; --panel2:#FAF7EE; --ink:#1E2A44; --muted:#6F7682; --line:#C5C5C2; --chip:#E1E5EA; --accent:#2B4FA8; --accent-ink:#FFFFFF; --gold-ink:#111111; --gold:#E8B23A; --pass:#1E7A48; --fail:#B8283E; --warn:#975700; --code-bg:#1E2A44; --code-line:#2C374F; --code-sel:#223562; --k-ex:#2B4FA8; --k-try:#C2453A; --k-out:#1E7A48; --k-bug:#B8283E; --k-gml:#C77A12; --k-gd:#2E8A57; --k-lua:#8A4FB0; --k-pat:#6F7682; --k-py:#1F7F8C; --s1:#2B4FA8; --s2:#C2453A; --s3:#2E8A57; --s4:#8A4FB0; --s5:#C77A12; --s6:#1F7F8C; --shadow:#C9C2A8; color-scheme:light}
+html[data-skin="notebook"] body{background-image:repeating-linear-gradient(#F4F1E6 0 27px,#C9D6EE 27px 28px)}
+html:root[data-skin="bubblegum"]{--bg:#FFE8F3; --panel:#FFFFFF; --panel2:#FFF4F9; --ink:#3A1E3A; --muted:#856B80; --line:#D4BCCA; --chip:#F9E2EF; --accent:#D6338A; --accent-ink:#FFFFFF; --gold-ink:#111111; --gold:#58B8F0; --pass:#1E7A48; --fail:#B8283E; --warn:#975700; --code-bg:#2E1830; --code-line:#3B263C; --code-sel:#60204B; --k-ex:#D6338A; --k-try:#2F86C8; --k-out:#1E7A48; --k-bug:#B8283E; --k-gml:#E07A1A; --k-gd:#8A4FD8; --k-lua:#2E9E7A; --k-pat:#856B80; --k-py:#C8305A; --s1:#D6338A; --s2:#2F86C8; --s3:#8A4FD8; --s4:#2E9E7A; --s5:#E07A1A; --s6:#C8305A; --shadow:#E9A6C8; color-scheme:light}
+html[data-skin="bubblegum"] body{background-image:radial-gradient(circle at 20px 20px,rgba(88,184,240,.25) 6px,transparent 7px);background-size:60px 60px}
+html[data-skin="bubblegum"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="bubblegum"] .dock{overflow:hidden}
+html:root[data-skin="mint"]{--bg:#E3F5EC; --panel:#F8FFFB; --panel2:#EEFAF4; --ink:#22302A; --muted:#6B7B74; --line:#B9CAC1; --chip:#DAEFE5; --accent:#1F8A5E; --accent-ink:#FFFFFF; --gold-ink:#FFFFFF; --gold:#6B4228; --pass:#1E7A48; --fail:#B8283E; --warn:#975700; --code-bg:#1D2A24; --code-line:#2B3731; --code-sel:#1E4735; --k-ex:#1F8A5E; --k-try:#6B4228; --k-out:#1E7A48; --k-bug:#B8283E; --k-gml:#A86A00; --k-gd:#2F6EB0; --k-lua:#B0367A; --k-pat:#6B7B74; --k-py:#7A4FD8; --s1:#1F8A5E; --s2:#6B4228; --s3:#2F6EB0; --s4:#B0367A; --s5:#A86A00; --s6:#7A4FD8; --shadow:#9CC9B3; color-scheme:light}
+html[data-skin="mint"] body{background-image:radial-gradient(circle at 25px 35px,rgba(107,66,40,.28) 3px,transparent 4px),radial-gradient(circle at 70px 15px,rgba(107,66,40,.22) 2px,transparent 3px);background-size:90px 70px}
+html[data-skin="mint"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="mint"] .dock{overflow:hidden}
+html:root[data-skin="vampire"]{--bg:#17121E; --panel:#211A2B; --panel2:#1C1624; --ink:#F2EAF6; --muted:#9F98A4; --line:#47424E; --chip:#3C2036; --accent:#E0457B; --accent-ink:#FFFFFF; --gold-ink:#111111; --gold:#BD93F9; --pass:#6EE09A; --fail:#FF7E8A; --warn:#FFC46B; --code-bg:#0E0A13; --code-line:#1C1921; --code-sel:#4D1C32; --k-ex:#E0457B; --k-try:#BD93F9; --k-out:#6EE09A; --k-bug:#FF7E8A; --k-gml:#8BE9FD; --k-gd:#50FA9B; --k-lua:#FFB86C; --k-pat:#9F98A4; --k-py:#F1FA8C; --s1:#E0457B; --s2:#BD93F9; --s3:#50FA9B; --s4:#FFB86C; --s5:#8BE9FD; --s6:#F1FA8C; --shadow:#000000; color-scheme:dark}
+html[data-skin="vampire"] body{background-image:radial-gradient(ellipse at 50% -20%,rgba(224,69,123,.22),transparent 60%);background-attachment:fixed}
+html:root[data-skin="solar"]{--bg:#1A1410; --panel:#251C15; --panel2:#201812; --ink:#FFF1E2; --muted:#A89D92; --line:#4C453E; --chip:#442916; --accent:#FF7A1A; --accent-ink:#111111; --gold-ink:#111111; --gold:#FFD23F; --pass:#6EE09A; --fail:#FF7E8A; --warn:#FFC46B; --code-bg:#120C08; --code-line:#201B17; --code-sel:#592D0D; --k-ex:#FF7A1A; --k-try:#FFD23F; --k-out:#6EE09A; --k-bug:#FF7E8A; --k-gml:#9BE07A; --k-gd:#FF4F4F; --k-lua:#7FD6FF; --k-pat:#A89D92; --k-py:#E58BFF; --s1:#FF7A1A; --s2:#FFD23F; --s3:#FF4F4F; --s4:#7FD6FF; --s5:#9BE07A; --s6:#E58BFF; --shadow:#000000; color-scheme:dark}
+html[data-skin="solar"] body{background-image:radial-gradient(circle at 85% 10%,rgba(255,122,26,.28),transparent 40%);background-attachment:fixed}
+html:root[data-skin="fjord"]{--bg:#1E2430; --panel:#272F3D; --panel2:#222A36; --ink:#E6ECF4; --muted:#9AA0AA; --line:#4A505B; --chip:#354352; --accent:#88C0D0; --accent-ink:#111111; --gold-ink:#111111; --gold:#EBCB8B; --pass:#6EE09A; --fail:#FF7E8A; --warn:#FFC46B; --code-bg:#161B24; --code-line:#242931; --code-sel:#384C58; --k-ex:#88C0D0; --k-try:#EBCB8B; --k-out:#6EE09A; --k-bug:#FF7E8A; --k-gml:#D08770; --k-gd:#A3BE8C; --k-lua:#B48EAD; --k-pat:#9AA0AA; --k-py:#81A1C1; --s1:#88C0D0; --s2:#EBCB8B; --s3:#A3BE8C; --s4:#B48EAD; --s5:#D08770; --s6:#81A1C1; --shadow:#11151C; color-scheme:dark}
+html[data-skin="fjord"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="fjord"] .dock{overflow:hidden}
+html:root[data-skin="vapor"]{--bg:#1B1033; --panel:#261645; --panel2:#20133C; --ink:#FFE8FF; --muted:#A896B1; --line:#4D4060; --chip:#442259; --accent:#FF6AD5; --accent-ink:#111111; --gold-ink:#111111; --gold:#26F0F1; --pass:#6EE09A; --fail:#FF7E8A; --warn:#FFC46B; --code-bg:#120A24; --code-line:#201931; --code-sel:#592759; --k-ex:#FF6AD5; --k-try:#26F0F1; --k-out:#6EE09A; --k-bug:#FF7E8A; --k-gml:#FFD86E; --k-gd:#C774E8; --k-lua:#94D0FF; --k-pat:#A896B1; --k-py:#8AF2A8; --s1:#FF6AD5; --s2:#26F0F1; --s3:#C774E8; --s4:#94D0FF; --s5:#FFD86E; --s6:#8AF2A8; --shadow:#0A0518; color-scheme:dark}
+html[data-skin="vapor"] body{background-image:linear-gradient(180deg,transparent 60%,rgba(255,106,213,.18)),repeating-linear-gradient(90deg,rgba(38,240,241,.07) 0 1px,transparent 1px 60px);background-attachment:fixed}
+html:root[data-skin="jungle"]{--bg:#0F1E14; --panel:#16291C; --panel2:#122418; --ink:#E9F7E6; --muted:#96A596; --line:#3F4E42; --chip:#204127; --accent:#5BD16A; --accent-ink:#111111; --gold-ink:#111111; --gold:#FFC43D; --pass:#6EE09A; --fail:#FF7E8A; --warn:#FFC46B; --code-bg:#0A150E; --code-line:#19231C; --code-sel:#224D2A; --k-ex:#5BD16A; --k-try:#FFC43D; --k-out:#6EE09A; --k-bug:#FF7E8A; --k-gml:#C77DFF; --k-gd:#FF6B4A; --k-lua:#4AC2FF; --k-pat:#96A596; --k-py:#FF8BC2; --s1:#5BD16A; --s2:#FFC43D; --s3:#FF6B4A; --s4:#4AC2FF; --s5:#C77DFF; --s6:#FF8BC2; --shadow:#05100A; color-scheme:dark}
+html[data-skin="jungle"] body{background-image:radial-gradient(ellipse at 10% 90%,rgba(91,209,106,.18),transparent 50%),radial-gradient(ellipse at 90% 10%,rgba(255,196,61,.12),transparent 45%);background-attachment:fixed}
+html[data-skin="jungle"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="jungle"] .dock{overflow:hidden}
+html:root[data-skin="comic"]{--bg:#FFF4C2; --panel:#FFFFFF; --panel2:#FFFAE0; --ink:#111111; --muted:#6B6754; --line:#CBC29B; --chip:#FBE1E1; --accent:#E0262B; --accent-ink:#FFFFFF; --gold-ink:#FFFFFF; --gold:#1E5FD8; --pass:#1E7A48; --fail:#B8283E; --warn:#975700; --code-bg:#111111; --code-line:#1F1F1F; --code-sel:#4F1719; --k-ex:#E0262B; --k-try:#1E5FD8; --k-out:#1E7A48; --k-bug:#B8283E; --k-gml:#E07A00; --k-gd:#1E9A3C; --k-lua:#8A2BD8; --k-pat:#6B6754; --k-py:#00897B; --s1:#E0262B; --s2:#1E5FD8; --s3:#1E9A3C; --s4:#8A2BD8; --s5:#E07A00; --s6:#00897B; --shadow:#111111; color-scheme:light}
+html[data-skin="comic"] body{background-image:radial-gradient(circle,rgba(224,38,43,.16) 2px,transparent 2.5px);background-size:14px 14px}
+html:root[data-skin="abyss"]{--bg:#061A1F; --panel:#0B252C; --panel2:#082026; --ink:#DDF8F6; --muted:#8BA4A4; --line:#354B4E; --chip:#103F42; --accent:#2FE0C8; --accent-ink:#111111; --gold-ink:#111111; --gold:#F7D154; --pass:#6EE09A; --fail:#FF7E8A; --warn:#FFC46B; --code-bg:#03100F; --code-line:#121E1D; --code-sel:#104E46; --k-ex:#2FE0C8; --k-try:#F7D154; --k-out:#6EE09A; --k-bug:#FF7E8A; --k-gml:#A4F07A; --k-gd:#FF7AA8; --k-lua:#6FA8FF; --k-pat:#8BA4A4; --k-py:#C89BFF; --s1:#2FE0C8; --s2:#F7D154; --s3:#FF7AA8; --s4:#6FA8FF; --s5:#A4F07A; --s6:#C89BFF; --shadow:#000000; color-scheme:dark}
+html[data-skin="abyss"] body{background-image:radial-gradient(ellipse at 50% 120%,rgba(47,224,200,.2),transparent 60%);background-attachment:fixed}
+html[data-skin="abyss"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="abyss"] .dock{overflow:hidden}
+html:root[data-skin="lemonade"]{--bg:#FFF8D6; --panel:#FFFEF5; --panel2:#FFFBE6; --ink:#3A2E10; --muted:#857B5B; --line:#D4CCAA; --chip:#F6E4D4; --accent:#C2410C; --accent-ink:#FFFFFF; --gold-ink:#111111; --gold:#F0B800; --pass:#1E7A48; --fail:#B8283E; --warn:#975700; --code-bg:#2A2108; --code-line:#372E17; --code-sel:#582B09; --k-ex:#C2410C; --k-try:#D63384; --k-out:#1E7A48; --k-bug:#B8283E; --k-gml:#9C36B5; --k-gd:#2B8A3E; --k-lua:#1C6ED4; --k-pat:#857B5B; --k-py:#0C8599; --s1:#C2410C; --s2:#D63384; --s3:#2B8A3E; --s4:#1C6ED4; --s5:#9C36B5; --s6:#0C8599; --shadow:#E3C764; color-scheme:light}
+html[data-skin="lemonade"] body{background-image:linear-gradient(135deg,rgba(240,184,0,.10) 25%,transparent 25% 50%,rgba(240,184,0,.10) 50% 75%,transparent 75%);background-size:56px 56px}
+html[data-skin="lemonade"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="lemonade"] .dock{overflow:hidden}
+html:root[data-skin="dragonfire"]{--bg:#1C0B0B; --panel:#2A1210; --panel2:#230E0E; --ink:#FFEDE4; --muted:#A99792; --line:#4E3D3B; --chip:#481A14; --accent:#FF4D2E; --accent-ink:#FFFFFF; --gold-ink:#111111; --gold:#FFB13B; --pass:#6EE09A; --fail:#FF7E8A; --warn:#FFC46B; --code-bg:#120606; --code-line:#201515; --code-sel:#591B12; --k-ex:#FF4D2E; --k-try:#FFB13B; --k-out:#6EE09A; --k-bug:#FF7E8A; --k-gml:#8FB0FF; --k-gd:#FF8A5C; --k-lua:#7ADFB0; --k-pat:#A99792; --k-py:#E58BFF; --s1:#FF4D2E; --s2:#FFB13B; --s3:#FF8A5C; --s4:#7ADFB0; --s5:#8FB0FF; --s6:#E58BFF; --shadow:#000000; color-scheme:dark}
+html[data-skin="dragonfire"] body{background-image:radial-gradient(ellipse at 50% 110%,rgba(255,77,46,.3),transparent 55%);background-attachment:fixed}
+html:root[data-skin="aurora"]{--bg:#071420; --panel:#0E1E2E; --panel2:#0A1927; --ink:#E8F6FF; --muted:#92A0AA; --line:#384651; --chip:#193C3F; --accent:#5CF2A8; --accent-ink:#111111; --gold-ink:#111111; --gold:#C59BFF; --pass:#6EE09A; --fail:#FF7E8A; --warn:#FFC46B; --code-bg:#050D16; --code-line:#141C24; --code-sel:#1F5242; --k-ex:#5CF2A8; --k-try:#C59BFF; --k-out:#6EE09A; --k-bug:#FF7E8A; --k-gml:#FFD56E; --k-gd:#5CC8FF; --k-lua:#FF8FC8; --k-pat:#92A0AA; --k-py:#8AF2E8; --s1:#5CF2A8; --s2:#C59BFF; --s3:#5CC8FF; --s4:#FF8FC8; --s5:#FFD56E; --s6:#8AF2E8; --shadow:#000000; color-scheme:dark}
+html[data-skin="aurora"] body{background-image:linear-gradient(170deg,rgba(92,242,168,.16),transparent 35%),linear-gradient(200deg,rgba(197,155,255,.16),transparent 45%);background-attachment:fixed}
+html[data-skin="aurora"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="aurora"] .dock{overflow:hidden}
+html:root[data-skin="mythic"]{--bg:#160A1E; --panel:#22102E; --panel2:#1C0D26; --ink:#FFF0FF; --muted:#A699AA; --line:#493D50; --chip:#3F214B; --accent:#F08CFF; --accent-ink:#111111; --gold-ink:#111111; --gold:#FFE07A; --pass:#6EE09A; --fail:#FF7E8A; --warn:#FFC46B; --code-bg:#0E0614; --code-line:#1C1522; --code-sel:#522E5A; --k-ex:#F08CFF; --k-try:#FFE07A; --k-out:#6EE09A; --k-bug:#FF7E8A; --k-gml:#A8FF8C; --k-gd:#8CF0FF; --k-lua:#FF8CA8; --k-pat:#A699AA; --k-py:#B08CFF; --s1:#F08CFF; --s2:#FFE07A; --s3:#8CF0FF; --s4:#FF8CA8; --s5:#A8FF8C; --s6:#B08CFF; --shadow:#000000; color-scheme:dark}
+html[data-skin="mythic"] body{background-image:conic-gradient(from 200deg at 50% -10%,rgba(240,140,255,.18),rgba(140,240,255,.14),rgba(255,224,122,.14),rgba(240,140,255,.18));background-attachment:fixed}
+html[data-skin="mythic"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="mythic"] .dock{overflow:hidden}
+html:root[data-skin="chalk"]{--bg:#1F3A2E; --panel:#264536; --panel2:#224032; --ink:#F2F2EA; --muted:#A2ACA3; --line:#4D6257; --chip:#445E44; --accent:#FFF59D; --accent-ink:#111111; --gold-ink:#111111; --gold:#FFB3C7; --pass:#6EE09A; --fail:#FF7E8A; --warn:#FFC46B; --code-bg:#162A21; --code-line:#24372E; --code-sel:#5C6746; --k-ex:#FFF59D; --k-try:#FFB3C7; --k-out:#6EE09A; --k-bug:#FF7E8A; --k-gml:#FFD0A0; --k-gd:#A5D8FF; --k-lua:#C3F0A0; --k-pat:#A2ACA3; --k-py:#D0B8FF; --s1:#FFF59D; --s2:#FFB3C7; --s3:#A5D8FF; --s4:#C3F0A0; --s5:#FFD0A0; --s6:#D0B8FF; --shadow:#0F1F17; color-scheme:dark}
+html[data-skin="chalk"] body{background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:6px 6px}
+html:root[data-skin="pond"]{--bg:#E2F3F8; --panel:#FAFEFF; --panel2:#EEF8FC; --ink:#16323D; --muted:#647B84; --line:#B5C9CF; --chip:#DBECF2; --accent:#1A7FA0; --accent-ink:#FFFFFF; --gold-ink:#111111; --gold:#FFC928; --pass:#1E7A48; --fail:#B8283E; --warn:#975700; --code-bg:#14303A; --code-line:#223C46; --code-sel:#164859; --k-ex:#1A7FA0; --k-try:#E0A000; --k-out:#1E7A48; --k-bug:#B8283E; --k-gml:#5A5FD0; --k-gd:#2E8A57; --k-lua:#B0367A; --k-pat:#647B84; --k-py:#C2410C; --s1:#1A7FA0; --s2:#E0A000; --s3:#2E8A57; --s4:#B0367A; --s5:#5A5FD0; --s6:#C2410C; --shadow:#9CCBD9; color-scheme:light}
+html[data-skin="pond"] body{background-image:radial-gradient(ellipse at 30% 80%,rgba(26,127,160,.10),transparent 50%)}
+html[data-skin="pond"] :is(.card,.btn,.ghost,.dock,.bar-tab,.swatch,.sel,.cart,.qcard,.tile,.opt,.toast,.modal,.field input,.field textarea,.search input,.setjump button,.nav button,.tabbar button,pre.cb,.hintbox,.mission,.verdict,.why){border-radius:12px}
+html[data-skin="pond"] .dock{overflow:hidden}
+html:root[data-skin="index"]{--bg:#ECEFF3; --panel:#FFFFFF; --panel2:#F6F7F9; --ink:#1C2230; --muted:#6B707A; --line:#BEC2C8; --chip:#F7E2E4; --accent:#C8323C; --accent-ink:#FFFFFF; --gold-ink:#FFFFFF; --gold:#3B6FD8; --pass:#1E7A48; --fail:#B8283E; --warn:#975700; --code-bg:#1C2230; --code-line:#2A2F3C; --code-sel:#502734; --k-ex:#C8323C; --k-try:#3B6FD8; --k-out:#1E7A48; --k-bug:#B8283E; --k-gml:#C77A12; --k-gd:#2E8A57; --k-lua:#8A4FB0; --k-pat:#6B707A; --k-py:#1F7F8C; --s1:#C8323C; --s2:#3B6FD8; --s3:#2E8A57; --s4:#8A4FB0; --s5:#C77A12; --s6:#1F7F8C; --shadow:#B8BFCC; color-scheme:light}
+html[data-skin="index"] body{background-image:linear-gradient(transparent 46px,rgba(200,50,60,.35) 46px 48px,transparent 48px);background-size:100% 100%}
+html:root[data-skin="typist"]{--bg:#EFE6D2; --panel:#FBF6EA; --panel2:#F5EEDE; --ink:#2B2118; --muted:#756C5F; --line:#C4BBA9; --chip:#EBDACE; --accent:#8A2B1F; --accent-ink:#FFFFFF; --gold-ink:#FFFFFF; --gold:#3A3A3A; --pass:#1E7A48; --fail:#B8283E; --warn:#975700; --code-bg:#211A12; --code-line:#2E2820; --code-sel:#401F16; --k-ex:#8A2B1F; --k-try:#3A3A3A; --k-out:#1E7A48; --k-bug:#B8283E; --k-gml:#9A6A1A; --k-gd:#2E6B4A; --k-lua:#5A4A9A; --k-pat:#756C5F; --k-py:#1F5F7A; --s1:#8A2B1F; --s2:#3A3A3A; --s3:#2E6B4A; --s4:#5A4A9A; --s5:#9A6A1A; --s6:#1F5F7A; --shadow:#B8A884; color-scheme:light}
+html[data-skin="typist"] body{background-image:repeating-linear-gradient(0deg,rgba(43,33,24,.03) 0 2px,transparent 2px 4px)}
+/* code editor color schemes (settings edTheme), stronger than any theme */
+html:root:root[data-ed="neon"]{--code-bg:#14101F; --code-ink:#F3EEFF; --code-dim:#8A7FA8; --code-line:#1E1830; --code-sel:#3A2A5A; --t-kw:#FF5CC8; --t-str:#FFE066; --t-num:#7CFFB2; --t-com:#7C6F9A; --t-def:#5CE1FF; --t-prop:#C79BFF; --t-atom:#FF9F5C; --t-op:#F3EEFF}
+html:root:root[data-ed="vamp"]{--code-bg:#22212C; --code-ink:#F8F8F2; --code-dim:#7E7A99; --code-line:#2C2B3A; --code-sel:#44475A; --t-kw:#FF79C6; --t-str:#F1FA8C; --t-num:#BD93F9; --t-com:#6272A4; --t-def:#50FA7B; --t-prop:#8BE9FD; --t-atom:#FFB86C; --t-op:#F8F8F2}
+html:root:root[data-ed="forestc"]{--code-bg:#16201A; --code-ink:#E3EBDD; --code-dim:#7F907F; --code-line:#1E2B23; --code-sel:#34483A; --t-kw:#E6C36A; --t-str:#9BD07A; --t-num:#F2A65A; --t-com:#6E806E; --t-def:#7FC8B0; --t-prop:#C8D89A; --t-atom:#E58F8F; --t-op:#E3EBDD}
+html:root:root[data-ed="paper"]{--code-bg:#FBFAF4; --code-ink:#2A2A2A; --code-dim:#8A8A80; --code-line:#F0EEE4; --code-sel:#DCE6F7; --t-kw:#A626A4; --t-str:#50A14F; --t-num:#986801; --t-com:#A0A1A7; --t-def:#4078F2; --t-prop:#E45649; --t-atom:#0184BC; --t-op:#383A42}
+html:root:root[data-ed="solarl"]{--code-bg:#FDF6E3; --code-ink:#586E75; --code-dim:#93A1A1; --code-line:#EEE8D5; --code-sel:#E2DCC6; --t-kw:#859900; --t-str:#2AA198; --t-num:#D33682; --t-com:#93A1A1; --t-def:#268BD2; --t-prop:#B58900; --t-atom:#CB4B16; --t-op:#586E75}
+html:root:root[data-ed="ice"]{--code-bg:#1B2433; --code-ink:#E5ECF4; --code-dim:#7A8BA3; --code-line:#232E40; --code-sel:#34445E; --t-kw:#81A1C1; --t-str:#A3BE8C; --t-num:#B48EAD; --t-com:#6B7A93; --t-def:#88C0D0; --t-prop:#8FBCBB; --t-atom:#D08770; --t-op:#E5ECF4}
+html:root:root[data-ed="greenscreen"]{--code-bg:#020A04; --code-ink:#7CFF6B; --code-dim:#2E8A2A; --code-line:#071A0B; --code-sel:#164A1C; --t-kw:#B6FFAA; --t-str:#3FD35A; --t-num:#9CFF8C; --t-com:#2E8A2A; --t-def:#7CFF6B; --t-prop:#5CE65C; --t-atom:#C8FFC0; --t-op:#7CFF6B}
+html:root:root[data-ed="amber"]{--code-bg:#120B02; --code-ink:#FFB000; --code-dim:#8A5A00; --code-line:#1E1404; --code-sel:#4A3200; --t-kw:#FFD27A; --t-str:#FFCC66; --t-num:#FF8C00; --t-com:#8A5A00; --t-def:#FFB000; --t-prop:#FFC34D; --t-atom:#FFE0A3; --t-op:#FFB000}
+html:root:root[data-ed="candyc"]{--code-bg:#2A1E2E; --code-ink:#FCEFFF; --code-dim:#9C86A6; --code-line:#342638; --code-sel:#4E3A55; --t-kw:#FF8FB1; --t-str:#FFE3A3; --t-num:#B8F2C0; --t-com:#9C86A6; --t-def:#9AD7FF; --t-prop:#E3B8FF; --t-atom:#FFB38A; --t-op:#FCEFFF}
+html:root:root[data-ed="blueprintc"]{--code-bg:#0F3B7A; --code-ink:#FFFFFF; --code-dim:#9CC0EE; --code-line:#164A92; --code-sel:#2A62B0; --t-kw:#FFFFFF; --t-str:#BFE3FF; --t-num:#FFE08A; --t-com:#8DB3E6; --t-def:#FFE08A; --t-prop:#D6EBFF; --t-atom:#A8F0FF; --t-op:#FFFFFF}
+html:root:root[data-ed="mono"]{--code-bg:#1A1A1A; --code-ink:#EDEDED; --code-dim:#7A7A7A; --code-line:#232323; --code-sel:#3A3A3A; --t-kw:#FFFFFF; --t-str:#BBBBBB; --t-num:#DDDDDD; --t-com:#777777; --t-def:#FFFFFF; --t-prop:#CCCCCC; --t-atom:#AAAAAA; --t-op:#EDEDED}
+/* player extras */
+.avatar.pic{padding:0;overflow:hidden;background:var(--av)}
+.avatar.pic img{width:100%;height:100%;object-fit:cover;display:block;image-rendering:auto}
+.picrow{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+#picCrop{margin-top:12px;display:grid;gap:8px;justify-items:start}
+#picCv{width:240px;height:240px;max-width:100%;border:3px solid var(--ink);touch-action:none;cursor:grab;background:var(--panel2)}
+.pixwrap{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.pixgrid{display:grid;grid-template-columns:repeat(8,30px);grid-template-rows:repeat(8,30px);border:3px solid var(--ink);background:var(--av);touch-action:none;user-select:none}
+.pixgrid .px{border:1px solid rgba(255,255,255,.18);background:transparent;padding:0;min-width:0;min-height:0;box-shadow:none;cursor:pointer}
+.pixgrid .px.on{background:#fff}
+.pixwrap .row{flex:1;min-width:200px}
+.emopick{display:flex;flex-wrap:wrap;gap:4px}
+.emo{width:40px;height:40px;font-size:20px;border:2px solid var(--line);background:var(--panel);color:var(--ink);padding:0}
+.emo[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.aboutme .bio{margin:6px 0 8px;font-size:16px}
+.abtags{gap:8px;flex-wrap:wrap}.abtags>*{border:2px solid var(--line);padding:2px 8px;background:var(--panel2)}
+.pemoji{font-size:.8em;margin-left:.25em}
+.nfprev{font-weight:700;font-size:16px}
+.nf-accent{color:var(--accent)}
+.nf-bold{font-weight:800;text-shadow:3px 3px 0 var(--shadow)}
+.nf-outline{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+.nf-gradient,.nf-fire,.nf-ice,.nf-gold,.nf-rainbow,.nf-mythic{-webkit-background-clip:text;background-clip:text;color:transparent}
+.nf-gradient{background-image:linear-gradient(90deg,var(--accent),var(--gold))}
+.nf-glow{color:var(--accent);text-shadow:0 0 8px var(--accent),0 0 2px var(--accent)}
+.nf-pixel{font-family:var(--f-display);letter-spacing:.04em}
+.nf-gold{background-image:linear-gradient(180deg,#FFF3B0,#E8B12A 55%,#9A6A00)}
+.nf-fire{background-image:linear-gradient(0deg,#FF3D2E,#FFB13B 60%,#FFE680)}
+.nf-ice{background-image:linear-gradient(180deg,#E8FBFF,#7FD0FF 60%,#3A7BD5)}
+.nf-rainbow{background-image:linear-gradient(90deg,#FF5A5A,#FFB13B,#FFE45A,#5AD67A,#5AB4FF,#B07AFF,#FF5A5A);background-size:200% 100%;animation:nfslide 4s linear infinite}
+.nf-mythic{background-image:linear-gradient(90deg,#F08CFF,#8CF0FF,#FFE07A,#F08CFF);background-size:200% 100%;animation:nfslide 3s linear infinite;filter:drop-shadow(0 0 6px rgba(240,140,255,.6))}
+.nf-glitch{text-shadow:2px 0 #FF2E6A,-2px 0 #2EE6FF;animation:nfglitch 2.5s steps(1) infinite}
+@keyframes nfslide{to{background-position:-200% 0}}
+@keyframes nfglitch{0%,92%{transform:none}94%{transform:translateX(2px)}96%{transform:translateX(-2px)}}
+html[data-motion="off"] .nf-rainbow,html[data-motion="off"] .nf-mythic,html[data-motion="off"] .nf-glitch{animation:none}
+.cal{display:grid;grid-template-rows:repeat(7,12px);grid-auto-flow:column;grid-auto-columns:12px;gap:3px;overflow-x:auto;padding-bottom:4px}
+.cd{display:block;width:12px;height:12px;background:var(--panel2);border:1px solid var(--line)}
+.cd.l1{background:color-mix(in srgb,var(--pass) 30%,var(--panel))}.cd.l2{background:color-mix(in srgb,var(--pass) 55%,var(--panel))}.cd.l3{background:color-mix(in srgb,var(--pass) 80%,var(--panel))}.cd.l4{background:var(--pass)}
+.cd.lx{opacity:.25}
+.calkey{gap:4px;align-items:center;margin-top:8px;font-size:13px;flex-wrap:wrap}.calkey .spacer{flex:1}
+.quests .qlist{display:grid;gap:8px;margin-top:10px}
+.quest{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;border:2px solid var(--line);padding:8px 10px;background:var(--panel2)}
+.quest .bar{display:block;height:8px;margin-top:6px}
+.quest.ok{border-color:var(--pass)}.quest.ok b{text-decoration:line-through;text-decoration-thickness:2px}
+.qdone{font-family:var(--f-display);font-size:11px;color:var(--pass)}
+.qn{font-size:13px}
+.dk.rq{font-size:16px;line-height:1}
+.lvmodal{text-align:center;width:min(560px,100%)}
+.lvpop .lvbig{font-family:var(--f-display);font-size:64px;line-height:1;color:var(--tc);text-shadow:4px 4px 0 var(--shadow);margin:6px 0}
+.lvpop h2{margin:4px 0}
+.tiernew{font-size:18px}.tiernew b{color:var(--tc)}
+.lvitems{display:grid;gap:6px;text-align:left;margin-top:6px;max-height:42vh;overflow:auto}
+.lvitem{display:flex;gap:10px;align-items:center;justify-content:space-between;border:2px solid var(--line);padding:6px 10px;background:var(--panel2)}
+.roadlist{display:grid;gap:0;max-height:70vh;overflow:auto;padding-right:4px}
+.roadtier{font-family:var(--f-display);font-size:11px;letter-spacing:.1em;color:var(--tc);border-bottom:3px solid var(--tc);padding:12px 0 4px;margin-bottom:4px}
+.roadlv{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;align-items:start;padding:6px 0;border-left:4px solid var(--line);margin-left:20px;padding-left:0;position:relative}
+.roadlv .rn{width:36px;height:36px;margin-left:-20px;display:grid;place-items:center;font-family:var(--f-display);font-size:12px;border:3px solid var(--line);background:var(--panel);color:var(--muted)}
+.roadlv.got{border-left-color:var(--tc)}.roadlv.got .rn{border-color:var(--tc);color:var(--ink);background:color-mix(in srgb,var(--tc) 25%,var(--panel))}
+.roadlv.here .rn{background:var(--tc);color:#111;transform:scale(1.15)}
+.roadlv>div{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding-top:6px}
+.ritem{border:2px solid var(--line);padding:1px 8px;background:var(--panel2);font-size:14px}
+.roadlv.got .ritem{border-color:color-mix(in srgb,var(--tc) 60%,var(--line))}
+.youarehere{font-family:var(--f-display);font-size:10px;background:var(--accent);color:var(--accent-ink);padding:3px 6px}
+.rxp{font-size:13px}
+.mcats small{opacity:.7}
+.tmgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.tmc{display:flex;gap:8px;align-items:center;border:2px solid var(--line);padding:6px 8px;background:var(--panel2);cursor:pointer}
+.tmc input{width:40px;height:32px;border:2px solid var(--ink);padding:0;background:none;cursor:pointer}
+.fprev{display:block;font-size:18px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.edprev{display:block;font-family:var(--f-code);font-size:13px;padding:6px 8px;margin-bottom:4px;color:#ccc;border:1px solid rgba(0,0,0,.3)}
+.edprev i{font-style:normal}
 /* learning tools */
 .ltools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 12px 12px}
 .ltools .lbl{font-family:var(--f-display);font-size:10px;letter-spacing:.08em;color:var(--muted);margin-right:4px}
@@ -20373,7 +20509,7 @@ var DEFAULTS = {
   wrap: false, indent: 2, brackets: true, edHeight: "medium", readAloud: true, readRate: 1, quizShuffle: true, quizAuto: false, clickSound: true,
   soundPack: "retro", typeSound: false, bgFx: "off", bgColor: "theme", bgDensity: "normal", bgSpeed: "normal", bgStrength: "normal", bgMouse: true, bgCalm: true, bgFps: "smooth",
   bgGlow: false, bgMove: false, bgScan: false, pageAnim: "off", hoverFx: "off", trail: "off", clickFx: false, backTop: true, toastPos: "bottom",
-  topicColors: true, showStreak: true, splash: true, fastTrack: false, gloss: true, reflect: true
+  topicColors: true, showStreak: true, splash: true, fastTrack: false, gloss: true, reflect: true, edTheme: "match", party: "confetti", lvPopup: true, showRandom: true, custom: null
 };
 var S = {
   profile: load("profile", null),
@@ -20447,7 +20583,8 @@ function totalXp() {
   var x = 0; Object.keys(S.done).forEach(function (k) { x += S.done[k].xp || 0; });
   Object.keys(S.quiz).forEach(function (k) { x += S.quiz[k].xp || 0; });
   // every medal earned is worth MEDAL_XP, plus the daily bonuses
-  return x + Object.keys(S.medalsSeen).length * MEDAL_XP + ((S.bonus && S.bonus.xp) || 0);
+  var X = xpx();
+  return x + Object.keys(S.medalsSeen).length * MEDAL_XP + ((S.bonus && S.bonus.xp) || 0) + (X.rq || 0) + (X.quest || 0);
 }
 // level n needs 10 * n * (n - 1) XP: 20 for level 2, 900 for level 10, 24,500 for level 50
 function levelOf(xp) { return Math.max(1, Math.floor((1 + Math.sqrt(1 + 0.4 * Math.max(0, xp))) / 2 + 1e-9)); }
@@ -20774,7 +20911,7 @@ var UNLOCK_MEDAL = {
 var medalNames = { at: 0, map: {} };
 function medalReq(kind, key) { return (UNLOCK_MEDAL[kind] || {})[key] || ""; }
 function medalName(id) { if (Date.now() - medalNames.at > 2000) { medalNames.map = {}; medalList().forEach(function (m) { medalNames.map[m.id] = m.t; }); medalNames.at = Date.now(); } return medalNames.map[id] || id; }
-function itemName(kind, key) { var x = ({ skin: SKINS, bg: BGFX, trail: TRAILS, sound: SOUNDS, avatar: AVATARS, color: AV_COLORS, frame: FRAMES, banner: BANNERS, title: TITLES }[kind] || []).filter(function (e) { return e[0] === key; })[0]; return x ? x[1] : key; }
+function itemName(kind, key) { var x = ({ skin: SKINS, bg: BGFX, trail: TRAILS, sound: SOUNDS, avatar: AVATARS, color: AV_COLORS, frame: FRAMES, banner: BANNERS, title: TITLES, font: FONT_BODY.concat(FONT_CODE, FONT_DISPLAY), editor: ED_THEMES, party: PARTIES, namefx: NAMEFX }[kind] || []).filter(function (e) { return e[0] === key; })[0]; return x ? x[1] : key; }
 function medalItems() { var out = []; Object.keys(UNLOCK_MEDAL).forEach(function (k) { Object.keys(UNLOCK_MEDAL[k]).forEach(function (key) { out.push({ kind: k, key: key, medal: UNLOCK_MEDAL[k][key], name: itemName(k, key) }); }); }); return out; }
 function medalRewards(id) { return medalItems().filter(function (u) { return u.medal === id; }).map(function (u) { return u.name + " " + UNLOCK_KIND[u.kind]; }); }
 // a lock's requirement in words: a level number, or "<medal> medal"
@@ -20839,7 +20976,7 @@ function avSvg(grid) {
   var r = ""; grid.forEach(function (row, y) { for (var x = 0; x < row.length; x++) if (row[x] === "#") r += "M" + x + " " + y + "h1v1h-1z"; });
   return '<svg viewBox="0 0 8 8" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true"><path d="' + r + '"/></svg>';
 }
-function avatarHtml(l, cls) { return '<span class="avatar ' + (cls || "") + " fr-" + l.frame + '" style="--av:' + lookPick(AV_COLORS, l.color)[2] + '">' + avSvg(lookPick(AVATARS, l.avatar)[2]) + "</span>"; }
+function avatarHtml(l, cls) { return '<span class="avatar ' + (cls || "") + " fr-" + l.frame + (l.avmode === "pic" && l.pic ? " pic" : "") + '" style="--av:' + lookPick(AV_COLORS, l.color)[2] + '">' + avatarInner(l) + "</span>"; }
 function titleOf(l, lv) { return l.title === "auto" ? rankOf(lv) : lookPick(TITLES, l.title)[1]; }
 
 // ---------------- level tiers ----------------
@@ -20855,9 +20992,10 @@ function checkLevel(delay) {
   var lv = levelOf(totalXp());
   if (S.lvSeen == null || lv < S.lvSeen) { S.lvSeen = lv; save("level", lv); return false; }
   if (lv === S.lvSeen) return false;
-  var newTier = tierOf(lv) !== tierOf(S.lvSeen);
+  var newTier = tierOf(lv) !== tierOf(S.lvSeen), was = S.lvSeen;
   S.lvSeen = lv; save("level", lv);
   queueToast("Level up! You're now level " + lv + ": " + rankOf(lv) + "." + (newTier ? " Welcome to " + tierOf(lv)[1] + " tier!" : ""), delay);
+  setTimeout(function () { levelPopup(lv, was); }, (delay || 0) + 1200);
   return true;
 }
 // first run with the easier XP curve: start from the old level so the jump gets announced
@@ -20871,7 +21009,7 @@ function seedLevel() {
 }
 function unlockList() {
   var out = [], name = function (list, k) { var x = list.filter(function (e) { return e[0] === k; })[0]; return x ? x[1] : k; };
-  [["skin", SKINS], ["bg", BGFX], ["trail", TRAILS], ["sound", SOUNDS], ["avatar", AVATARS], ["color", AV_COLORS], ["frame", FRAMES], ["banner", BANNERS]].forEach(function (p) { Object.keys(UNLOCK_LV[p[0]]).forEach(function (k) { out.push({ id: p[0] + ":" + k, kind: p[0], key: k, name: name(p[1], k), lv: UNLOCK_LV[p[0]][k] }); }); });
+  [["skin", SKINS], ["bg", BGFX], ["trail", TRAILS], ["sound", SOUNDS], ["avatar", AVATARS], ["color", AV_COLORS], ["frame", FRAMES], ["banner", BANNERS]].concat(EXTRA_KINDS).forEach(function (p) { Object.keys(UNLOCK_LV[p[0]]).forEach(function (k) { out.push({ id: p[0] + ":" + k, kind: p[0], key: k, name: name(p[1], k), lv: UNLOCK_LV[p[0]][k] }); }); });
   SECS.forEach(function (s) { if (s.unlock) out.push({ id: "section:" + s.id, kind: "section", key: s.id, name: s.title, lv: s.unlock, secret: !!s.secret }); });
   return out.sort(function (a, b) { return a.lv - b.lv; });
 }
@@ -20916,7 +21054,7 @@ function nameOf() { return (S.profile && S.profile.name) || "Player"; }
 // dev test mode: a player named "Claude" sees every theme, effect, module and medal. Nothing is saved as earned,
 // and the picks from before dev mode are kept in sq3_devPrev, so renaming puts the real progress back
 function devMode() { return !!(S.profile && /^claude$/i.test(String(S.profile.name || "").trim())); }
-var DEV_PICKS = [["skin", "skin"], ["bgFx", "bg"], ["trail", "trail"], ["soundPack", "sound"]];
+var DEV_PICKS = [["skin", "skin"], ["bgFx", "bg"], ["trail", "trail"], ["soundPack", "sound"], ["body", "font"], ["code", "font"], ["display", "font"], ["edTheme", "editor"], ["party", "party"]];
 // call after the name changes; true when dev mode just turned on or off
 function devSync(quiet) {
   var prev = load("devPrev", null), on = devMode();
@@ -20947,11 +21085,14 @@ function applySettings() {
   r.style.setProperty("--scale", st.scale);
   r.style.setProperty("--code-size", st.codeSize + "px");
   var fb = { "Atkinson Hyperlegible": "system-ui,sans-serif", "Lexend": "system-ui,sans-serif", "Nunito": "system-ui,sans-serif", "System": "" };
-  r.style.setProperty("--f-body", st.body === "System" ? "system-ui,-apple-system,'Segoe UI',sans-serif" : "'" + st.body + "'," + fb[st.body]);
+  r.style.setProperty("--f-body", st.body === "System" ? "system-ui,-apple-system,'Segoe UI',sans-serif" : "'" + st.body + "'," + (fb[st.body] || (SERIF[st.body] ? "Georgia,serif" : "system-ui,sans-serif")));
   r.style.setProperty("--f-code", "'" + st.code + "',ui-monospace,Menlo,Consolas,monospace");
   if (st.display === "Plain") r.style.setProperty("--f-display", "var(--f-body)");
   else r.style.setProperty("--f-display", "'" + st.display + "','Silkscreen',monospace");
   r.setAttribute("data-motion", st.motion);
+  if (st.edTheme && st.edTheme !== "match") r.setAttribute("data-ed", st.edTheme); else r.removeAttribute("data-ed");
+  applyCustomTheme(); loadPickedFonts();
+  var TR = tried(), ch = false; if (!TR.skin[st.skin]) { TR.skin[st.skin] = 1; ch = true; } [st.body, st.code, st.display].forEach(function (f) { if (!TR.font[f]) { TR.font[f] = 1; ch = true; } }); if (ch) save("tried", TR);
   r.setAttribute("data-bar", st.barPos);
   r.style.setProperty("--lh", { normal: 1.55, relaxed: 1.75, loose: 1.95 }[st.lineHeight] || 1.55);
   r.style.setProperty("--ls", { normal: "normal", wide: ".035em", wider: ".07em" }[st.letterSpacing] || "normal");
@@ -21004,6 +21145,7 @@ var SFX = {
 };
 function confetti() {
   if (!S.set.celebrate || S.set.motion === "off" || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+  if (S.set.party && S.set.party !== "confetti" && !isLocked("party", S.set.party)) return partyRun(S.set.party);
   var cv = $("fx"), c = cv.getContext("2d"); cv.width = innerWidth; cv.height = innerHeight;
   var cs = getComputedStyle(document.documentElement), cols = ["--s1", "--s2", "--s3", "--s4", "--s5", "--gold"].map(function (v) { return cs.getPropertyValue(v).trim(); });
   var ps = []; for (var i = 0; i < 70; i++) ps.push({ x: innerWidth / 2 + (Math.random() - .5) * 120, y: innerHeight * .4, vx: (Math.random() - .5) * 9, vy: -Math.random() * 9 - 3, s: 4 + Math.random() * 5, c: cols[i % cols.length], r: Math.random() * 6 });
@@ -21037,7 +21179,7 @@ var BGFX = [
   ["gears", "Gears", "Clockwork turning in the background"], ["radar", "Radar", "A sweeping scanner finding blips"], ["spiro", "Spirograph", "Looping patterns drawing themselves"]
 ];
 // "Match my theme" picks one of these
-var BG_THEME = { sunset: "embers", diamond: "glitter", scholar: "spiro", hologram: "radar", cabinet: "pixels", matcha: "leaves", desert: "glitter", sakura: "petals", ocean: "fish", royal: "glitter", galaxy: "orbits", cyber: "tunnel", legend: "fireworks", auto: "pixels", cartridge: "pixels", night: "stars", pocket: "pixels", blueprint: "constellation", contrast: "off", miami: "grid", eighties: "grid", retro: "blocks", sixtyfour: "shapes", cube: "shapes", modern: "constellation", girlypop: "hearts", candy: "confetti", terminal: "rain", aero: "bubbles", toon: "shapes", mocha: "leaves", arctic: "snow", forest: "fireflies", lava: "lava" };
+var BG_THEME = { notebook: "shapes", bubblegum: "bubbles", mint: "leaves", vampire: "embers", solar: "embers", fjord: "snow", vapor: "grid", jungle: "leaves", comic: "shapes", abyss: "fish", lemonade: "confetti", dragonfire: "embers", aurora: "aurora", mythic: "constellation", chalk: "pixels", pond: "ripples", index: "pixels", typist: "pixels", custom: "pixels", sunset: "embers", diamond: "glitter", scholar: "spiro", hologram: "radar", cabinet: "pixels", matcha: "leaves", desert: "glitter", sakura: "petals", ocean: "fish", royal: "glitter", galaxy: "orbits", cyber: "tunnel", legend: "fireworks", auto: "pixels", cartridge: "pixels", night: "stars", pocket: "pixels", blueprint: "constellation", contrast: "off", miami: "grid", eighties: "grid", retro: "blocks", sixtyfour: "shapes", cube: "shapes", modern: "constellation", girlypop: "hearts", candy: "confetti", terminal: "rain", aero: "bubbles", toon: "shapes", mocha: "leaves", arctic: "snow", forest: "fireflies", lava: "lava" };
 var BG = { fwq: [], cv: null, c: null, w: 0, h: 0, ps: [], ex: [], fx: "off", key: "", t: 0, raf: 0, last: 0, mx: -9999, my: -9999, cols: ["#2C52C4"], ink: "#222", dark: false, pal: null, rt: 0 };
 var WHITES = ["#FFFFFF", "#DCE6FF", "#FFF2D6"];
 function stillMotion() { return S.set.motion === "off" || !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches); }
@@ -21654,8 +21796,9 @@ function dockHtml(lv, xp, pct) {
     var sk = streakNow(), lit = S.streak.last === dayKey();
     out += '<button class="dk streak' + (lit ? " lit" : "") + '" data-go="me" title="' + (sk ? sk + "-day streak. " + (lit ? "You've practised today!" : "Clear a stage or a quiz today to keep it going.") : "No streak yet. Clear a stage today to start one.") + (S.streak.best > 1 ? " Best: " + S.streak.best + " days." : "") + '" aria-label="Daily streak: ' + sk + " day" + (sk === 1 ? "" : "s") + ' in a row">' + glyph("flame") + '<b class="sn">' + sk + '</b><span class="fl">day streak</span></button>';
   }
+  if (S.set.showRandom && S.profile) out += '<button class="dk rq" data-rq="" title="Random question (D)" aria-label="Random question"><span aria-hidden="true">🎲</span><span class="fl">Random</span></button>';
   out += '<button class="dk mute" data-mute aria-pressed="' + off + '" aria-label="Mute all sounds" title="' + (off ? "Sound is off. Click to turn it on" : "Mute all sounds") + '">' + glyph(off ? "mute" : "sound") + '<span class="fl">' + (off ? "Muted" : "Sound on") + "</span></button>";
-  if (S.set.showMe) out += '<button class="dk me" data-go="me" aria-label="Your profile, level ' + lv + '">' + avatarHtml(look(), "sm") + lvChip(lv, "lv") + '<span class="nm">' + h(nameOf()) + '</span>' + (devMode() ? '<span class="devtag">DEV</span>' : "") + '<span class="xpmini" title="' + xp + ' XP"><i style="width:' + pct + '%"></i></span></button>';
+  if (S.set.showMe) out += '<button class="dk me" data-go="me" aria-label="Your profile, level ' + lv + '">' + avatarHtml(look(), "sm") + lvChip(lv, "lv") + '<span class="nm nf-' + (look().namefx || "plain") + '">' + h(nameOf()) + '</span>' + (devMode() ? '<span class="devtag">DEV</span>' : "") + '<span class="xpmini" title="' + xp + ' XP"><i style="width:' + pct + '%"></i></span></button>';
   out += '<button class="dk fold" data-hidebar aria-label="Hide the menu bar" title="Hide the menu bar">' + glyph({ top: "up", bottom: "down", left: "left", right: "right" }[S.set.barPos] || "up") + '<span class="fl">Hide</span></button>';
   return out + "</div>";
 }
@@ -21692,6 +21835,8 @@ document.addEventListener("click", function (e) {
   if (lf) { var art = lf.closest(".lesson"), k = "l:" + lf.getAttribute("data-lfold"), shut = !art.classList.contains("lfolded"); SFX.click(); art.classList.toggle("lfolded", shut); if (shut) S.fold[k] = 1; else delete S.fold[k]; save("fold", S.fold); lf.textContent = shut ? "Show the lesson" : "Hide the lesson"; lf.setAttribute("aria-expanded", String(!shut)); return; }
   var rt = e.target.closest("[data-reft]");
   if (rt) { e.preventDefault(); SFX.click(); refState.topic = rt.getAttribute("data-reft"); refState.q = rt.getAttribute("data-refq") || ""; refState.cat = "All"; refState.show = "all"; go("ref"); return; }
+  var rqb = e.target.closest("[data-rq]");
+  if (rqb) { e.preventDefault(); SFX.click(); randomQuestion(rqb.getAttribute("data-rq") || undefined); return; }
   var rwb = e.target.closest("[data-rw]");
   if (rwb) { e.preventDefault(); SFX.click(); startRewrite(rwb.getAttribute("data-rw")); return; }
   var g = e.target.closest("[data-go]");
@@ -21885,6 +22030,7 @@ function traceCallLine(st, code) {
   return "console.log(" + st.fn + "(" + st.c[0][0].map(function (a) { return sqInspect(a, 1); }).join(", ") + "));";
 }
 function openTrace(code, st) {
+  bump("trace"); setTimeout(function () { checkMedals(400); }, 0);
   var extra = traceCallLine(st, code), stop = null;
   var m = ltModal('<p class="eyebrow">WATCH IT RUN</p><h2>Step through your code</h2>' +
     '<p class="muted" style="margin-top:0">The computer runs one line at a time. Step through and watch the variables change. The highlighted line is the one about to run.</p>' +
@@ -22077,6 +22223,7 @@ function explainCode(code) {
   return { lines: lines, notes: notes };
 }
 function openExplain(code) {
+  bump("explain"); setTimeout(function () { checkMedals(400); }, 0);
   var x = explainCode(code);
   var body = x.err ? '<div class="why no"><b>I can\'t read this code yet.</b> ' + h(x.err.message.replace(/\s*\(\d+:\d+\)$/, "")) + ". Fix that first, then ask again.</div>"
     : '<div class="xpl">' + x.lines.map(function (l, i) {
@@ -22135,6 +22282,7 @@ function duckProbe(code, st) {
   return code.slice(0, at) + "\n" + indent + line + code.slice(at);
 }
 function openDuck(ctx) {
+  bump("duck"); setTimeout(function () { checkMedals(400); }, 0);
   var tip = duckTip(ctx.err, ctx.result, ctx.code, ctx.st), probe = duckProbe(ctx.code, ctx.st), step = 0;
   var steps = [
     '<p>Hi, I\'m the duck. I don\'t know any JavaScript, so explain it to me slowly. Programmers really do this: saying it out loud makes the bug show itself.</p><label class="field"><span>First: what should your code do? One sentence is enough.</span><textarea id="dkA" rows="2" placeholder="It should…"></textarea></label>',
@@ -22153,7 +22301,7 @@ function openDuck(ctx) {
     if ($("dkS")) $("dkS").onclick = function () { m.close(); var hb = $("hintBtn"); if (hb) hb.click(); else toast(S.set.hints === "off" ? "Hints are off in Settings." : "Reread the lesson above the mission, then try one small change at a time."); };
     if ($("dkW")) $("dkW").onclick = function () { m.close(); ctx.trace(); };
     if ($("dkE")) $("dkE").onclick = function () { m.close(); openExplain(ctx.code); };
-    if ($("dkP")) $("dkP").onclick = function () { m.close(); ctx.setCode(probe); toast("Probe added. Press RUN and read the output."); };
+    if ($("dkP")) $("dkP").onclick = function () { m.close(); bump("probe"); ctx.setCode(probe); toast("Probe added. Press RUN and read the output."); };
     if ($("dkA")) setTimeout(function () { if ($("dkA")) $("dkA").focus(); }, 30);
   }
   draw();
@@ -22341,7 +22489,7 @@ function viewCards(V, arg) {
       i++; card();
     }
     function finish() {
-      markActive(300);
+      bump("cards"); markActive(300); checkMedals(600);
       box.innerHTML = '<div class="fc done"><p class="eyebrow">ROUND DONE</p><div class="fcterm">' + knew + " of " + total + '</div><p>' + (knew === total ? "Every one. Nice, " + h(nameOf()) + "." : "The ones you missed came round again, and they'll be back tomorrow too.") + '</p></div><div class="row fcact"><button class="btn primary" type="button" data-go="cards" data-arg="' + kind + '">Back to the deck</button><button class="btn" type="button" data-go="map">Map</button></div>';
     }
     card();
@@ -22395,7 +22543,7 @@ function viewDrills(V, arg) {
       done = true;
       var mins = Math.max((Date.now() - t0) / 60000, 1 / 600), wpm = Math.round(T.length / 5 / mins), b = B[pick.key], best = !b || wpm > b.wpm;
       if (best) { B[pick.key] = { wpm: wpm, acc: acc, at: Date.now() }; save("drills", B); }
-      SFX.pass(); markActive(300);
+      SFX.pass(); bump("drill"); markActive(300); checkMedals(600);
       $("drStat").innerHTML = '<b class="okc">Done!</b> ' + wpm + " words a minute, " + acc + "% accurate." + (best && b ? " New best!" : b ? " Your best is " + b.wpm + " wpm." : "");
       ta.readOnly = true;
       return;
@@ -22440,6 +22588,510 @@ function studyToolsHtml() {
     "</section></div>";
 }
 
+// ---------------- PLAYER EXTRAS ----------------
+// Profile pictures, a pixel avatar maker, About me, name styles, an activity calendar, a downloadable player card,
+// random questions, daily quests, level-up pop-ups, the level road, more medals, fonts, a theme maker,
+// code editor colors and stage-clear celebrations. Everything ties into levels, medals and unlocks.
+
+// ---- fonts: loaded only when picked or previewed, so the game still starts fast ----
+var FONT_BODY = [["Atkinson Hyperlegible", "Atkinson Hyperlegible", "made for readability"], ["Lexend", "Lexend", "wide letters"], ["Nunito", "Nunito", "rounded"], ["System", "My device's font", "whatever your device uses"],
+  ["Andika", "Andika", "made for new readers", "400;700"], ["Quicksand", "Quicksand", "soft and friendly", "wght@400;700"], ["Poppins", "Poppins", "clean and geometric", "wght@400;700"], ["Comic Neue", "Comic Neue", "casual handwriting", "wght@400;700"],
+  ["Fredoka", "Fredoka", "bubbly", "wght@400;600"], ["Outfit", "Outfit", "modern", "wght@400;700"], ["Space Grotesk", "Space Grotesk", "techy", "wght@400;700"], ["Patrick Hand", "Patrick Hand", "handwritten"],
+  ["Merriweather", "Merriweather", "bookish serif", "wght@400;700"], ["Lora", "Lora", "elegant serif", "wght@400;700"]];
+var FONT_CODE = [["JetBrains Mono", "JetBrains Mono", "the default"], ["Fira Code", "Fira Code", "with ligatures"], ["IBM Plex Mono", "IBM Plex Mono", "crisp"],
+  ["Source Code Pro", "Source Code Pro", "classic", "wght@400;600"], ["Space Mono", "Space Mono", "retro-future", "wght@400;700"], ["Roboto Mono", "Roboto Mono", "tidy", "wght@400;600"], ["Ubuntu Mono", "Ubuntu Mono", "narrow", "wght@400;700"],
+  ["Inconsolata", "Inconsolata", "compact", "wght@400;600"], ["Courier Prime", "Courier Prime", "typewriter", "wght@400;700"], ["Victor Mono", "Victor Mono", "fancy italics", "wght@400;600"], ["Red Hat Mono", "Red Hat Mono", "friendly", "wght@400;600"], ["DM Mono", "DM Mono", "soft", "wght@400;500"]];
+var FONT_DISPLAY = [["Silkscreen", "Silkscreen", "pixel"], ["Pixelify Sans", "Pixelify Sans", "soft pixel"], ["Press Start 2P", "Press Start 2P", "arcade"], ["Plain", "Plain", "same as reading font"],
+  ["VT323", "VT323", "old terminal"], ["Bungee", "Bungee", "street sign"], ["Orbitron", "Orbitron", "sci-fi"], ["Audiowide", "Audiowide", "racing"], ["Righteous", "Righteous", "retro"],
+  ["Rubik Mono One", "Rubik Mono One", "chunky"], ["Bangers", "Bangers", "comic book"], ["Black Ops One", "Black Ops One", "stencil"], ["Major Mono Display", "Major Mono Display", "thin and techy"],
+  ["Monoton", "Monoton", "neon tubes"], ["Creepster", "Creepster", "spooky"]];
+var FONT_LOADED = { "Atkinson Hyperlegible": 1, "Lexend": 1, "Nunito": 1, "JetBrains Mono": 1, "Fira Code": 1, "IBM Plex Mono": 1, "Silkscreen": 1, "Pixelify Sans": 1, "Press Start 2P": 1, "System": 1, "Plain": 1 };
+function loadFont(f) {
+  var name = f[0]; if (FONT_LOADED[name]) return; FONT_LOADED[name] = 1;
+  var l = document.createElement("link"); l.rel = "stylesheet";
+  l.href = "https://fonts.googleapis.com/css2?family=" + name.replace(/ /g, "+") + (f[3] ? ":" + f[3] : "") + "&display=swap";
+  document.head.appendChild(l);
+}
+function fontEntry(name) { return FONT_BODY.concat(FONT_CODE, FONT_DISPLAY).filter(function (f) { return f[0] === name; })[0]; }
+function loadPickedFonts() { [S.set.body, S.set.code, S.set.display].forEach(function (n) { var f = fontEntry(n); if (f) loadFont(f); }); }
+var SERIF = { "Merriweather": 1, "Lora": 1 };
+
+// ---- code editor colors ----
+var ED_THEMES = [["match", "Match my theme", "Whatever your theme uses", ["#1C2130", "#FF9E7A", "#F4CD72", "#8FB6FF"]],
+  ["neon", "Neon Night", "Hot pink and electric blue", ["#14101F", "#FF5CC8", "#FFE066", "#5CE1FF"]],
+  ["vamp", "Vampire Code", "Purple, pink and green", ["#22212C", "#FF79C6", "#F1FA8C", "#8BE9FD"]],
+  ["forestc", "Forest Code", "Mossy greens", ["#16201A", "#E6C36A", "#9BD07A", "#7FC8B0"]],
+  ["paper", "Paper", "A light editor", ["#FBFAF4", "#A626A4", "#50A14F", "#4078F2"]],
+  ["solarl", "Solar Light", "Warm and light", ["#FDF6E3", "#859900", "#2AA198", "#268BD2"]],
+  ["ice", "Ice", "Frosty blues", ["#1B2433", "#81A1C1", "#A3BE8C", "#88C0D0"]],
+  ["greenscreen", "Green Screen", "An 80s terminal", ["#020A04", "#7CFF6B", "#3FD35A", "#B6FFAA"]],
+  ["amber", "Amber Monitor", "Glowing orange text", ["#120B02", "#FFB000", "#FFCC66", "#FF8C00"]],
+  ["candyc", "Candy Code", "Sweet pastels", ["#2A1E2E", "#FF8FB1", "#FFE3A3", "#9AD7FF"]],
+  ["blueprintc", "Blueprint", "White lines on blue", ["#0F3B7A", "#FFFFFF", "#BFE3FF", "#FFE08A"]],
+  ["mono", "Mono", "Just shades of grey", ["#1A1A1A", "#FFFFFF", "#BBBBBB", "#888888"]]];
+
+// ---- stage-clear celebrations ----
+var PARTIES = [["confetti", "Confetti", "The classic"], ["fireworks", "Fireworks", "Bursts in the sky"], ["stars", "Star shower", "Falling stars"], ["emoji", "Emoji rain", "🎉 ⭐ 💯 🚀"],
+  ["coins", "Coin shower", "Gold coins, arcade style"], ["balloons", "Balloons", "Floating up"], ["hearts", "Hearts", "Lots of love"], ["code", "Code rain", "Brackets and semicolons"],
+  ["pixels", "Pixel burst", "Chunky squares"], ["rainbow", "Rainbow", "A rainbow wave"], ["ducks", "Rubber ducks", "Quack"], ["snow", "Snow", "A gentle flurry"]];
+
+// ---- name styles ----
+var NAMEFX = [["plain", "Plain", "Just your name"], ["accent", "Theme color", "Your theme's accent"], ["bold", "Shadow", "Bold with a drop shadow"], ["outline", "Outline", "Hollow letters"],
+  ["gradient", "Gradient", "Accent to gold"], ["glow", "Glow", "A soft glow"], ["pixel", "Pixel", "In the pixel font"], ["gold", "Gold", "Shiny gold"], ["fire", "Fire", "Red to yellow"],
+  ["ice", "Ice", "Cool blues"], ["rainbow", "Rainbow", "Every color, moving"], ["glitch", "Glitch", "A little broken"], ["mythic", "Mythic", "For legends only"]];
+
+// ---- unlock tables for the new kinds, and new themes ----
+UNLOCK_LV.font = { "Quicksand": 2, "Space Mono": 3, "VT323": 4, "Fredoka": 6, "Bungee": 8, "Comic Neue": 9, "Source Code Pro": 11, "Orbitron": 12, "Outfit": 13, "Courier Prime": 14, "Righteous": 16, "Patrick Hand": 17, "Audiowide": 19,
+  "Victor Mono": 20, "Space Grotesk": 22, "Rubik Mono One": 23, "Ubuntu Mono": 25, "Bangers": 26, "Merriweather": 28, "Black Ops One": 31, "Red Hat Mono": 33, "Lora": 36, "Major Mono Display": 39, "Monoton": 43, "Creepster": 49 };
+UNLOCK_LV.editor = { neon: 3, paper: 5, ice: 8, forestc: 10, solarl: 14, greenscreen: 18, amber: 22, candyc: 27, blueprintc: 32, mono: 37 };
+UNLOCK_LV.party = { fireworks: 4, stars: 6, emoji: 10, balloons: 13, hearts: 15, coins: 17, pixels: 21, rainbow: 30, snow: 34, code: 41 };
+UNLOCK_LV.namefx = { accent: 2, bold: 4, outline: 7, gradient: 11, glow: 16, pixel: 19, fire: 24, ice: 29, gold: 35, rainbow: 40, glitch: 45, mythic: 50 };
+UNLOCK_MEDAL.font = { "Poppins": "pic", "Inconsolata": "drill20", "Roboto Mono": "trace25", "DM Mono": "notes25" };
+UNLOCK_MEDAL.editor = { vamp: "rqrun10" };
+UNLOCK_MEDAL.party = { ducks: "duck1" };
+Object.assign(UNLOCK_LV.skin, { custom: 12, notebook: 25, bubblegum: 26, mint: 27, vampire: 28, solar: 30, fjord: 31, vapor: 33, jungle: 35, comic: 37, abyss: 39, lemonade: 41, dragonfire: 44, aurora: 47, mythic: 50, chalk: 42 });
+Object.assign(UNLOCK_MEDAL.skin, { pond: "duck10", index: "cards10", typist: "wpm40" });
+Object.assign(UNLOCK_LV.avatar, {});
+Object.assign(UNLOCK_MEDAL.title, { tinker: "trace25", scribe: "notes25", quester: "quest25", trivia: "rq100", artist: "pixart", stylist: "themes20" });
+MEDAL_TITLES.push(["tinker", "Code Detective"], ["scribe", "Scribe"], ["quester", "Questing Hero"], ["trivia", "Trivia Master"], ["artist", "Pixel Artist"], ["stylist", "Style Icon"]);
+TITLES.push(["tinker", "Code Detective"], ["scribe", "Scribe"], ["quester", "Questing Hero"], ["trivia", "Trivia Master"], ["artist", "Pixel Artist"], ["stylist", "Style Icon"]);
+Object.assign(UNLOCK_KIND, { font: "font", editor: "code color scheme", party: "celebration", namefx: "name style" });
+LOOK_DEF.namefx = "plain";
+LOOK_KINDS.push(["namefx", "namefx", NAMEFX]);
+var EXTRA_KINDS = [["font", FONT_BODY.concat(FONT_CODE, FONT_DISPLAY)], ["editor", ED_THEMES], ["party", PARTIES], ["namefx", NAMEFX]];
+var FONT_KEY = { body: "body", code: "code", display: "display" };
+
+// ---- small stores ----
+function xpx() { if (!S.xpx) S.xpx = load("xpx", { rq: 0, quest: 0 }); return S.xpx; }
+function today() { var t = load("today", null); if (!t || t.day !== dayKey()) { t = { day: dayKey() }; save("today", t); } return t; }
+function bump(k, n) { var t = today(); t[k] = (t[k] || 0) + (n || 1); save("today", t); var c = load("counts", {}); c[k] = (c[k] || 0) + (n || 1); save("counts", c); }
+function counts() { return load("counts", {}); }
+function tried() { if (!S.tried) S.tried = load("tried", { skin: {}, font: {} }); return S.tried; }
+function isToday(t) { return !!t && dayKey(new Date(t)) === dayKey(); }
+
+// ---- 1. profile picture, 2. pixel avatar maker ----
+function avatarInner(l) {
+  if (l.avmode === "pic" && l.pic) return '<img src="' + h(l.pic) + '" alt="">';
+  if (l.avmode === "custom" && l.grid && l.grid.length === 8) return avSvg(l.grid);
+  return avSvg(lookPick(AVATARS, l.avatar)[2]);
+}
+function picCard(l) {
+  return '<section class="card" id="picCard"><h2 class="sub">PROFILE PICTURE</h2><p class="muted" style="margin-top:0">Use a photo or drawing as your avatar. It stays in this browser only and is never sent anywhere. Pick something you\'d be happy for anyone to see.</p>' +
+    '<div class="picrow"><span class="avatar big fr-' + l.frame + (l.avmode === "pic" && l.pic ? " pic" : "") + '" style="--av:' + lookPick(AV_COLORS, l.color)[2] + '" id="picPrev">' + avatarInner(l) + '</span><div class="row" style="gap:8px">' +
+    '<label class="btn" for="picFile">Upload a picture</label><input type="file" id="picFile" accept="image/*" hidden>' +
+    (l.pic ? '<button class="btn" type="button" data-avmode="' + (l.avmode === "pic" ? "pixel" : "pic") + '">' + (l.avmode === "pic" ? "Use a pixel avatar" : "Use my picture") + '</button><button class="ghost" type="button" id="picDel">Remove picture</button>' : "") + "</div></div>" +
+    '<div id="picCrop" hidden><canvas id="picCv" width="240" height="240" aria-label="Crop preview"></canvas><div class="field"><label for="picZoom">Zoom</label><input type="range" id="picZoom" min="1" max="4" step="0.05" value="1"></div><p class="hint2">Drag the picture to move it.</p><div class="row"><button class="btn primary" type="button" id="picSave">Use this picture</button><button class="ghost" type="button" id="picCancel">Cancel</button></div></div></section>';
+}
+function wirePic(redraw) {
+  var img = null, zoom = 1, ox = 0, oy = 0, drag = null;
+  function draw() {
+    var c = $("picCv"); if (!c || !img) return; var x = c.getContext("2d"), s = Math.min(img.width, img.height) / zoom;
+    var sx = Math.max(0, Math.min(img.width - s, (img.width - s) / 2 + ox)), sy = Math.max(0, Math.min(img.height - s, (img.height - s) / 2 + oy));
+    ox = sx - (img.width - s) / 2; oy = sy - (img.height - s) / 2;
+    x.clearRect(0, 0, c.width, c.height); x.drawImage(img, sx, sy, s, s, 0, 0, c.width, c.height);
+  }
+  if ($("picFile")) $("picFile").onchange = function () {
+    var f = this.files && this.files[0]; if (!f) return;
+    if (!/^image\//.test(f.type)) return toast("That isn't a picture. Try a PNG, JPG or GIF.");
+    var rd = new FileReader();
+    rd.onload = function () { var im = new Image(); im.onload = function () { img = im; zoom = 1; ox = oy = 0; $("picZoom").value = 1; $("picCrop").hidden = false; draw(); }; im.onerror = function () { toast("I couldn't open that picture."); }; im.src = rd.result; };
+    rd.readAsDataURL(f);
+  };
+  if ($("picZoom")) $("picZoom").oninput = function () { zoom = Number(this.value); draw(); };
+  var cv = $("picCv");
+  if (cv) {
+    cv.onpointerdown = function (e) { drag = { x: e.clientX, y: e.clientY, ox: ox, oy: oy }; cv.setPointerCapture(e.pointerId); };
+    cv.onpointermove = function (e) { if (!drag || !img) return; var k = Math.min(img.width, img.height) / zoom / cv.clientWidth; ox = drag.ox - (e.clientX - drag.x) * k; oy = drag.oy - (e.clientY - drag.y) * k; draw(); };
+    cv.onpointerup = cv.onpointercancel = function () { drag = null; };
+  }
+  if ($("picCancel")) $("picCancel").onclick = function () { $("picCrop").hidden = true; img = null; $("picFile").value = ""; };
+  if ($("picSave")) $("picSave").onclick = function () {
+    var out = document.createElement("canvas"); out.width = out.height = 160; out.getContext("2d").drawImage($("picCv"), 0, 0, 160, 160);
+    var url = out.toDataURL("image/jpeg", .85);
+    setLook("pic", url); setLook("avmode", "pic"); bump("pic"); SFX.pass(); toast("Looking good! That's your avatar now."); checkMedals(300); redraw();
+  };
+  if ($("picDel")) $("picDel").onclick = function () { setLook("pic", ""); if (look().avmode === "pic") setLook("avmode", "pixel"); redraw(); };
+}
+function pixCard(l) {
+  var g = l.grid && l.grid.length === 8 ? l.grid : lookPick(AVATARS, l.avatar)[2];
+  return '<section class="card" id="pixCard"><h2 class="sub">PIXEL AVATAR MAKER</h2><p class="muted" style="margin-top:0">Draw your own 8×8 avatar. Tap squares to fill them in. Your avatar color and frame still apply.</p>' +
+    '<div class="pixwrap"><div class="pixgrid" id="pixGrid" style="--av:' + lookPick(AV_COLORS, l.color)[2] + '" role="grid" aria-label="Avatar drawing grid">' + g.map(function (row, y) { return row.split("").map(function (c, x) { return '<button type="button" class="px' + (c === "#" ? " on" : "") + '" data-px="' + x + "," + y + '" aria-label="Square ' + (x + 1) + ", " + (y + 1) + '" aria-pressed="' + (c === "#") + '"></button>'; }).join(""); }).join("") + "</div>" +
+    '<div class="row" style="gap:8px;align-content:start"><button class="btn primary" type="button" id="pixSave">Use my drawing</button><button class="ghost" type="button" id="pixClear">Clear</button><button class="ghost" type="button" id="pixInv">Invert</button><button class="ghost" type="button" id="pixFlip">Mirror</button><button class="ghost" type="button" id="pixFrom">Start from my avatar</button>' +
+    (l.avmode === "custom" ? '<button class="ghost" type="button" data-avmode="pixel">Back to a ready-made avatar</button>' : "") + "</div></div></section>";
+}
+function wirePix(redraw) {
+  var gEl = $("pixGrid"); if (!gEl) return;
+  var paint = null;
+  var cells = function () { return [].slice.call(gEl.querySelectorAll("[data-px]")); };
+  var setCell = function (b, on) { b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); };
+  gEl.onpointerdown = function (e) { var b = e.target.closest("[data-px]"); if (!b) return; e.preventDefault(); paint = !b.classList.contains("on"); setCell(b, paint); };
+  gEl.onpointerover = function (e) { if (paint === null) return; var b = e.target.closest("[data-px]"); if (b) setCell(b, paint); };
+  document.addEventListener("pointerup", function () { paint = null; });
+  gEl.onkeydown = function (e) { var b = e.target.closest("[data-px]"); if (b && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setCell(b, !b.classList.contains("on")); } };
+  var grid = function () { var rows = []; for (var y = 0; y < 8; y++) { var r = ""; for (var x = 0; x < 8; x++) r += gEl.querySelector('[data-px="' + x + "," + y + '"]').classList.contains("on") ? "#" : "."; rows.push(r); } return rows; };
+  var load8 = function (rows) { rows.forEach(function (r, y) { r.split("").forEach(function (c, x) { setCell(gEl.querySelector('[data-px="' + x + "," + y + '"]'), c === "#"); }); }); };
+  $("pixClear").onclick = function () { cells().forEach(function (b) { setCell(b, false); }); };
+  $("pixInv").onclick = function () { cells().forEach(function (b) { setCell(b, !b.classList.contains("on")); }); };
+  $("pixFlip").onclick = function () { load8(grid().map(function (r) { return r.split("").reverse().join(""); })); };
+  $("pixFrom").onclick = function () { load8(lookPick(AVATARS, look().avatar)[2]); };
+  $("pixSave").onclick = function () {
+    var gr = grid(); if (gr.join("").indexOf("#") < 0) return toast("Draw something first.");
+    setLook("grid", gr); setLook("avmode", "custom"); bump("pixart"); SFX.pass(); toast("Your drawing is your avatar now."); checkMedals(300); redraw();
+  };
+}
+
+// ---- 3. About me and name styles ----
+var STATUS_EMOJI = ["", "😀", "😎", "🤓", "🧠", "🔥", "🚀", "🎮", "🎨", "🎵", "☕", "🐱", "🐶", "🦊", "🐸", "🦆", "🌈", "⭐", "💡", "🐛", "🛠️", "📚", "🏆", "🍕", "🌙"];
+function aboutCard(l) {
+  var secs = SECS.filter(function (s) { return !hiddenSec(s); });
+  return '<section class="card" id="aboutCard"><h2 class="sub">ABOUT ME</h2><p class="muted" style="margin-top:0">Shown on your player card. Everything is optional.</p>' +
+    '<div class="field"><label>Status</label><div class="emopick" role="group" aria-label="Status emoji">' + STATUS_EMOJI.map(function (e) { return '<button type="button" class="emo" data-emo="' + e + '" aria-pressed="' + ((l.emoji || "") === e) + '" aria-label="' + (e || "No status") + '">' + (e || "∅") + "</button>"; }).join("") + "</div></div>" +
+    '<div class="field"><label for="abBio">Bio</label><textarea id="abBio" rows="2" maxlength="160" placeholder="I like games, cats and making things">' + h(l.bio || "") + "</textarea></div>" +
+    '<div class="field"><label for="abGoal">What I\'m working toward</label><input type="text" id="abGoal" maxlength="60" placeholder="Make my own platformer" value="' + h(l.goal || "") + '"></div>' +
+    '<div class="field"><label for="abFav">Favorite module</label><select id="abFav" class="sel"><option value="">(none yet)</option>' + secs.map(function (s) { return '<option value="' + s.id + '"' + (l.fav === s.id ? " selected" : "") + ">" + h(s.title) + "</option>"; }).join("") + "</select></div>" +
+    '<div class="field"><label for="abPro">Pronouns (optional)</label><input type="text" id="abPro" maxlength="20" placeholder="she/her, he/him, they/them…" value="' + h(l.pronouns || "") + '"></div></section>';
+}
+function wireAbout(redraw) {
+  if (!$("aboutCard")) return;
+  $("aboutCard").querySelectorAll("[data-emo]").forEach(function (b) { b.onclick = function () { setLook("emoji", b.getAttribute("data-emo")); SFX.click(); redraw(); }; });
+  var t = function (id, k, max) { $(id).oninput = function () { setLook(k, this.value.slice(0, max)); }; $(id).onchange = function () { checkMedals(300); }; };
+  t("abBio", "bio", 160); t("abGoal", "goal", 60); t("abPro", "pronouns", 20);
+  $("abFav").onchange = function () { setLook("fav", this.value); checkMedals(300); };
+}
+function nameFxCard(l) {
+  return '<section class="card"><h2 class="sub">NAME STYLE</h2><p class="muted" style="margin-top:0">How your name looks on your player card and in the top bar. New styles unlock as you level up.</p><div class="lookgrid wide">' +
+    NAMEFX.map(function (f) { return lookBtn("namefx", f[0], f[1], '<span class="nfprev nf-' + f[0] + '">' + h(nameOf()) + "</span>", (l.namefx || "plain") === f[0], "ttl"); }).join("") + "</div></section>";
+}
+function aboutHtml(l) {
+  var fav = l.fav && SEC[l.fav] && !hiddenSec(SEC[l.fav]) ? SEC[l.fav] : null;
+  if (!l.bio && !l.goal && !fav && !l.pronouns) return "";
+  return '<section class="card aboutme"><h2 class="sub">ABOUT ' + h(nameOf().toUpperCase()) + "</h2>" + (l.bio ? '<p class="bio">' + h(l.bio) + "</p>" : "") + '<div class="row abtags">' +
+    (l.pronouns ? "<span>" + h(l.pronouns) + "</span>" : "") + (l.goal ? "<span>🎯 " + h(l.goal) + "</span>" : "") + (fav ? '<button class="linkish" type="button" data-go="section" data-arg="' + fav.id + '">♥ ' + h(fav.title) + "</button>" : "") + "</div></section>";
+}
+
+// ---- 4. activity calendar ----
+function activityDays() {
+  var by = {}; var add = function (t, n) { if (!t) return; var k = dayKey(new Date(t)); by[k] = (by[k] || 0) + (n || 1); };
+  Object.keys(S.done).forEach(function (k) { if (!S.done[k].skip) add(S.done[k].at); });
+  Object.keys(S.quiz).forEach(function (k) { add(S.quiz[k].at); });
+  var N = notesAll(); Object.keys(N).forEach(function (k) { add(N[k].at); });
+  return by;
+}
+function calendarHtml() {
+  var by = activityDays(), weeks = 20, end = new Date(), start = new Date(); start.setDate(end.getDate() - end.getDay() - (weeks - 1) * 7);
+  var cells = "", d = new Date(start), act = 0, tot = 0;
+  for (var i = 0; i < weeks * 7; i++) {
+    var k = dayKey(d), n = by[k] || 0, fut = d > end;
+    if (n) { act++; tot += n; }
+    cells += '<i class="cd l' + (fut ? "x" : n >= 8 ? 4 : n >= 4 ? 3 : n >= 2 ? 2 : n ? 1 : 0) + '" title="' + d.toLocaleDateString() + ": " + n + ' thing' + (n === 1 ? "" : "s") + ' done"></i>';
+    d.setDate(d.getDate() + 1);
+  }
+  return '<section class="card"><h2 class="sub">ACTIVITY · LAST ' + weeks + ' WEEKS</h2><div class="cal" aria-label="Activity calendar">' + cells + '</div><div class="row calkey"><span class="muted">' + act + " active day" + (act === 1 ? "" : "s") + ", " + tot + ' stages, quizzes and notes</span><span class="spacer"></span><span class="muted">Less</span><i class="cd l0"></i><i class="cd l1"></i><i class="cd l2"></i><i class="cd l3"></i><i class="cd l4"></i><span class="muted">More</span></div></section>';
+}
+
+// ---- 5. download my player card ----
+function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim() || "#888"; }
+function drawPlayerCard(done) {
+  var W = 1200, H = 630, c = document.createElement("canvas"); c.width = W; c.height = H; var x = c.getContext("2d");
+  var l = look(), xp = totalXp(), lv = levelOf(xp), t = tierOf(lv), bg = cssVar("--bg"), panel = cssVar("--panel"), ink = cssVar("--ink"), acc = cssVar("--accent"), mut = cssVar("--muted");
+  var disp = getComputedStyle(document.documentElement).getPropertyValue("--f-display"), body = getComputedStyle(document.documentElement).getPropertyValue("--f-body");
+  x.fillStyle = bg; x.fillRect(0, 0, W, H);
+  x.fillStyle = acc; x.globalAlpha = .12; for (var i = -H; i < W; i += 40) { x.beginPath(); x.moveTo(i, 0); x.lineTo(i + 20, 0); x.lineTo(i + 20 + H, H); x.lineTo(i + H, H); x.fill(); } x.globalAlpha = 1;
+  x.fillStyle = panel; x.fillRect(40, 40, W - 80, H - 80); x.strokeStyle = ink; x.lineWidth = 6; x.strokeRect(40, 40, W - 80, H - 80);
+  x.fillStyle = t[2]; x.fillRect(40, 40, W - 80, 14);
+  var AX = 90, AY = 120, AS = 240;
+  var finish = function () {
+    x.strokeStyle = ink; x.lineWidth = 6; x.strokeRect(AX, AY, AS, AS);
+    x.fillStyle = mut; x.font = "28px " + disp; x.fillText(titleOf(l, lv).toUpperCase(), 380, 150);
+    x.fillStyle = ink; x.font = "bold 72px " + body; x.fillText(nameOf().slice(0, 20) + (l.emoji ? " " + l.emoji : ""), 380, 230);
+    x.fillStyle = t[2]; x.fillRect(380, 260, 170, 52); x.fillStyle = "#111"; x.font = "30px " + disp; x.fillText("LV " + lv, 396, 297);
+    x.fillStyle = ink; x.font = "30px " + body; x.fillText(t[1] + " tier · " + xp.toLocaleString() + " XP", 570, 297);
+    var stats = [[Object.keys(S.done).length, "stages"], [medalList(true).filter(function (m) { return m.got; }).length, "medals"], [S.streak.best || 0, "best streak"], [Object.keys(S.quiz).length, "quizzes"]];
+    stats.forEach(function (s, i) { var sx = 90 + i * 260; x.fillStyle = acc; x.font = "bold 56px " + body; x.fillText(String(s[0]), sx, 450); x.fillStyle = mut; x.font = "26px " + body; x.fillText(s[1], sx, 490); });
+    if (l.bio) { x.fillStyle = mut; x.font = "italic 26px " + body; x.fillText("“" + l.bio.slice(0, 70) + (l.bio.length > 70 ? "…" : "") + "”", 380, 350); }
+    x.fillStyle = mut; x.font = "22px " + disp; x.fillText("SCRIPT QUEST", 90, 560); x.textAlign = "right"; x.fillText(new Date().toLocaleDateString(), W - 90, 560); x.textAlign = "left";
+    done(c);
+  };
+  x.fillStyle = lookPick(AV_COLORS, l.color)[2]; x.fillRect(AX, AY, AS, AS);
+  if (l.avmode === "pic" && l.pic) { var im = new Image(); im.onload = function () { x.drawImage(im, AX, AY, AS, AS); finish(); }; im.onerror = finish; im.src = l.pic; return; }
+  var g = l.avmode === "custom" && l.grid ? l.grid : lookPick(AVATARS, l.avatar)[2], p = AS / 10;
+  x.fillStyle = "#fff"; g.forEach(function (row, yy) { for (var xx = 0; xx < 8; xx++) if (row[xx] === "#") x.fillRect(AX + p + xx * p, AY + p + yy * p, p, p); });
+  finish();
+}
+function downloadCard(btn) {
+  drawPlayerCard(function (c) {
+    try { c.toBlob(function (b) { if (!b) return toast("Your browser couldn't make the picture."); var a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "script-quest-" + nameOf().replace(/[^\w-]+/g, "-").toLowerCase() + ".png"; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 800); bump("card"); checkMedals(300); toast("Saved your player card as a picture."); }, "image/png"); }
+    catch (e) { toast("Your browser couldn't make the picture."); }
+  });
+}
+
+// ---- 6. random question ----
+function rqState() { return load("rq", { n: 0, ok: 0, run: 0, best: 0 }); }
+function rqPool(scope) {
+  var pool = [];
+  D.quizzes.forEach(function (q) { var s = QSEC[q.id]; if (scope === "all" || (s && secDone(s) > 0) || S.quiz[q.id]) q.qs.forEach(function (x, i) { pool.push({ q: q.id, i: i }); }); });
+  if (!pool.length && scope !== "all") return rqPool("all");
+  return pool;
+}
+function randomQuestion(scope) {
+  scope = scope || load("rqScope", "mine");
+  var pool = rqPool(scope), last = load("rqLast", ""), pick = null;
+  for (var t = 0; t < 6 && pool.length; t++) { pick = pool[Math.floor(Math.random() * pool.length)]; if (pick.q + ":" + pick.i !== last) break; }
+  if (!pick) return toast("No questions found.");
+  save("rqLast", pick.q + ":" + pick.i);
+  var qq = D.quizzes.filter(function (x) { return x.id === pick.q; })[0];
+  XQUIZ.random = { id: "random", title: "Random question · " + (qq ? qq.topic : ""), qs: [questionAt(pick)].filter(Boolean), onFinish: function (V, score) {
+    var r = rqState(); r.n++; if (score) { r.ok++; r.run++; r.best = Math.max(r.best, r.run); } else r.run = 0; save("rq", r);
+    bump("rq"); if (score) { var X = xpx(); X.rq = (X.rq || 0) + 2; save("xpx", X); }
+    markActive(900); checkMedals(900);
+    quizEnd(V, "RANDOM QUESTION", score, 1, (score ? "Right! +2 XP. " : "Not this time. It's in your Review Deck now, so it'll come back. ") + "You've answered " + r.n + " random question" + (r.n === 1 ? "" : "s") + ", " + r.ok + " right." + (r.run > 1 ? " " + r.run + " in a row!" : "") + (r.best > 2 ? " Best run: " + r.best + "." : ""),
+      '<button class="btn primary" type="button" data-rq="' + scope + '">🎲 Another one</button><button class="btn" type="button" data-rq="' + (scope === "all" ? "mine" : "all") + '">' + (scope === "all" ? "Only from what I've learned" : "From anywhere in the game") + '</button><button class="btn" type="button" data-go="quizzes">Quiz Hall</button>', !!score);
+  } };
+  save("rqScope", scope);
+  go("quiz", "random");
+}
+function rqBtn(cls, label) { return '<button class="' + (cls || "btn") + '" type="button" data-rq="">' + '<span aria-hidden="true">🎲</span> ' + (label || "Random question") + "</button>"; }
+
+// ---- 7. daily quests ----
+var QUESTS = [
+  { id: "stages2", t: "Clear 2 stages", n: 2, get: function () { return Object.keys(S.done).filter(function (k) { return !S.done[k].skip && isToday(S.done[k].at); }).length; } },
+  { id: "stage1", t: "Clear a stage", n: 1, get: function () { return Object.keys(S.done).filter(function (k) { return !S.done[k].skip && isToday(S.done[k].at); }).length; } },
+  { id: "clean", t: "Clear a stage without the solution", n: 1, get: function () { return Object.keys(S.done).filter(function (k) { var d = S.done[k]; return !d.skip && !d.sol && isToday(d.at); }).length; } },
+  { id: "quiz", t: "Finish a quiz", n: 1, get: function () { return Object.keys(S.quiz).filter(function (k) { return isToday(S.quiz[k].at); }).length; } },
+  { id: "rq3", t: "Answer 3 random questions", n: 3, get: function () { return today().rq || 0; } },
+  { id: "cards", t: "Do a flashcard round", n: 1, get: function () { return today().cards || 0; } },
+  { id: "drill", t: "Finish a typing drill", n: 1, get: function () { return today().drill || 0; } },
+  { id: "note", t: "Write a note on a stage", n: 1, get: function () { var N = notesAll(); return Object.keys(N).filter(function (k) { return isToday(N[k].at); }).length; } },
+  { id: "trace", t: "Use Watch it run", n: 1, get: function () { return today().trace || 0; } },
+  { id: "explain", t: "Use Explain my code", n: 1, get: function () { return today().explain || 0; } },
+  { id: "warm", t: "Do the daily warm-up", n: 1, get: function () { var d = load("daily", null); return d && d.day === dayKey() ? 1 : 0; } },
+  { id: "sbx", t: "Run something in the Sandbox", n: 1, get: function () { return today().sbx || 0; } }
+];
+var QUEST_XP = 20, QUEST_BONUS = 30;
+function questsToday() {
+  var k = dayKey(), x = 7; for (var i = 0; i < k.length; i++) x = (x * 33 + k.charCodeAt(i)) >>> 0;
+  var started = Object.keys(S.done).length > 0, pool = QUESTS.filter(function (q) { return started || q.id === "stage1" || q.id === "rq3" || q.id === "explain"; });
+  var out = [], used = {};
+  // one stage quest, then two others, so every day pulls you back into the lessons
+  var stageQ = pool.filter(function (q) { return /^stage|^clean/.test(q.id); }), rest = pool.filter(function (q) { return !/^stage|^clean/.test(q.id); });
+  out.push(stageQ[x % stageQ.length]); used[out[0].id] = 1;
+  for (var j = 0; out.length < 3 && j < 40; j++) { var q = rest[(x + j * 7) % rest.length]; if (!used[q.id]) { used[q.id] = 1; out.push(q); } }
+  return out;
+}
+function questState() { var s = load("quests", null); if (!s || s.day !== dayKey()) s = { day: dayKey(), got: {}, all: false }; return s; }
+function checkQuests(delay) {
+  if (!S.profile) return;
+  var st = questState(), qs = questsToday(), changed = false;
+  qs.forEach(function (q) { if (!st.got[q.id] && q.get() >= q.n) { st.got[q.id] = Date.now(); changed = true; var X = xpx(); X.quest = (X.quest || 0) + QUEST_XP; save("xpx", X); var c = counts(); c.quests = (c.quests || 0) + 1; save("counts", c); queueToast("Quest done: " + q.t + "! +" + QUEST_XP + " XP", delay); } });
+  if (!st.all && qs.every(function (q) { return st.got[q.id]; })) { st.all = true; changed = true; var X2 = xpx(); X2.quest = (X2.quest || 0) + QUEST_BONUS; save("xpx", X2); var c2 = counts(); c2.questDays = (c2.questDays || 0) + 1; save("counts", c2); queueToast("All 3 quests done today! Bonus +" + QUEST_BONUS + " XP", delay); }
+  if (changed) save("quests", st);
+  return changed;
+}
+function questsHtml() {
+  if (!S.profile) return "";
+  checkQuests(400);
+  var st = questState(), qs = questsToday();
+  var tip = { stages2: ["stage", "Continue"], stage1: ["stage", "Continue"], clean: ["stage", "Continue"], quiz: ["quizzes", "Quiz Hall"], rq3: ["rq", "🎲 Random question"], cards: ["cards", "Flashcards"], drill: ["drills", "Typing drills"], note: ["stage", "Open a stage"], trace: ["stage", "Open a stage"], explain: ["stage", "Open a stage"], warm: ["map", ""], sbx: ["sandbox", "Sandbox"] };
+  var c = lastStageObj();
+  return '<section class="card quests" aria-label="Today\'s quests"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">TODAY\'S QUESTS</h2><span class="muted">+' + QUEST_XP + " XP each, +" + QUEST_BONUS + " for all three · new ones tomorrow</span></div><div class=\"qlist\">" +
+    qs.map(function (q) {
+      var have = Math.min(q.get(), q.n), ok = !!st.got[q.id], a = tip[q.id] || ["map", ""];
+      var btn = ok ? '<span class="qdone">✓ DONE</span>' : a[0] === "rq" ? rqBtn("ghost small", "Go") : a[0] === "stage" ? (c ? '<button class="ghost small" type="button" data-go="stage" data-arg="' + c.id + '">Go</button>' : '<button class="ghost small" type="button" data-go="map">Go</button>') : a[1] ? '<button class="ghost small" type="button" data-go="' + a[0] + '">Go</button>' : "";
+      return '<div class="quest' + (ok ? " ok" : "") + '"><div><b>' + h(q.t) + '</b><span class="bar"><i style="width:' + Math.round(100 * have / q.n) + '%"></i></span></div><span class="muted qn">' + have + "/" + q.n + "</span>" + btn + "</div>";
+    }).join("") + "</div>" + (st.all ? '<p class="hint2" style="margin:8px 0 0">All three done. Nice work, ' + h(nameOf()) + ". The bonus is yours.</p>" : "") + "</section>";
+}
+
+// ---- 8. level-up pop-up with what you unlocked ----
+function itemsAt(lv) {
+  var out = [];
+  unlockList().forEach(function (u) { if (u.lv === lv) out.push(u); });
+  var r = RANKS.filter(function (x) { return x[0] === lv; })[0]; if (r && lv > 1) out.push({ kind: "title", key: "r" + lv, name: r[1], lv: lv });
+  return out;
+}
+function tryItem(u) {
+  var setK = { skin: "skin", bg: "bgFx", trail: "trail", sound: "soundPack", editor: "edTheme", party: "party" }[u.kind];
+  if (setK) { S.set[setK] = u.key; save("settings", S.set); applySettings(); if (u.kind === "party") partyPreview(); if (u.kind === "sound") sndPreview(); return; }
+  if (u.kind === "font") { var which = FONT_BODY.some(function (f) { return f[0] === u.key; }) ? "body" : FONT_CODE.some(function (f) { return f[0] === u.key; }) ? "code" : "display"; S.set[which] = u.key; save("settings", S.set); applySettings(); return; }
+  if (u.kind === "section") { go("section", u.key); return; }
+  if (/^(avatar|color|frame|banner|title|namefx)$/.test(u.kind)) { setLook(u.kind, u.key); if (u.kind === "avatar") setLook("avmode", "pixel"); }
+}
+function levelPopup(lv, from) {
+  if (!S.set.lvPopup || !$("overlay").hidden) return;
+  var items = []; for (var n = from + 1; n <= lv; n++) items = items.concat(itemsAt(n));
+  var t = tierOf(lv), newTier = tierOf(from) !== t;
+  var m = ltModal('<div class="lvpop" style="--tc:' + t[2] + '"><p class="eyebrow">LEVEL UP</p><div class="lvbig">LV ' + lv + "</div><h2>" + h(rankOf(lv)) + "</h2>" + (newTier ? '<p class="tiernew">Welcome to <b>' + t[1] + "</b> tier!</p>" : "") +
+    (items.length ? '<p class="muted">You unlocked:</p><div class="lvitems">' + items.slice(0, 12).map(function (u, i) { var sec = u.kind === "section"; return '<div class="lvitem"><span><b>' + h(u.secret ? "A secret module" : u.name) + '</b> <span class="muted">' + UNLOCK_KIND[u.kind] + "</span></span>" + (u.secret ? "" : '<button class="btn small" type="button" data-try="' + i + '">' + (sec ? "Open it" : "Try it") + "</button>") + "</div>"; }).join("") + "</div>" : '<p class="muted">Keep going. ' + h(nextUnlockLine(lv, totalXp())) + ".</p>") +
+    '<div class="row" style="justify-content:center;margin-top:14px"><button class="btn primary" type="button" id="cabX">Keep going</button><button class="btn" type="button" id="lvRoad">See the level road</button></div></div>', "lvmodal");
+  m.el.querySelectorAll("[data-try]").forEach(function (b) { b.onclick = function () { var u = items[Number(b.getAttribute("data-try"))]; tryItem(u); b.textContent = "✓ On"; b.disabled = true; SFX.click(); if (u.kind === "section") m.close(); }; });
+  $("lvRoad").onclick = function () { m.close(); go("me", "unlocks"); };
+  if (S.set.celebrate) setTimeout(partyPreview, 100);
+}
+
+// ---- 9. the level road: every level from 1 to 50 and what it brings ----
+function roadHtml(lv, xp) {
+  var rows = "";
+  for (var n = 1; n <= 50; n++) {
+    var items = itemsAt(n), t = tierOf(n), here = n === lv, got = n <= lv || devMode(), tierStart = TIERS.some(function (x) { return x[0] === n; });
+    rows += (tierStart ? '<div class="roadtier" style="--tc:' + t[2] + '">' + t[1].toUpperCase() + " TIER</div>" : "") +
+      '<div class="roadlv' + (got ? " got" : "") + (here ? " here" : "") + '" style="--tc:' + t[2] + '"' + (here ? ' id="roadHere"' : "") + '><span class="rn">' + n + "</span><div>" + (here ? '<span class="youarehere">YOU ARE HERE</span>' : "") +
+      (items.length ? items.map(function (u) { return '<span class="ritem">' + (u.secret && !got ? "??? secret " + UNLOCK_KIND[u.kind] : h(u.name) + ' <span class="muted">' + UNLOCK_KIND[u.kind] + "</span>") + "</span>"; }).join("") : '<span class="muted">' + (n === 1 ? "Where every coder starts: the " + h(RANKS[0][1]) + " title" : "Level " + n) + "</span>") +
+      (!got && n === lv + 1 ? '<span class="muted rxp">' + (xpFor(n) - xp).toLocaleString() + " XP to go</span>" : "") + "</div></div>";
+  }
+  return '<section class="card road"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">LEVEL ROAD</h2><button class="ghost small" type="button" id="roadJump">Jump to my level</button></div><p class="muted" style="margin:8px 0 12px">Every level brings something new: a rank title, a theme, a font, a celebration, a name style and more. Ways to earn XP: stages, quizzes, medals, daily quests, random questions and your daily bonus.</p><div class="roadlist">' + rows + "</div></section>";
+}
+
+// ---- 10. medal categories and progress ----
+var MEDAL_CATS = [["all", "All"], ["mod", "Modules"], ["prog", "Progress"], ["quiz", "Quizzes"], ["habit", "Habits"], ["tools", "Study tools"], ["arc", "Arcade"], ["style", "Profile & style"], ["secret", "Secrets"]];
+function medalCat(m) {
+  var id = m.id;
+  if (/^sec:/.test(id)) return "mod";
+  if (/^(arc:|hi:|arcade|champ)/.test(id)) return "arc";
+  if (/^(egg|secret)/.test(id)) return "secret";
+  if (/^(ace|qall|pass|rq|predict)/.test(id)) return "quiz";
+  if (/^(streak|daily|night|early|wk|quest)/.test(id)) return "habit";
+  if (/^(trace|explain|duck|notes|cards|drill|wpm|rewrite|rv|sbx|web|game|order|bug|boss|probe)/.test(id)) return "tools";
+  if (/^(look|show|collector|hoarder|pic|pixart|bio|themes|fonts|mytheme|party|edcol|namefx|cardpic)/.test(id)) return "style";
+  return "prog";
+}
+var medalView = { cat: "all", show: "all" };
+function medalRatio(m) { var x = String(m.sub).match(/(\d[\d.]*)\s*\/\s*(\d[\d.]*)/); return m.got ? 1 : x ? Math.min(1, Number(x[1]) / Number(x[2])) : 0; }
+function medalsTab() {
+  var all = medalList(), got = all.filter(function (m) { return m.got; }).length;
+  var list = all.filter(function (m) { return (medalView.cat === "all" || medalCat(m) === medalView.cat) && (medalView.show === "all" || (medalView.show === "got") === m.got); });
+  var close = all.filter(function (m) { return !m.got && m.t !== "???"; }).sort(function (a, b) { return medalRatio(b) - medalRatio(a); }).slice(0, 3);
+  return '<section class="card"><div class="row" style="justify-content:space-between"><h2 class="sub" style="margin:0">MEDALS · ' + got + " / " + all.length + '</h2><span class="muted">' + Math.round(100 * got / all.length) + '% complete</span></div><div class="bar" style="margin:8px 0 10px;height:12px"><i style="width:' + (100 * got / all.length) + '%"></i></div>' +
+    '<p class="muted" style="margin-top:0">Every medal is worth +' + MEDAL_XP + " XP, and some unlock a theme, font, title or other reward.</p>" +
+    (close.length ? '<h3 class="setsub">CLOSEST TO EARNING</h3><div class="medals">' + close.map(medalTile).join("") + "</div>" : "") +
+    '<div class="filters mcats" role="group" aria-label="Medal category">' + MEDAL_CATS.map(function (c) { var n = c[0] === "all" ? all.length : all.filter(function (m) { return medalCat(m) === c[0]; }).length; return n ? '<button class="ghost' + (medalView.cat === c[0] ? " on" : "") + '" type="button" data-mcat="' + c[0] + '" aria-pressed="' + (medalView.cat === c[0]) + '">' + c[1] + " <small>" + n + "</small></button>" : ""; }).join("") + "</div>" +
+    '<div class="filters" role="group" aria-label="Show"><button class="ghost' + (medalView.show === "all" ? " on" : "") + '" type="button" data-mshow="all">Everything</button><button class="ghost' + (medalView.show === "got" ? " on" : "") + '" type="button" data-mshow="got">Earned</button><button class="ghost' + (medalView.show === "not" ? " on" : "") + '" type="button" data-mshow="not">Not yet</button></div>' +
+    '<div class="medals">' + list.map(medalTile).join("") + "</div>" + (list.length ? "" : '<p class="muted">Nothing here yet.</p>') + "</section>";
+}
+function extraMedals(medals, cnt) {
+  var c = counts(), N = notesAll(), C = cardsState(), B = drillsState(), R = rwState(), rq = rqState(), l = (S.profile && S.profile.look) || {}, T = tried();
+  var nNotes = Object.keys(N).filter(function (k) { return STAGE[k]; }).length, learned = Object.keys(C).filter(function (k) { return C[k].b >= 3; }).length;
+  var drillN = Object.keys(B).length, topWpm = Object.keys(B).reduce(function (a, k) { return Math.max(a, B[k].wpm || 0); }, 0), rwN = Object.keys(R.at || {}).length;
+  cnt("trace1", "Watcher", 1, c.trace || 0, "times you watched code run", "s4", "▷"); cnt("trace25", "Step by step", 25, c.trace || 0, "times you watched code run", "s4", "▷");
+  cnt("explain10", "Explainer", 10, c.explain || 0, "code explanations", "s4", "¶");
+  cnt("duck1", "Duck whisperer", 1, c.duck || 0, "talks with the duck", "s3", "🦆"); cnt("duck10", "Duck's best friend", 10, c.duck || 0, "talks with the duck", "s3", "🦆");
+  cnt("probe1", "Bug probe", 1, c.probe || 0, "console.log probes added", "s4", "?");
+  cnt("notes1", "Note taker", 1, nNotes, "stage notes", "s2", "✎"); cnt("notes25", "Scribe", 25, nNotes, "stage notes", "s2", "✎");
+  cnt("cards1", "Flash!", 1, c.cards || 0, "flashcard rounds", "s1", "▤"); cnt("cards10", "Memory palace", 10, c.cards || 0, "flashcard rounds", "s1", "▤"); cnt("cards50w", "Word wizard", 50, learned, "words learned well", "s1", "▤");
+  cnt("drill1", "Typist", 1, drillN, "typing drills", "s3", "⌨"); cnt("drill20", "Keyboard warrior", 20, drillN, "typing drills", "s3", "⌨"); cnt("wpm40", "Fast fingers", 40, topWpm, "words a minute (best)", "s3", "⌨");
+  cnt("rewrite1", "From memory", 1, rwN, "rewrites", "s5", "↺"); cnt("rewrite10", "Total recall", 10, rwN, "rewrites", "s5", "↺");
+  cnt("rq10", "Curious mind", 10, rq.n, "random questions", "s1", "🎲"); cnt("rq100", "Trivia buff", 100, rq.n, "random questions", "s1", "🎲"); cnt("rqrun10", "Hot streak", 10, rq.best, "right in a row", "s1", "🎲");
+  cnt("quest1", "Quest taker", 1, c.quests || 0, "daily quests", "s5", "!"); cnt("quest25", "Adventurer", 25, c.quests || 0, "daily quests", "s5", "!"); cnt("questall", "Full set", 1, c.questDays || 0, "days with all 3 quests", "s5", "!"); cnt("questall7", "Quest legend", 7, c.questDays || 0, "days with all 3 quests", "s5", "!");
+  medals.push({ id: "pic", t: "Say cheese", got: !!l.pic, sub: "Upload a profile picture", sc: "s1", m: "📷" }, { id: "pixart", t: "Pixel artist", got: !!(l.grid && l.grid.length), sub: "Draw your own avatar", sc: "s2", m: "▦" },
+    { id: "bio", t: "About me", got: !!(l.bio && l.bio.trim()), sub: "Write a bio", sc: "s3", m: "☺" }, { id: "cardpic", t: "Show and tell", got: (c.card || 0) > 0, sub: "Download your player card", sc: "s4", m: "▣" },
+    { id: "mytheme", t: "Interior designer", got: (c.mytheme || 0) > 0, sub: "Make your own theme", sc: "s5", m: "◐" }, { id: "party", t: "Party planner", got: !!(S.set.party && S.set.party !== "confetti"), sub: "Pick a new stage-clear celebration", sc: "s2", m: "🎉" },
+    { id: "edcol", t: "Color coder", got: !!(S.set.edTheme && S.set.edTheme !== "match"), sub: "Pick a code editor color scheme", sc: "s4", m: "{}" }, { id: "namefx", t: "Signature style", got: !!(l.namefx && l.namefx !== "plain"), sub: "Pick a name style", sc: "s1", m: "Aa" });
+  cnt("themes5", "Window shopper", 5, Object.keys(T.skin).length, "themes tried", "s4", "◑"); cnt("themes20", "Style icon", 20, Object.keys(T.skin).length, "themes tried", "s4", "◑"); cnt("fonts5", "Typographer", 5, Object.keys(T.font).length, "fonts tried", "s3", "Ff");
+  [[15, "Fifteen and climbing"], [25, "Quarter century"], [35, "Thirty-five"], [45, "Almost mythic"]].forEach(function (x) { cnt("lv" + x[0], x[1], x[0], levelOf(totalXp()), "levels", "s5", "LV"); });
+}
+
+// ---- 13. theme maker ----
+var CUSTOM_DEF = { bg: "#1B1F2A", panel: "#252B3A", ink: "#F1F3F8", accent: "#6C9BFF", gold: "#FFC857" };
+var CUSTOM_VARS = ["--bg", "--panel", "--panel2", "--ink", "--muted", "--line", "--chip", "--accent", "--accent-ink", "--gold", "--gold-ink", "--pass", "--fail", "--warn", "--s1", "--s2", "--s3", "--s4", "--s5", "--s6", "--k-ex", "--k-try", "--shadow", "color-scheme"];
+function hexRgb(c) { c = String(c).replace("#", ""); if (c.length === 3) c = c.split("").map(function (x) { return x + x; }).join(""); return [0, 2, 4].map(function (i) { return parseInt(c.slice(i, i + 2), 16) || 0; }); }
+function mixHex(a, b, t) { var A = hexRgb(a), B = hexRgb(b); return "#" + A.map(function (v, i) { return ("0" + Math.round(v * (1 - t) + B[i] * t).toString(16)).slice(-2); }).join(""); }
+function lumHex(c) { var r = hexRgb(c).map(function (v) { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }); return .2126 * r[0] + .7152 * r[1] + .0722 * r[2]; }
+function applyCustomTheme() {
+  var r = document.documentElement;
+  if (S.set.skin !== "custom") { CUSTOM_VARS.forEach(function (v) { r.style.removeProperty(v); }); return; }
+  var c = Object.assign({}, CUSTOM_DEF, S.set.custom || {}), dark = lumHex(c.bg) < .3;
+  var v = { "--bg": c.bg, "--panel": c.panel, "--panel2": mixHex(c.panel, c.bg, .5), "--ink": c.ink, "--muted": mixHex(c.ink, c.bg, .38), "--line": mixHex(c.ink, c.bg, .78), "--chip": mixHex(c.accent, c.panel, .86),
+    "--accent": c.accent, "--accent-ink": lumHex(c.accent) > .35 ? "#111111" : "#FFFFFF", "--gold": c.gold, "--gold-ink": lumHex(c.gold) > .35 ? "#111111" : "#FFFFFF",
+    "--pass": dark ? "#6EE09A" : "#1E7A48", "--fail": dark ? "#FF7E8A" : "#B8283E", "--warn": dark ? "#FFC46B" : "#975700",
+    "--s1": c.accent, "--s2": c.gold, "--s3": dark ? "#5EE0C8" : "#1F7F8C", "--s4": dark ? "#FF8FC8" : "#B0367A", "--s5": dark ? "#9BE07A" : "#2E8A57", "--s6": dark ? "#9CC8FF" : "#2F6EB0",
+    "--k-ex": c.accent, "--k-try": c.gold, "--shadow": dark ? "#000000" : mixHex(c.ink, c.bg, .7), "color-scheme": dark ? "dark" : "light" };
+  Object.keys(v).forEach(function (k) { r.style.setProperty(k, v[k]); });
+}
+function themeMakerCard() {
+  var c = Object.assign({}, CUSTOM_DEF, S.set.custom || {}), n = lockReq("skin", "custom");
+  var f = function (k, label) { return '<label class="tmc"><input type="color" data-tm="' + k + '" value="' + c[k] + '"' + (n ? " disabled" : "") + "><span>" + label + "</span></label>"; };
+  return '<section class="card" id="themeMaker"><h2 class="sub">THEME MAKER' + (n ? " " + lockTag(n) : "") + '</h2><p class="muted" style="margin-top:0">Pick five colors and the game works out the rest.' + (n ? " Unlocks at level " + n + "." : "") + "</p>" +
+    '<div class="tmgrid">' + f("bg", "Background") + f("panel", "Cards") + f("ink", "Text") + f("accent", "Accent") + f("gold", "Highlight") + "</div>" +
+    '<div class="row" style="margin-top:10px"><button class="btn primary" type="button" id="tmUse"' + (n ? " disabled" : "") + ">" + (S.set.skin === "custom" ? "✓ Using my theme" : "Use my theme") + '</button><button class="ghost" type="button" id="tmFrom"' + (n ? " disabled" : "") + '>Start from the current theme</button><button class="ghost" type="button" id="tmRand"' + (n ? " disabled" : "") + ">🎲 Surprise me</button></div>" +
+    '<p class="hint2" id="tmWarn"></p></section>';
+}
+function contrastRatio(a, b) { var x = lumHex(a), y = lumHex(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); }
+function wireThemeMaker(V) {
+  if (!$("themeMaker")) return;
+  var cur = function () { return Object.assign({}, CUSTOM_DEF, S.set.custom || {}); };
+  var commit = function (c) { S.set.custom = c; S.set.skin = "custom"; save("settings", S.set); applySettings(); var cc = counts(); if (!cc.mytheme) { bump("mytheme"); checkMedals(300); }
+    var w = contrastRatio(c.ink, c.panel); $("tmWarn").textContent = w < 4.5 ? "Heads up: the text is hard to read on the cards (contrast " + w.toFixed(1) + ":1). Try a lighter or darker text color." : "Contrast looks good (" + w.toFixed(1) + ":1).";
+    V.querySelectorAll("button[data-skin]").forEach(function (x) { x.setAttribute("aria-pressed", x.getAttribute("data-skin") === "custom"); }); if ($("tmUse")) $("tmUse").textContent = "✓ Using my theme"; };
+  V.querySelectorAll("[data-tm]").forEach(function (i) { i.oninput = function () { var c = cur(); c[i.getAttribute("data-tm")] = i.value; commit(c); }; });
+  $("tmUse").onclick = function () { commit(cur()); SFX.click(); };
+  $("tmFrom").onclick = function () { var c = { bg: rgbHex(cssVar("--bg")), panel: rgbHex(cssVar("--panel")), ink: rgbHex(cssVar("--ink")), accent: rgbHex(cssVar("--accent")), gold: rgbHex(cssVar("--gold")) }; commit(c); Object.keys(c).forEach(function (k) { var i = V.querySelector('[data-tm="' + k + '"]'); if (i) i.value = c[k]; }); };
+  $("tmRand").onclick = function () {
+    var hue = Math.floor(Math.random() * 360), dark = Math.random() < .5, hsl = function (hh, s, l) { var d = document.createElement("i"); d.style.color = "hsl(" + hh + "," + s + "%," + l + "%)"; document.body.appendChild(d); var v = getComputedStyle(d).color; d.remove(); return rgbHex(v); };
+    var c = dark ? { bg: hsl(hue, 30, 9), panel: hsl(hue, 28, 14), ink: hsl(hue, 30, 94), accent: hsl((hue + 180) % 360, 85, 65), gold: hsl((hue + 60) % 360, 90, 65) } : { bg: hsl(hue, 40, 92), panel: hsl(hue, 40, 98), ink: hsl(hue, 40, 14), accent: hsl((hue + 180) % 360, 70, 38), gold: hsl((hue + 60) % 360, 85, 55) };
+    commit(c); Object.keys(c).forEach(function (k) { var i = V.querySelector('[data-tm="' + k + '"]'); if (i) i.value = c[k]; }); SFX.click();
+  };
+}
+function rgbHex(s) { if (/^#/.test(s)) return s.length === 4 ? "#" + s.slice(1).split("").map(function (x) { return x + x; }).join("") : s.slice(0, 7); var m = String(s).match(/\d+(\.\d+)?/g) || [0, 0, 0]; return "#" + m.slice(0, 3).map(function (v) { return ("0" + Math.round(Number(v)).toString(16)).slice(-2); }).join(""); }
+
+// ---- the extra pickers on the Themes & sounds tab ----
+function extraStyleHtml(st) {
+  var btns = function (kind, attr, list, cur, prev) {
+    return list.map(function (f) { var n = lockReq(kind, f[0]); return '<button type="button" class="fxbtn' + (n ? " locked" : "") + '" data-' + attr + '="' + h(f[0]) + '" aria-pressed="' + (cur === f[0]) + '"' + (n ? ' aria-disabled="true" aria-label="' + h(f[1]) + ", locked until " + lockWords(n) + '"' : "") + ">" + (prev ? prev(f) : "") + "<b>" + h(f[1]) + "</b><span>" + (n ? lockTag(n) : h(f[2])) + "</span></button>"; }).join("");
+  };
+  var fontPrev = function (fam, mono) { return function (f) { return '<span class="fprev" style="font-family:' + (f[0] === "System" ? "system-ui" : f[0] === "Plain" ? "var(--f-body)" : "'" + f[0] + "'," + (mono ? "monospace" : SERIF[f[0]] ? "serif" : "sans-serif")) + '">' + (mono ? "let x = 42;" : fam === "display" ? "LEVEL UP" : "Hello, " + h(nameOf())) + "</span>"; }; };
+  var edPrev = function (f) { var c = f[3]; return '<span class="edprev" style="background:' + c[0] + '"><i style="color:' + c[1] + '">let</i> <i style="color:' + c[3] + '">x</i> = <i style="color:' + c[2] + '">"hi"</i></span>'; };
+  return '<section class="card" id="setFonts"><h2 class="sub">FONTS</h2><p class="muted" style="margin-top:0">More fonts unlock as you level up. Sizes and spacing are in <button class="linkish" type="button" data-go="settings">Settings</button>.</p>' +
+    '<h3 class="setsub">READING FONT</h3><div class="fxpick">' + btns("font", "fbody", FONT_BODY, st.body, fontPrev("body")) + "</div>" +
+    '<h3 class="setsub">CODE FONT</h3><div class="fxpick">' + btns("font", "fcode", FONT_CODE, st.code, fontPrev("code", true)) + "</div>" +
+    '<h3 class="setsub">HEADING FONT</h3><div class="fxpick">' + btns("font", "fdisp", FONT_DISPLAY, st.display, fontPrev("display")) + "</div></section>" +
+    '<section class="card"><h2 class="sub">CODE EDITOR COLORS</h2><p class="muted" style="margin-top:0">Colors for the code editor and code examples, separate from your theme.</p><div class="fxpick">' + btns("editor", "edth", ED_THEMES, st.edTheme, edPrev) + "</div></section>" +
+    '<section class="card"><h2 class="sub">STAGE-CLEAR CELEBRATION</h2><p class="muted" style="margin-top:0">What happens on screen when you clear a stage. Tap one to see it.' + (st.celebrate ? "" : " Celebrations are off in Settings right now.") + '</p><div class="fxpick">' + btns("party", "party", PARTIES, st.party) + "</div></section>" +
+    themeMakerCard();
+}
+function wireExtraStyle(V) {
+  FONT_BODY.concat(FONT_CODE, FONT_DISPLAY).forEach(loadFont);
+  var pick = function (attr, kind, key, after) {
+    V.querySelectorAll("button[data-" + attr + "]").forEach(function (b) { b.onclick = function () {
+      var v = b.getAttribute("data-" + attr); if (b.classList.contains("locked")) return lockedMsg(kind, v, b.querySelector("b").textContent);
+      S.set[key] = v; save("settings", S.set); applySettings(); V.querySelectorAll("button[data-" + attr + "]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); SFX.click(); if (after) after(); checkMedals(300);
+    }; });
+  };
+  pick("fbody", "font", "body"); pick("fcode", "font", "code"); pick("fdisp", "font", "display"); pick("edth", "editor", "edTheme"); pick("party", "party", "party", partyPreview);
+  wireThemeMaker(V);
+}
+function partyPreview() { var keep = S.set.celebrate; S.set.celebrate = true; confetti(); S.set.celebrate = keep; }
+
+// ---- 15. stage-clear celebrations (confetti() calls this) ----
+function partyRun(style) {
+  var cv = $("fx"), c = cv.getContext("2d"); cv.width = innerWidth; cv.height = innerHeight;
+  var cs = getComputedStyle(document.documentElement), cols = ["--s1", "--s2", "--s3", "--s4", "--s5", "--gold"].map(function (v) { return cs.getPropertyValue(v).trim() || "#fc0"; });
+  var W = innerWidth, H = innerHeight, ps = [], rnd = function (a, b) { return a + Math.random() * (b - a); }, col = function () { return cols[Math.floor(Math.random() * cols.length)]; }, f = 0, life = 110;
+  var EMO = { emoji: ["🎉", "⭐", "💯", "🚀", "✨", "🏆"], hearts: ["❤", "💖", "💜", "💛", "💙"], ducks: ["🦆"], snow: ["❄", "❅", "❆"], code: ["{", "}", ";", "( )", "=>", "[ ]", "</>", "++"] };
+  if (style === "fireworks") { life = 130; for (var b = 0; b < 5; b++) { var bx = rnd(W * .15, W * .85), by = rnd(H * .15, H * .45), bc = col(), t0 = b * 14; for (var i = 0; i < 40; i++) { var a = i / 40 * Math.PI * 2, sp = rnd(2, 6); ps.push({ x: bx, y: by, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, c: bc, s: 3, t0: t0, g: .06, fade: 1 }); } } }
+  else if (style === "stars") { for (var i2 = 0; i2 < 50; i2++) ps.push({ x: rnd(0, W), y: rnd(-H * .6, 0), vx: rnd(-1, 1), vy: rnd(4, 9), c: col(), s: rnd(6, 12), star: 1, r: 0 }); }
+  else if (style === "coins") { for (var i3 = 0; i3 < 45; i3++) ps.push({ x: rnd(0, W), y: rnd(-H * .5, 0), vx: 0, vy: rnd(5, 10), c: cs.getPropertyValue("--gold").trim() || "#fc0", s: rnd(9, 15), coin: 1, r: rnd(0, 6) }); }
+  else if (style === "balloons") { life = 150; for (var i4 = 0; i4 < 24; i4++) ps.push({ x: rnd(0, W), y: H + rnd(0, H * .4), vx: rnd(-.5, .5), vy: -rnd(4, 7), c: col(), s: rnd(16, 26), balloon: 1, r: rnd(0, 6) }); }
+  else if (style === "rainbow") { life = 90; }
+  else if (style === "pixels") { for (var i5 = 0; i5 < 90; i5++) { var a2 = rnd(0, Math.PI * 2), sp2 = rnd(3, 11); ps.push({ x: W / 2, y: H * .45, vx: Math.cos(a2) * sp2, vy: Math.sin(a2) * sp2, c: col(), s: rnd(6, 12), g: .15, sq: 1 }); } }
+  else if (EMO[style]) { var list = EMO[style], up = style === "hearts"; for (var i6 = 0; i6 < (style === "ducks" ? 18 : 40); i6++) ps.push({ x: rnd(0, W), y: up ? H + rnd(0, H * .4) : rnd(-H * .6, 0), vx: rnd(-1, 1), vy: up ? -rnd(3, 7) : rnd(style === "snow" ? 2 : 4, style === "snow" ? 4 : 8), txt: list[Math.floor(Math.random() * list.length)], c: col(), s: rnd(20, style === "ducks" ? 40 : 32), r: rnd(-.4, .4) }); if (style === "snow") life = 150; }
+  else { for (var i7 = 0; i7 < 70; i7++) ps.push({ x: W / 2 + rnd(-60, 60), y: H * .4, vx: rnd(-4.5, 4.5), vy: -rnd(3, 12), s: rnd(4, 9), c: col(), r: rnd(0, 6), g: .32, conf: 1 }); life = 80; }
+  (function tick() {
+    c.clearRect(0, 0, W, H); f++;
+    if (style === "rainbow") { var band = 22; for (var k = 0; k < cols.length; k++) { c.fillStyle = cols[k]; c.globalAlpha = .55 * (1 - f / life); var y0 = H - (f / life) * (H + 200) + k * band; c.fillRect(0, y0, W, band); } c.globalAlpha = 1; }
+    ps.forEach(function (p) {
+      if (p.t0 && f < p.t0) return;
+      if (p.g) p.vy += p.g; p.x += p.vx; p.y += p.vy; if (p.r != null) p.r += .05;
+      c.save(); c.translate(p.x, p.y); c.globalAlpha = p.fade ? Math.max(0, 1 - (f - (p.t0 || 0)) / 70) : 1;
+      if (p.txt) { c.rotate(p.r); c.font = p.s + "px sans-serif"; c.fillStyle = p.c; c.fillText(p.txt, 0, 0); }
+      else if (p.star) { c.rotate(p.r); c.fillStyle = p.c; c.beginPath(); for (var j = 0; j < 10; j++) { var rr = j % 2 ? p.s / 2.4 : p.s, aa = j * Math.PI / 5; c.lineTo(Math.cos(aa) * rr, Math.sin(aa) * rr); } c.fill(); }
+      else if (p.coin) { c.scale(Math.abs(Math.cos(p.r += .1)) + .1, 1); c.fillStyle = p.c; c.beginPath(); c.arc(0, 0, p.s, 0, 7); c.fill(); c.strokeStyle = "rgba(0,0,0,.35)"; c.lineWidth = 2; c.stroke(); }
+      else if (p.balloon) { c.fillStyle = p.c; c.beginPath(); c.ellipse(0, 0, p.s * .8, p.s, 0, 0, 7); c.fill(); c.strokeStyle = p.c; c.beginPath(); c.moveTo(0, p.s); c.lineTo(Math.sin(f / 6) * 4, p.s * 2.4); c.stroke(); }
+      else if (p.conf) { c.rotate(p.r); c.fillStyle = p.c; c.fillRect(-p.s / 2, -p.s / 2, p.s, p.s * .6); }
+      else { c.fillStyle = p.c; c.fillRect(-p.s / 2, -p.s / 2, p.s, p.s); }
+      c.restore();
+    });
+    if (f < life) requestAnimationFrame(tick); else c.clearRect(0, 0, W, H);
+  })();
+}
+
 // ---------------- MAP ----------------
 function nextStageGlobal() {
   for (var i = 0; i < SECS.length; i++) { var s = SECS[i]; if (s.group !== "core") continue; for (var j = 0; j < s.stages.length; j++) if (!S.done[s.stages[j].id] && !fastSkip(s.stages[j]) && (isCore(s.stages[j]) || !coreDone(s))) return s.stages[j]; }
@@ -22460,7 +23112,7 @@ function viewMap(V) {
   if (!storageOk) html += '<div class="banner">This browser is blocking saved data, so progress lasts only until you close the tab. Copy your save code from <b>Settings → Save data</b> before leaving.</div>';
   html += '<section class="hello"><div><p class="eyebrow">' + rankOf(lv).toUpperCase() + " · LEVEL " + lv + (streakNow() > 1 ? " · " + streakNow() + "-DAY STREAK" : "") + "</p><h1>" + greet + '</h1><p class="muted nextunl"><button class="linkish" type="button" data-go="me" data-arg="unlocks">' + h(nextUnlockLine(lv, xp)) + "</button></p></div>" +
     '<div class="hacts"><div class="row">' + (cont ? '<button class="btn primary" data-go="stage" data-arg="' + cont.id + '">' + icon("play") + "Continue: " + h(cont.sec.title) + " " + cont.n + "</button>" : "") +
-    (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="review">Review Deck: ' + (rvQs().length + rvStages().length) + " to review</button>" : "") + "</div>" + '<div class="row">' + fastBtnHtml() + foldAllHtml() + "</div></div></section>" + placementHtml() + dailyHtml();
+    (nx && (!cont || nx.id !== cont.id) ? '<button class="btn" data-go="stage" data-arg="' + nx.id + '">Next on path: ' + h(nx.sec.title) + " " + nx.n + "</button>" : "") + (!stagesDone && SEC.hello ? '<button class="btn gold" data-go="section" data-arg="hello">New to coding? Start with Hello, World!</button>' : "") + (S.review.length ? '<button class="btn" data-go="review">Review Deck: ' + (rvQs().length + rvStages().length) + " to review</button>" : "") + rqBtn("btn") + "</div>" + '<div class="row">' + fastBtnHtml() + foldAllHtml() + "</div></div></section>" + placementHtml() + dailyHtml() + (stagesDone ? questsHtml() : "");
   html += '<section class="stats" aria-label="Your stats">' +
     '<div class="stat"><b>' + stagesDone + '</b><span>stages cleared of ' + totalStages + "</span></div>" +
     '<div class="stat"><b>' + puzzles + '</b><span>puzzles solved</span></div>' +
@@ -23160,7 +23812,7 @@ function viewQuizzes(V) {
   var isPassed = function (q) { var r = S.quiz[q.id]; return r && r.best / r.total >= .7; };
   var list = D.quizzes.filter(function (q) { return (quizFilter === "all" || q.topic === quizFilter) && !(quizHide && isPassed(q)); });
   V.innerHTML = '<div class="wrap"><section class="hello"><div><p class="eyebrow">' + D.quizzes.length + " QUIZZES · " + D.quizzes.reduce(function (a, q) { return a + q.qs.length; }, 0) + ' QUESTIONS</p><h1>Quiz Hall</h1><p class="muted" style="margin:6px 0 0;max-width:60ch">Multiple choice, fill in the blank, predict the output, spot the bug, and put-the-lines-in-order puzzles. Score 70% to pass. Each right answer is worth 5 XP the first time.</p></div><div class="stat"><b>' + passed + " / " + D.quizzes.length + '</b><span>passed</span></div></section>' +
-    warmupHtml() + '<div class="filters" role="group" aria-label="Filter by topic"><button class="ghost' + (quizFilter === "all" ? " on" : "") + '" data-qf="all">All</button>' + topics.map(function (t) { return '<button class="ghost' + (quizFilter === t ? " on" : "") + '" data-qf="' + h(t) + '">' + h(t) + "</button>"; }).join("") + '<button class="ghost qhide' + (quizHide ? " on" : "") + '" data-qhide aria-pressed="' + quizHide + '">Hide passed</button></div>' +
+    '<div class="row" style="margin:0 0 14px">' + rqBtn("btn primary", "Random question") + rqBtn("btn", "From anywhere").replace('data-rq=""', 'data-rq="all"') + "</div>" + warmupHtml() + '<div class="filters" role="group" aria-label="Filter by topic"><button class="ghost' + (quizFilter === "all" ? " on" : "") + '" data-qf="all">All</button>' + topics.map(function (t) { return '<button class="ghost' + (quizFilter === t ? " on" : "") + '" data-qf="' + h(t) + '">' + h(t) + "</button>"; }).join("") + '<button class="ghost qhide' + (quizHide ? " on" : "") + '" data-qhide aria-pressed="' + quizHide + '">Hide passed</button></div>' +
     '<section class="qgrid">' + list.map(function (q, i) {
       var r = S.quiz[q.id], ace = r && r.best === r.total;
       return '<button class="qcard' + (ace ? " ace" : "") + '" data-go="quiz" data-arg="' + q.id + '"><span class="qn"><span>QUIZ ' + (D.quizzes.indexOf(q) + 1) + " · " + h(q.level || "") + "</span><b>" + (r ? (ace ? "★ " : "") + r.best + "/" + r.total : q.qs.length + " Q") + "</b></span><h3>" + h(q.title) + '</h3><span class="best">' + h(q.topic) + (r ? " · best " + Math.round(r.best / r.total * 100) + "%" : "") + "</span></button>";
@@ -23384,7 +24036,7 @@ function viewSandbox(V) {
     if (!$("sbOut")) return;
     renderOutput(out, r.logs || [], r.err);
     if (r.err) { var x = explainHtml(r.err, code); res.innerHTML = x.html + lintHtml(code); if (x.line) editor.markErr(x.line); SFX.fail(); }
-    else { res.innerHTML = lintHtml(code); sb.runs = (sb.runs || 0) + 1; save("sandbox", sb); markActive(600); checkMedals(600); }
+    else { res.innerHTML = lintHtml(code); sb.runs = (sb.runs || 0) + 1; save("sandbox", sb); bump("sbx"); markActive(600); checkMedals(600); }
   }
 }
 
@@ -24108,11 +24760,13 @@ function medalList(real) {
   var wkN = S.weekly ? Object.keys(S.weekly.done || {}).length : 0, wkRun = S.weekly ? weeklyRun() : 0;
   cnt("wk1", "Challenger", 1, wkN, "weekly challenges", "s5", "W"); cnt("wk4", "Weekly regular", 4, wkN, "weekly challenges", "s5", "W"); cnt("wk12", "Season champion", 12, wkN, "weekly challenges", "s5", "W");
   cnt("wkrow3", "Three-peat", 3, wkRun, "weeks in a row", "s5", "W");
+  extraMedals(medals, cnt);
   if (!real && devMode()) medals.forEach(function (m) { m.got = true; });
   return medals;
 }
 // toast medals the player hasn't seen yet; quiet just records them (first boot, loaded saves)
 function checkMedals(delay, quiet) {
+  if (!quiet) checkQuests(delay);
   var fresh = medalList(true).filter(function (m) { return m.got && !S.medalsSeen[m.id]; });
   if (fresh.length) {
     fresh.forEach(function (m) { S.medalsSeen[m.id] = Date.now(); }); save("medals", S.medalsSeen);
@@ -24285,7 +24939,7 @@ var ME_TABS = [["card", "Profile"], ["look", "Customize"], ["style", "Themes & s
 function profileBanner(lv, xp) {
   var l = look(), t = tierOf(lv), all = medalList(), pins = l.show.map(function (id) { return all.filter(function (m) { return m.id === id; })[0]; }).filter(Boolean);
   return '<section class="pbanner bn-' + l.banner + '" style="--tc:' + t[2] + '">' + avatarHtml(l, "big") +
-    '<div class="pinfo"><p class="eyebrow">' + h(titleOf(l, lv).toUpperCase()) + '</p><h1>' + h(nameOf()) + '</h1><div class="row ptags">' + lvChip(lv) + '<span class="tiertag">' + t[1].toUpperCase() + " TIER</span><span>" + xp.toLocaleString() + " XP</span>" + (S.streak.best ? "<span>" + streakNow() + "-day streak</span>" : "") + "</div>" +
+    '<div class="pinfo"><p class="eyebrow">' + h(titleOf(l, lv).toUpperCase()) + '</p><h1><span class="nf-' + (l.namefx || "plain") + '">' + h(nameOf()) + "</span>" + (l.emoji ? '<span class="pemoji">' + l.emoji + "</span>" : "") + '</h1><div class="row ptags">' + lvChip(lv) + '<span class="tiertag">' + t[1].toUpperCase() + " TIER</span><span>" + xp.toLocaleString() + " XP</span>" + (S.streak.best ? "<span>" + streakNow() + "-day streak</span>" : "") + "</div>" +
     (l.motto ? '<p class="motto" id="pMotto">“' + h(l.motto) + "”</p>" : '<p class="motto" id="pMotto" hidden></p>') + "</div>" +
     (pins.length ? '<div class="pins" aria-label="Pinned medals">' + pins.map(function (m) { return '<span class="pin" style="--sc:var(--' + m.sc + ')" title="' + h(m.t) + '"><span class="m">' + h(m.m) + "</span><b>" + h(m.t) + "</b></span>"; }).join("") + "</div>" : "") + "</section>";
 }
@@ -24294,7 +24948,7 @@ function lookBtn(kind, key, name, inner, on, cls) {
   return '<button type="button" class="lookbtn ' + (cls || "") + (n ? " locked" : "") + '" data-look="' + kind + '" data-val="' + key + '" data-name="' + h(name) + '" aria-pressed="' + on + '"' + (n ? ' aria-disabled="true" aria-label="' + h(name) + ", locked until " + lockWords(n) + '"' : "") + ">" + inner + "<b>" + h(name) + "</b>" + (n ? lockTag(n) : "") + "</button>";
 }
 function lookTab(lv) {
-  var l = look(), seen = medalList().filter(function (m) { return m.got; }), pre = function (k, v) { var x = Object.assign({}, l); x[k] = v; return x; };
+  var l = look(), seen = medalList().filter(function (m) { return m.got; }), pre = function (k, v) { var x = Object.assign({}, l); x[k] = v; if (k === "avatar") x.avmode = "pixel"; return x; };
   return '<section class="card"><h2 class="sub">AVATAR</h2><div class="lookgrid">' + AVATARS.map(function (a) { return lookBtn("avatar", a[0], a[1], avatarHtml(pre("avatar", a[0]), "mid"), l.avatar === a[0]); }).join("") + "</div></section>" +
     '<section class="card"><h2 class="sub">AVATAR COLOR</h2><div class="lookgrid">' + AV_COLORS.map(function (c) { return lookBtn("color", c[0], c[1], '<span class="chip" style="--av:' + c[2] + '"></span>', l.color === c[0]); }).join("") + "</div></section>" +
     '<section class="card"><h2 class="sub">FRAME</h2><div class="lookgrid">' + FRAMES.map(function (f) { return lookBtn("frame", f[0], f[1], avatarHtml(pre("frame", f[0]), "mid"), l.frame === f[0]); }).join("") + "</div></section>" +
@@ -24329,20 +24983,28 @@ function viewMe(V, tab) {
       '<section class="stats"><div class="stat"><b>' + cleared + '</b><span>stages cleared</span></div><div class="stat"><b>' + Object.keys(S.done).filter(function (k) { return !S.done[k].sol && !S.done[k].skip; }).length + '</b><span>solved without peeking</span></div><div class="stat"><b>' + quizzes + '</b><span>quizzes taken</span></div><div class="stat"><b>' + got + " / " + medals.length + '</b><span>medals</span></div></section>' +
       '<div class="board"><section class="card"><h2 class="sub">SECTIONS</h2><div class="secbars">' + SECS.filter(function (s) { return !hiddenSec(s, lv); }).map(function (s) { var d = secDone(s); return '<div class="secbar" style="--sc:var(--' + s.color + ')"><span>' + h(s.title) + '</span><span class="bar"><i style="width:' + (d / s.stages.length * 100) + '%"></i></span><span>' + d + "/" + s.stages.length + "</span></div>"; }).join("") + "</div></section>" +
       '<section class="card"><h2 class="sub">RANKS</h2><div class="ranks">' + RANKS.map(function (r) { return '<div class="rank' + (lv >= r[0] ? " got" : "") + '"><span class="lvn" style="--tc:' + tierOf(r[0])[2] + '">LV ' + r[0] + "</span><span>" + r[1] + "</span></div>"; }).join("") + "</div></section></div>" +
-      arcadeCard() + medalShelf();
-  } else if (tab === "look") html += lookTab(lv);
-  else if (tab === "style") html += styleTab(st);
-  else if (tab === "medals") html += '<section class="card"><h2 class="sub">MEDALS · ' + got + " / " + medals.length + '</h2><p class="muted" style="margin-top:0">Every medal is worth +' + MEDAL_XP + ' XP, and some unlock a theme, effect or profile item.</p><div class="medals">' + medals.map(medalTile).join("") + "</div></section>" + eggCard();
+      aboutHtml(look()) + calendarHtml() + '<section class="card"><h2 class="sub">SHARE</h2><p class="muted" style="margin-top:0">Save your player card as a picture to show friends or your teacher.</p><button class="btn" type="button" id="dlCard">Download my player card</button></section>' + arcadeCard() + medalShelf();
+  } else if (tab === "look") { var L0 = look(); html += picCard(L0) + pixCard(L0) + lookTab(lv).replace('<section class="card"><h2 class="sub">MOTTO</h2>', nameFxCard(L0) + aboutCard(L0) + '<section class="card"><h2 class="sub">MOTTO</h2>'); }
+  else if (tab === "style") html += styleTab(st) + extraStyleHtml(st);
+  else if (tab === "medals") html += medalsTab() + eggCard();
   else if (tab === "report") html += reportTab();
-  else html += unlockCard(lv, xp);
+  else html += roadHtml(lv, xp) + unlockCard(lv, xp);
   V.innerHTML = html + "</div>";
   if ($("devToasts")) $("devToasts").onclick = devToasts;
   bindReport();
   var redraw = function () { var y = window.scrollY; viewMe(V, tab); highlightAll(V); window.scrollTo(0, y); };
+  wirePic(redraw); wirePix(redraw); wireAbout(redraw);
+  if (tab === "style") wireExtraStyle(V);
+  if ($("dlCard")) $("dlCard").onclick = function () { downloadCard(this); };
+  if ($("roadJump")) $("roadJump").onclick = function () { var el = $("roadHere"); if (el) el.scrollIntoView({ block: "center", behavior: stillMotion() ? "auto" : "smooth" }); };
+  if ($("roadHere")) { var rl = $("roadHere").parentNode; rl.scrollTop = Math.max(0, $("roadHere").offsetTop - rl.offsetTop - 120); }
+  V.querySelectorAll("[data-avmode]").forEach(function (b) { b.onclick = function () { setLook("avmode", b.getAttribute("data-avmode")); SFX.click(); redraw(); }; });
+  V.querySelectorAll("[data-mcat]").forEach(function (b) { b.onclick = function () { medalView.cat = b.getAttribute("data-mcat"); redraw(); }; });
+  V.querySelectorAll("[data-mshow]").forEach(function (b) { b.onclick = function () { medalView.show = b.getAttribute("data-mshow"); redraw(); }; });
   V.querySelectorAll("[data-look]").forEach(function (b) { b.onclick = function () {
     var kind = b.getAttribute("data-look"), key = b.getAttribute("data-val");
     if (b.classList.contains("locked")) return lockedMsg(kind, key, b.getAttribute("data-name"));
-    setLook(kind, key); SFX.click(); checkMedals(300); redraw();
+    setLook(kind, key); if (kind === "avatar") setLook("avmode", "pixel"); SFX.click(); checkMedals(300); redraw();
   }; });
   V.querySelectorAll("[data-pin]").forEach(function (b) { b.onclick = function () {
     var id = b.getAttribute("data-pin"), s = look().show.slice(), i = s.indexOf(id);
@@ -24361,7 +25023,7 @@ function viewMe(V, tab) {
 }
 
 // ---------------- SETTINGS ----------------
-var SKINS = [["auto", "Auto", "Follows your device", ["#E8EBE3", "#2C52C4", "#13161D", "#EFB13A"]], ["cartridge", "Cartridge", "Light grey and cobalt", ["#E8EBE3", "#F8F9F4", "#2C52C4", "#D4900E"]], ["night", "Night Shift", "Dark, easy on the eyes", ["#13161D", "#1B1F28", "#7D9DFF", "#EFB13A"]], ["pocket", "Pocket", "Green handheld screen", ["#C4CFA1", "#D7E0B6", "#2F4A16", "#5B7A1E"]], ["blueprint", "Blueprint", "Navy drafting table", ["#13305E", "#183A70", "#FFD25C", "#9CC3FF"]], ["contrast", "High Contrast", "Maximum readability", ["#000000", "#FFFFFF", "#FFE500", "#5CFF8F"]], ["miami", "Miami Nights", "Neon pink and teal at sunset", ["#1A1033", "#24174A", "#FF4FB4", "#2EE6D6"]], ["eighties", "Neon '80s", "Laser grid and arcade neon", ["#0A0A14", "#13132A", "#00E5FF", "#FFE14D"]], ["retro", "Retro", "Warm '70s cream, orange and brown", ["#F3E6C8", "#FFF6E0", "#B8461B", "#E89A1E"]], ["sixtyfour", "64-Bit", "Charcoal console with primary-color buttons", ["#2B2D31", "#FF4A3D", "#3BA0FF", "#FFC21A"]], ["cube", "Indigo Cube", "Deep indigo with lavender and orange", ["#25204F", "#2F2963", "#B3A6FF", "#FF9F3D"]], ["modern", "Modern", "Clean white, soft shadows, round corners", ["#F4F5F8", "#FFFFFF", "#4F46E5", "#F59E0B"]], ["girlypop", "Girlypop", "Bubblegum pink, glitter and hearts", ["#FFE4F1", "#FFF5FA", "#C21C6E", "#FF8FC4"]], ["candy", "Candy", "Mint, bubblegum and lemon stripes", ["#E9FBF4", "#FFFFFF", "#C8246A", "#FFD23F"]], ["terminal", "Terminal", "Green phosphor on black", ["#050805", "#0A110A", "#7CFF7C", "#C8FF5C"]], ["aero", "Frutiger Aero", "Glossy sky, bubbles and fresh green", ["#CDEBFA", "#F4FBFF", "#0A6FC2", "#5BC236"]], ["toon", "Toon Checker", "Black-and-white checks, loud cartoon colors", ["#000000", "#FFFFFF", "#0057FF", "#FFD400"]], ["mocha", "Mocha", "Cozy coffee-shop browns", ["#241A15", "#2E221C", "#E6A15C", "#F2C46D"]], ["arctic", "Arctic", "Icy blues and crisp white", ["#E3EEF5", "#F8FCFF", "#0B6E99", "#3FB8C9"]], ["forest", "Forest", "Deep pine greens and campfire orange", ["#13201A", "#1A2B22", "#7FD39B", "#F29A4A"]], ["lava", "Lava", "Volcanic black with molten orange", ["#1A0F0C", "#251512", "#FF7A33", "#FFC23D"]], ["matcha", "Matcha", "Soft green tea and warm cream", ["#E6EEDA", "#FAFDF5", "#3F6E1A", "#C9A24A"]], ["desert", "Desert", "Sunbaked sand, clay and turquoise", ["#F1E1C2", "#FFF8EA", "#A8481A", "#2FA3A0"]], ["sakura", "Sakura", "Cherry blossom pink and ink", ["#FBEDF1", "#FFFAFB", "#B02D63", "#F4A9C4"]], ["ocean", "Deep Ocean", "Midnight water and glowing coral", ["#06202C", "#0B2C3B", "#3FD6E6", "#FF9A6B"]], ["royal", "Royal", "Navy velvet trimmed with gold", ["#0E1430", "#151D45", "#F2C94C", "#9DB6FF"]], ["galaxy", "Galaxy", "Deep space with purple nebulas", ["#0A0718", "#140F2C", "#A98BFF", "#FFD36E"]], ["cyber", "Cyberpunk", "Hazard yellow and electric cyan", ["#0C0A10", "#16131D", "#FCEE0A", "#00F0FF"]], ["legend", "Legendary", "Black and gold, for true legends", ["#121008", "#1C180D", "#FFC83D", "#FFE7A0"]], ["sunset", "Sunset", "Purple dusk fading into orange", ["#28142E", "#341C3B", "#FF8A4C", "#FFD166"]], ["diamond", "Diamond", "Icy sparkle with crystal blues", ["#EAF4F8", "#FFFFFF", "#0A6E8E", "#8FDDEB"]], ["scholar", "Scholar", "Old parchment and library ink", ["#EDE3CC", "#FBF5E6", "#7A2A2A", "#C49A3E"]], ["hologram", "Hologram", "Shimmering see-through sci-fi glass", ["#0C1220", "#131B2E", "#7DF9FF", "#FF9DF5"]], ["cabinet", "Arcade Cabinet", "Black cabinet, red and blue buttons", ["#0A0A0E", "#15151C", "#FF5252", "#3DA5FF"]]];
+var SKINS = [["auto", "Auto", "Follows your device", ["#E8EBE3", "#2C52C4", "#13161D", "#EFB13A"]], ["cartridge", "Cartridge", "Light grey and cobalt", ["#E8EBE3", "#F8F9F4", "#2C52C4", "#D4900E"]], ["night", "Night Shift", "Dark, easy on the eyes", ["#13161D", "#1B1F28", "#7D9DFF", "#EFB13A"]], ["pocket", "Pocket", "Green handheld screen", ["#C4CFA1", "#D7E0B6", "#2F4A16", "#5B7A1E"]], ["blueprint", "Blueprint", "Navy drafting table", ["#13305E", "#183A70", "#FFD25C", "#9CC3FF"]], ["contrast", "High Contrast", "Maximum readability", ["#000000", "#FFFFFF", "#FFE500", "#5CFF8F"]], ["miami", "Miami Nights", "Neon pink and teal at sunset", ["#1A1033", "#24174A", "#FF4FB4", "#2EE6D6"]], ["eighties", "Neon '80s", "Laser grid and arcade neon", ["#0A0A14", "#13132A", "#00E5FF", "#FFE14D"]], ["retro", "Retro", "Warm '70s cream, orange and brown", ["#F3E6C8", "#FFF6E0", "#B8461B", "#E89A1E"]], ["sixtyfour", "64-Bit", "Charcoal console with primary-color buttons", ["#2B2D31", "#FF4A3D", "#3BA0FF", "#FFC21A"]], ["cube", "Indigo Cube", "Deep indigo with lavender and orange", ["#25204F", "#2F2963", "#B3A6FF", "#FF9F3D"]], ["modern", "Modern", "Clean white, soft shadows, round corners", ["#F4F5F8", "#FFFFFF", "#4F46E5", "#F59E0B"]], ["girlypop", "Girlypop", "Bubblegum pink, glitter and hearts", ["#FFE4F1", "#FFF5FA", "#C21C6E", "#FF8FC4"]], ["candy", "Candy", "Mint, bubblegum and lemon stripes", ["#E9FBF4", "#FFFFFF", "#C8246A", "#FFD23F"]], ["terminal", "Terminal", "Green phosphor on black", ["#050805", "#0A110A", "#7CFF7C", "#C8FF5C"]], ["aero", "Frutiger Aero", "Glossy sky, bubbles and fresh green", ["#CDEBFA", "#F4FBFF", "#0A6FC2", "#5BC236"]], ["toon", "Toon Checker", "Black-and-white checks, loud cartoon colors", ["#000000", "#FFFFFF", "#0057FF", "#FFD400"]], ["mocha", "Mocha", "Cozy coffee-shop browns", ["#241A15", "#2E221C", "#E6A15C", "#F2C46D"]], ["arctic", "Arctic", "Icy blues and crisp white", ["#E3EEF5", "#F8FCFF", "#0B6E99", "#3FB8C9"]], ["forest", "Forest", "Deep pine greens and campfire orange", ["#13201A", "#1A2B22", "#7FD39B", "#F29A4A"]], ["lava", "Lava", "Volcanic black with molten orange", ["#1A0F0C", "#251512", "#FF7A33", "#FFC23D"]], ["matcha", "Matcha", "Soft green tea and warm cream", ["#E6EEDA", "#FAFDF5", "#3F6E1A", "#C9A24A"]], ["desert", "Desert", "Sunbaked sand, clay and turquoise", ["#F1E1C2", "#FFF8EA", "#A8481A", "#2FA3A0"]], ["sakura", "Sakura", "Cherry blossom pink and ink", ["#FBEDF1", "#FFFAFB", "#B02D63", "#F4A9C4"]], ["ocean", "Deep Ocean", "Midnight water and glowing coral", ["#06202C", "#0B2C3B", "#3FD6E6", "#FF9A6B"]], ["royal", "Royal", "Navy velvet trimmed with gold", ["#0E1430", "#151D45", "#F2C94C", "#9DB6FF"]], ["galaxy", "Galaxy", "Deep space with purple nebulas", ["#0A0718", "#140F2C", "#A98BFF", "#FFD36E"]], ["cyber", "Cyberpunk", "Hazard yellow and electric cyan", ["#0C0A10", "#16131D", "#FCEE0A", "#00F0FF"]], ["legend", "Legendary", "Black and gold, for true legends", ["#121008", "#1C180D", "#FFC83D", "#FFE7A0"]], ["sunset", "Sunset", "Purple dusk fading into orange", ["#28142E", "#341C3B", "#FF8A4C", "#FFD166"]], ["diamond", "Diamond", "Icy sparkle with crystal blues", ["#EAF4F8", "#FFFFFF", "#0A6E8E", "#8FDDEB"]], ["scholar", "Scholar", "Old parchment and library ink", ["#EDE3CC", "#FBF5E6", "#7A2A2A", "#C49A3E"]], ["hologram", "Hologram", "Shimmering see-through sci-fi glass", ["#0C1220", "#131B2E", "#7DF9FF", "#FF9DF5"]], ["cabinet", "Arcade Cabinet", "Black cabinet, red and blue buttons", ["#0A0A0E", "#15151C", "#FF5252", "#3DA5FF"]], ["notebook", "Notebook", "Lined paper and blue ink", ["#F4F1E6", "#FFFDF5", "#2B4FA8", "#E8B23A"]], ["bubblegum", "Bubblegum", "Pink and sky blue", ["#FFE8F3", "#FFFFFF", "#D6338A", "#58B8F0"]], ["mint", "Mint Chip", "Cool mint with chocolate bits", ["#E3F5EC", "#F8FFFB", "#1F8A5E", "#6B4228"]], ["vampire", "Vampire", "Deep purple and blood red", ["#17121E", "#211A2B", "#E0457B", "#BD93F9"]], ["solar", "Solar Flare", "Burning orange on charcoal", ["#1A1410", "#251C15", "#FF7A1A", "#FFD23F"]], ["fjord", "Fjord", "Cold blue-grey and frost", ["#1E2430", "#272F3D", "#88C0D0", "#EBCB8B"]], ["vapor", "Vaporwave", "Pink and cyan, very aesthetic", ["#1B1033", "#261645", "#FF6AD5", "#26F0F1"]], ["jungle", "Jungle", "Leafy greens and parrot colors", ["#0F1E14", "#16291C", "#5BD16A", "#FFC43D"]], ["comic", "Comic Book", "Halftone dots and bold ink", ["#FFF4C2", "#FFFFFF", "#E0262B", "#1E5FD8"]], ["abyss", "Abyss", "Deep sea teal and glowing fish", ["#061A1F", "#0B252C", "#2FE0C8", "#F7D154"]], ["lemonade", "Lemonade", "Sunny yellow and pink", ["#FFF8D6", "#FFFEF5", "#C2410C", "#F0B800"]], ["dragonfire", "Dragonfire", "Scales, embers and gold", ["#1C0B0B", "#2A1210", "#FF4D2E", "#FFB13B"]], ["aurora", "Northern Lights", "Green and violet sky ribbons", ["#071420", "#0E1E2E", "#5CF2A8", "#C59BFF"]], ["mythic", "Mythic", "The tier-50 colors of legend", ["#160A1E", "#22102E", "#F08CFF", "#FFE07A"]], ["chalk", "Chalkboard", "Green board and chalk", ["#1F3A2E", "#264536", "#FFF59D", "#FFB3C7"]], ["pond", "Duck Pond", "Calm water and a yellow duck", ["#E2F3F8", "#FAFEFF", "#1A7FA0", "#FFC928"]], ["index", "Index Card", "Flashcard red line on white", ["#ECEFF3", "#FFFFFF", "#C8323C", "#3B6FD8"]], ["typist", "Typewriter", "Cream paper and ribbon ink", ["#EFE6D2", "#FBF6EA", "#8A2B1F", "#3A3A3A"]], ["custom", "My theme", "Made in the theme maker", ["#1B1F2A", "#252B3A", "#6C9BFF", "#FFC857"]]];
 function viewSettings(V) {
   var st = S.set;
   var sel = function (id, opts, val) { return '<select class="sel" id="' + id + '">' + opts.map(function (o) { var v = Array.isArray(o) ? o[0] : o, l = Array.isArray(o) ? o[1] : o; return '<option value="' + h(v) + '"' + (String(v) === String(val) ? " selected" : "") + ">" + h(l) + "</option>"; }).join("") + "</select>"; };
@@ -24397,9 +25059,9 @@ function viewSettings(V) {
     tog("setNavLabels", "Words on menu buttons", st.navLabels) + tog("setNavIcons", "Icons on menu buttons", st.navIcons) + tog("setShowCont", "Continue button", st.showCont) + tog("setShowMe", "Player card (level and XP)", st.showMe) + tog("setShowStreak", "Daily streak counter", st.showStreak) + "</section>" +
     '<section class="card" id="setText"><h2 class="sub">TEXT & READING</h2>' +
     '<div class="field"><label for="setScale">Text size</label>' + sel("setScale", [[0.9, "Small"], [1, "Medium"], [1.12, "Large"], [1.25, "Extra large"]], st.scale) + "</div>" +
-    '<div class="field"><label for="setBody">Reading font</label>' + sel("setBody", [["Atkinson Hyperlegible", "Atkinson Hyperlegible (made for readability)"], ["Lexend", "Lexend (wide letters)"], ["Nunito", "Nunito (rounded)"], ["System", "My device's font"]], st.body) + "</div>" +
-    '<div class="field"><label for="setCode">Code font</label>' + sel("setCode", ["JetBrains Mono", "Fira Code", "IBM Plex Mono"], st.code) + "</div>" +
-    '<div class="field"><label for="setDisplay">Title font</label>' + sel("setDisplay", [["Silkscreen", "Silkscreen (pixel)"], ["Pixelify Sans", "Pixelify Sans (soft pixel)"], ["Press Start 2P", "Press Start 2P (arcade)"], ["Plain", "Plain (same as reading font)"]], st.display) + "</div>" +
+    '<div class="field"><label for="setBody">Reading font</label>' + sel("setBody", FONT_BODY.filter(function (f) { return !isLocked("font", f[0]) || st.body === f[0]; }).map(function (f) { return [f[0], f[1] + " (" + f[2] + ")"]; }), st.body) + "</div>" +
+    '<div class="field"><label for="setCode">Code font</label>' + sel("setCode", FONT_CODE.filter(function (f) { return !isLocked("font", f[0]) || st.code === f[0]; }).map(function (f) { return [f[0], f[1] + " (" + f[2] + ")"]; }), st.code) + "</div>" +
+    '<div class="field"><label for="setDisplay">Title font</label>' + sel("setDisplay", FONT_DISPLAY.filter(function (f) { return !isLocked("font", f[0]) || st.display === f[0]; }).map(function (f) { return [f[0], f[1] + " (" + f[2] + ")"]; }), st.display) + "</div>" +
     '<div class="field"><label for="setCodeSize">Code size: <span id="csv">' + st.codeSize + 'px</span></label><input type="range" id="setCodeSize" min="12" max="22" step="1" value="' + st.codeSize + '"></div>' +
     '<div class="field"><label for="setLH">Line spacing</label>' + sel("setLH", [["normal", "Normal"], ["relaxed", "Relaxed"], ["loose", "Extra relaxed"]], st.lineHeight) + "</div>" +
     '<div class="field"><label for="setLS">Letter spacing</label>' + sel("setLS", [["normal", "Normal"], ["wide", "Wide"], ["wider", "Extra wide"]], st.letterSpacing) + '<span class="hint2">Extra space between letters can make reading easier, especially with dyslexia.</span></div>' +
@@ -24415,7 +25077,7 @@ function viewSettings(V) {
     '<div class="field"><label for="setEdH">Editor height</label>' + sel("setEdH", [["short", "Short"], ["medium", "Medium"], ["tall", "Tall"]], st.edHeight) + "</div>" +  tog("setGuides", "Indent guide lines", st.guides) +
     '<div class="field" style="margin-top:12px"><label for="setKeySize">Symbol key size</label>' + sel("setKeySize", [["small", "Small"], ["normal", "Normal"], ["large", "Large"]], st.keySize) + "</div>" + "</section>" +
     '<section class="card" id="setLearn"><h2 class="sub">LEARNING</h2><div class="field"><label for="setHints">Hints</label>' + sel("setHints", [["button", "Show a hint button"], ["auto", "Show hints automatically after 2 misses"], ["off", "No hints (hard mode)"]], st.hints) + "</div>" +
-    tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + tog("setFast", "Fast track: core stages only", st.fastTrack) + tog("setGloss", "Word pop-ups: tap a word in a lesson to see what it means", st.gloss) + tog("setReflect", "After a lesson, ask me to sum it up in my own words", st.reflect) + '<span class="hint2">Hides the extra-practice stages in every module (about 4 in 10 stages), so you get through the essentials faster. Lessons, the learning loop and boss stages stay.</span>' + '<div class="row" style="margin-top:10px"><button class="btn" type="button" data-go="quiz" data-arg="' + placementQuiz() + '">' + (placement() && !placement().skipped ? "Retake" : "Take") + " the placement test</button></div>" + "</section>" +
+    tog("setSol", "Allow \"Show solution\" (half XP)", st.solutions) + tog("setDetails", "Show the check table after each run", st.details) + tog("setLint", "Warn about likely mistakes", st.lint) + tog("setFast", "Fast track: core stages only", st.fastTrack) + tog("setGloss", "Word pop-ups: tap a word in a lesson to see what it means", st.gloss) + tog("setLvPop", "Show a pop-up with my new unlocks when I level up", st.lvPopup) + tog("setRandom", "Random question button in the top bar", st.showRandom) + tog("setReflect", "After a lesson, ask me to sum it up in my own words", st.reflect) + '<span class="hint2">Hides the extra-practice stages in every module (about 4 in 10 stages), so you get through the essentials faster. Lessons, the learning loop and boss stages stay.</span>' + '<div class="row" style="margin-top:10px"><button class="btn" type="button" data-go="quiz" data-arg="' + placementQuiz() + '">' + (placement() && !placement().skipped ? "Retake" : "Take") + " the placement test</button></div>" + "</section>" +
     '<section class="card" id="setQuiz"><h2 class="sub">QUIZZES</h2>' + tog("setShuffle", "Shuffle answer choices", st.quizShuffle) + tog("setQAuto", "Go to the next question after a right answer", st.quizAuto) + "</section>" +
     '<section class="card" id="setFeel"><h2 class="sub">SOUND & FEEL</h2>' + tog("setSound", "Sound effects", st.sound) + tog("setClick", "Click sounds on buttons", st.clickSound) + tog("setTypeSnd", "Typing sounds in code and answer boxes", st.typeSound) +
     '<p class="hint2" style="margin-top:10px">Sound themes are on your <button class="linkish" type="button" data-go="me" data-arg="style">player card</button>.</p>' + '<div class="field" style="margin-top:10px"><label for="setVol">Volume</label><input type="range" id="setVol" min="0" max="1" step="0.1" value="' + st.volume + '"></div>' + tog("setCele", "Confetti when you clear a stage", st.celebrate) + tog("setMotion", "Animations", st.motion === "on") + "</section>" +
@@ -24433,7 +25095,7 @@ function viewSettings(V) {
   bind("setCodeSize", "codeSize", function (e) { $("csv").textContent = e.value + "px"; return Number(e.value); });
   bind("setLines", "lineNumbers", function (e) { return e.checked; }); bind("setClose", "autoClose", function (e) { return e.checked; }); bind("setKeys", "keys", function (e) { return e.checked; });
   bind("setActive", "activeLine", function (e) { return e.checked; }); bind("setRunKey", "runKey", function (e) { return e.checked; });
-  bind("setHints", "hints"); bind("setSol", "solutions", function (e) { return e.checked; }); bind("setDetails", "details", function (e) { return e.checked; }); bind("setLint", "lint", function (e) { return e.checked; }); bind("setFast", "fastTrack", function (e) { return e.checked; }); bind("setGloss", "gloss", function (e) { return e.checked; }); bind("setReflect", "reflect", function (e) { return e.checked; });
+  bind("setHints", "hints"); bind("setSol", "solutions", function (e) { return e.checked; }); bind("setDetails", "details", function (e) { return e.checked; }); bind("setLint", "lint", function (e) { return e.checked; }); bind("setFast", "fastTrack", function (e) { return e.checked; }); bind("setGloss", "gloss", function (e) { return e.checked; }); bind("setLvPop", "lvPopup", function (e) { return e.checked; }); bind("setRandom", "showRandom", function (e) { return e.checked; }); $("setRandom").addEventListener("change", renderTop); bind("setReflect", "reflect", function (e) { return e.checked; });
   bind("setSound", "sound", function (e) { return e.checked; }); bind("setVol", "volume", function (e) { return Number(e.value); }); bind("setCele", "celebrate", function (e) { return e.checked; });
   bind("setMotion", "motion", function (e) { return e.checked ? "on" : "off"; });
   bind("setBarPos", "barPos"); bind("setBarHide", "barHidden", function (e) { return e.checked; });
@@ -24494,7 +25156,7 @@ function viewSettings(V) {
     if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to erase everything"; return; }
     var keepName = nameOf(), keepSet = S.set;
     allKeys().forEach(del);
-    S.done = {}; S.quiz = {}; S.review = []; S.notes = null; S.cards = null; S.drills = null; S.rw = null; S.sbx = null; S.web = null; S.gs = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.weekly = null; S.medalsSeen = {}; save("medals", {}); S.bonus = { xp: 0, days: 0 }; save("bonus", S.bonus); seedUnlocks(); seedLevel();
+    S.done = {}; S.quiz = {}; S.review = []; S.notes = null; S.cards = null; S.drills = null; S.rw = null; S.xpx = null; S.tried = null; S.sbx = null; S.web = null; S.gs = null; S.last = null; S.lastStage = null; S.profile = { name: keepName, created: Date.now() }; S.set = keepSet; persist(); S.streak = { last: "", cur: 0, best: 0 }; S.arc = {}; S.weekly = null; S.medalsSeen = {}; save("medals", {}); S.bonus = { xp: 0, days: 0 }; save("bonus", S.bonus); seedUnlocks(); seedLevel();
     toast("Progress erased."); go("map");
   };
 }
@@ -24556,7 +25218,7 @@ if (!S.profile) onboard();
 splashScreen();
 // ---------------- keyboard shortcuts ----------------
 var SHORTCUTS = [
-  ["Getting around", [["M", "Map"], ["Q", "Quizzes"], ["S", "Sandbox"], ["R", "Reference"], ["O", "Settings"], ["P", "Your player card"], ["C", "Continue where you left off"]]],
+  ["Getting around", [["M", "Map"], ["Q", "Quizzes"], ["S", "Sandbox"], ["R", "Reference"], ["O", "Settings"], ["P", "Your player card"], ["C", "Continue where you left off"], ["D", "Random question"]]],
   ["Anywhere", [["V", "Sound on or off"], ["B", "Hide or show the menu bar"], ["T", "Next theme"], ["X", "Next background effect"], ["Alt+←", "Back to the last page"], ["?", "This list"], ["Esc", "Close a pop-up"]]],
   ["In a lesson", [["[", "Previous stage"], ["]", "Next stage"], ["H", "Show a hint"], ["E", "Jump into the code editor"], ["Ctrl+Enter", "Run your code (while typing)"]]],
   ["In Reference", [["/", "Search"]]]
@@ -24576,6 +25238,7 @@ document.addEventListener("keydown", function (e) {
   var nav = { m: "map", q: "quizzes", s: "sandbox", r: "ref", o: "settings", p: "me" }, done = true;
   if (nav[low] && !e.shiftKey) { SFX.click(); go(nav[low]); }
   else if (low === "c") done = click(".dk.cont") || click('.hello [data-go="stage"]');
+  else if (low === "d") randomQuestion();
   else if (low === "v") toggleMute();
   else if (low === "b") setBarHidden(!S.set.barHidden);
   else if (low === "t") cycleSetting("skin", SKINS.filter(function (x) { return !isLocked("skin", x[0]); }), "Theme");
