@@ -27,6 +27,10 @@
  ],
  "stages": [
   {
+   "alts": [
+    "const six = '110';\nconst nine = '1001';\nconst fifteen = '1111';"
+   ],
+   "altNote": "Single quotes or <code>const</code> work just as well. Only the text matters.",
    "t": "Counting in binary",
    "k": "vars",
    "v": {
@@ -41,6 +45,10 @@
    "st": "let six = \"\";\nlet nine = \"\";\nlet fifteen = \"\";\n"
   },
   {
+   "alts": [
+    "const toBinary = n => Number(n).toString(2);"
+   ],
+   "altNote": "An arrow function or <code>Number(n).toString(2)</code> works too.",
    "t": "Number to binary",
    "k": "fn",
    "fn": "toBinary",
@@ -86,6 +94,10 @@
    "st": "function toBinary(n) {\n  // your code here\n}\n\nconsole.log(toBinary(5)); // should be \"101\"\n"
   },
   {
+   "alts": [
+    "const fromBinary = bits => parseInt(bits, 2);"
+   ],
+   "altNote": "An arrow function with <code>parseInt(bits, 2)</code> works too. <code>Number(\"0b\" + bits)</code> also reads binary, but this stage asks for parseInt.",
    "t": "Binary to number",
    "k": "fn",
    "fn": "fromBinary",
@@ -131,6 +143,11 @@
    "st": "function fromBinary(bits) {\n  // your code here\n}\n\nconsole.log(fromBinary(\"101\")); // should be 5\n"
   },
   {
+   "alts": [
+    "function hexByte(n) {\n  const h = n.toString(16);\n  return h.length < 2 ? \"0\" + h : h;\n}",
+    "function hexByte(n) {\n  return (\"0\" + n.toString(16)).slice(-2);\n}"
+   ],
+   "altNote": "You can add the leading zero yourself, or slice the last two characters off a padded string.",
    "t": "Hexadecimal",
    "k": "fn",
    "fn": "hexByte",
@@ -174,6 +191,11 @@
    "st": "function hexByte(n) {\n  // your code here\n}\n\nconsole.log(hexByte(255)); // should be \"ff\"\n"
   },
   {
+   "alts": [
+    "function hexToRgb(hex) {\n  const n = parseInt(hex.slice(1), 16);\n  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];\n}",
+    "function hexToRgb(hex) {\n  return hex.slice(1).match(/../g).map(pair => parseInt(pair, 16));\n}"
+   ],
+   "altNote": "You can turn the whole colour into one number and then shift the parts out, or use a regex to split it into pairs.",
    "t": "Hex colours",
    "k": "fn",
    "fn": "hexToRgb",
@@ -227,6 +249,11 @@
    "st": "function hexToRgb(hex) {\n  // your code here\n}\n\nconsole.log(hexToRgb(\"#ff8800\")); // should be [255, 136, 0]\n"
   },
   {
+   "alts": [
+    "function isOdd(n) {\n  return (n & 1) !== 0;\n}",
+    "const isOdd = n => Boolean(n & 1);"
+   ],
+   "altNote": "<code>n &amp; 1</code> is 1 for odd numbers, so <code>!== 0</code> or <code>Boolean()</code> works too.",
    "t": "AND",
    "k": "fn",
    "fn": "isOdd",
@@ -272,11 +299,15 @@
    "st": "function isOdd(n) {\n  // your code here\n}\n\nconsole.log(isOdd(3)); // should be true\n"
   },
   {
+   "alts": [
+    "function mix(a, b) {\n  const either = a | b;\n  const different = a ^ b;\n  return [either, different];\n}"
+   ],
+   "altNote": "Storing each result first works too.",
    "t": "OR and XOR",
    "k": "fn",
    "fn": "mix",
    "a": "a, b",
-   "req": "\\|.*\\^|\\^.*\\|",
+   "req": "\\|[\\s\\S]*\\^|\\^[\\s\\S]*\\|",
    "reqMsg": "Use both | and ^.",
    "c": [
     [
@@ -327,6 +358,10 @@
    "st": "function mix(a, b) {\n  // your code here\n}\n\nconsole.log(mix(12, 10)); // should be [14, 6]\n"
   },
   {
+   "alts": [
+    "function invert8(n) {\n  return (~n) & 0xff;\n}"
+   ],
+   "altNote": "XOR with 255 also flips all 8 bits. <code>255 - n</code> gives the same answer, but this stage practises <code>~</code>.",
    "t": "NOT",
    "k": "fn",
    "fn": "invert8",
@@ -372,6 +407,11 @@
    "st": "function invert8(n) {\n  // your code here\n}\n\nconsole.log(invert8(0)); // should be 255\n"
   },
   {
+   "alts": [
+    "function nibbles(n) {\n  return [n >>> 4, n & 0x0f];\n}",
+    "function nibbles(n) {\n  const high = (n >> 4) & 15;\n  const low = n & 15;\n  return [high, low];\n}"
+   ],
+   "altNote": "<code>&gt;&gt;&gt;</code> (unsigned shift) works too, and <code>0x0f</code> is the hex way to write 15.",
    "t": "Shifting bits",
    "k": "fn",
    "fn": "nibbles",
@@ -432,6 +472,11 @@
    "st": "function nibbles(n) {\n  // your code here\n}\n\nconsole.log(nibbles(171)); // should be [10, 11]\n"
   },
   {
+   "alts": [
+    "function hasBit(flags, n) {\n  return ((flags >> n) & 1) === 1;\n}",
+    "const hasBit = (flags, n) => Boolean(flags & (1 << n));"
+   ],
+   "altNote": "You can shift <code>flags</code> right instead and check the lowest bit.",
    "t": "Check a bit",
    "k": "fn",
    "fn": "hasBit",
@@ -480,6 +525,10 @@
    "st": "function hasBit(flags, n) {\n  // your code here\n}\n\nconsole.log(hasBit(5, 0)); // should be true\n"
   },
   {
+   "alts": [
+    "function setBit(flags, n) {\n  return flags | (2 ** n);\n}"
+   ],
+   "altNote": "<code>2 ** n</code> is the same number as <code>1 &lt;&lt; n</code> for small n.",
    "t": "Set a bit",
    "k": "fn",
    "fn": "setBit",
@@ -528,6 +577,10 @@
    "st": "function setBit(flags, n) {\n  // your code here\n}\n\nconsole.log(setBit(0, 0)); // should be 1\n"
   },
   {
+   "alts": [
+    "function clearBit(flags, n) {\n  const mask = ~(1 << n);\n  return flags & mask;\n}"
+   ],
+   "altNote": "A mask built ahead of time reads clearly too.",
    "t": "Clear a bit",
    "k": "fn",
    "fn": "clearBit",
@@ -576,6 +629,10 @@
    "st": "function clearBit(flags, n) {\n  // your code here\n}\n\nconsole.log(clearBit(7, 1)); // should be 5\n"
   },
   {
+   "alts": [
+    "const toggleBit = (flags, n) => flags ^ (1 << n);"
+   ],
+   "altNote": "An arrow function works too.",
    "t": "Toggle a bit",
    "k": "fn",
    "fn": "toggleBit",
@@ -624,6 +681,10 @@
    "st": "function toggleBit(flags, n) {\n  // your code here\n}\n\nconsole.log(toggleBit(0, 0)); // should be 1\n"
   },
   {
+   "alts": [
+    "const POISON = 1, BURN = 2, FREEZE = 4, STUN = 8;\nfunction describe(status) {\n  const effects = [[\"POISON\", POISON], [\"BURN\", BURN], [\"FREEZE\", FREEZE], [\"STUN\", STUN]];\n  return effects.filter(([, bit]) => status & bit).map(([name]) => name);\n}"
+   ],
+   "altNote": "A list of names and values with <code>filter</code> scales better when there are more effects.",
    "t": "Status effect flags",
    "k": "fn",
    "fn": "describe",
@@ -680,6 +741,11 @@
    "st": "const POISON = 1, BURN = 2, FREEZE = 4, STUN = 8;\nfunction describe(status) {\n  // your code here\n}\n\nconsole.log(describe(6)); // should be [\"BURN\", \"FREEZE\"]\n"
   },
   {
+   "alts": [
+    "function countBits(n) {\n  return n.toString(2).split(\"\").filter(b => b === \"1\").length;\n}",
+    "function countBits(n) {\n  let count = 0;\n  while (n) {\n    n &= n - 1;\n    count++;\n  }\n  return count;\n}"
+   ],
+   "altNote": "The binary string can do the counting, or you can clear the lowest bit each time with <code>n &amp; (n - 1)</code>.",
    "t": "Count the bits",
    "k": "fn",
    "fn": "countBits",
@@ -723,6 +789,10 @@
    "st": "function countBits(n) {\n  // your code here\n}\n\nconsole.log(countBits(0)); // should be 0\n"
   },
   {
+   "alts": [
+    "function isPowerOfTwo(n) {\n  if (n <= 0) return false;\n  return !(n & (n - 1));\n}"
+   ],
+   "altNote": "Writing the bit trick as <code>!(n &amp; (n - 1))</code> works too.",
    "t": "Power of two",
    "k": "fn",
    "fn": "isPowerOfTwo",
@@ -780,6 +850,10 @@
    "st": "function isPowerOfTwo(n) {\n  // your code here\n}\n\nconsole.log(isPowerOfTwo(1)); // should be true\n"
   },
   {
+   "alts": [
+    "function packRgb(r, g, b) {\n  return (r << 16) + (g << 8) + b;\n}"
+   ],
+   "altNote": "<code>+</code> works as well as <code>|</code> here, because the three parts never share bits.",
    "t": "Pack a colour",
    "k": "fn",
    "fn": "packRgb",
@@ -835,6 +909,10 @@
    "st": "function packRgb(r, g, b) {\n  // your code here\n}\n\nconsole.log(packRgb(255, 0, 0)); // should be 16711680\n"
   },
   {
+   "alts": [
+    "function unpackRgb(color) {\n  const r = (color >>> 16) & 0xff;\n  const g = (color >>> 8) & 0xff;\n  const b = color & 0xff;\n  return [r, g, b];\n}"
+   ],
+   "altNote": "<code>0xff</code> is the hex way to write 255, and <code>&gt;&gt;&gt;</code> works for the shifts.",
    "t": "Unpack a colour",
    "k": "fn",
    "fn": "unpackRgb",
@@ -898,6 +976,10 @@
    "st": "function unpackRgb(color) {\n  // your code here\n}\n\nconsole.log(unpackRgb(16711680)); // should be [255, 0, 0]\n"
   },
   {
+   "alts": [
+    "function autotile(grid, x, y) {\n  const dirs = [[0, -1, 1], [1, 0, 2], [0, 1, 4], [-1, 0, 8]];\n  let mask = 0;\n  for (const [dx, dy, bit] of dirs) {\n    if (grid[y + dy]?.[x + dx] === \"#\") mask += bit;\n  }\n  return mask;\n}"
+   ],
+   "altNote": "A list of directions with their bit values makes the four checks one loop.",
    "t": "Autotiling",
    "k": "fn",
    "fn": "autotile",
@@ -981,6 +1063,10 @@
    "st": "function autotile(grid, x, y) {\n  // your code here\n}\n\nconsole.log(autotile([\"#.#\", \"###\", \".#.\"], 1, 1)); // should be 14\n"
   },
   {
+   "alts": [
+    "const POISON = 1, BURN = 2, FREEZE = 4, STUN = 8;\nconst BIT = { POISON, BURN, FREEZE, STUN };\nfunction takeTurn(status, events) {\n  for (const ev of events) {\n    const [action, name] = ev.split(\" \");\n    switch (action) {\n      case \"add\": status = status | BIT[name]; break;\n      case \"remove\": status = status & ~BIT[name]; break;\n      case \"toggle\": status = status ^ BIT[name]; break;\n      case \"cure\": status = 0; break;\n    }\n  }\n  const damage = (status & POISON ? 2 : 0) + (status & BURN ? 3 : 0);\n  const canAct = !(status & FREEZE) && !(status & STUN);\n  return { status, damage, canAct };\n}"
+   ],
+   "altNote": "A <code>switch</code> works as well as an <code>if</code> chain for the actions.",
    "t": "Capstone: status effects",
    "k": "fn",
    "fn": "takeTurn",

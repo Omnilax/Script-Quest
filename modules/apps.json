@@ -229,6 +229,11 @@
   },
   {
    "uid": "a9",
+   "alts": [
+    "function countLeft(tasks) {\n  let left = 0;\n  for (const t of tasks) if (!t.done) left++;\n  return left;\n}",
+    "const countLeft = tasks => tasks.reduce((n, t) => n + (t.done ? 0 : 1), 0);"
+   ],
+   "altNote": "A loop that counts, or <code>reduce</code>, gives the same number.",
    "t": "A list of records",
    "k": "fn",
    "fn": "countLeft",
@@ -302,6 +307,10 @@
   },
   {
    "uid": "a10",
+   "alts": [
+    "function addTask(tasks, text, id) {\n  text = text.trim();\n  if (!text) return tasks;\n  tasks.push({ id, text, done: false });\n  return tasks;\n}"
+   ],
+   "altNote": "Shorthand <code>{ id, text, done: false }</code> works once the trimmed text is in a variable named <code>text</code>.",
    "t": "Create: add a record",
    "k": "fn",
    "fn": "addTask",
@@ -383,6 +392,10 @@
   },
   {
    "uid": "a11",
+   "alts": [
+    "function toggle(tasks, id) {\n  for (const t of tasks) {\n    if (t.id === id) t.done = !t.done;\n  }\n  return tasks;\n}"
+   ],
+   "altNote": "A loop that checks every task works as well as <code>find</code>.",
    "t": "Update: tick a task off",
    "k": "fn",
    "fn": "toggle",
@@ -536,6 +549,10 @@
   },
   {
    "uid": "a13",
+   "alts": [
+    "function removeTask(tasks, id) {\n  const kept = [];\n  for (const t of tasks) if (t.id !== id) kept.push(t);\n  return kept;\n}"
+   ],
+   "altNote": "A loop that copies every other task into a new array works too.",
    "t": "Delete: remove by id",
    "k": "fn",
    "fn": "removeTask",
@@ -663,6 +680,10 @@
   },
   {
    "uid": "a14",
+   "alts": [
+    "function search(people, query) {\n  const q = query.trim().toUpperCase();\n  return people.filter(p => p.name.toUpperCase().indexOf(q) !== -1);\n}"
+   ],
+   "altNote": "<code>indexOf(q) !== -1</code> works as well as <code>includes</code>, and you could make both sides uppercase instead.",
    "t": "Search box logic",
    "k": "fn",
    "fn": "search",
@@ -870,6 +891,10 @@
   },
   {
    "uid": "a15",
+   "alts": [
+    "function sortBy(rows, key, dir) {\n  const sorted = [...rows].sort((a, b) =>\n    typeof a[key] === \"number\" ? a[key] - b[key] : String(a[key]).localeCompare(String(b[key]))\n  );\n  return dir === \"desc\" ? sorted.reverse() : sorted;\n}"
+   ],
+   "altNote": "For numbers, subtracting gives the order. For text, <code>localeCompare</code> does. Sorting ascending and then reversing works too.",
    "t": "Sort by a column",
    "k": "fn",
    "fn": "sortBy",
@@ -1020,6 +1045,10 @@
   },
   {
    "uid": "a16",
+   "alts": [
+    "function total(items) {\n  let sum = 0;\n  for (const it of items) sum += it.amount;\n  return Number(sum.toFixed(2));\n}"
+   ],
+   "altNote": "A <code>for...of</code> loop adds up the same total. <code>Number(sum.toFixed(2))</code> also rounds to cents.",
    "t": "Totals with reduce",
    "k": "fn",
    "fn": "total",
@@ -1094,6 +1123,10 @@
   },
   {
    "uid": "a17",
+   "alts": [
+    "function byCategory(items) {\n  return items.reduce((totals, { cat, amount }) => {\n    totals[cat] = (totals[cat] ?? 0) + amount;\n    return totals;\n  }, {});\n}"
+   ],
+   "altNote": "<code>reduce</code> can build the totals object too.",
    "t": "Group by category",
    "k": "fn",
    "fn": "byCategory",
@@ -1162,6 +1195,11 @@
   },
   {
    "uid": "a18",
+   "alts": [
+    "function money(n) {\n  return n.toLocaleString(\"en-US\", { style: \"currency\", currency: \"USD\" });\n}",
+    "function money(n) {\n  const [whole, cents] = n.toFixed(2).split(\".\");\n  const withCommas = whole.replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\");\n  return \"$\" + withCommas + \".\" + cents;\n}"
+   ],
+   "altNote": "<code>toLocaleString</code> with the same options formats it too. Building the commas by hand also works, but it takes more code.",
    "t": "Money that looks like money",
    "k": "fn",
    "fn": "money",
@@ -1200,6 +1238,10 @@
   },
   {
    "uid": "a19",
+   "alts": [
+    "function mmss(seconds) {\n  const two = n => (n < 10 ? \"0\" + n : String(n));\n  return `${two(Math.floor(seconds / 60))}:${two(seconds % 60)}`;\n}"
+   ],
+   "altNote": "A helper that adds a leading zero works as well as <code>padStart</code>.",
    "t": "Time as mm:ss",
    "k": "fn",
    "fn": "mmss",
@@ -1244,6 +1286,10 @@
   },
   {
    "uid": "a20",
+   "alts": [
+    "function parseCSV(text) {\n  const [header, ...rows] = text.split(\"\\n\").filter(line => line.trim() !== \"\");\n  const keys = header.split(\",\");\n  return rows.map(line => {\n    const cells = line.split(\",\");\n    return Object.fromEntries(keys.map((k, i) => [k, cells[i]]));\n  });\n}"
+   ],
+   "altNote": "<code>Object.fromEntries</code> can pair the header names with each row's cells.",
    "t": "Reading a CSV file",
    "k": "fn",
    "fn": "parseCSV",
@@ -1305,6 +1351,10 @@
   },
   {
    "uid": "a21",
+   "alts": [
+    "function toCSV(rows) {\n  if (!rows.length) return \"\";\n  const keys = Object.keys(rows[0]);\n  return [keys, ...rows.map(r => keys.map(k => r[k]))].map(cells => cells.join(\",\")).join(\"\\n\");\n}"
+   ],
+   "altNote": "<code>map</code> can build all the lines at once, and <code>Object.values</code> works when every row has its keys in the same order.",
    "t": "Export to CSV",
    "k": "fn",
    "fn": "toCSV",
@@ -1374,6 +1424,10 @@
   },
   {
    "uid": "a23",
+   "alts": [
+    "function undo(app) {\n  if (app.history.length > 0) {\n    app.items = app.history.pop();\n  }\n  return app;\n}"
+   ],
+   "altNote": "Checking for a non-empty history and doing the work inside the <code>if</code> works too.",
    "t": "Undo",
    "k": "fn",
    "fn": "undo",
@@ -1648,6 +1702,10 @@
   },
   {
    "uid": "a34",
+   "alts": [
+    "function barHeight(value, max, height) {\n  return max === 0 ? 0 : Math.round((value * height) / max);\n}"
+   ],
+   "altNote": "A ternary handles the zero case in one line.",
    "t": "Numbers to pixels",
    "k": "fn",
    "fn": "barHeight",
@@ -1737,6 +1795,10 @@
   },
   {
    "uid": "a37",
+   "alts": [
+    "function shares(values) {\n  let total = 0;\n  for (const v of values) total += v;\n  if (total === 0) return values.map(() => 0);\n  return values.map(v => Math.round((v * 100) / total));\n}"
+   ],
+   "altNote": "A loop to find the total works as well as <code>reduce</code>, and an early return handles the zero case.",
    "t": "Pie chart shares",
    "k": "fn",
    "fn": "shares",
@@ -1832,6 +1894,10 @@
   },
   {
    "uid": "a39",
+   "alts": [
+    "function noteFreq(n) {\n  const f = 440 * Math.pow(2, n / 12);\n  return Number(f.toFixed(2));\n}"
+   ],
+   "altNote": "<code>Math.pow(2, n / 12)</code> is the same as <code>2 ** (n / 12)</code>.",
    "t": "Notes are numbers",
    "k": "fn",
    "fn": "noteFreq",

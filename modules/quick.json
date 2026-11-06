@@ -17,6 +17,10 @@
   "stages": [
    {
     "uid": "qs1",
+    "alts": [
+     "const clean = s => s.toLowerCase().trim();"
+    ],
+    "altNote": "The two methods can go in either order, and an arrow function works too.",
     "t": "Clean it up",
     "k": "fn",
     "fn": "clean",
@@ -78,6 +82,10 @@
    },
    {
     "uid": "qs3",
+    "alts": [
+     "function hasBadWord(message, bad) {\n  const m = message.toLowerCase();\n  for (const word of bad) {\n    if (m.includes(word.toLowerCase())) return true;\n  }\n  return false;\n}"
+    ],
+    "altNote": "A loop with an early <code>return true</code> works as well as <code>some</code>.",
     "t": "Does it contain?",
     "k": "fn",
     "fn": "hasBadWord",
@@ -129,6 +137,11 @@
    },
    {
     "uid": "qs4",
+    "alts": [
+     "function initials(fullName) {\n  return fullName.match(/\\b\\w/g).join(\"\").toUpperCase();\n}",
+     "function initials(fullName) {\n  let out = \"\";\n  for (const word of fullName.split(\" \")) out += word.charAt(0);\n  return out.toUpperCase();\n}"
+    ],
+    "altNote": "A regex can grab the first letter of each word, or you can build the result in a loop.",
     "t": "Split and join",
     "k": "fn",
     "fn": "initials",
@@ -162,6 +175,10 @@
    },
    {
     "uid": "qs5",
+    "alts": [
+     "function row(name, score) {\n  return `${name.padEnd(10, \".\")}${String(score).padStart(5)}`;\n}"
+    ],
+    "altNote": "A template literal can join the two padded parts. <code>padStart(5)</code> pads with spaces by default.",
     "t": "Quick challenge: line them up",
     "k": "fn",
     "fn": "row",
@@ -215,6 +232,10 @@
   "stages": [
    {
     "uid": "qa1",
+    "alts": [
+     "const prices = items => items.map(({ price }) => price);"
+    ],
+    "altNote": "Destructuring the price in the callback works too.",
     "t": "map changes each item",
     "k": "fn",
     "fn": "prices",
@@ -278,6 +299,10 @@
    },
    {
     "uid": "qa3",
+    "alts": [
+     "function passed(scores) {\n  const out = [];\n  for (const s of scores) if (s >= 50) out.push(s);\n  return out;\n}"
+    ],
+    "altNote": "A loop that pushes the passing scores works as well as <code>filter</code>.",
     "t": "filter keeps some",
     "k": "fn",
     "fn": "passed",
@@ -322,6 +347,10 @@
    },
    {
     "uid": "qa4",
+    "alts": [
+     "function byId(users, id) {\n  const user = users.find(u => u.id === id);\n  if (!user) return \"Unknown\";\n  return user.name;\n}"
+    ],
+    "altNote": "Saving the result of <code>find</code> and checking it with <code>if</code> works too.",
     "t": "find gets one",
     "k": "fn",
     "fn": "byId",
@@ -365,6 +394,11 @@
    },
    {
     "uid": "qa5",
+    "alts": [
+     "function bestTotal(orders) {\n  return orders.reduce((sum, o) => (o.paid ? sum + o.amount : sum), 0);\n}",
+     "function bestTotal(orders) {\n  let total = 0;\n  for (const o of orders) if (o.paid) total += o.amount;\n  return total;\n}"
+    ],
+    "altNote": "One <code>reduce</code> can skip the unpaid orders by itself, and a loop works too.",
     "t": "Quick challenge: one pipeline",
     "k": "fn",
     "fn": "bestTotal",
@@ -422,6 +456,10 @@
   "stages": [
    {
     "uid": "qr1",
+    "alts": [
+     "function between(min, max, r) {\n  const howMany = max - min + 1;\n  return min + Math.floor(r * howMany);\n}"
+    ],
+    "altNote": "Working out how many numbers are in the range first makes the formula easier to read.",
     "t": "A whole number in a range",
     "k": "fn",
     "fn": "between",
@@ -493,6 +531,10 @@
    },
    {
     "uid": "qr3",
+    "alts": [
+     "function pick(list, r) {\n  const index = Math.floor(r * list.length);\n  return list[index];\n}"
+    ],
+    "altNote": "You can reuse the \"whole number in a range\" idea: pick an index from 0 to <code>list.length - 1</code>.",
     "t": "Pick from a list",
     "k": "fn",
     "fn": "pick",
@@ -541,6 +583,10 @@
    },
    {
     "uid": "qr4",
+    "alts": [
+     "function chance(percent, r) {\n  return r * 100 < percent;\n}"
+    ],
+    "altNote": "<code>r * 100 &lt; percent</code> is the same test.",
     "t": "Percent chance",
     "k": "fn",
     "fn": "chance",
@@ -591,6 +637,10 @@
    },
    {
     "uid": "qr5",
+    "alts": [
+     "function teams(names, rolls) {\n  const red = [], blue = [];\n  for (let i = 0; i < names.length; i++) {\n    (rolls[i] < 0.5 ? red : blue).push(names[i]);\n  }\n  return { red, blue };\n}"
+    ],
+    "altNote": "A <code>for</code> loop with an index works as well as <code>forEach</code>.",
     "t": "Quick challenge: roll a team",
     "k": "fn",
     "fn": "teams",
@@ -656,6 +706,10 @@
   "stages": [
    {
     "uid": "qd1",
+    "alts": [
+     "function weekday(year, month, day) {\n  return new Date(year, month - 1, day).toLocaleDateString(\"en-US\", { weekday: \"long\" });\n}"
+    ],
+    "altNote": "<code>toLocaleDateString</code> can give the weekday name directly.",
     "t": "Reading a date",
     "k": "fn",
     "fn": "weekday",
@@ -717,6 +771,10 @@
    },
    {
     "uid": "qd3",
+    "alts": [
+     "function daysBetween(from, to) {\n  const ms = new Date(to).getTime() - new Date(from).getTime();\n  return Math.round(ms / 86400000);\n}"
+    ],
+    "altNote": "<code>getTime()</code> gives the milliseconds too, and you can write the day length as <code>86400000</code>.",
     "t": "Days between",
     "k": "fn",
     "fn": "daysBetween",
@@ -753,6 +811,10 @@
    },
    {
     "uid": "qd4",
+    "alts": [
+     "function isoDate(year, month, day) {\n  const two = n => String(n).padStart(2, \"0\");\n  return `${year}-${two(month)}-${two(day)}`;\n}"
+    ],
+    "altNote": "A small helper that pads one number keeps it short, and a template literal joins the parts.",
     "t": "Write it neatly",
     "k": "fn",
     "fn": "isoDate",
@@ -784,6 +846,10 @@
    },
    {
     "uid": "qd5",
+    "alts": [
+     "function untilBirthday(today, month, day) {\n  const now = new Date(today);\n  const year = now.getUTCFullYear();\n  let next = Date.UTC(year, month - 1, day);\n  if (next < now.getTime()) next = Date.UTC(year + 1, month - 1, day);\n  return Math.round((next - now.getTime()) / 86400000);\n}"
+    ],
+    "altNote": "<code>Date.UTC</code> builds the birthday without making text. It counts months from 0.",
     "t": "Quick challenge: birthday countdown",
     "k": "fn",
     "fn": "untilBirthday",
@@ -840,6 +906,10 @@
   "stages": [
    {
     "uid": "qo1",
+    "alts": [
+     "const makeUser = (name, age) => ({ active: true, name, age });"
+    ],
+    "altNote": "The order of the properties in the object doesn't matter.",
     "t": "Shorthand properties",
     "k": "fn",
     "fn": "makeUser",
@@ -888,6 +958,11 @@
    },
    {
     "uid": "qo3",
+    "alts": [
+     "function withDefaults(options) {\n  return Object.assign({ sound: true, volume: 50, theme: \"light\" }, options);\n}",
+     "const DEFAULTS = { sound: true, volume: 50, theme: \"light\" };\nfunction withDefaults(options) {\n  return { ...DEFAULTS, ...options };\n}"
+    ],
+    "altNote": "<code>Object.assign</code> copies the options over the defaults too. The later object wins.",
     "t": "Settings with defaults",
     "k": "fn",
     "fn": "withDefaults",
@@ -938,6 +1013,10 @@
    },
    {
     "uid": "qo4",
+    "alts": [
+     "function label({ name, qty = 1 }) {\n  return `${qty} × ${name}`;\n}"
+    ],
+    "altNote": "You can destructure right in the parameter, and a template literal builds the text.",
     "t": "Unpack what you need",
     "k": "fn",
     "fn": "label",
@@ -970,6 +1049,10 @@
    },
    {
     "uid": "qo5",
+    "alts": [
+     "function describe(stats) {\n  const parts = [];\n  for (const key in stats) parts.push(`${key}: ${stats[key]}`);\n  return parts.join(\", \");\n}"
+    ],
+    "altNote": "A <code>for...in</code> loop that collects the pieces works too.",
     "t": "Quick challenge: loop over an object",
     "k": "fn",
     "fn": "describe",
@@ -1017,6 +1100,11 @@
   "stages": [
    {
     "uid": "qe1",
+    "alts": [
+     "function unique(list) {\n  return Array.from(new Set(list));\n}",
+     "function unique(list) {\n  return list.filter((x, i) => list.indexOf(x) === i);\n}"
+    ],
+    "altNote": "<code>Array.from(new Set(list))</code> works too, and so does keeping only the first copy with <code>filter</code> and <code>indexOf</code>.",
     "t": "Remove duplicates",
     "k": "fn",
     "fn": "unique",
@@ -1087,6 +1175,10 @@
    },
    {
     "uid": "qe3",
+    "alts": [
+     "function firstRepeat(list) {\n  for (let i = 0; i < list.length; i++) {\n    if (list.slice(0, i).includes(list[i])) return list[i];\n  }\n  return null;\n}"
+    ],
+    "altNote": "<code>find</code> can check whether a value already appeared earlier in the list. It's slower than a Set, but correct.",
     "t": "Have we met?",
     "k": "fn",
     "fn": "firstRepeat",
@@ -1133,6 +1225,10 @@
    },
    {
     "uid": "qe4",
+    "alts": [
+     "function common(a, b) {\n  const inB = new Set(b), added = new Set();\n  const out = [];\n  for (const x of a) {\n    if (inB.has(x) && !added.has(x)) {\n      out.push(x);\n      added.add(x);\n    }\n  }\n  return out;\n}"
+    ],
+    "altNote": "A loop with two Sets, one for b and one for what you've already added, works too.",
     "t": "In both lists",
     "k": "fn",
     "fn": "common",
@@ -1190,6 +1286,10 @@
    },
    {
     "uid": "qe5",
+    "alts": [
+     "function absent(roster, present) {\n  return roster.filter(name => !present.includes(name));\n}"
+    ],
+    "altNote": "<code>includes</code> on the present list works too. A Set is faster for long lists.",
     "t": "Quick challenge: missing students",
     "k": "fn",
     "fn": "absent",
@@ -1249,6 +1349,10 @@
   "stages": [
    {
     "uid": "qn1",
+    "alts": [
+     "function pages(items, perPage) {\n  return Math.floor((items + perPage - 1) / perPage);\n}"
+    ],
+    "altNote": "Whole-number math works too: <code>Math.floor((items + perPage - 1) / perPage)</code>.",
     "t": "Three ways to round",
     "k": "fn",
     "fn": "pages",
@@ -1314,6 +1418,10 @@
    },
    {
     "uid": "qn3",
+    "alts": [
+     "function roundTo(n, places) {\n  const m = Math.pow(10, places);\n  return Math.round(n * m) / m;\n}"
+    ],
+    "altNote": "<code>Number(n.toFixed(places))</code> also rounds, but it can round differently on tricky numbers like 1.005, so the checker might not accept it.",
     "t": "Round to decimals",
     "k": "fn",
     "fn": "roundTo",
@@ -1357,6 +1465,10 @@
    },
    {
     "uid": "qn4",
+    "alts": [
+     "function clamp(n, min, max) {\n  if (n < min) return min;\n  if (n > max) return max;\n  return n;\n}"
+    ],
+    "altNote": "Two <code>if</code> checks work as well.",
     "t": "Keep it in range",
     "k": "fn",
     "fn": "clamp",
@@ -1396,6 +1508,10 @@
    },
    {
     "uid": "qn5",
+    "alts": [
+     "function percent(part, whole) {\n  const p = whole === 0 ? 0 : Math.round((part * 100) / whole);\n  return `${p}%`;\n}"
+    ],
+    "altNote": "A template literal works for the label, and a ternary handles the zero.",
     "t": "Quick challenge: percent label",
     "k": "fn",
     "fn": "percent",
@@ -1456,6 +1572,10 @@
   "stages": [
    {
     "uid": "qc1",
+    "alts": [
+     "function tally(votes) {\n  return votes.reduce((count, v) => {\n    count[v] = (count[v] ?? 0) + 1;\n    return count;\n  }, {});\n}"
+    ],
+    "altNote": "<code>reduce</code> builds the same tally, and <code>?? 0</code> works as well as <code>|| 0</code>.",
     "t": "The tally pattern",
     "k": "fn",
     "fn": "tally",
@@ -1513,6 +1633,10 @@
    },
    {
     "uid": "qc3",
+    "alts": [
+     "function letters(word) {\n  const m = new Map();\n  for (const ch of word.toLowerCase()) m.set(ch, (m.get(ch) || 0) + 1);\n  return Object.fromEntries(m);\n}"
+    ],
+    "altNote": "A Map counts too, and <code>Object.fromEntries</code> turns it back into an object.",
     "t": "Count the letters",
     "k": "fn",
     "fn": "letters",
@@ -1552,6 +1676,10 @@
    },
    {
     "uid": "qc4",
+    "alts": [
+     "function winner(count) {\n  const keys = Object.keys(count);\n  if (keys.length === 0) return null;\n  return keys.reduce((best, k) => (count[k] > count[best] ? k : best));\n}"
+    ],
+    "altNote": "<code>reduce</code> over the keys can keep the best one. Using <code>&gt;</code> keeps the first one on a tie.",
     "t": "The winner",
     "k": "fn",
     "fn": "winner",
@@ -1592,6 +1720,10 @@
    },
    {
     "uid": "qc5",
+    "alts": [
+     "function topWord(text) {\n  const count = new Map();\n  for (const w of text.toLowerCase().split(\" \")) count.set(w, (count.get(w) || 0) + 1);\n  let best = null;\n  for (const [w, n] of count) if (best === null || n > count.get(best)) best = w;\n  return best;\n}"
+    ],
+    "altNote": "A Map remembers the order words were first seen, so picking the biggest count afterwards keeps the tie rule. (Updating the best word <i>while</i> counting would pick whichever word reached the top first, which isn't always the same.)",
     "t": "Quick challenge: most used word",
     "k": "fn",
     "fn": "topWord",
